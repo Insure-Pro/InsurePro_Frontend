@@ -7,7 +7,9 @@ import Button from "../components/buttons/Button";
 const Signup = () => {
   const fileRef = useRef(null);
   const email = useRef(null);
-  const nickname = useRef(null);
+  const usernum = useRef(null);
+  const authNum = useRef(null);
+  const authNumConfirm = useRef(null);
   const password = useRef(null);
   const passwordConfirm = useRef(null);
   const navigate = useNavigate();
@@ -15,11 +17,13 @@ const Signup = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // 닉네임 대신 사번, 이메일 입력받고 바로 밑에 본인확인하기 칸 추가
     const formData = new FormData();
     const data = {
       email: email.current.value,
-      nickname: nickname.current.value,
+      usernum: usernum.current.value,
       password: password.current.value,
+      authNum: authNum.current.value,
     };
 
     formData.append("file", fileRef.current.files[0]);
@@ -30,10 +34,7 @@ const Signup = () => {
 
     if (validate()) {
       axios
-        .post(
-          `${process.env.REACT_APP_SERVER_URL}/v1/employee/signin`,
-          formData
-        )
+        .post("http://52.79.81.200:8080/v1/employee/signin", formData)
         .then((response) => {
           console.log(response);
           if (response.data.error === "DUPLICATE_EMAIL") {
@@ -56,6 +57,7 @@ const Signup = () => {
   );
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
   const [myEmail, setMyEmail] = useState("");
+  const [myAuthNum, setMyAuthNum] = useState("");
   const [myPassword, setMyPassword] = useState("");
 
   const validate = () => {
@@ -63,6 +65,10 @@ const Signup = () => {
       email.current.focus();
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
+    } else if (authNum.current.value !== authNumConfirm.current.value) {
+      authNumConfirm.current.focus();
+      document.querySelector(".error_message").innerHTML =
+        "인증코드가 일치하지 않습니다.";
     } else if (!validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
@@ -95,8 +101,12 @@ const Signup = () => {
         <input type="file" name="file" ref={fileRef} />
 
         <StyledInputDiv>
+          <span>User number</span>
           <div>
-            <span>이메일</span>
+            <input type="text" ref={usernum} placeholder="사원번호 입력하기" />
+            <div>
+              <span>Email</span>
+            </div>
             <input
               type="text"
               ref={email}
@@ -104,27 +114,35 @@ const Signup = () => {
               onChange={(e) => {
                 setMyEmail(e.target.value);
               }}
-              placeholder="이메일 입력"
+              placeholder="이메일 입력하기"
             />
+            <button onClick={() => {}}>코드전송</button>
           </div>
+          <span>본인 인증하기</span>
           <div>
-            <span>닉네임</span>
-            <input type="text" ref={nickname} placeholder="닉네임 입력" />
+            <input
+              type="authNum"
+              ref={authNumConfirm}
+              placeholder="본인 인증 코드를 입력해주세요"
+            />
+            <button>재전송</button>
+            <div className="error_message"></div>
           </div>
+
+          <span>Password</span>
           <div>
-            <span>비밀번호</span>
             <input
               type="password"
               ref={password}
-              placeholder="문자, 숫자 혼합 8자 이상"
+              placeholder="비밀번호를 입력해주세요"
               value={myPassword}
               onChange={(e) => {
                 setMyPassword(e.target.value);
               }}
             />
           </div>
+          <span>비밀번호 확인하기</span>
           <div>
-            <span>비밀번호 확인</span>
             <input
               type="password"
               ref={passwordConfirm}
@@ -141,10 +159,15 @@ const Signup = () => {
                 document.querySelector(".error_message").innerHTML =
                   "이메일을 입력해주세요.";
                 return;
-              } else if (nickname.current.value === "") {
-                nickname.current.focus();
+              } else if (usernum.current.value === "") {
+                usernum.current.focus();
                 document.querySelector(".error_message").innerHTML =
-                  "닉네임을 입력해주세요.";
+                  "사번을 입력해주세요.";
+                return;
+              } else if (authNum.current.value === "") {
+                authNum.current.focus();
+                document.querySelector(".error_message").innerHTML =
+                  "인증 코드를 입력해주세요.";
                 return;
               } else if (password.current.value === "") {
                 password.current.focus();
