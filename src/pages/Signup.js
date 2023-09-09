@@ -5,13 +5,13 @@ import styled from "styled-components";
 import Button from "../components/buttons/Button";
 
 const Signup = () => {
-  const fileRef = useRef(null);
-  const email = useRef(null);
-  const usernum = useRef(null);
-  const authNum = useRef(null);
-  const authNumConfirm = useRef(null);
-  const password = useRef(null);
-  const passwordConfirm = useRef(null);
+  const fileRef = useRef("");
+  const email = useRef("");
+  const usernum = useRef("");
+  const authNum = useRef("");
+  const authNumConfirm = useRef("");
+  const password = useRef("");
+  const passwordConfirm = useRef("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -52,6 +52,7 @@ const Signup = () => {
     }
   };
 
+  const onSubmit = () => {};
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
@@ -81,7 +82,9 @@ const Signup = () => {
       return true;
     }
   };
-
+  console.log(myEmail);
+  console.log(email);
+  console.log(email.current.value);
   return (
     <div>
       <form name="file" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -108,7 +111,7 @@ const Signup = () => {
               <span>Email</span>
             </div>
             <input
-              type="text"
+              type="email"
               ref={email}
               value={myEmail}
               onChange={(e) => {
@@ -116,7 +119,21 @@ const Signup = () => {
               }}
               placeholder="이메일 입력하기"
             />
-            <button onClick={() => {}}>코드전송</button>
+
+            <button
+              onClick={() => {
+                axios
+                  .post("http://52.79.81.200:8080/v1/email", {
+                    email: myEmail,
+                  })
+                  .then((결과) => {
+                    console.log(결과.data);
+                    console.log(결과.data.authNum);
+                  });
+              }}
+            >
+              코드전송
+            </button>
           </div>
           <span>본인 인증하기</span>
           <div>

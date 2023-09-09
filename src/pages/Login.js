@@ -6,7 +6,7 @@ import Button from "../components/buttons/Button";
 import Header from "../components/Header";
 
 const Login = () => {
-  const email = useRef(null);
+  const email = useRef("");
   const password = useRef(null);
   const navigate = useNavigate();
 
