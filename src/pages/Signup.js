@@ -15,14 +15,16 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-
+    if (event) {
+      event.preventDefault();
+    }
     // 닉네임 대신 사번, 이메일 입력받고 바로 밑에 본인확인하기 칸 추가
     const formData = new FormData();
     const data = {
       email: email.current.value,
       usernum: usernum.current.value,
       password: password.current.value,
+      rePassword: password.current.value,
       authNum: authNum.current.value,
     };
 
@@ -52,7 +54,6 @@ const Signup = () => {
     }
   };
 
-  const onSubmit = () => {};
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
@@ -66,10 +67,10 @@ const Signup = () => {
       email.current.focus();
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
-    } else if (authNum.current.value !== authNumConfirm.current.value) {
-      authNumConfirm.current.focus();
+    } else if (authNum.current.value !== myAuthNum) {
+      authNum.current.focus();
       document.querySelector(".error_message").innerHTML =
-        "인증코드가 일치하지 않습니다.";
+        "인증코드가 일치합니다.";
     } else if (!validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
@@ -127,8 +128,8 @@ const Signup = () => {
                     email: myEmail,
                   })
                   .then((결과) => {
-                    console.log(결과.data);
                     console.log(결과.data.authNum);
+                    setMyAuthNum(결과.data.authNum);
                   });
               }}
             >
@@ -138,8 +139,12 @@ const Signup = () => {
           <span>본인 인증하기</span>
           <div>
             <input
-              type="authNum"
-              ref={authNumConfirm}
+              type="text"
+              ref={authNum}
+              value={myAuthNum}
+              onChange={(e) => {
+                setMyAuthNum(e.target.value);
+              }}
               placeholder="본인 인증 코드를 입력해주세요"
             />
             <button>재전송</button>
