@@ -22,21 +22,21 @@ const Signup = () => {
     const formData = new FormData();
     const data = {
       email: email.current.value,
-      usernum: usernum.current.value,
+      id: usernum.current.value,
       password: password.current.value,
       rePassword: password.current.value,
       authNum: authNum.current.value,
     };
 
-    formData.append("file", fileRef.current.files[0]);
-    formData.append(
-      "joinData",
-      new Blob([JSON.stringify(data)], { type: "application/json" })
-    );
+    // formData.append("file", fileRef.current.files[0]);
+    // formData.append(
+    //   "joinData",
+    //   new Blob([JSON.stringify(data)], { type: "application/json" })
+    // );
 
     if (validate()) {
       axios
-        .post("http://52.79.81.200:8080/v1/employee/signin", formData)
+        .post("http://52.79.81.200:8080/v1/employee/signin", { data })
         .then((response) => {
           console.log(response);
           if (response.data.error === "DUPLICATE_EMAIL") {
@@ -67,11 +67,13 @@ const Signup = () => {
       email.current.focus();
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
-    } else if (authNum.current.value !== myAuthNum) {
-      authNum.current.focus();
-      document.querySelector(".error_message").innerHTML =
-        "인증코드가 일치합니다.";
-    } else if (!validPassword.test(myPassword)) {
+    }
+    //  else if (myAuthNum !== authNumConfirm.current.value) {
+    //   authNumConfirm.current.focus();
+    //   document.querySelector(".error_message").innerHTML =
+    //     "인증코드가 불일치합니다.";
+    // }
+    else if (!validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호는 문자와 숫자를 혼합 8자 이상 입력해주세요.";
@@ -79,13 +81,18 @@ const Signup = () => {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호가 일치하지 않습니다.";
+      console.log(password.current.value);
+      console.log(passwordConfirm.current.value);
     } else {
       return true;
     }
   };
-  console.log(myEmail);
-  console.log(email);
-  console.log(email.current.value);
+  // console.log(myEmail);
+  // console.log(email);
+  // console.log(email.current.value);
+  console.log(myAuthNum);
+  console.log(authNum);
+  console.log(authNumConfirm.current.value);
   return (
     <div>
       <form name="file" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -128,7 +135,6 @@ const Signup = () => {
                     email: myEmail,
                   })
                   .then((결과) => {
-                    console.log(결과.data.authNum);
                     setMyAuthNum(결과.data.authNum);
                   });
               }}
@@ -139,16 +145,14 @@ const Signup = () => {
           <span>본인 인증하기</span>
           <div>
             <input
-              type="text"
-              ref={authNum}
-              value={myAuthNum}
-              onChange={(e) => {
-                setMyAuthNum(e.target.value);
-              }}
+              type="authNum"
+              ref={authNumConfirm}
+              // onChange={(e) => {
+              //   setMyAuthNum(e.target.value);
+              // }}
               placeholder="본인 인증 코드를 입력해주세요"
             />
             <button>재전송</button>
-            <div className="error_message"></div>
           </div>
 
           <span>Password</span>
