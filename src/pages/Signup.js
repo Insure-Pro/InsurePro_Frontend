@@ -18,14 +18,15 @@ const Signup = () => {
     if (event) {
       event.preventDefault();
     }
-    // 닉네임 대신 사번, 이메일 입력받고 바로 밑에 본인확인하기 칸 추가
-    const formData = new FormData();
+
+    // const formData = new FormData();
     const data = {
       email: email.current.value,
       id: usernum.current.value,
       password: password.current.value,
-      rePassword: password.current.value,
-      authNum: authNum.current.value,
+      rePassword: passwordConfirm.current.value,
+
+      authNum: parseInt(authNumConfirm.current.value),
     };
 
     // formData.append("file", fileRef.current.files[0]);
@@ -33,10 +34,14 @@ const Signup = () => {
     //   "joinData",
     //   new Blob([JSON.stringify(data)], { type: "application/json" })
     // );
-
+    // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
-        .post("http://52.79.81.200:8080/v1/employee/signin", { data })
+        .post("http://52.79.81.200:8080/v1/employee/signin/", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           console.log(response);
           if (response.data.error === "DUPLICATE_EMAIL") {
@@ -49,7 +54,24 @@ const Signup = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.error("API 요청 에러:", error);
+
+          if (error.response) {
+            // 서버 응답이 있을 때
+            if (error.response.status === 500) {
+              console.error("서버 오류 발생");
+              // 서버 오류에 대한 처리를 수행하거나 사용자에게 알림을 표시
+            } else {
+              // 다른 상태 코드에 대한 처리
+              console.error("서버 응답:", error.response.data);
+              // 사용자에게 에러 메시지를 표시
+            }
+          } else {
+            // 서버 응답이 없을 때 (네트워크 오류 등)
+            console.error("네트워크 오류:", error.message);
+            // 사용자에게 네트워크 오류를 알림
+          }
+          console.log({ data });
         });
     }
   };
@@ -68,7 +90,7 @@ const Signup = () => {
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
     }
-    //  else if (myAuthNum !== authNumConfirm.current.value) {
+    // else if (myAuthNum !== authNumConfirm.current.value) {
     //   authNumConfirm.current.focus();
     //   document.querySelector(".error_message").innerHTML =
     //     "인증코드가 불일치합니다.";
@@ -76,7 +98,7 @@ const Signup = () => {
     else if (!validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
-        "비밀번호는 문자와 숫자를 혼합 8자 이상 입력해주세요.";
+        "비밀번호는 영소문자 숫자 특수문자 혼합 8자 이상 입력해주세요.";
     } else if (password.current.value !== passwordConfirm.current.value) {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
@@ -90,6 +112,7 @@ const Signup = () => {
   // console.log(myEmail);
   // console.log(email);
   // console.log(email.current.value);
+
   console.log(myAuthNum);
   console.log(authNum);
   console.log(authNumConfirm.current.value);
@@ -136,6 +159,8 @@ const Signup = () => {
                   })
                   .then((결과) => {
                     setMyAuthNum(결과.data.authNum);
+                    //추후 수정할 떄 authNum비교 오류 여기서 usestatet
+                    //사용하지 말고, authNum 변수에 바로 할당하고 if문 돌려보기
                   });
               }}
             >
@@ -190,7 +215,7 @@ const Signup = () => {
                 document.querySelector(".error_message").innerHTML =
                   "사번을 입력해주세요.";
                 return;
-              } else if (authNum.current.value === "") {
+              } else if (authNumConfirm.current.value === "") {
                 authNum.current.focus();
                 document.querySelector(".error_message").innerHTML =
                   "인증 코드를 입력해주세요.";
