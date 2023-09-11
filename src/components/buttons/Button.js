@@ -12,7 +12,7 @@ const StyledButton = styled.button`
   border: none;
   background-color: transparent;
   margin: 10px;
-  color: #555;
+  color: #fff;
   cursor: pointer;
 `;
 

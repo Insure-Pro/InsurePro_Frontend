@@ -324,7 +324,7 @@ const StyledInputDiv = styled.div`
     height: 30px;
     margin: 8px 5px;
     margin-bottom: 30px;
-    color: #98a2b3;
+    color: #000000;
     opacity: 0.8;
     font-size: 16px;
     font-weight: bold;
@@ -338,8 +338,8 @@ const StyledInputDiv = styled.div`
     font-weight: bold;
     margin: 2px;
     margin-left: 10px;
-    color: #000000;
-    opacity: 0.8;
+    color: #98a2b3;
+    opacity: 0.9;
   }
   .error_message {
     color: red;
@@ -366,6 +366,7 @@ const StyledButtonDiv = styled.div`
   align-items: center;
   background-color: #175cd3;
   color: #fff;
+  box-shadow: 0.5px 0.5px 12px grey;
   margin: ${(props) => props.margin || "auto"};
 `;
 
