@@ -25,7 +25,7 @@ const Signup = () => {
       id: usernum.current.value,
       password: password.current.value,
       rePassword: passwordConfirm.current.value,
-
+      // companyPk: 2,// 이거 pk2로 설정 해놨으면서 챰내
       authNum: parseInt(authNumConfirm.current.value),
     };
 
@@ -37,10 +37,13 @@ const Signup = () => {
     // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
-        .post("http://52.79.81.200:8080/v1/employee/signin/", data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
+        .post("http://52.79.81.200:8080/v1/employee/signin/", {
+          email: email.current.value,
+          id: usernum.current.value,
+          password: password.current.value,
+          rePassword: passwordConfirm.current.value,
+          // companyPk: 2,//
+          authNum: parseInt(authNumConfirm.current.value),
         })
         .then((response) => {
           console.log(response);
@@ -48,13 +51,13 @@ const Signup = () => {
             email.current.focus();
             document.querySelector(".error_message").innerHTML =
               "이미 가입된 이메일입니다.";
-          } else if (response.data.success) {
+          } else if (response.status === 201) {
             alert("회원가입이 완료되었습니다.");
             navigate("/login");
           }
         })
         .catch((error) => {
-          console.error("API 요청 에러:", error);
+          console.error("API 요청 에러:", error.message);
 
           if (error.response) {
             // 서버 응답이 있을 때
@@ -231,7 +234,7 @@ const Signup = () => {
                   "비밀번호 확인을 입력해주세요.";
                 return;
               } else {
-                handleSubmit();
+                //handleSubmit(); 이것 때문에 post요청 중복 된 거임 ㅅㅂ.
               }
             }}
             type="submit"
