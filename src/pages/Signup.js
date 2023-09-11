@@ -120,9 +120,33 @@ const Signup = () => {
   console.log(authNum);
   console.log(authNumConfirm.current.value);
   return (
-    <div>
-      <form name="file" encType="multipart/form-data" onSubmit={handleSubmit}>
-        <StyledImgDiv>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "100vw",
+        height: "100vw",
+      }}
+    >
+      <div>
+        <img
+          src="https://s3-alpha-sig.figma.com/img/2dcb/5471/483fecfc239e20faeb2c0d8321de25da?Expires=1695600000&Signature=OHO4ZcrLIzjxEIXeFjs~rQ-~llGH4GPqxmuEtiiAU24ggbE5OLqpWhWjj~qoPBo2mUltQxMeTxNoxE5W6SXghVVCC0ldmIQIaQTwvqaqv7jGYB8btoE-3jp9Ut0Secgy312UTA7SS~-UP9SNYiL9YEbbRH6octf9rU3g-LJodVo5Em2AKfh9o~DESasRsF3DaWs84EKw-TMh48KS6w~EjUNDAerN7Pt46~GBTFJZTSvO4k1sXKZMlW9mxWvO2d5cGYttkeYqgSh74WP9eLG-MiKevD47VvtOyxLU7MoYBuvm~zfCcf3mCcvr5Zi-91EEtpHmfZSEJRAmVDP4d4YPlQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+          style={{
+            width: "60vw",
+            height: "60vw",
+          }}
+        />
+      </div>
+      <form
+        name="file"
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        style={{
+          width: "50vw",
+          height: "100vw",
+        }}
+      >
+        {/* <StyledImgDiv>
           <div className="image-upload">
             <label htmlFor="file-input">
               <img
@@ -135,14 +159,29 @@ const Signup = () => {
           </div>
         </StyledImgDiv>
 
-        <input type="file" name="file" ref={fileRef} />
+        <input type="file" name="file" ref={fileRef} /> */}
 
         <StyledInputDiv>
-          <span>User number</span>
+          <h1 style={{ display: "flex", color: "#000000" }}> 회원가입</h1>
+          <h3 style={{ display: "flex", color: "#000000", opacity: "0.7" }}>
+            이미 회원이신가요?
+          </h3>
+          <h3
+            style={{ display: "flex", color: "#175CD3", marginBottom: "50px" }}
+            onClick={() => navigate("/login")}
+          >
+            여기서 로그인하기!
+          </h3>
+          <span style={{ display: "flex" }}>User number</span>
           <div>
             <input type="text" ref={usernum} placeholder="사원번호 입력하기" />
+            <button
+              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
+            >
+              코코코코
+            </button>
             <div>
-              <span>Email</span>
+              <span style={{ display: "flex" }}>Email</span>
             </div>
             <input
               type="email"
@@ -170,7 +209,7 @@ const Signup = () => {
               코드전송
             </button>
           </div>
-          <span>본인 인증하기</span>
+          <span style={{ display: "flex" }}>본인 인증하기</span>
           <div>
             <input
               type="authNum"
@@ -183,7 +222,7 @@ const Signup = () => {
             <button>재전송</button>
           </div>
 
-          <span>Password</span>
+          <span style={{ display: "flex" }}>Password</span>
           <div>
             <input
               type="password"
@@ -194,14 +233,24 @@ const Signup = () => {
                 setMyPassword(e.target.value);
               }}
             />
+            <button
+              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
+            >
+              코코코코
+            </button>
           </div>
-          <span>비밀번호 확인하기</span>
+          <span style={{ display: "flex" }}>비밀번호 확인하기</span>
           <div>
             <input
               type="password"
               ref={passwordConfirm}
               placeholder="비밀번호 재입력"
             />
+            <button
+              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
+            >
+              코코코코
+            </button>
             <div className="error_message"></div>
           </div>
         </StyledInputDiv>
@@ -240,7 +289,6 @@ const Signup = () => {
             type="submit"
             value="가입하기"
           />
-          <Button onClick={() => navigate("/login")}>돌아가기</Button>
         </StyledButtonDiv>
       </form>
     </div>
@@ -265,25 +313,33 @@ const StyledImgDiv = styled.div`
 const StyledInputDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #aaa;
-  margin: 2vh auto 20px;
+  margin: 5vh auto 20px;
+  margin-top: 70px;
   padding: 20px 10px;
-  width: 80vw;
-  box-shadow: 1px 1px 15px grey;
+  width: 30vw;
+
   border-radius: 15px;
   input {
-    width: 50vw;
+    width: 25vw;
     height: 30px;
-    margin: 15px 0;
+    margin: 8px 5px;
+    margin-bottom: 30px;
+    color: #98a2b3;
+    opacity: 0.8;
     font-size: 16px;
+    font-weight: bold;
     outline: none;
     border: none;
     border-bottom: 1px solid #ddd;
   }
   span {
     font-family: "Do Hyeon", sans-serif;
-    font-size: 16px;
-    margin: 10px;
-    color: #555;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 2px;
+    margin-left: 10px;
+    color: #000000;
+    opacity: 0.8;
   }
   .error_message {
     color: red;
@@ -299,13 +355,17 @@ const StyledInput = styled.input`
   border: none;
   background-color: transparent;
   margin: 10px;
-  color: #555;
+  color: #fff;
   cursor: pointer;
 `;
 
 const StyledButtonDiv = styled.div`
+  border-radius: 32px;
   display: flex;
-  width: 75vw;
+  width: 30vw;
+  align-items: center;
+  background-color: #175cd3;
+  color: #fff;
   margin: ${(props) => props.margin || "auto"};
 `;
 
