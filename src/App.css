@@ -36,3 +36,60 @@
     transform: rotate(360deg);
   }
 }
+
+.vertical-navbar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 200px; /* Adjust the width as needed */
+  background-color: #f5faff; /* Navbar background color */
+  color: #21272a; /* Text color */
+  padding: 17px; /* Padding for the entire Navbar */
+}
+
+.navbar-item {
+  padding: 10px; /* Padding for each Navbar item */
+  cursor: pointer; /* Add pointer cursor for interaction */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  text-align: left; /* Align text to the left */
+  font-weight: bold;
+}
+
+/* .navbar-item:hover {
+  background-color: #175cd3;
+  color: #f5faff; /* Background color on hover */
+
+.navbar-item:hover:not(.brand) {
+  color: #175cd3; /* hover 시 글자 색 변경 */
+}
+
+/* .title1:hover {
+  background-color: #fff;
+  color: #175cd3; /* hover 시 글자 색 변경 */
+
+/* Styling for the Brand name */
+.brand {
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  font-weight: bold; /* Make the brand name bold */
+  color: #175cd3;
+  margin: 20px 0px;
+  text-align: center; /* Align text to the center */
+}
+/* 전체, 관리고객, 계약완료고객 왼쪽 여백 추가 */
+.navbar-item:not(.brand) {
+}
+.title {
+  background-color: #175cd3;
+  color: #fff;
+  padding: 10px; /* Padding for each Navbar item */
+  cursor: pointer; /* Add pointer cursor for interaction */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  text-align: left; /* Align text to the left */
+  font-weight: bold;
+}
+
+.title svg {
+  color: #175cd3; /* 아이콘 색상 */
+  font-size: 18px; /* 아이콘 크기 조정 */
+  margin-right: 8px; /* 아이콘과 텍스트 사이의 여백 */
+}

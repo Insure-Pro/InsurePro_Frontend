@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 function App() {
