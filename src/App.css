@@ -124,12 +124,13 @@
 
 .Add_Btn {
   text-align: left;
-  border: none;
 }
 .Add_Btn > button {
+  margin-top: -5px;
   margin-left: 24px;
   background-color: #175cd3;
   color: #fff;
+  border: none;
 }
 
 .Db_content {
@@ -138,7 +139,7 @@
   margin-left: 24px;
   text-align: left;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 .Db_content > div {
   flex: 1;
