@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import "../App.css";
-import Navbar from "./Navbar";
-import Nav from "react-bootstrap/Nav";
 import Dbbar from "../components/Dbbar";
+import Modal1 from "../components/Modal";
 
 const Main = () => {
   return (
@@ -11,7 +10,7 @@ const Main = () => {
       <div className="Db_container">
         <Dbbar>
           <div className="Add_Btn">
-            <button>Add</button>
+            <Modal1 />
           </div>
           <div className="Db_content">
             <div>DB 분배일</div>
