@@ -59,7 +59,28 @@ function Modal1() {
         }
       })
       .catch((error) => {
-        console.error("API 요청 에러:", error.message);
+        if (error.response && error.response.status === 401) {
+          // accessToken 만료된 경우
+          axios
+            .post(
+              /* refreshToken을 사용하여 새 accessToken 요청 URL */ {
+                refreshToken: localStorage.getItem("refreshToken"),
+              }
+            )
+            .then((tokenResponse) => {
+              // 새로 받은 accessToken을 저장하고 원래의 요청을 다시 시도
+              localStorage.setItem(
+                "accessToken",
+                tokenResponse.data.accessToken
+              );
+              handleSubmit(); // 원래의 요청을 다시 시도
+            })
+            .catch((tokenError) => {
+              console.error("토큰 갱신 실패:", tokenError.message);
+            });
+        } else {
+          console.error("API 요청 에러:", error.message);
+        }
       });
   };
   return (
