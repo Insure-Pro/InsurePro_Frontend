@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
 
 function Modal1() {
   const [show, setShow] = useState(false);
@@ -20,6 +22,21 @@ function Modal1() {
   const phone = useRef("");
   const memo = useRef("");
   const navigate = useNavigate();
+  // 선택된 고객 유형을 나타내는 state
+  const [selectedCustomerType, setSelectedCustomerType] = useState("");
+
+  const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
+
+  // 고객 유형 버튼 클릭 핸들러
+  const handleCustomerTypeClick = (type) => {
+    // 이미 선택된 유형을 다시 클릭하면 선택 해제
+    if (selectedCustomerType === type) {
+      setSelectedCustomerType("");
+    } else {
+      setSelectedCustomerType(type);
+    }
+  };
+
   //만나이 계산 함수
   const calculateKoreanAge = (birthDate) => {
     const today = new Date();
@@ -48,10 +65,10 @@ function Modal1() {
     if (event) {
       event.preventDefault();
     }
-    if (!Number.isSafeInteger(Number(customerTypePk.current.value))) {
-      alert("고객유형에 올바른 숫자를 입력해주세요.");
-      return;
-    }
+    // if (!Number.isSafeInteger(Number(customerTypePk.current.value))) {
+    //   alert("고객유형에 올바른 숫자를 입력해주세요.");
+    //   return;
+    // }
     //전화번호 유효성 검사 추가
     if (!validatePhoneNumber(phone.current.value)) {
       alert("전화번호 형태가 올바르지 않습니다.");
@@ -59,7 +76,7 @@ function Modal1() {
     }
     const birthValue = birth.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-
+    customerTypePk.current.value = selectedCustomerType;
     const data = {
       customerTypePk: parseInt(customerTypePk.current.value),
       liPk: liPk.current.value,
@@ -122,17 +139,45 @@ function Modal1() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-0" controlId="name.ControlInput1">
+            <Form.Group className="mb-4" controlId="name.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control type="text" ref={name} placeholder="이름" />
             </Form.Group>
-            <Form.Group className="mb-0" controlId="name.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="customerTypePk"
-                ref={customerTypePk}
-                placeholder="고객유형"
-              />
+            <Form.Group className="mb-0">
+              <ButtonGroup>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingRight: "9px",
+                    paddingLeft: "9px",
+                    marginRight: "10px",
+                    borderWidth: "1px",
+                    borderRadius: "5px",
+                    borderStyle: "solid",
+                    borderColor: "#DEE2E5", //  테두리 색 적용
+                    backgroundColor: "transparent", // 배경을 투명하게 설정
+                    color: "#585C5E", // 글자색을 설정
+                  }}
+                >
+                  고객유형
+                </div>
+                {customerTypes.map((type, idx) => (
+                  <ToggleButton
+                    key={idx}
+                    type="button"
+                    variant={
+                      selectedCustomerType === type
+                        ? "primary"
+                        : "outline-primary"
+                    }
+                    value={type}
+                    onClick={() => handleCustomerTypeClick(type)}
+                  >
+                    {type}
+                  </ToggleButton>
+                ))}
+              </ButtonGroup>
             </Form.Group>
             <Form.Group className="mb-0" controlId="example.ControlInput1">
               <Form.Label></Form.Label>
