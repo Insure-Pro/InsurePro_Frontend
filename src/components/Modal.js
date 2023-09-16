@@ -20,6 +20,23 @@ function Modal1() {
   const phone = useRef("");
   const memo = useRef("");
   const navigate = useNavigate();
+  //만나이 계산 함수
+  const calculateKoreanAge = (birthDate) => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+
+    // 생일이 아직 지나지 않았다면 1을 빼줍니다.
+    if (
+      today.getMonth() < birth.getMonth() ||
+      (today.getMonth() === birth.getMonth() &&
+        today.getDate() < birth.getDate())
+    ) {
+      age -= 1;
+    }
+
+    return age;
+  };
 
   //전화번호 유효성 검사 추가
   const validatePhoneNumber = (phone) => {
@@ -40,13 +57,15 @@ function Modal1() {
       alert("전화번호 형태가 올바르지 않습니다.");
       return;
     }
-    // const formData = new FormData();
+    const birthValue = birth.current.value.replace(/\./g, "-");
+    const ageValue = calculateKoreanAge(birthValue);
+
     const data = {
       customerTypePk: parseInt(customerTypePk.current.value),
       liPk: liPk.current.value,
       name: name.current.value,
-      birth: birth.current.value.replace(/\./g, "-"),
-      age: parseInt(age.current.value),
+      birth: birthValue,
+      age: ageValue,
       address: address.current.value,
       phone: phone.current.value,
       memo: memo.current.value,

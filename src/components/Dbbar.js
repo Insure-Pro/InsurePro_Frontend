@@ -39,6 +39,9 @@ const Dbbar = ({ children }) => {
             <Nav.Item>
               <Nav.Link eventKey="link-9">Y</Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-9">Z</Nav.Link>
+            </Nav.Item>
           </Nav>
           <hr
             style={{ marginTop: "-2px", marginLeft: "24px", height: "15px" }}
