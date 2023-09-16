@@ -17,23 +17,28 @@ const Login = () => {
         password: password.current.value,
       })
       .then((response) => {
-        if (response.data.success) {
-          localStorage.setItem(
-            "accessToken",
-            response.headers["authorization"]
-          );
-          localStorage.setItem(
-            "refreshToken",
-            response.headers["refresh-token"]
-          );
-        } else if (response.status == 200) {
-          console.log(response);
-          navigate("/main");
-        } else if (response.status !== 200) {
-          alert("서버와 연결에 실패했습니다.");
+        if (response.status == 200) {
+          const { authorization, refresh } = response.headers;
+
+          if (authorization && refresh) {
+            localStorage.setItem("accessToken", authorization);
+            localStorage.setItem("refreshToken", refresh);
+            navigate("/main");
+          } else {
+            console.log(response.headers);
+            console.warn(
+              "Authorization and Refresh headers are missing in the response!"
+            );
+          }
         } else {
-          alert("이메일과 비밀번호를 확인해주세요.");
+          alert(
+            "서버와 연결에 실패했습니다. 이메일과 비밀번호를 확인해주세요."
+          );
         }
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        alert("서버와 연결에 실패했습니다.");
       });
   };
 
