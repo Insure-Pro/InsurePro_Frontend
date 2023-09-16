@@ -21,12 +21,23 @@ function Modal1() {
   const memo = useRef("");
   const navigate = useNavigate();
 
+  //전화번호 유효성 검사 추가
+  const validatePhoneNumber = (phone) => {
+    const pattern = /^\d{3}-\d{4}-\d{4}$/;
+    return pattern.test(phone);
+  };
+
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
     }
     if (!Number.isSafeInteger(Number(customerTypePk.current.value))) {
       alert("고객유형에 올바른 숫자를 입력해주세요.");
+      return;
+    }
+    //전화번호 유효성 검사 추가
+    if (!validatePhoneNumber(phone.current.value)) {
+      alert("전화번호 형태가 올바르지 않습니다.");
       return;
     }
     // const formData = new FormData();
