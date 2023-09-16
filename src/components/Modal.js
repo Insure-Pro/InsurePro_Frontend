@@ -69,9 +69,6 @@ function Modal1() {
       address: address.current.value,
       phone: phone.current.value,
       memo: memo.current.value,
-      intensiveCareStartDate: "2023-09-04",
-      intensiveCareFinishDate: "2023-10-04",
-      registerDate: "2023-09-03",
     };
 
     axios

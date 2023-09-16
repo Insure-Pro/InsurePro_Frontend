@@ -54,7 +54,7 @@ const Main = () => {
                   <div>{customer.customerTypeString}</div>
                   <div>{customer.name}</div>
                   <div>
-                    {customer.birth} ({customer.age})
+                    {customer.birth} 만 ({customer.age})세
                   </div>
                   <div>{customer.phone}</div>
                   <div>{customer.address}</div>

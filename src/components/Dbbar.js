@@ -3,53 +3,85 @@ import React, { useRef, useState } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+const ItemType = "NAV_ITEM";
+
+const DraggableNavItem = ({ item, index, moveItem }) => {
+  const [, ref] = useDrag({
+    type: ItemType,
+    item: { index },
+  });
+
+  const [, drop] = useDrop({
+    accept: ItemType,
+    hover: (draggedItem) => {
+      if (draggedItem.index !== index) {
+        moveItem(draggedItem.index, index);
+        draggedItem.index = index;
+      }
+    },
+  });
+
+  return (
+    <Nav.Item ref={(node) => ref(drop(node))}>
+      <Nav.Link eventKey={item.key}>{item.label}</Nav.Link>
+    </Nav.Item>
+  );
+};
 
 const Dbbar = ({ children }) => {
+  const [items, setItems] = useState([
+    { key: "link-1", label: "All" },
+    { key: "link-2", label: "OD" },
+    { key: "link-3", label: "AD" },
+    { key: "link-4", label: "CP" },
+    { key: "link-5", label: "CD" },
+    { key: "link-6", label: "JD" },
+    { key: "link-7", label: "H" },
+    { key: "link-8", label: "X" },
+    { key: "link-9", label: "Y" },
+    { key: "link-10", label: "Z" },
+  ]);
+
+  const moveItem = (fromIndex, toIndex) => {
+    const updatedItems = [...items];
+    const [movedItem] = updatedItems.splice(fromIndex, 1);
+    updatedItems.splice(toIndex, 0, movedItem);
+
+    setItems(updatedItems);
+  };
+
   return (
-    <div>
-      <div className="navbar-container">
-        <Navbar />
-        <div className="content">
-          <h1 className="maintitle">전체</h1>
-          <Nav className="유형바" variant="underline" defaultActiveKey="/home">
-            <Nav.Item>
-              <Nav.Link eventKey="link-1">All</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-2">OD</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-3">AD</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-4">CP</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-5">CD</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-6">JD</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-7">H</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-8">X</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-9">Y</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-9">Z</Nav.Link>
-            </Nav.Item>
-          </Nav>
-          <hr
-            style={{ marginTop: "-2px", marginLeft: "24px", height: "15px" }}
-          />
-          {children}
+    <DndProvider backend={HTML5Backend}>
+      <div>
+        <div className="navbar-container">
+          <Navbar />
+          <div className="content">
+            <h1 className="maintitle">전체</h1>
+            <Nav
+              className="유형바"
+              variant="underline"
+              defaultActiveKey="/home"
+            >
+              {items.map((item, index) => (
+                <DraggableNavItem
+                  key={item.key}
+                  index={index}
+                  item={item}
+                  moveItem={moveItem}
+                />
+              ))}
+            </Nav>
+            <hr
+              style={{ marginTop: "-2px", marginLeft: "24px", height: "15px" }}
+            />
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </DndProvider>
   );
 };
 
