@@ -64,12 +64,36 @@ const Login = () => {
         {/* <Header /> */}
         {/* <StyledSpan>로그인</StyledSpan> */}
         <StyledInputDiv>
-          <h1 style={{ display: "flex", color: "#000000" }}> 로그인</h1>
-          <h3 style={{ display: "flex", color: "#000000", opacity: "0.7" }}>
+          <h1
+            style={{
+              display: "flex",
+              color: "#000000",
+              fontWeight: "bold",
+              marginLeft: "30px",
+              marginBottom: "30px",
+            }}
+          >
+            {" "}
+            로그인
+          </h1>
+          <h3
+            style={{
+              display: "flex",
+              color: "#000000",
+              opacity: "0.7",
+              marginLeft: "30px",
+            }}
+          >
             아직 회원이 아니신가요?
           </h3>
           <h3
-            style={{ display: "flex", color: "#175CD3", marginBottom: "50px" }}
+            style={{
+              display: "flex",
+              color: "#175CD3",
+              marginBottom: "50px",
+              cursor: "pointer",
+              marginLeft: "30px",
+            }}
             onClick={() => navigate("/signup")}
           >
             회원가입 하러가기!
@@ -96,7 +120,7 @@ const Login = () => {
           </div>
         </StyledInputDiv>
         <StyledButtonDiv>
-          <Button
+          <StyledInput
             onClick={() => {
               if (email.current.value === "") {
                 email.current.focus();
@@ -110,9 +134,8 @@ const Login = () => {
                 onLogin();
               }
             }}
-          >
-            로그인
-          </Button>
+            value="로그인"
+          />
         </StyledButtonDiv>
       </div>
     </div>
@@ -138,6 +161,7 @@ const StyledInputDiv = styled.div`
     width: 25vw;
     height: 30px;
     margin: 8px 5px;
+    margin-left: 30px;
     margin-bottom: 30px;
     color: #000000;
     opacity: 0.8;
@@ -151,8 +175,9 @@ const StyledInputDiv = styled.div`
     font-family: "Do Hyeon", sans-serif;
     font-size: 17px;
     font-weight: bold;
+
     margin: 2px;
-    margin-left: 10px;
+    margin-left: 30px;
     color: #98a2b3;
     opacity: 0.9;
   }
@@ -161,31 +186,30 @@ const StyledInputDiv = styled.div`
     font-size: 18px;
   }
 `;
-
+//?왜 밑에꺼랑 이거랑 둘 다 가입하기 버튼 수정하는지?
+const StyledInput = styled.input`
+  font-size: 25px;
+  font-family: "Do Hyeon", sans-serif;
+  width: 35vw;
+  height: 40px;
+  border: none;
+  font-weight: bold;
+  text-align: center;
+  background-color: transparent;
+  margin: 10px;
+  color: #fff;
+  cursor: pointer;
+`;
+//현재 로그인 버튼
 const StyledButtonDiv = styled.div`
   border-radius: 32px;
   display: flex;
-  width: 30vw;
+  width: 27vw;
   align-items: center;
   background-color: #175cd3;
-
-  margin: auto;
+  color: #fff;
   box-shadow: 0.5px 0.5px 12px grey;
-`;
-
-const StyledSocialButtonDiv = styled.div`
-  width: 180px;
   margin: ${(props) => props.margin || "auto"};
-`;
-
-const StyledSocialButton = styled.img`
-  position: relative;
-  margin: 10px auto;
-  height: 35px;
-  width: 180px;
-  object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
 `;
 
 export default Login;
