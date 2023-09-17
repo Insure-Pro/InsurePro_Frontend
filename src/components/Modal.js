@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
@@ -13,7 +13,7 @@ function Modal1() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const customerTypePk = useRef("");
+  const customerTypeName = useRef("");
   const liPk = useRef("");
   const name = useRef("");
   const birth = useRef("");
@@ -29,12 +29,16 @@ function Modal1() {
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
+    console.log("Clicked button:", type);
+    console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
     } else {
       setSelectedCustomerType(type);
     }
+
+    console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -55,6 +59,8 @@ function Modal1() {
     return age;
   };
 
+  // Ref 객체가 null인 경우 에러 방지
+
   //전화번호 유효성 검사 추가
   const validatePhoneNumber = (phone) => {
     const pattern = /^\d{3}-\d{4}-\d{4}$/;
@@ -65,10 +71,17 @@ function Modal1() {
     if (event) {
       event.preventDefault();
     }
-    // if (!Number.isSafeInteger(Number(customerTypePk.current.value))) {
+    // if (!Number.isSafeInteger(Number(customerTypeName.current.value))) {
     //   alert("고객유형에 올바른 숫자를 입력해주세요.");
     //   return;
     // }
+    if (!customerTypeName.current) {
+      console.log(selectedCustomerType);
+      console.log(selectedCustomerType.current);
+      console.log(selectedCustomerType.current.value);
+      alert("고객유형을 선택해주세요.");
+      return;
+    }
     //전화번호 유효성 검사 추가
     if (!validatePhoneNumber(phone.current.value)) {
       alert("전화번호 형태가 올바르지 않습니다.");
@@ -76,10 +89,10 @@ function Modal1() {
     }
     const birthValue = birth.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-    customerTypePk.current.value = selectedCustomerType;
+    customerTypeName.current.value = selectedCustomerType;
+    phone.current = phone.current; // phone Ref를 업데이트하지 않음
     const data = {
-      customerTypePk: parseInt(customerTypePk.current.value),
-      liPk: liPk.current.value,
+      customerTypeName: selectedCustomerType, // 선택된 고객 유형으로 설정
       name: name.current.value,
       birth: birthValue,
       age: ageValue,
@@ -171,7 +184,8 @@ function Modal1() {
                         ? "primary"
                         : "outline-primary"
                     }
-                    value={type}
+                    ref={customerTypeName}
+                    value={selectedCustomerType}
                     onClick={() => handleCustomerTypeClick(type)}
                   >
                     {type}

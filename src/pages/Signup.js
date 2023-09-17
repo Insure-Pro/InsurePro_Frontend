@@ -162,12 +162,37 @@ const Signup = () => {
         <input type="file" name="file" ref={fileRef} /> */}
 
         <StyledInputDiv>
-          <h1 style={{ display: "flex", color: "#000000" }}> 회원가입</h1>
-          <h3 style={{ display: "flex", color: "#000000", opacity: "0.7" }}>
+          <h1
+            style={{
+              display: "flex",
+              color: "#000000",
+              marginLeft: "30px",
+              marginBottom: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            회원가입
+          </h1>
+          <h3
+            style={{
+              display: "flex",
+              color: "#000000",
+              opacity: "0.7",
+              marginLeft: "30px",
+              cursor: "pointer",
+            }}
+          >
             이미 회원이신가요?
           </h3>
           <h3
-            style={{ display: "flex", color: "#175CD3", marginBottom: "50px" }}
+            style={{
+              display: "flex",
+              color: "#175CD3",
+              marginBottom: "50px",
+              marginLeft: "30px",
+              cursor: "pointer",
+            }}
             onClick={() => navigate("/login")}
           >
             여기서 로그인하기!
@@ -175,53 +200,83 @@ const Signup = () => {
           <span style={{ display: "flex" }}>User number</span>
           <div>
             <input type="text" ref={usernum} placeholder="사원번호 입력하기" />
-            <button
-              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
-            >
-              코코코코
-            </button>
-            <div>
-              <span style={{ display: "flex" }}>Email</span>
-            </div>
-            <input
-              type="email"
-              ref={email}
-              value={myEmail}
-              onChange={(e) => {
-                setMyEmail(e.target.value);
-              }}
-              placeholder="이메일 입력하기"
-            />
-
-            <button
-              onClick={() => {
-                axios
-                  .post("http://52.79.81.200:8080/v1/email", {
-                    email: myEmail,
-                  })
-                  .then((결과) => {
-                    setMyAuthNum(결과.data.authNum);
-                    //추후 수정할 떄 authNum비교 오류 여기서 usestatet
-                    //사용하지 말고, authNum 변수에 바로 할당하고 if문 돌려보기
-                  });
-              }}
-            >
-              코드전송
-            </button>
           </div>
-          <span style={{ display: "flex" }}>본인 인증하기</span>
+          <span style={{ display: "flex" }}>Email</span>
           <div>
-            <input
-              type="authNum"
-              ref={authNumConfirm}
-              // onChange={(e) => {
-              //   setMyAuthNum(e.target.value);
-              // }}
-              placeholder="본인 인증 코드를 입력해주세요"
-            />
-            <button>재전송</button>
+            <div style={{ position: "relative" }}>
+              <input
+                type="email"
+                ref={email}
+                value={myEmail}
+                onChange={(e) => {
+                  setMyEmail(e.target.value);
+                }}
+                placeholder="이메일 입력하기"
+              />
+
+              <button
+                onClick={() => {
+                  axios
+                    .post("http://52.79.81.200:8080/v1/email", {
+                      email: myEmail,
+                    })
+                    .then((결과) => {
+                      setMyAuthNum(결과.data.authNum);
+                      //추후 수정할 떄 authNum비교 오류 여기서 usestatet
+                      //사용하지 말고, authNum 변수에 바로 할당하고 if문 돌려보기
+                    });
+                }}
+                style={{
+                  position: "absolute",
+                  width: "70px",
+                  height: "25px",
+                  fontSize: "13px",
+                  right: "5px",
+                  margin: "8px 5px",
+                  marginBottom: "30px",
+                  marginRight: "15px",
+                  borderRadius: "3px",
+                  border: "none",
+                  color: "#FFF",
+                  backgroundColor: "#98A2B3",
+                }}
+              >
+                코드전송
+              </button>
+            </div>
           </div>
 
+          <span style={{ display: "flex" }}>본인 인증하기</span>
+          <div style={{ position: "relative" }}>
+            <div>
+              <input
+                type="authNum"
+                ref={authNumConfirm}
+                // onChange={(e) => {
+                //   setMyAuthNum(e.target.value);
+                // }}
+                placeholder="본인 인증 코드를 입력해주세요"
+              />
+              <button
+                style={{
+                  position: "absolute",
+                  width: "70px",
+                  height: "25px",
+                  fontSize: "13px",
+                  right: "5px",
+                  margin: "8px 5px",
+                  marginBottom: "30px",
+                  marginRight: "15px",
+                  borderRadius: "3px",
+                  border: "none",
+                  color: "#FFF",
+                  backgroundColor: "#98A2B3",
+                }}
+              >
+                재전송
+              </button>
+            </div>
+          </div>
           <span style={{ display: "flex" }}>Password</span>
           <div>
             <input
@@ -233,11 +288,6 @@ const Signup = () => {
                 setMyPassword(e.target.value);
               }}
             />
-            <button
-              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
-            >
-              코코코코
-            </button>
           </div>
           <span style={{ display: "flex" }}>비밀번호 확인하기</span>
           <div>
@@ -246,11 +296,7 @@ const Signup = () => {
               ref={passwordConfirm}
               placeholder="비밀번호 재입력"
             />
-            <button
-              style={{ color: "#fff", backgroundColor: "#fff", border: "none" }}
-            >
-              코코코코
-            </button>
+
             <div className="error_message"></div>
           </div>
         </StyledInputDiv>
@@ -314,8 +360,9 @@ const StyledInputDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #aaa;
   margin: 5vh auto 20px;
-  margin-top: 70px;
-  padding: 20px 10px;
+  margin-top: 100px;
+
+  padding: 20px 2px;
   width: 30vw;
 
   border-radius: 15px;
@@ -323,7 +370,7 @@ const StyledInputDiv = styled.div`
     width: 25vw;
     height: 30px;
     margin: 8px 5px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     color: #000000;
     opacity: 0.8;
     font-size: 16px;
@@ -337,7 +384,7 @@ const StyledInputDiv = styled.div`
     font-size: 17px;
     font-weight: bold;
     margin: 2px;
-    margin-left: 10px;
+    margin-left: 30px;
     color: #98a2b3;
     opacity: 0.9;
   }
@@ -346,23 +393,24 @@ const StyledInputDiv = styled.div`
     font-size: 18px;
   }
 `;
-
+//?왜 밑에꺼랑 이거랑 둘 다 가입하기 버튼 수정하는지?
 const StyledInput = styled.input`
   font-size: 25px;
   font-family: "Do Hyeon", sans-serif;
   width: 35vw;
   height: 40px;
   border: none;
+  font-weight: bold;
   background-color: transparent;
   margin: 10px;
   color: #fff;
   cursor: pointer;
 `;
-
+//현재 로그인 버튼
 const StyledButtonDiv = styled.div`
   border-radius: 32px;
   display: flex;
-  width: 30vw;
+  width: 27vw;
   align-items: center;
   background-color: #175cd3;
   color: #fff;

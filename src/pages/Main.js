@@ -82,21 +82,23 @@ const Main = () => {
             <div>생년월일 (나이)</div>
             <div>연락처</div>
             <div>거주지</div>
-            {/* 가져온 데이터를 화면에 출력합니다. */}
-            {customers
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
-              .map((customer) => (
-                <React.Fragment key={customer.pk}>
-                  <div>{customer.createdAt}</div>
-                  <div>{customer.customerTypeString}</div>
-                  <div>{customer.name}</div>
-                  <div>
-                    {customer.birth} 만 ({customer.age})세
-                  </div>
-                  <div>{customer.phone}</div>
-                  <div>{customer.address}</div>
-                </React.Fragment>
-              ))}
+            <>
+              {/* 가져온 데이터를 화면에 출력합니다. */}
+              {customers
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
+                .map((customer) => (
+                  <React.Fragment key={customer.pk}>
+                    <div>{customer.createdAt}</div>
+                    <div>{customer.customerTypeString}</div>
+                    <div>{customer.name}</div>
+                    <div>
+                      {customer.birth} 만 ({customer.age})세
+                    </div>
+                    <div>{customer.phone}</div>
+                    <div>{customer.address}</div>
+                  </React.Fragment>
+                ))}
+            </>
           </div>
         </Dbbar>
       </div>
