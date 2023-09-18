@@ -17,6 +17,7 @@ function Modal1() {
   const liPk = useRef("");
   const name = useRef("");
   const birth = useRef("");
+  const registerDate = useRef("");
   const age = useRef("");
   const address = useRef("");
   const phone = useRef("");
@@ -24,8 +25,14 @@ function Modal1() {
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
+  const [contractYn, setContractYn] = useState(false);
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
+
+  const handleContractYnChange = () => {
+    // 체크박스 상태를 토글
+    setContractYn(!contractYn);
+  };
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
@@ -88,6 +95,7 @@ function Modal1() {
       return;
     }
     const birthValue = birth.current.value.replace(/\./g, "-");
+    const registerDateValue = registerDate.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
     customerTypeName.current.value = selectedCustomerType;
     phone.current = phone.current; // phone Ref를 업데이트하지 않음
@@ -95,9 +103,11 @@ function Modal1() {
       customerTypeName: selectedCustomerType, // 선택된 고객 유형으로 설정
       name: name.current.value,
       birth: birthValue,
+      registerDate: registerDateValue,
       age: ageValue,
       address: address.current.value,
       phone: phone.current.value,
+      contractYn: contractYn,
       memo: memo.current.value,
     };
 
@@ -156,6 +166,14 @@ function Modal1() {
               <Form.Label></Form.Label>
               <Form.Control type="text" ref={name} placeholder="이름" />
             </Form.Group>
+            <Form.Group controlId="contractYn.ControlCheckbox1">
+              <Form.Check
+                type="checkbox"
+                label="계약 체결 여부"
+                checked={contractYn} // 체크박스 상태를 반영
+                onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+              />
+            </Form.Group>
             <Form.Group className="mb-0">
               <ButtonGroup>
                 <div
@@ -196,9 +214,18 @@ function Modal1() {
             <Form.Group className="mb-0" controlId="example.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
+                type="registerDate"
+                ref={registerDate}
+                placeholder="DB분배일 | 2023.00.00"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-0" controlId="example.ControlInput1">
+              <Form.Label></Form.Label>
+              <Form.Control
                 type="birth"
                 ref={birth}
-                placeholder="생년월일 | 1900.00.00 (만 00세)"
+                placeholder="생년월일 | 1900.00.00"
                 autoFocus
               />
             </Form.Group>
