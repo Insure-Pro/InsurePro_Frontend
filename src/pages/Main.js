@@ -260,22 +260,64 @@ const Main = () => {
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
               <ListGroup horizontal key={customer.pk}>
-                <ListGroup.Item style={listItemStyle1}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle1,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.registerDate}
                 </ListGroup.Item>
-                <ListGroup.Item style={listItemStyle2}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle2,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.customerTypeString}
                 </ListGroup.Item>
-                <ListGroup.Item style={listItemStyle3}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle3,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.name}
                 </ListGroup.Item>
-                <ListGroup.Item style={listItemStyle4}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle4,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.birth} 만{customer.age}세
                 </ListGroup.Item>
-                <ListGroup.Item style={listItemStyle5}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle5,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.phone}
                 </ListGroup.Item>
-                <ListGroup.Item style={listItemStyle6}>
+                <ListGroup.Item
+                  style={{
+                    ...listItemStyle6,
+                    backgroundColor: customer.contractYn
+                      ? "#4FFA7A"
+                      : "transparent",
+                  }}
+                >
                   {customer.address}
                 </ListGroup.Item>
               </ListGroup>
