@@ -18,9 +18,12 @@ const Main = () => {
     borderColor: "#b0b0b0", // 테두리 색
   };
 
-  const dropdownItemStyles = {
-    fontSize: "16px", // 2px 더 큰 글자 크기
-    padding: "3px 3px", // 박스 크기 조절
+  const customDropdownItemStyles1 = {
+    width: "100px", // 원하는 너비로 설정합니다.
+    paddingLeft: "30px",
+    // whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
+    // overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
+    // textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
   };
   //DB분배일
   const listItemStyle1 = {
@@ -228,18 +231,27 @@ const Main = () => {
             </div>
             <DropdownButton
               id="dropdown-basic-button"
-              size="sm"
+              size="ml"
               title="정렬기준"
               variant="secondary"
               style={dropdownButtonStyles}
             >
-              <Dropdown.Item href="#/action-1" style={dropdownItemStyles}>
+              <Dropdown.Item
+                href="#/action-1"
+                style={customDropdownItemStyles1}
+              >
                 최신순
               </Dropdown.Item>
-              <Dropdown.Item href="#/action-2" style={dropdownItemStyles}>
+              <Dropdown.Item
+                href="#/action-2"
+                style={customDropdownItemStyles1}
+              >
                 지역별
               </Dropdown.Item>
-              <Dropdown.Item href="#/action-3" style={dropdownItemStyles}>
+              <Dropdown.Item
+                href="#/action-3"
+                style={customDropdownItemStyles1}
+              >
                 나이대별
               </Dropdown.Item>
             </DropdownButton>
