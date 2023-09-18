@@ -9,6 +9,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
+  const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
+
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
     color: "black", // 글자색
@@ -183,7 +185,6 @@ const Main = () => {
             },
           }
         );
-
         if (response.data && Array.isArray(response.data)) {
           setCustomers(response.data);
         }
@@ -191,9 +192,12 @@ const Main = () => {
         console.error("Data loading error:", error.message);
       }
     };
+    fetchData();
+  }, [refresh]); // refresh 상태가 변경될 때마다 고객 목록을 다시 불러옵니다.
 
-    fetchData(); // 함수를 호출하여 데이터를 로드합니다.
-  }, []);
+  const handleModalClose = () => {
+    setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
+  };
 
   return (
     <div>
@@ -207,7 +211,7 @@ const Main = () => {
             }}
           >
             <div className="Add_Btn">
-              <Modal1 />
+              <Modal1 onModalClose={handleModalClose} />
             </div>
             <DropdownButton
               id="dropdown-basic-button"
@@ -266,7 +270,7 @@ const Main = () => {
                   {customer.name}
                 </ListGroup.Item>
                 <ListGroup.Item style={listItemStyle4}>
-                  {customer.birth} 만 ({customer.age})세
+                  {customer.birth} 만{customer.age}세
                 </ListGroup.Item>
                 <ListGroup.Item style={listItemStyle5}>
                   {customer.phone}

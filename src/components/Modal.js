@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-function Modal1() {
+function Modal1({ onModalClose }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -121,7 +121,7 @@ function Modal1() {
       .then((response) => {
         if (response.status === 201) {
           alert("신규고객 등록이 완료되었습니다.");
-          navigate("/Main");
+          onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           handleClose(); // Modal 창 닫기
         }
       })
@@ -156,7 +156,7 @@ function Modal1() {
         + Add
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} onExited={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>신규고객 추가</Modal.Title>
         </Modal.Header>
