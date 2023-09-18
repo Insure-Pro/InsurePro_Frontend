@@ -31,7 +31,7 @@ const DraggableNavItem = ({ item, index, moveItem }) => {
   );
 };
 
-const Dbbar = ({ children }) => {
+const Dbbar = ({ children, onTypeChange }) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
     { key: "link-2", label: "OD" },
@@ -44,6 +44,7 @@ const Dbbar = ({ children }) => {
     { key: "link-9", label: "Y" },
     { key: "link-10", label: "Z" },
   ]);
+  const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
 
   const moveItem = (fromIndex, toIndex) => {
     const updatedItems = [...items];
@@ -53,25 +54,30 @@ const Dbbar = ({ children }) => {
     setItems(updatedItems);
   };
 
+  const handleTypeClick = (type) => {
+    setActiveType(type);
+    onTypeChange(type); // 선택한 유형을 부모 컴포넌트로 전달
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
         <div className="navbar-container">
           <Navbar />
           <div className="content">
-            <h1 className="maintitle">전체</h1>
+            <h1 className="maintitle">{activeType}</h1>
             <Nav
               className="유형바"
               variant="underline"
               defaultActiveKey="/home"
             >
-              {items.map((item, index) => (
-                <DraggableNavItem
+              {items.map((item) => (
+                <Nav.Link
                   key={item.key}
-                  index={index}
-                  item={item}
-                  moveItem={moveItem}
-                />
+                  onClick={() => handleTypeClick(item.label)}
+                >
+                  {item.label}
+                </Nav.Link>
               ))}
             </Nav>
             <hr

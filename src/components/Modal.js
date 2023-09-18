@@ -172,6 +172,11 @@ function Modal1({ onModalClose }) {
                 label="계약 체결 여부"
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+                style={{
+                  marginLeft: "2px",
+                  marginBottom: "10px",
+                  marginTop: "-20px",
+                }}
               />
             </Form.Group>
             <Form.Group className="mb-0">

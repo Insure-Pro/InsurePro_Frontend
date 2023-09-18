@@ -10,6 +10,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
+  const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
 
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
@@ -173,6 +174,10 @@ const Main = () => {
     opacity: "0.9",
   };
 
+  const handleTypeChange = (type) => {
+    setActiveType(type); // 선택된 유형 업데이트
+  };
+
   useEffect(() => {
     // 데이터를 로드하는 함수를 정의합니다.
     const fetchData = async () => {
@@ -186,14 +191,22 @@ const Main = () => {
           }
         );
         if (response.data && Array.isArray(response.data)) {
-          setCustomers(response.data);
+          // 선택된 유형에 따라 필터링된 데이터만 저장
+          const filteredCustomers = response.data.filter((customer) => {
+            if (activeType === "All") {
+              return true; // 모든 유형을 표시하려면 모든 데이터를 반환
+            } else {
+              return customer.customerTypeString === activeType;
+            }
+          });
+          setCustomers(filteredCustomers);
         }
       } catch (error) {
         console.error("Data loading error:", error.message);
       }
     };
     fetchData();
-  }, [refresh]); // refresh 상태가 변경될 때마다 고객 목록을 다시 불러옵니다.
+  }, [refresh, activeType]); // refresh 상태 또는 activeType이 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
@@ -202,7 +215,7 @@ const Main = () => {
   return (
     <div>
       <div className="Db_container">
-        <Dbbar>
+        <Dbbar onTypeChange={handleTypeChange}>
           <div
             style={{
               display: "flex",
