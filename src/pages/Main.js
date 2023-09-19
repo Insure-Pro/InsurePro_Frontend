@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
+import AgeFilter from "../components/AgeFilter";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -11,6 +12,7 @@ const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
   const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
+  const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
 
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
@@ -177,6 +179,11 @@ const Main = () => {
     opacity: "0.9",
   };
 
+  const handleAgeFilterChange = async (age) => {
+    setSelectedAge(age); // 선택된 나이 필터 업데이트
+    setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
+  };
+
   const handleTypeChange = (type) => {
     setActiveType(type); // 선택된 유형 업데이트
   };
@@ -185,14 +192,21 @@ const Main = () => {
     // 데이터를 로드하는 함수를 정의합니다.
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://52.79.81.200:8080/v1/customers/latest",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
+        let url;
+
+        if (selectedAge) {
+          // 선택된 나이대에 따라 URL을 생성
+          url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
+        } else {
+          // 선택된 나이대가 없을 경우 기본 URL 사용
+          url = "http://52.79.81.200:8080/v1/customers/latest";
+        }
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
         if (response.data && Array.isArray(response.data)) {
           // 선택된 유형에 따라 필터링된 데이터만 저장
           const filteredCustomers = response.data.filter((customer) => {
@@ -209,7 +223,7 @@ const Main = () => {
       }
     };
     fetchData();
-  }, [refresh, activeType]); // refresh 상태 또는 activeType이 변경될 때마다 데이터 다시 불러옵니다.
+  }, [refresh, activeType, selectedAge]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
@@ -251,8 +265,30 @@ const Main = () => {
               <Dropdown.Item
                 href="#/action-3"
                 style={customDropdownItemStyles1}
+                onClick={() => handleAgeFilterChange("1020")}
               >
-                나이대별
+                10-20대
+              </Dropdown.Item>
+              <Dropdown.Item
+                href="#/action-4"
+                style={customDropdownItemStyles1}
+                onClick={() => handleAgeFilterChange("3040")}
+              >
+                30-40대
+              </Dropdown.Item>
+              <Dropdown.Item
+                href="#/action-5"
+                style={customDropdownItemStyles1}
+                onClick={() => handleAgeFilterChange("5060")}
+              >
+                50-60대
+              </Dropdown.Item>
+              <Dropdown.Item
+                href="#/action-6"
+                style={customDropdownItemStyles1}
+                onClick={() => handleAgeFilterChange("7080")}
+              >
+                70-80대
               </Dropdown.Item>
             </DropdownButton>
           </div>
@@ -347,7 +383,6 @@ const Main = () => {
                 </ListGroup.Item>
               </ListGroup>
             ))}
-          ;
         </Dbbar>
       </div>
     </div>
