@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
-import AgeFilter from "../components/AgeFilter";
+
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
