@@ -13,6 +13,7 @@ const Main = () => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
   const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
   const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
+  const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
 
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
@@ -179,6 +180,14 @@ const Main = () => {
     opacity: "0.9",
   };
 
+  const handleSortChange = (sortType) => {
+    // 선택된 정렬 기준을 저장하고, 새로고침 상태 변경
+    setSelectedSort(sortType);
+    // 정렬 버튼을 누를 때 'selectedAge'를 초기화합니다.
+    setSelectedAge("");
+    setRefresh((prevRefresh) => !prevRefresh);
+  };
+
   const handleAgeFilterChange = async (age) => {
     setSelectedAge(age); // 선택된 나이 필터 업데이트
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
@@ -194,9 +203,16 @@ const Main = () => {
       try {
         let url;
 
-        if (selectedAge) {
+        if (selectedAge && selectedSort !== "latest") {
           // 선택된 나이대에 따라 URL을 생성
           url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
+        } else if (selectedSort === "latest") {
+          // 최신순으로 정렬할 때의 URL (나이대도 고려)
+          if (selectedAge) {
+            url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
+          } else {
+            url = "http://52.79.81.200:8080/v1/customers/latest";
+          }
         } else {
           // 선택된 나이대가 없을 경우 기본 URL 사용
           url = "http://52.79.81.200:8080/v1/customers/latest";
@@ -223,7 +239,7 @@ const Main = () => {
       }
     };
     fetchData();
-  }, [refresh, activeType, selectedAge]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
+  }, [refresh, activeType, selectedAge, selectedSort]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
@@ -253,6 +269,7 @@ const Main = () => {
               <Dropdown.Item
                 href="#/action-1"
                 style={customDropdownItemStyles1}
+                onClick={() => handleSortChange("latest")}
               >
                 최신순
               </Dropdown.Item>
