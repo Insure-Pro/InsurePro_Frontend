@@ -3,7 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
-
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -180,6 +181,12 @@ const Main = () => {
     opacity: "0.9",
   };
 
+  const navigate = useNavigate();
+
+  const handleCustomerClick = (customer) => {
+    navigate("/detail", { state: { customerPk: customer.pk } });
+  };
+
   const handleSortChange = (sortType) => {
     // 선택된 정렬 기준을 저장하고, 새로고침 상태 변경
     setSelectedSort(sortType);
@@ -337,7 +344,11 @@ const Main = () => {
           {customers
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
-              <ListGroup horizontal key={customer.pk}>
+              <ListGroup
+                horizontal
+                key={customer.pk}
+                onClick={() => handleCustomerClick(customer)}
+              >
                 <ListGroup.Item
                   style={{
                     ...listItemStyle1,
