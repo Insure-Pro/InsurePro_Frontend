@@ -6,6 +6,7 @@ import Button from "../components/buttons/Button";
 
 const Signup = () => {
   const fileRef = useRef("");
+  const userName = useRef("");
   const email = useRef("");
   const usernum = useRef("");
   const authNum = useRef("");
@@ -21,6 +22,7 @@ const Signup = () => {
 
     // const formData = new FormData();
     const data = {
+      name: userName.current.value,
       email: email.current.value,
       id: usernum.current.value,
       password: password.current.value,
@@ -38,6 +40,7 @@ const Signup = () => {
     if (validate()) {
       axios
         .post("http://52.79.81.200:8080/v1/employee/signin/", {
+          name: userName.current.value,
           email: email.current.value,
           id: usernum.current.value,
           password: password.current.value,
@@ -197,6 +200,10 @@ const Signup = () => {
           >
             여기서 로그인하기!
           </h3>
+          <span style={{ display: "flex" }}>User Name</span>
+          <div>
+            <input type="name" ref={userName} placeholder="사원이름 입력하기" />
+          </div>
           <span style={{ display: "flex" }}>User number</span>
           <div>
             <input type="text" ref={usernum} placeholder="사원번호 입력하기" />

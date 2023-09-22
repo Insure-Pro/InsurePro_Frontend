@@ -1,18 +1,48 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showItems, setShowItems] = useState(false);
+  const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
+
   const navigate = useNavigate();
   const toggleItems = () => {
     setShowItems(!showItems);
   };
 
+  useEffect(() => {
+    // 서버에서 직원 정보를 가져오는 함수
+    const fetchEmployeeName = async () => {
+      try {
+        const response = await fetch("http://52.79.81.200:8080/v1/employee", {
+          method: "GET",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlkIjoidGVzdElkMTIzIiwic3ViIjoidXRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjkzMTA1ODc5LCJleHAiOjE2OTMxMDc2Nzl9.1lYKsLODXul3e54nUPf2vWdPlrfYuFV-dTPBZPUp0Lg",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+
+        const data = await response.json();
+        setUserName(data.name); // 응답으로 받은 직원 이름을 상태 변수에 저장
+      } catch (error) {
+        console.error("Failed to fetch employee name:", error);
+      }
+    };
+
+    fetchEmployeeName(); // 직원 정보를 가져오는 함수 호출
+  }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
+
   return (
     <div className="vertical-navbar">
       <div className="brand">InsurePro</div>
+      <div className="navbar-item userName">{userName}</div>
+
       <div className="title">
         <svg
           width="24"
