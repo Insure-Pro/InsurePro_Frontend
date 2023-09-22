@@ -51,7 +51,18 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
     XLSX.writeFile(wb, filename);
   };
 
-  return <button onClick={generateExcelFile}>엑셀 다운로드</button>;
+  return (
+    <button
+      onClick={generateExcelFile}
+      style={{
+        borderRadius: "4px",
+        backgroundColor: "#00A67D",
+        color: "#FFF",
+      }}
+    >
+      엑셀 다운로드
+    </button>
+  );
 };
 
 export default ExcelDownloadButton;
