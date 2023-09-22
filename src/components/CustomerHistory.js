@@ -10,7 +10,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 const CustomerHistory = ({ histories }) => {
   return (
     <div className="customerHistorySection">
-      <h3 className="title">
+      <h3 className="CustomerHistory_title">
         고객히스토리
         {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
       </h3>
@@ -18,10 +18,10 @@ const CustomerHistory = ({ histories }) => {
       {/* {histories.map((history) => (
         <div key={history.id} className="historyItem">
           <span className="progress">{history.progress}</span>
-          <span className="dateLocation">
+          <span className="historySpan">
             {history.date} {history.location}
           </span>
-          <p>{history.memo}</p>
+          <p className="historyP">{history.memo}</p>
         </div>
       ))} */}
     </div>
