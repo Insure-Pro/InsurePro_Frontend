@@ -15,7 +15,11 @@ const CustomerDetail = ({ info }) => {
   return (
     <div className="customer-detail-container">
       <div className="backpage">
-        <span className="navigation" onClick={() => navigate(-1)}>
+        <span
+          className="navigation"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
+        >
           <FontAwesomeIcon
             icon={faChevronLeft}
             style={{ marginRight: "16px" }}

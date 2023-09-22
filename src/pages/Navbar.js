@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import "../App.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showItems, setShowItems] = useState(false);
-
+  const navigate = useNavigate();
   const toggleItems = () => {
     setShowItems(!showItems);
   };
 
   return (
     <div className="vertical-navbar">
-      <div className="navbar-item brand">InsurePro</div>
+      <div className="brand">InsurePro</div>
       <div className="title">
         <svg
           width="24"
@@ -31,7 +32,9 @@ const Navbar = () => {
         Client
       </div>
       <>
-        <div className="navbar-item">전체</div>
+        <div className="navbar-item" onClick={() => navigate("/main")}>
+          전체
+        </div>
         <div className="navbar-item">관리고객</div>
         <div className="navbar-item">계약완료고객</div>
       </>

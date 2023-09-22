@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 
 const HistoryModal = ({ onAddHistory }) => {
   const [show, setShow] = useState(false);
@@ -14,11 +13,24 @@ const HistoryModal = ({ onAddHistory }) => {
   const [location, setLocation] = useState("");
   const [memo, setMemo] = useState("");
 
-  const progressOptions = ["AP", "APC", "APC1", "APC2", "APC", "PC"];
+  const progressTypes = ["AP", "APC1", "APC2", "APC", "PC"];
+  const [selectedProgressType, setSelectedProgressType] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleProgressTypeClick = (type) => {
+    console.log("Clicked button:", type);
+    console.log("Selected customer type before:", selectedProgressType);
+    // 이미 선택된 유형을 다시 클릭하면 선택 해제
+    if (selectedProgressType === type) {
+      setSelectedProgressType("");
+    } else {
+      setSelectedProgressType(type);
+    }
+
+    console.log("Selected customer type after:", selectedProgressType);
+  };
   const handleSubmit = () => {
     const history = {
       progress,
@@ -42,20 +54,41 @@ const HistoryModal = ({ onAddHistory }) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group>
-              <Form.Label>진척도</Form.Label>
-              <Form.Control
-                as="select"
-                value={progress}
-                onChange={(e) => setProgress(e.target.value)}
+            <ButtonGroup>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  paddingRight: "8px",
+                  paddingLeft: "8px",
+                  marginRight: "24px",
+                  borderWidth: "1px",
+                  borderRadius: "5px",
+                  borderStyle: "solid",
+                  borderColor: "#DEE2E5", //  테두리 색 적용
+                  backgroundColor: "transparent", // 배경을 투명하게 설정
+                  color: "#585C5E", // 글자색을 설정
+                }}
               >
-                {progressOptions.map((option, idx) => (
-                  <option key={idx} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+                진척도
+              </div>
+              {progressTypes.map((type, idx) => (
+                <ToggleButton
+                  key={idx}
+                  type="button"
+                  variant={
+                    selectedProgressType === type
+                      ? "primary"
+                      : "outline-primary"
+                  }
+                  // ref={customerTypeName}
+                  value={selectedProgressType}
+                  onClick={() => handleProgressTypeClick(type)}
+                >
+                  {type}
+                </ToggleButton>
+              ))}
+            </ButtonGroup>
 
             <Form.Group>
               <Form.Label>일정시간</Form.Label>

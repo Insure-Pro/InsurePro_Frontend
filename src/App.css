@@ -49,6 +49,7 @@
 
 .navbar-item {
   padding: 10px; /* Padding for each Navbar item */
+  padding-left: 30px;
   cursor: pointer; /* Add pointer cursor for interaction */
   transition: background-color 0.3s ease; /* Smooth background color transition */
   text-align: left; /* Align text to the left */
@@ -69,6 +70,9 @@
 
 /* Styling for the Brand name */
 .brand {
+  padding: 10px; /* Padding for each Navbar item */
+  cursor: pointer; /* Add pointer cursor for interaction */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
   font-size: 1.5rem; /* Adjust the font size as needed */
   font-weight: bold; /* Make the brand name bold */
   color: #175cd3;
@@ -211,4 +215,9 @@
 .infoSpan {
   color: #667085;
   font-weight: 400;
+}
+
+.CustomerHistory_title {
+  justify-content: space-between;
+  align-items: center;
 }

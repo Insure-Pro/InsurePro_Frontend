@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
+import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
@@ -254,6 +255,10 @@ const Main = () => {
           >
             <div className="Add_Btn">
               <Modal1 onModalClose={handleModalClose} />
+              <ExcelDownloadButton
+                customers={customers}
+                activeType={activeType}
+              />
             </div>
             <DropdownButton
               id="dropdown-basic-button"

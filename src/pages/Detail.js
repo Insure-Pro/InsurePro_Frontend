@@ -59,7 +59,6 @@ const Detail = () => {
               <CustomerInfo info={customerDetail} />
               <CustomerHistory history={customerHistories} />
             </div>
-            <HistoryModal onAddHistory={handleAddHistory} />
           </>
         )}
       </div>
