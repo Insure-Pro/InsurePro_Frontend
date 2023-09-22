@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="vertical-navbar">
       <div className="navbar-item brand">InsurePro</div>
-      <div className="title" onClick={toggleItems}>
+      <div className="title">
         <svg
           width="24"
           height="24"
@@ -30,13 +30,11 @@ const Navbar = () => {
         </svg>
         Client
       </div>
-      {showItems && (
-        <>
-          <div className="navbar-item">전체</div>
-          <div className="navbar-item">관리고객</div>
-          <div className="navbar-item">계약완료고객</div>
-        </>
-      )}
+      <>
+        <div className="navbar-item">전체</div>
+        <div className="navbar-item">관리고객</div>
+        <div className="navbar-item">계약완료고객</div>
+      </>
     </div>
   );
 };
