@@ -145,3 +145,50 @@
   flex: 1;
   margin-right: 10px; /* Add margin-right for spacing between divs */
 }
+
+.customer-detail-container {
+  width: 1000px; /* 원하는 가로 크기 */
+  height: 250px; /* 원하는 세로 크기 */
+  overflow: auto; /* 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
+  text-align: start;
+  margin: 30px 48px;
+  margin-bottom: -48px;
+}
+.backpage {
+  margin-bottom: 54px;
+  font-size: 16px;
+  color: #21272a;
+}
+.customer_tnp {
+  margin: 16px 0px;
+}
+.customerName {
+  margin: 16px 0px;
+  margin-bottom: 8px;
+  font-size: 36px;
+  font-weight: bold;
+}
+.customerPhone {
+  color: #667085;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0.9;
+}
+.customer-info-container {
+  width: 500px; /* 원하는 가로 크기 */
+  height: 360px;
+  border-radius: 50px;
+  box-shadow: 10px 4px 4px 0px rgba(46, 64, 97, 0.1);
+  overflow: auto; /* 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
+  margin: 30px 48px;
+  background-color: #fff;
+}
+.customerHistorySection {
+  width: 500px; /* 원하는 가로 크기 */
+  height: 500px; /* 원하는 세로 크기 */
+  border-radius: 50px;
+  box-shadow: 10px 4px 4px 0px rgba(46, 64, 97, 0.1);
+  overflow: auto; /* 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
+  margin: 30px 48px;
+  background-color: #fff;
+}

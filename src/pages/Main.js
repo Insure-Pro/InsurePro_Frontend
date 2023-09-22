@@ -205,49 +205,38 @@ const Main = () => {
   };
 
   useEffect(() => {
-    // 데이터를 로드하는 함수를 정의합니다.
     const fetchData = async () => {
+      let url;
+      if (selectedAge) {
+        url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
+      } else {
+        url =
+          selectedSort === "latest"
+            ? "http://52.79.81.200:8080/v1/customers/latest"
+            : "http://52.79.81.200:8080/v1/customers/latest";
+      }
+
       try {
-        let url;
-
-        if (selectedAge && selectedSort !== "latest") {
-          // 선택된 나이대에 따라 URL을 생성
-          url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
-        } else if (selectedSort === "latest") {
-          // 최신순으로 정렬할 때의 URL (나이대도 고려)
-          if (selectedAge) {
-            url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
-          } else {
-            url = "http://52.79.81.200:8080/v1/customers/latest";
-          }
-        } else {
-          // 선택된 나이대가 없을 경우 기본 URL 사용
-          url = "http://52.79.81.200:8080/v1/customers/latest";
-        }
-
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
         if (response.data && Array.isArray(response.data)) {
-          // 선택된 유형에 따라 필터링된 데이터만 저장
           const filteredCustomers = response.data.filter((customer) => {
             if (activeType === "All") {
-              return true; // 모든 유형을 표시하려면 모든 데이터를 반환
-            } else {
-              return customer.customerTypeString === activeType;
+              return true;
             }
+            return customer.customerTypeString === activeType;
           });
           setCustomers(filteredCustomers);
         }
       } catch (error) {
-        console.error("Data loading error:", error.message);
+        console.error("Error fetching customers:", error.message);
       }
     };
     fetchData();
-  }, [refresh, activeType, selectedAge, selectedSort]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
-
+  }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
   };
