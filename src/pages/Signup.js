@@ -86,6 +86,7 @@ const Signup = () => {
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
+  const [userNameValue, setUserNameValue] = useState(""); // 상태를 관리하기 위한 useState 훅
   const [myEmail, setMyEmail] = useState("");
   const [myAuthNum, setMyAuthNum] = useState("");
   const [myPassword, setMyPassword] = useState("");
@@ -127,7 +128,8 @@ const Signup = () => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "100vw",
+        width: "1200px",
+        margin: "0 auto",
         height: "50vw",
       }}
     >
@@ -172,6 +174,7 @@ const Signup = () => {
               marginLeft: "30px",
               marginBottom: "20px",
               fontWeight: "bold",
+              fontSize: "34px",
             }}
           >
             {" "}
@@ -184,6 +187,7 @@ const Signup = () => {
               opacity: "0.7",
               marginLeft: "30px",
               cursor: "pointer",
+              fontSize: "20px",
             }}
           >
             이미 회원이신가요?
@@ -195,22 +199,23 @@ const Signup = () => {
               marginBottom: "50px",
               marginLeft: "30px",
               cursor: "pointer",
+              fontSize: "20px",
             }}
             onClick={() => navigate("/login")}
           >
             여기서 로그인하기!
           </h3>
-          <span style={{ display: "flex" }}>User Name</span>
+          <span style={{ display: "flex", fontSize: "20px" }}>User Name</span>
           <div>
             <input type="name" ref={userName} placeholder="사원이름 입력하기" />
           </div>
-          <span style={{ display: "flex" }}>User number</span>
+          <span style={{ display: "flex", fontSize: "20px" }}>User number</span>
           <div>
             <input type="text" ref={usernum} placeholder="사원번호 입력하기" />
           </div>
-          <span style={{ display: "flex" }}>Email</span>
+          <span style={{ display: "flex", fontSize: "20px" }}>Email</span>
           <div>
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", fontSize: "20px" }}>
               <input
                 type="email"
                 ref={email}

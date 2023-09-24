@@ -76,8 +76,11 @@
   font-size: 1.5rem; /* Adjust the font size as needed */
   font-weight: bold; /* Make the brand name bold */
   color: #175cd3;
-  margin: 20px 0px;
+  margin: 24px 0px;
   text-align: center; /* Align text to the center */
+}
+.userName {
+  margin-bottom: 24px;
 }
 /* 전체, 관리고객, 계약완료고객 왼쪽 여백 추가 */
 .navbar-item:not(.brand) {

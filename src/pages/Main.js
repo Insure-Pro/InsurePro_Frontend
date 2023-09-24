@@ -243,7 +243,7 @@ const Main = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "1300px", margin: "0 auto" }}>
       <div className="Db_container">
         <Dbbar onTypeChange={handleTypeChange}>
           <div
@@ -346,9 +346,12 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle1,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    // backgroundColor: customer.contractYn
+                    //   ? "#4FFA7A"
+                    //   : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.registerDate}
@@ -356,9 +359,9 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle2,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.customerTypeString}
@@ -366,9 +369,9 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle3,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.name}
@@ -376,9 +379,9 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle4,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.birth} 만{customer.age}세
@@ -386,9 +389,9 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle5,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.phone}
@@ -396,9 +399,9 @@ const Main = () => {
                 <ListGroup.Item
                   style={{
                     ...listItemStyle6,
-                    backgroundColor: customer.contractYn
-                      ? "#4FFA7A"
-                      : "transparent",
+                    border: customer.contractYn
+                      ? "1px solid #2E6CD7"
+                      : "1px solid #DDDDDD",
                   }}
                 >
                   {customer.address}

@@ -19,8 +19,7 @@ const Navbar = () => {
         const response = await fetch("http://52.79.81.200:8080/v1/employee", {
           method: "GET",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlkIjoidGVzdElkMTIzIiwic3ViIjoidXRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjkzMTA1ODc5LCJleHAiOjE2OTMxMDc2Nzl9.1lYKsLODXul3e54nUPf2vWdPlrfYuFV-dTPBZPUp0Lg",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
 
@@ -41,7 +40,9 @@ const Navbar = () => {
   return (
     <div className="vertical-navbar">
       <div className="brand">InsurePro</div>
-      <div className="navbar-item userName">{userName}</div>
+      <div className="userName" style={{ fontSize: "16px" }}>
+        {userName}님 환영합니다.
+      </div>
 
       <div className="title">
         <svg
