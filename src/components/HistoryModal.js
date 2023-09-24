@@ -5,52 +5,81 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import { useLocation } from "react-router-dom";
 
-const HistoryModal = ({ onAddHistory }) => {
+const HistoryModal = ({ customerPk }) => {
   const [show, setShow] = useState(false);
-  const [progress, setProgress] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
-  const [memo, setMemo] = useState("");
+  const [formData, setFormData] = useState({
+    memo: "",
+    date: "",
+    startTm: "",
+    finishTm: "",
+    address: "",
+    meetYn: false,
+    delYn: false,
+    // color: "#000000",
+    progress: "",
+  });
 
-  const progressTypes = ["AP", "APC1", "APC2", "APC", "PC"];
+  const formatToValidDate = (inputDate) => {
+    let cleanedDate = inputDate.replace(/[^0-9]/g, "");
+
+    if (cleanedDate.length !== 8) {
+      return null;
+    }
+    return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
+      4,
+      6
+    )}-${cleanedDate.substring(6, 8)}`;
+  };
+
   const [selectedProgressType, setSelectedProgressType] = useState("");
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const progressTypes = ["AP", "APC1", "APC2", "APC", "PC"];
 
   const handleProgressTypeClick = (type) => {
-    console.log("Clicked button:", type);
-    console.log("Selected customer type before:", selectedProgressType);
-    // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedProgressType === type) {
       setSelectedProgressType("");
     } else {
       setSelectedProgressType(type);
     }
-
-    console.log("Selected customer type after:", selectedProgressType);
   };
-  const handleSubmit = () => {
-    const history = {
-      progress,
-      date,
-      location,
-      memo,
-    };
-    onAddHistory(history);
-    handleClose();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const url = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
+      const response = await axios.post(url, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      if (response.status === 201) {
+        console.log("History added successfully");
+        handleClose();
+        // Optionally, you can refresh the CustomerHistory component or give some feedback to the user.
+      }
+    } catch (error) {
+      console.error("Failed to add history", error);
+    }
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Edit
+        + Edit
       </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>고객 히스토리 수정</Modal.Title>
+          <Modal.Title>Add Customer History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -65,9 +94,9 @@ const HistoryModal = ({ onAddHistory }) => {
                   borderWidth: "1px",
                   borderRadius: "5px",
                   borderStyle: "solid",
-                  borderColor: "#DEE2E5", //  테두리 색 적용
-                  backgroundColor: "transparent", // 배경을 투명하게 설정
-                  color: "#585C5E", // 글자색을 설정
+                  borderColor: "#DEE2E5",
+                  backgroundColor: "transparent",
+                  color: "#585C5E",
                 }}
               >
                 진척도
@@ -81,7 +110,6 @@ const HistoryModal = ({ onAddHistory }) => {
                       ? "primary"
                       : "outline-primary"
                   }
-                  // ref={customerTypeName}
                   value={selectedProgressType}
                   onClick={() => handleProgressTypeClick(type)}
                 >
@@ -93,38 +121,38 @@ const HistoryModal = ({ onAddHistory }) => {
             <Form.Group>
               <Form.Label>일정시간</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="MM/DD"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                placeholder="YYYY-MM-DD"
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>장소</Form.Label>
               <Form.Control
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="장소 입력"
               />
             </Form.Group>
-
             <Form.Group>
-              <Form.Label>상담메모</Form.Label>
+              <Form.Label>Memo</Form.Label>
               <Form.Control
-                type="text"
-                value={memo}
-                onChange={(e) => setMemo(e.target.value)}
+                name="memo"
+                value={formData.memo}
+                onChange={handleChange}
+                placeholder="Memo"
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            취소
+            Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            저장
+            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

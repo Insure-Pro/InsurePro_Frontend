@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
+
 import CustomerDetail from "../components/CustomerDetail";
 import CustomerInfo from "../components/CustomerInfo"; // Assuming you have this component
 import CustomerHistory from "../components/CustomerHistory"; // Assuming you have this component
@@ -9,39 +10,47 @@ import HistoryModal from "../components/HistoryModal";
 import { useLocation } from "react-router-dom";
 
 const Detail = () => {
-  const [customerDetail, setCustomerDetail] = useState({});
-  const [customerHistories, setCustomerHistories] = useState([]);
   const location = useLocation();
   const { customerPk } = location.state;
+  const [customerDetail, setCustomerDetail] = useState({});
+  const [customerHistories, setCustomerHistories] = useState([]);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+
+  const handleCloseHistoryModal = () => setShowHistoryModal(false);
+  const handleShowHistoryModal = () => setShowHistoryModal(true);
 
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {
-        const url = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
-        const response = await axios.get(url, {
+        const urlDetail = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
+        const urlHistory = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
+
+        // 고객 세부 정보 요청
+        const responseDetail = await axios.get(urlDetail, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
-        if (response.data) {
-          setCustomerDetail(response.data);
-          //   console.log(response.data); // This will print the response data
+        if (responseDetail.data) {
+          setCustomerDetail(responseDetail.data);
+        }
+        // 고객의 일정 정보 요청
+        const responseHistory = await axios.get(urlHistory, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+
+        if (responseHistory.data) {
+          setCustomerHistories(responseHistory.data);
         }
       } catch (error) {
-        console.error("Error fetching customer detail:", error.message);
+        console.error("Error fetching data:", error.message);
       }
     };
+
     fetchCustomerDetail();
   }, [customerPk]);
-
-  useEffect(() => {
-    console.log(customerHistories);
-    // console.log(customerDetail); // This will print the updated state
-  }, [customerDetail]);
-
-  const handleAddHistory = (history) => {
-    setCustomerHistories((prevHistories) => [history, ...prevHistories]);
-  };
 
   return (
     <div
@@ -52,15 +61,13 @@ const Detail = () => {
     >
       <Navbar />
       <div style={{ borderLeft: "2px solid #DDE1E6" }}>
-        {customerDetail && Object.keys(customerDetail).length > 0 && (
-          <>
-            <CustomerDetail info={customerDetail} />
-            <div style={{ display: "flex" }}>
-              <CustomerInfo info={customerDetail} />
-              <CustomerHistory history={customerHistories} />
-            </div>
-          </>
-        )}
+        <>
+          <CustomerDetail customerPk={customerPk} />
+          <div style={{ display: "flex" }}>
+            <CustomerInfo customerPk={customerPk} />
+          </div>
+          <CustomerHistory customerPk={customerPk} />
+        </>
       </div>
     </div>
   );

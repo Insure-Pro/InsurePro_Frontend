@@ -1,29 +1,40 @@
 import HistoryModal from "../components/HistoryModal";
-import { useRef, useState } from "react";
+import React from "react";
+import axios from "axios";
+import { useRef, useState, useEffect } from "react";
 
-const CustomerHistory = ({ histories }) => {
-  const [customerHistories, setCustomerHistories] = useState([]);
+const CustomerHistory = ({ customerPk }) => {
+  const [historyData, setHistoryData] = useState([]);
 
-  const handleAddHistory = (histories) => {
-    setCustomerHistories((prevHistories) => [histories, ...prevHistories]);
-  };
+  useEffect(() => {
+    const fetchCustomerHistory = async () => {
+      try {
+        const url = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setHistoryData(response.data);
+      } catch (error) {
+        console.error("Error fetching customer history:", error.message);
+      }
+    };
+    fetchCustomerHistory();
+  }, [customerPk]);
+
   return (
-    <div className="customerHistorySection">
-      <h3 className="CustomerHistory_title">
-        고객히스토리
-        <HistoryModal onAddHistory={handleAddHistory} />
-        {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
-      </h3>
-      <hr />
-      {/* {histories.map((history) => (
-        <div key={history.id} className="historyItem">
-          <span className="progress">{history.progress}</span>
-          <span className="historySpan">
-            {history.date} {history.location}
-          </span>
-          <p className="historyP">{history.memo}</p>
+    <div className="customer-history-container">
+      <h2>고객 일정</h2>
+      {historyData.map((history) => (
+        <div key={history.pk}>
+          <p>날짜: {history.date}</p>
+          <p>메모: {history.memo}</p>
+          <p>주소: {history.address}</p>
+          <p>진척도: {history.progress}</p>
         </div>
-      ))} */}
+      ))}
+      <HistoryModal customerPk={customerPk} />
     </div>
   );
 };

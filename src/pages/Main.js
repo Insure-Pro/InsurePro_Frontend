@@ -350,7 +350,7 @@ const Main = () => {
                     //   ? "#4FFA7A"
                     //   : "transparent",
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -360,7 +360,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle2,
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -370,7 +370,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle3,
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -380,7 +380,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle4,
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -390,7 +390,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle5,
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -400,7 +400,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle6,
                     border: customer.contractYn
-                      ? "1px solid #2E6CD7"
+                      ? "1px solid #84CAFF"
                       : "1px solid #DDDDDD",
                   }}
                 >

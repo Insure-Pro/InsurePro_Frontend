@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -7,11 +7,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
-const CustomerDetail = ({ info }) => {
-  console.log(CustomerDetail);
-
+const CustomerDetail = ({ customerPk }) => {
+  const [detailData, setDetailData] = useState({});
   const navigate = useNavigate();
-  //   console.log({ customer });
+
+  useEffect(() => {
+    const fetchCustomerDetail = async () => {
+      try {
+        const url = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setDetailData(response.data);
+      } catch (error) {
+        console.error("Fetching customer detail failed", error);
+      }
+    };
+    fetchCustomerDetail();
+  }, [customerPk]);
+
   return (
     <div className="customer-detail-container">
       <div className="backpage">
@@ -44,14 +60,14 @@ const CustomerDetail = ({ info }) => {
           }}
           variant="success"
         >
-          {info.customerTypeString}
+          {detailData.customerTypeString}
         </Button>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 className="customerName">{info.name}</h2>
+          <h2 className="customerName">{detailData.name}</h2>
           <h2>
             <Form.Check
               aria-label="option 1"
-              checked={info.contractYn}
+              checked={detailData.contractYn}
               readOnly
               style={{ paddingTop: "8px", marginLeft: "12px" }}
             />
@@ -59,7 +75,7 @@ const CustomerDetail = ({ info }) => {
         </div>
 
         {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
-        <p className="customerPhone">{info.phone}</p>
+        <p className="customerPhone">{detailData.phone}</p>
       </div>
     </div>
   );
