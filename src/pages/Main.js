@@ -243,7 +243,7 @@ const Main = () => {
   };
 
   return (
-    <div style={{ width: "1300px", margin: "0 auto" }}>
+    <div style={{ width: "1400px", margin: "0 auto" }}>
       <div className="Db_container">
         <Dbbar onTypeChange={handleTypeChange}>
           <div

@@ -57,15 +57,24 @@ const Detail = () => {
       style={{
         display: "flex",
         backgroundColor: "#F5FAFF",
+        width: "1400px",
+        margin: "0 auto",
       }}
     >
       <Navbar />
-      <div style={{ borderLeft: "2px solid #DDE1E6" }}>
+      <div
+        style={{
+          marginLeft: "302px",
+          height: "100vh",
+        }}
+      >
         <>
           <CustomerDetail customerPk={customerPk} />
+          <hr />
           <div style={{ display: "flex" }}>
             <CustomerInfo customerPk={customerPk} />
           </div>
+          <hr />
           <CustomerHistory customerPk={customerPk} />
         </>
       </div>

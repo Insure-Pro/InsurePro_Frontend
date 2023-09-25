@@ -25,7 +25,17 @@ const CustomerHistory = ({ customerPk }) => {
 
   return (
     <div className="customer-history-container">
-      <h2>고객 일정</h2>
+      <div
+        className="customer-histoy-top"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "0px 26px",
+        }}
+      >
+        <h5>고객 히스토리</h5>
+        <HistoryModal customerPk={customerPk} />
+      </div>
       {historyData.map((history) => (
         <div key={history.pk}>
           <p>날짜: {history.date}</p>
@@ -34,7 +44,6 @@ const CustomerHistory = ({ customerPk }) => {
           <p>진척도: {history.progress}</p>
         </div>
       ))}
-      <HistoryModal customerPk={customerPk} />
     </div>
   );
 };

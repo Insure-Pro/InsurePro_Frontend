@@ -64,10 +64,10 @@ const Dbbar = ({ children, onTypeChange }) => {
       <div>
         <div className="navbar-container">
           <Navbar />
-          <div className="content">
+          <div className="content" style={{ marginLeft: "300px" }}>
             <h1 className="maintitle">{activeType}</h1>
             <Nav
-              className="유형바"
+              className="DbbarItem-container"
               variant="underline"
               defaultActiveKey="/home"
             >
@@ -81,7 +81,7 @@ const Dbbar = ({ children, onTypeChange }) => {
               ))}
             </Nav>
             <hr
-              style={{ marginTop: "-2px", marginLeft: "24px", height: "15px" }}
+              style={{ marginTop: "-2px", marginLeft: "8px", height: "15px" }}
             />
             {children}
           </div>
