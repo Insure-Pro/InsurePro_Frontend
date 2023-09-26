@@ -40,8 +40,30 @@ const Navbar = () => {
   return (
     <div className="vertical-navbar">
       <div className="brand">InsurePro</div>
-      <div className="userName" style={{ fontSize: "16px" }}>
-        {userName}님 환영합니다.
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="userName"
+          style={{
+            fontSize: "20px",
+            color: "#175CD3",
+            fontWeight: "700",
+            justifyItems: "center",
+          }}
+        >
+          {userName}
+        </div>
+        <div
+          className="userName"
+          style={{ fontSize: "16px", marginLeft: "2px" }}
+        >
+          님 환영합니다.
+        </div>
       </div>
 
       <div className="title">

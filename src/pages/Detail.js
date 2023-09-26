@@ -59,13 +59,14 @@ const Detail = () => {
         backgroundColor: "#F5FAFF",
         width: "1400px",
         margin: "0 auto",
+        borderRight: "2px solid #dde1e6",
       }}
     >
       <Navbar />
       <div
         style={{
           marginLeft: "302px",
-          height: "100vh",
+          height: "110vh",
         }}
       >
         <>

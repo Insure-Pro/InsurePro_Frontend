@@ -64,7 +64,14 @@ const Dbbar = ({ children, onTypeChange }) => {
       <div>
         <div className="navbar-container">
           <Navbar />
-          <div className="content" style={{ marginLeft: "300px" }}>
+          <div
+            className="content"
+            style={{
+              marginLeft: "300px",
+              height: "100vh",
+              borderRight: "2px solid #dde1e6",
+            }}
+          >
             <h1 className="maintitle">{activeType}</h1>
             <Nav
               className="DbbarItem-container"

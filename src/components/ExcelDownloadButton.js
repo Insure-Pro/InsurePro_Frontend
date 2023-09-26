@@ -1,6 +1,6 @@
 import React from "react";
 import * as XLSX from "xlsx";
-import excelIcon from "../external/icons8-excel-24.png";
+import excelIcon from "../external/icons8-excel-24 (1).png";
 
 const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
@@ -56,10 +56,10 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
     <button
       onClick={generateExcelFile}
       style={{
-        border: "1px solid #13AE5B",
+        border: "2px solid #13AE5B",
         borderRadius: "4px",
-        backgroundColor: "#13AE5B",
-        color: "#13AE5B",
+        backgroundColor: "#FFF",
+        color: "#FFF",
       }}
     >
       <img src={excelIcon}></img>
