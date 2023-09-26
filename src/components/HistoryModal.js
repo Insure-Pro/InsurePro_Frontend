@@ -55,7 +55,11 @@ function HistoryModal({ customerPk, onNewData }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        style={{ alignItems: "center" }}
+      >
         Edit
       </Button>
       <Modal show={show} onHide={handleClose}>
