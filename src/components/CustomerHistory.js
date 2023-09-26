@@ -9,7 +9,7 @@ const CustomerHistory = ({ customerPk }) => {
   useEffect(() => {
     const fetchCustomerHistory = async () => {
       try {
-        const url = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
+        const url = `http://52.79.81.200:8080/v1/schedules/${customerPk}`;
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -37,7 +37,10 @@ const CustomerHistory = ({ customerPk }) => {
         <HistoryModal customerPk={customerPk} />
       </div>
       {historyData.map((history) => (
-        <div key={history.pk}>
+        <div
+          key={history.pk}
+          style={{ display: "flex", margin: "4px", padding: "3px" }}
+        >
           <p>날짜: {history.date}</p>
           <p>메모: {history.memo}</p>
           <p>주소: {history.address}</p>

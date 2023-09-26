@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/buttons/Button";
 import Header from "../components/Header";
+import LoginImg from "../external/image 14.png";
 
 const Login = () => {
   const email = useRef("");
@@ -53,7 +54,7 @@ const Login = () => {
     >
       <div>
         <img
-          src="https://s3-alpha-sig.figma.com/img/2dcb/5471/483fecfc239e20faeb2c0d8321de25da?Expires=1695600000&Signature=OHO4ZcrLIzjxEIXeFjs~rQ-~llGH4GPqxmuEtiiAU24ggbE5OLqpWhWjj~qoPBo2mUltQxMeTxNoxE5W6SXghVVCC0ldmIQIaQTwvqaqv7jGYB8btoE-3jp9Ut0Secgy312UTA7SS~-UP9SNYiL9YEbbRH6octf9rU3g-LJodVo5Em2AKfh9o~DESasRsF3DaWs84EKw-TMh48KS6w~EjUNDAerN7Pt46~GBTFJZTSvO4k1sXKZMlW9mxWvO2d5cGYttkeYqgSh74WP9eLG-MiKevD47VvtOyxLU7MoYBuvm~zfCcf3mCcvr5Zi-91EEtpHmfZSEJRAmVDP4d4YPlQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+          src={LoginImg}
           style={{
             width: "60vw",
             height: "60vw",

@@ -6,35 +6,16 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import { useLocation } from "react-router-dom";
-
-const HistoryModal = ({ customerPk }) => {
+function HistoryModal({ customerPk }) {
   const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    memo: "",
-    date: "",
-    startTm: "",
-    finishTm: "",
-    address: "",
-    meetYn: false,
-    delYn: false,
-    // color: "#000000",
-    progress: "",
-  });
-
-  const formatToValidDate = (inputDate) => {
-    let cleanedDate = inputDate.replace(/[^0-9]/g, "");
-
-    if (cleanedDate.length !== 8) {
-      return null;
-    }
-    return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
-      4,
-      6
-    )}-${cleanedDate.substring(6, 8)}`;
-  };
-
+  const [date, setDate] = useState("");
+  const [address, setAddress] = useState("");
+  const [memo, setMemo] = useState("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
   const progressTypes = ["AP", "APC1", "APC2", "APC", "PC"];
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleProgressTypeClick = (type) => {
     if (selectedProgressType === type) {
@@ -43,46 +24,45 @@ const HistoryModal = ({ customerPk }) => {
       setSelectedProgressType(type);
     }
   };
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async () => {
+    const formData = {
+      date,
+      address,
+      memo,
+      progress: selectedProgressType,
+    };
+
     try {
-      const url = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
-      const response = await axios.post(url, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      if (response.status === 201) {
-        console.log("History added successfully");
-        handleClose();
-        // Optionally, you can refresh the CustomerHistory component or give some feedback to the user.
-      }
-    } catch (error) {
-      console.error("Failed to add history", error);
+      await axios.post(
+        `http://52.79.81.200:8080/v1/schedule/${customerPk}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      handleClose();
+    } catch (err) {
+      console.log(formData);
+      console.error("Error while submitting data", err);
     }
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        + Edit
+        Add History
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Customer History</Modal.Title>
+          <Modal.Title>Add History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <ButtonGroup>
               <div
                 style={{
@@ -117,47 +97,69 @@ const HistoryModal = ({ customerPk }) => {
                 </ToggleButton>
               ))}
             </ButtonGroup>
-
             <Form.Group>
               <Form.Label>일정시간</Form.Label>
               <Form.Control
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                placeholder="YYYY-MM-DD"
+                type="text"
+                placeholder="MM/DD"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>장소</Form.Label>
               <Form.Control
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder="장소 입력"
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Memo</Form.Label>
+              <Form.Label>메모</Form.Label>
               <Form.Control
-                name="memo"
-                value={formData.memo}
-                onChange={handleChange}
-                placeholder="Memo"
+                as="textarea"
+                rows={3}
+                value={memo}
+                onChange={(e) => setMemo(e.target.value)}
               />
             </Form.Group>
+
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
-};
+}
 
+// const formatToValidDate = (inputDate) => {
+//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
+
+//   if (cleanedDate.length !== 8) {
+//     return null;
+//   }
+//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
+//     4,
+//     6
+//   )}-${cleanedDate.substring(6, 8)}`;
+// };
 export default HistoryModal;
+// const formatToValidDate = (inputDate) => {
+//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
+
+//   if (cleanedDate.length !== 8) {
+//     return null;
+//   }
+//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
+//     4,
+//     6
+//   )}-${cleanedDate.substring(6, 8)}`;
+// };
