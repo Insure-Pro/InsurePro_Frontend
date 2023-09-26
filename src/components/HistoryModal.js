@@ -6,7 +6,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import { useLocation } from "react-router-dom";
-function HistoryModal({ customerPk }) {
+function HistoryModal({ customerPk, onNewData }) {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
@@ -46,6 +46,7 @@ function HistoryModal({ customerPk }) {
         }
       );
       handleClose();
+      onNewData();
     } catch (err) {
       console.log(formData);
       console.error("Error while submitting data", err);
@@ -55,7 +56,7 @@ function HistoryModal({ customerPk }) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Add History
+        Edit
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -130,7 +131,7 @@ function HistoryModal({ customerPk }) {
                 Close
               </Button>
               <Button variant="primary" type="submit">
-                Save Changes
+                저장
               </Button>
             </Modal.Footer>
           </Form>

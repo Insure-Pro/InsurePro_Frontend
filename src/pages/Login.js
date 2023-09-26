@@ -13,7 +13,7 @@ const Login = () => {
 
   const onLogin = () => {
     axios
-      .post("http://52.79.81.200:8080/v1/login", {
+      .post(" http://3.38.101.62:8080/v1/login", {
         email: email.current.value,
         password: password.current.value,
       })

@@ -8,7 +8,12 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
 const CustomerDetail = ({ customerPk }) => {
-  const [detailData, setDetailData] = useState({});
+  const [detailData, setDetailData] = useState({
+    customerTypeString: "",
+    name: "",
+    contractYn: "",
+    phone: "",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {

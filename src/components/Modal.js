@@ -112,7 +112,7 @@ function Modal1({ onModalClose }) {
     };
 
     axios
-      .post("http://52.79.81.200:8080/v1/customer", data, {
+      .post("http://3.38.101.62:8080/v1/customer", data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -125,6 +125,7 @@ function Modal1({ onModalClose }) {
           handleClose(); // Modal 창 닫기
         }
       })
+
       .catch((error) => {
         if (error.response && error.response.status === 401) {
           // accessToken 만료된 경우
@@ -146,6 +147,7 @@ function Modal1({ onModalClose }) {
               console.error("토큰 갱신 실패:", tokenError.message);
             });
         } else {
+          console.log(data);
           console.error("API 요청 에러:", error.message);
         }
       });

@@ -40,7 +40,7 @@ const Signup = () => {
     // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
-        .post("http://52.79.81.200:8080/v1/employee/signin/", {
+        .post("http://3.38.101.62:8080/v1/employee/signin/", {
           name: userName.current.value,
           email: email.current.value,
           id: usernum.current.value,

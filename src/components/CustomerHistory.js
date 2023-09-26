@@ -6,20 +6,21 @@ import { useRef, useState, useEffect } from "react";
 const CustomerHistory = ({ customerPk }) => {
   const [historyData, setHistoryData] = useState([]);
 
+  const fetchCustomerHistory = async () => {
+    try {
+      const url = `http://52.79.81.200:8080/v1/schedules/${customerPk}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setHistoryData(response.data);
+    } catch (error) {
+      console.error("Error fetching customer history:", error.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchCustomerHistory = async () => {
-      try {
-        const url = `http://52.79.81.200:8080/v1/schedules/${customerPk}`;
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        setHistoryData(response.data);
-      } catch (error) {
-        console.error("Error fetching customer history:", error.message);
-      }
-    };
     fetchCustomerHistory();
   }, [customerPk]);
 
@@ -34,7 +35,10 @@ const CustomerHistory = ({ customerPk }) => {
         }}
       >
         <h5>고객 히스토리</h5>
-        <HistoryModal customerPk={customerPk} />
+        <HistoryModal
+          customerPk={customerPk}
+          onNewData={fetchCustomerHistory}
+        />
       </div>
       {historyData.map((history) => (
         <div
