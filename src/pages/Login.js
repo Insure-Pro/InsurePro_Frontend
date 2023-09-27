@@ -48,16 +48,18 @@ const Login = () => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "100vw",
-        height: "100vw",
+        margin: "0 auto",
+        width: "1360px",
+        height: "1024px",
+        borderRight: "2px solid #dde1e6",
       }}
     >
       <div>
         <img
           src={LoginImg}
           style={{
-            width: "60vw",
-            height: "60vw",
+            width: "800px",
+            height: "1024px",
           }}
         />
       </div>
@@ -83,6 +85,8 @@ const Login = () => {
               color: "#000000",
               opacity: "0.7",
               marginLeft: "30px",
+              fontSize: "20px",
+              fontWeight: "700",
             }}
           >
             아직 회원이 아니신가요?
@@ -94,6 +98,8 @@ const Login = () => {
               marginBottom: "50px",
               cursor: "pointer",
               marginLeft: "30px",
+              fontSize: "20px",
+              fontWeight: "700",
             }}
             onClick={() => navigate("/signup")}
           >
@@ -166,7 +172,8 @@ const StyledInputDiv = styled.div`
     margin-bottom: 30px;
     color: #000000;
     opacity: 0.8;
-    font-size: 16px;
+    font-size: 20px;
+
     font-weight: bold;
     outline: none;
     border: none;
@@ -174,7 +181,7 @@ const StyledInputDiv = styled.div`
   }
   span {
     font-family: "Do Hyeon", sans-serif;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: bold;
 
     margin: 2px;

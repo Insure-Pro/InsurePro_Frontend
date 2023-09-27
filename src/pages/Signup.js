@@ -129,17 +129,19 @@ const Signup = () => {
       style={{
         display: "flex",
         flexDirection: "row",
-        width: "1200px",
+        width: "1360px",
         margin: "0 auto",
-        height: "50vw",
+        height: "1024px",
+        borderRight: "2px solid #dde1e6",
+        // position: "center",
       }}
     >
       <div>
         <img
           src={LoginImg}
           style={{
-            width: "60vw",
-            height: "57vw",
+            width: "800px",
+            height: "1024px",
           }}
         />
       </div>
@@ -149,7 +151,9 @@ const Signup = () => {
         onSubmit={handleSubmit}
         style={{
           width: "50vw",
-          height: "50vw",
+          height: "1024px",
+          marginLeft: "48px",
+          // marginTop: "-50px",
         }}
       >
         {/* <StyledImgDiv>
