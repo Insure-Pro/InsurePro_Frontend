@@ -37,7 +37,7 @@ function HistoryModal({ customerPk, onNewData }) {
 
     try {
       await axios.post(
-        `http://52.79.81.200:8080/v1/schedule/${customerPk}`,
+        `http://3.38.101.62:8080/v1/schedule/${customerPk}`,
         formData,
         {
           headers: {
@@ -106,7 +106,7 @@ function HistoryModal({ customerPk, onNewData }) {
               <Form.Label>일정시간</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="MM/DD"
+                placeholder="YYYY-MM-DD"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />

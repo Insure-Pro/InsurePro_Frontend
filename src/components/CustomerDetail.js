@@ -19,7 +19,7 @@ const CustomerDetail = ({ customerPk }) => {
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {
-        const url = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
+        const url = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -35,7 +35,10 @@ const CustomerDetail = ({ customerPk }) => {
 
   return (
     <div className="customer-detail-container">
-      <div className="backpage">
+      <div
+        className="backpage"
+        style={{ marginTop: "30px", marginBottom: "20px" }}
+      >
         <span
           className="navigation"
           style={{ cursor: "pointer" }}

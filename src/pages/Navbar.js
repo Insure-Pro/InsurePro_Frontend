@@ -16,7 +16,7 @@ const Navbar = () => {
     // 서버에서 직원 정보를 가져오는 함수
     const fetchEmployeeName = async () => {
       try {
-        const response = await fetch("http://52.79.81.200:8080/v1/employee", {
+        const response = await fetch("http://3.38.101.62:8080/v1/employee", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

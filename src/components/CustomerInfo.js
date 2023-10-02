@@ -10,7 +10,7 @@ const CustomerInfo = ({ customerPk }) => {
   useEffect(() => {
     const fetchCustomerInfo = async () => {
       try {
-        const url = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
+        const url = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -24,28 +24,34 @@ const CustomerInfo = ({ customerPk }) => {
     fetchCustomerInfo();
   }, [customerPk]);
   return (
-    <div>
-      <div style={{ display: "flex" }}>
-        <hr />
+    <div style={{ margin: "-10px 0px" }}>
+      <div>
+        {/* <hr /> */}
         <div className="infoItem">
           <span>생년월일</span>
-          <span className="infoSpan">
+          <span className="infoSpan" style={{ marginLeft: "80px" }}>
             {infoData.birth} (만 {infoData.age}세)
           </span>
         </div>
         <div className="infoItem">
           <span>주소</span>
-          <span className="infoSpan">{infoData.address}</span>
+          <span className="infoSpan" style={{ marginLeft: "115px" }}>
+            {infoData.address}
+          </span>
         </div>
       </div>
-      <div style={{ display: "flex" }}>
+      <div>
         <div className="infoItem">
           <span>특이사항</span>
-          <span className="infoSpan">{infoData.memo}</span>
+          <span className="infoSpan" style={{ marginLeft: "80px" }}>
+            {infoData.memo}
+          </span>
         </div>
         <div className="infoItem">
           <span>고객 관리 시기</span>
-          <span className="infoSpan">{infoData.intensiveCareStartDate}</span>
+          <span className="infoSpan" style={{ marginLeft: "35px" }}>
+            {infoData.memo}
+          </span>
         </div>
       </div>
     </div>

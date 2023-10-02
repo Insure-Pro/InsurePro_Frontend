@@ -8,7 +8,7 @@ const CustomerHistory = ({ customerPk }) => {
 
   const fetchCustomerHistory = async () => {
     try {
-      const url = `http://52.79.81.200:8080/v1/schedules/${customerPk}`;
+      const url = `http://3.38.101.62:8080/v1/schedules/${customerPk}`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -35,6 +35,7 @@ const CustomerHistory = ({ customerPk }) => {
     marginLeft: "8px",
     borderRadius: "5px",
     color: "#175CD3",
+    fontSize: "20px",
     fontWeight: "700",
   };
   //시간,장소
@@ -46,6 +47,7 @@ const CustomerHistory = ({ customerPk }) => {
     marginLeft: "8px",
     borderRightRadius: "20px",
     borderRadius: "5px",
+    fontSize: "18px",
     fontWeight: "700",
     // borderRadius: "0 5px 5px 0",//오른쪽 모서리
   };
@@ -57,6 +59,7 @@ const CustomerHistory = ({ customerPk }) => {
     padding: "2px", // 아이템 내부 여백 조절
     marginBottom: "8px",
     marginLeft: "8px",
+    fontSize: "16px",
     borderRadius: "5px",
 
     // borderRadius: "5px 0 0 5px",// 왼쪽모서리
@@ -96,13 +99,13 @@ const CustomerHistory = ({ customerPk }) => {
           style={{
             display: "flex",
             alignItems: "center", // 진척도 가로축 가운데 정렬
-            width: "860px",
+            width: "780px",
             margin: "4px",
-            marginBottom: "12px",
-            marginLeft: "156px",
+            marginBottom: "16px",
+            marginLeft: "164px",
             padding: "3px",
             backgroundColor: "#FFF",
-            borderRadius: "50px",
+            borderRadius: "23px",
             boxShadow: "10px 4px 4px 0px rgba(46, 64, 97, 0.10)",
           }}
         >

@@ -57,6 +57,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
       onClick={generateExcelFile}
       style={{
         border: "2px solid #13AE5B",
+        padding: "3px 3px",
         borderRadius: "4px",
         backgroundColor: "#FFF",
         color: "#FFF",

@@ -141,7 +141,7 @@
   text-align: left;
 }
 .Add_Btn > button {
-  margin-top: -5px;
+  margin-top: -3px;
   margin-left: 8px;
   background-color: #175cd3;
   color: #fff;
@@ -218,15 +218,16 @@
 .infoItem {
   display: flex;
   flex-direction: row;
-  width: 450px;
+  width: 950px;
   align-items: start;
-  margin: 4px 24px;
+  margin: 6px 24px;
   font-size: 20px;
   font-weight: 700;
 }
 .infoSpan {
   color: #667085;
   font-weight: 400;
+  font-size: 20px;
   margin-left: 8px;
 }
 

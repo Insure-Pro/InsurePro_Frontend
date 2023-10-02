@@ -234,7 +234,7 @@ const Signup = () => {
               <button
                 onClick={() => {
                   axios
-                    .post("http://52.79.81.200:8080/v1/email", {
+                    .post("http://3.38.101.62:8080/v1/email", {
                       email: myEmail,
                     })
                     .then((결과) => {

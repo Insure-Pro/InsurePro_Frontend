@@ -22,8 +22,8 @@ const Detail = () => {
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {
-        const urlDetail = `http://52.79.81.200:8080/v1/customer/${customerPk}`;
-        const urlHistory = `http://52.79.81.200:8080/v1/schedule/${customerPk}`;
+        const urlDetail = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
+        const urlHistory = `http://3.38.101.62:8080/v1/schedule/${customerPk}`;
 
         // 고객 세부 정보 요청
         const responseDetail = await axios.get(urlDetail, {

@@ -209,12 +209,12 @@ const Main = () => {
     const fetchData = async () => {
       let url;
       if (selectedAge) {
-        url = `http://52.79.81.200:8080/v1/customers/age/${selectedAge}`;
+        url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
       } else {
         url =
           selectedSort === "latest"
-            ? "http://52.79.81.200:8080/v1/customers/latest"
-            : "http://52.79.81.200:8080/v1/customers/latest";
+            ? "http://3.38.101.62:8080/v1/customers/latest"
+            : "http://3.38.101.62:8080/v1/customers/latest";
       }
 
       try {
