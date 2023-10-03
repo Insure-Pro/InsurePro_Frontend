@@ -107,7 +107,9 @@ function HistoryModal({ customerPk, onNewData }) {
               ))}
             </ButtonGroup>
             <Form.Group>
-              <Form.Label>일정시간</Form.Label>
+              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+                일정시간
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="YYYY-MM-DD"
@@ -116,7 +118,9 @@ function HistoryModal({ customerPk, onNewData }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>장소</Form.Label>
+              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+                장소
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Address"
@@ -125,7 +129,9 @@ function HistoryModal({ customerPk, onNewData }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>메모</Form.Label>
+              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+                메모
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -136,7 +142,7 @@ function HistoryModal({ customerPk, onNewData }) {
 
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
-                Close
+                닫기
               </Button>
               <Button variant="primary" type="submit">
                 저장

@@ -57,9 +57,11 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
       style={{
         border: "1px solid #007F6D",
         padding: "4px 4px",
+        paddingBottom: "2px",
         borderRadius: "4px",
         backgroundColor: "#FFF",
         color: "#FFF",
+        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.20)",
       }}
     >
       <img src={excelIcon}></img>

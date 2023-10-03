@@ -57,6 +57,7 @@ const CustomerDetail = ({ customerPk }) => {
             display: "flex",
             width: "34px",
             height: "24px",
+            // margin: "12px 0px",
             padding: "4.84px 8.067px",
             justifyContent: "center",
             alignItems: "center",
