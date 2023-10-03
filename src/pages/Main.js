@@ -21,11 +21,13 @@ const Main = () => {
     backgroundColor: "#e0e0e0", // 연한 회색
     color: "black", // 글자색
     borderColor: "#b0b0b0", // 테두리 색
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
 
   const customDropdownItemStyles1 = {
     width: "100px", // 원하는 너비로 설정합니다.
     paddingLeft: "30px",
+
     // whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
     // overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
     // textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
@@ -40,6 +42,7 @@ const Main = () => {
     marginLeft: "8px",
     borderRightRadius: "20px",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
     // borderRadius: "0 5px 5px 0",//오른쪽 모서리
   };
   //고객유형
@@ -52,6 +55,7 @@ const Main = () => {
     marginLeft: "8px",
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
   };
   //이름
   const listItemStyle3 = {
@@ -63,6 +67,7 @@ const Main = () => {
     marginLeft: "8px",
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
   };
   //생년월일(나이)
   const listItemStyle4 = {
@@ -74,6 +79,7 @@ const Main = () => {
     marginLeft: "8px",
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
   };
   //연락처
   const listItemStyle5 = {
@@ -85,6 +91,7 @@ const Main = () => {
     marginLeft: "8px",
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
   };
   //거주지
   const listItemStyle6 = {
@@ -96,6 +103,7 @@ const Main = () => {
     marginLeft: "8px",
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
     // borderRadius: "5px 0 0 5px",// 왼쪽모서리
   };
   const listItemTitleStyle1 = {
@@ -111,6 +119,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
   const listItemTitleStyle2 = {
     flex: "none", // flex 속성 제거
@@ -124,6 +133,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
   const listItemTitleStyle3 = {
     flex: "none", // flex 속성 제거
@@ -138,6 +148,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
   const listItemTitleStyle4 = {
     flex: "none", // flex 속성 제거
@@ -152,6 +163,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
   const listItemTitleStyle5 = {
     flex: "none", // flex 속성 제거
@@ -166,6 +178,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
   const listItemTitleStyle6 = {
     flex: "none", // flex 속성 제거
@@ -180,6 +193,7 @@ const Main = () => {
     color: "#FFF",
     backgroundColor: "#175CD3",
     opacity: "0.9",
+    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
   };
 
   const navigate = useNavigate();
@@ -350,7 +364,7 @@ const Main = () => {
                     //   ? "#4FFA7A"
                     //   : "transparent",
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -360,7 +374,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle2,
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -370,7 +384,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle3,
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -380,7 +394,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle4,
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -390,7 +404,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle5,
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >
@@ -400,7 +414,7 @@ const Main = () => {
                   style={{
                     ...listItemStyle6,
                     border: customer.contractYn
-                      ? "1px solid #84CAFF"
+                      ? "1px solid #53B1FD"
                       : "1px solid #DDDDDD",
                   }}
                 >

@@ -58,9 +58,13 @@ function HistoryModal({ customerPk, onNewData }) {
       <Button
         variant="primary"
         onClick={handleShow}
-        style={{ alignItems: "center" }}
+        style={{
+          alignItems: "center",
+          backgroundColor: "#175CD3",
+          boxShadow: "5px 4px 4px 0px rgba(46, 64, 97, 0.30)",
+        }}
       >
-        Edit
+        + Add
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
