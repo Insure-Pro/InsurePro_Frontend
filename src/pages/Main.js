@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
+import EditModal from "../components/EditModal";
+
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -16,7 +18,10 @@ const Main = () => {
   const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
   const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
   const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
+  const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
     color: "black", // 글자색
@@ -198,6 +203,17 @@ const Main = () => {
 
   const navigate = useNavigate();
 
+  const handleEditClick = (customer) => {
+    setSelectedCustomer(customer);
+    setShowEditModal(true);
+  };
+
+  const handleEditModalClose = () => {
+    setShowEditModal(false);
+    setSelectedCustomer(null);
+    // Refresh customer data, if needed
+  };
+
   const handleCustomerClick = (customer) => {
     navigate("/detail", { state: { customerPk: customer.pk } });
   };
@@ -218,6 +234,7 @@ const Main = () => {
   const handleTypeChange = (type) => {
     setActiveType(type); // 선택된 유형 업데이트
   };
+  let pressTimer;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -252,8 +269,19 @@ const Main = () => {
     };
     fetchData();
   }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
+
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
+  };
+
+  const handleMouseDown = (customerId) => {
+    pressTimer = setTimeout(() => {
+      setShowOptions(customerId);
+    }, 1000);
+  };
+
+  const handleMouseUp = () => {
+    clearTimeout(pressTimer);
   };
 
   return (
@@ -353,76 +381,99 @@ const Main = () => {
           {customers
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
-              <ListGroup
-                horizontal
+              <div
                 key={customer.pk}
-                onClick={() => handleCustomerClick(customer)}
+                onMouseDown={() => handleMouseDown(customer.pk)}
+                onMouseUp={handleMouseUp}
+                onTouchStart={() => handleMouseDown(customer.pk)}
+                onTouchEnd={handleMouseUp}
               >
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle1,
-                    // backgroundColor: customer.contractYn
-                    //   ? "#4FFA7A"
-                    //   : "transparent",
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
+                <ListGroup
+                  horizontal
+                  key={customer.pk}
+                  onClick={() => handleCustomerClick(customer)}
                 >
-                  {customer.registerDate}
-                </ListGroup.Item>
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle2,
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
-                >
-                  {customer.customerTypeString}
-                </ListGroup.Item>
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle3,
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
-                >
-                  {customer.name}
-                </ListGroup.Item>
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle4,
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
-                >
-                  {customer.birth} 만 {customer.age}세
-                </ListGroup.Item>
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle5,
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
-                >
-                  {customer.phone}
-                </ListGroup.Item>
-                <ListGroup.Item
-                  style={{
-                    ...listItemStyle6,
-                    border: customer.contractYn
-                      ? "1px solid #53B1FD"
-                      : "1px solid #DDDDDD",
-                  }}
-                >
-                  {customer.address}
-                </ListGroup.Item>
-              </ListGroup>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle1,
+                      // backgroundColor: customer.contractYn
+                      //   ? "#4FFA7A"
+                      //   : "transparent",
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.registerDate}
+                  </ListGroup.Item>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle2,
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.customerTypeString}
+                  </ListGroup.Item>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle3,
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.name}
+                  </ListGroup.Item>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle4,
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.birth} 만 {customer.age}세
+                  </ListGroup.Item>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle5,
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.phone}
+                  </ListGroup.Item>
+                  <ListGroup.Item
+                    style={{
+                      ...listItemStyle6,
+                      border: customer.contractYn
+                        ? "1px solid #53B1FD"
+                        : "1px solid #DDDDDD",
+                    }}
+                  >
+                    {customer.address}
+                  </ListGroup.Item>
+                </ListGroup>
+                {showOptions === customer.pk && (
+                  <div>
+                    <button onClick={() => handleEditClick(customer)}>
+                      Edit
+                    </button>
+                    <button>Delete</button>
+                  </div>
+                )}
+              </div>
             ))}
+          {selectedCustomer && (
+            <EditModal
+              show={showEditModal}
+              onHide={handleEditModalClose}
+              selectedCustomer={selectedCustomer}
+            />
+          )}
         </Dbbar>
       </div>
     </div>
