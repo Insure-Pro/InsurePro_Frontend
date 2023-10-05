@@ -66,6 +66,7 @@ const CustomerDetail = ({ customerPk }) => {
             borderBlockWidth: "2px",
             borderRightWidth: "2px",
             borderLeftWidth: "2px",
+            // backgroundColor: "#175CD3",
           }}
           variant="success"
         >

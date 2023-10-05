@@ -105,7 +105,7 @@ const CustomerHistory = ({ customerPk }) => {
             marginLeft: "164px",
             padding: "3px",
             backgroundColor: "#FFF",
-            borderRadius: "23px",
+            borderRadius: "13px",
             boxShadow: "10px 4px 4px 0px rgba(46, 64, 97, 0.10)",
           }}
         >

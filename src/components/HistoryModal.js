@@ -68,7 +68,7 @@ function HistoryModal({ customerPk, onNewData }) {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add History</Modal.Title>
+          <Modal.Title>히스토리 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>

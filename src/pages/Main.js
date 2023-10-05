@@ -35,7 +35,7 @@ const Main = () => {
   //DB분배일
   const listItemStyle1 = {
     flex: "none", // flex 속성 제거
-    width: "270px",
+    width: "170px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -48,7 +48,7 @@ const Main = () => {
   //고객유형
   const listItemStyle2 = {
     flex: "none", // flex 속성 제거
-    width: "90px",
+    width: "110px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -60,7 +60,7 @@ const Main = () => {
   //이름
   const listItemStyle3 = {
     flex: "none", // flex 속성 제거
-    width: "70px",
+    width: "110px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -84,7 +84,7 @@ const Main = () => {
   //연락처
   const listItemStyle5 = {
     flex: "none", // flex 속성 제거
-    width: "150px",
+    width: "170px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -96,7 +96,7 @@ const Main = () => {
   //거주지
   const listItemStyle6 = {
     flex: "none", // flex 속성 제거
-    width: "250px",
+    width: "230px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -108,7 +108,7 @@ const Main = () => {
   };
   const listItemTitleStyle1 = {
     flex: "none", // flex 속성 제거
-    width: "270px",
+    width: "170px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -123,7 +123,7 @@ const Main = () => {
   };
   const listItemTitleStyle2 = {
     flex: "none", // flex 속성 제거
-    width: "90px",
+    width: "110px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -137,7 +137,7 @@ const Main = () => {
   };
   const listItemTitleStyle3 = {
     flex: "none", // flex 속성 제거
-    width: "70px",
+    width: "110px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -167,7 +167,7 @@ const Main = () => {
   };
   const listItemTitleStyle5 = {
     flex: "none", // flex 속성 제거
-    width: "150px",
+    width: "170px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -182,7 +182,7 @@ const Main = () => {
   };
   const listItemTitleStyle6 = {
     flex: "none", // flex 속성 제거
-    width: "250px",
+    width: "230px",
     textAlign: "center",
     padding: "13px", // 아이템 내부 여백 조절
     marginBottom: "8px",
@@ -265,6 +265,7 @@ const Main = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              paddingRight: "13px",
             }}
           >
             <div className="Add_Btn">
@@ -398,7 +399,7 @@ const Main = () => {
                       : "1px solid #DDDDDD",
                   }}
                 >
-                  {customer.birth} 만{customer.age}세
+                  {customer.birth} 만 {customer.age}세
                 </ListGroup.Item>
                 <ListGroup.Item
                   style={{
