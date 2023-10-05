@@ -22,6 +22,7 @@ function Modal1({ onModalClose }) {
   const address = useRef("");
   const phone = useRef("");
   const memo = useRef("");
+  const state = useRef("");
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
@@ -109,6 +110,7 @@ function Modal1({ onModalClose }) {
       phone: phone.current.value,
       contractYn: contractYn,
       memo: memo.current.value,
+      state: state.current.value,
     };
 
     axios
@@ -264,11 +266,24 @@ function Modal1({ onModalClose }) {
             >
               <Form.Label></Form.Label>
               <Form.Control
+                type="state"
+                ref={state}
+                placeholder="인수상태 | 상담중, 전산완료, 가입불가 등"
+                as="textarea"
+                rows={1}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-0"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label></Form.Label>
+              <Form.Control
                 type="memo"
                 ref={memo}
-                placeholder="메모"
+                placeholder="특이사항 | 월 보험료 00만원/본인점검/주말상담희망 등"
                 as="textarea"
-                rows={3}
+                rows={2}
               />
             </Form.Group>
             <Modal.Footer>

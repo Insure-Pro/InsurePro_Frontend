@@ -48,16 +48,9 @@ const CustomerInfo = ({ customerPk }) => {
           </span>
         </div>
         <div className="infoItem">
-          <span>고객 관리 시기</span>
-          <span className="infoSpan" style={{ marginLeft: "35px" }}>
-            {infoData.memo}
-          </span>
-        </div>
-        <div className="infoItem">
           <span>인수상태</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            명륜동/월납호험료:10만원/본인점검/조율 상담희망/ 담당자 통화후
-            일정조율
+            {infoData.state}
           </span>
         </div>
       </div>
