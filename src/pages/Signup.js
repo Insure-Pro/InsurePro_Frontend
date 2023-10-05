@@ -131,7 +131,7 @@ const Signup = () => {
         flexDirection: "row",
         width: "1360px",
         margin: "0 auto",
-        height: "1024px",
+        height: "920px",
         borderRight: "2px solid #dde1e6",
         // position: "center",
       }}
@@ -141,7 +141,7 @@ const Signup = () => {
           src={LoginImg}
           style={{
             width: "800px",
-            height: "1024px",
+            height: "920px",
           }}
         />
       </div>
@@ -150,9 +150,9 @@ const Signup = () => {
         encType="multipart/form-data"
         onSubmit={handleSubmit}
         style={{
-          width: "50vw",
-          height: "1024px",
-          marginLeft: "48px",
+          width: "560px",
+          height: "920px",
+          // marginLeft: "48px",
           // marginTop: "-50px",
         }}
       >
@@ -177,9 +177,9 @@ const Signup = () => {
               display: "flex",
               color: "#000000",
               marginLeft: "30px",
-              marginBottom: "20px",
               fontWeight: "bold",
               fontSize: "34px",
+              marginBottom: "20px",
             }}
           >
             {" "}
@@ -191,8 +191,8 @@ const Signup = () => {
               color: "#000000",
               opacity: "0.7",
               marginLeft: "30px",
-              cursor: "pointer",
               fontSize: "20px",
+              fontWeight: "700",
             }}
           >
             이미 회원이신가요?
@@ -205,6 +205,7 @@ const Signup = () => {
               marginLeft: "30px",
               cursor: "pointer",
               fontSize: "20px",
+              fontWeight: "700",
             }}
             onClick={() => navigate("/login")}
           >
@@ -251,7 +252,7 @@ const Signup = () => {
                   right: "5px",
                   margin: "8px 5px",
                   marginBottom: "30px",
-                  marginRight: "15px",
+                  marginRight: "45px",
                   borderRadius: "3px",
                   border: "none",
                   color: "#FFF",
@@ -283,14 +284,14 @@ const Signup = () => {
                   right: "5px",
                   margin: "8px 5px",
                   marginBottom: "30px",
-                  marginRight: "15px",
+                  marginRight: "45px",
                   borderRadius: "3px",
                   border: "none",
                   color: "#FFF",
                   backgroundColor: "#98A2B3",
                 }}
               >
-                재전송
+                확인
               </button>
             </div>
           </div>
@@ -358,39 +359,24 @@ const Signup = () => {
   );
 };
 
-const StyledImgDiv = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  .image-upload > input {
-    display: none;
-  }
-`;
-
 const StyledInputDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #aaa;
   margin: 5vh auto 20px;
-  margin-top: 100px;
-
+  margin-top: 60px;
   padding: 20px 2px;
-  width: 30vw;
-
+  width: 460px;
   border-radius: 15px;
+
   input {
-    width: 25vw;
+    width: 380px;
     height: 30px;
     margin: 8px 5px;
+    margin-left: -15px;
     margin-bottom: 15px;
     color: #000000;
     opacity: 0.8;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     outline: none;
     border: none;
@@ -414,10 +400,11 @@ const StyledInputDiv = styled.div`
 const StyledInput = styled.input`
   font-size: 25px;
   font-family: "Do Hyeon", sans-serif;
-  width: 35vw;
+  width: 430px;
   height: 40px;
   border: none;
   font-weight: bold;
+
   background-color: transparent;
   margin: 10px;
   color: #fff;
@@ -427,7 +414,7 @@ const StyledInput = styled.input`
 const StyledButtonDiv = styled.div`
   border-radius: 32px;
   display: flex;
-  width: 27vw;
+  width: 400px;
   align-items: center;
   background-color: #175cd3;
   color: #fff;

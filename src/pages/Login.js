@@ -48,9 +48,9 @@ const Login = () => {
       style={{
         display: "flex",
         flexDirection: "row",
-        margin: "0 auto",
         width: "1360px",
-        height: "1024px",
+        margin: "0 auto",
+        height: "920px",
         borderRight: "2px solid #dde1e6",
       }}
     >
@@ -59,11 +59,11 @@ const Login = () => {
           src={LoginImg}
           style={{
             width: "800px",
-            height: "1024px",
+            height: "920px",
           }}
         />
       </div>
-      <div style={{ marginTop: "110px", width: "50vw", height: "100vw" }}>
+      <div style={{ paddingTop: "110px", width: "560px", height: "920px" }}>
         {/* <Header /> */}
         {/* <StyledSpan>로그인</StyledSpan> */}
         <StyledInputDiv>
@@ -71,8 +71,9 @@ const Login = () => {
             style={{
               display: "flex",
               color: "#000000",
-              fontWeight: "bold",
               marginLeft: "30px",
+              fontWeight: "bold",
+              fontSize: "34px",
               marginBottom: "30px",
             }}
           >
@@ -97,8 +98,8 @@ const Login = () => {
               display: "flex",
               color: "#175CD3",
               marginBottom: "50px",
-              cursor: "pointer",
               marginLeft: "30px",
+              cursor: "pointer",
               fontSize: "20px",
               fontWeight: "700",
             }}
@@ -107,7 +108,7 @@ const Login = () => {
             회원가입 하러가기!
           </h3>
           <div>
-            <span style={{ display: "flex" }}>Email</span>
+            <span style={{ display: "flex", fontSize: "20px" }}>Email</span>
             <input
               style={{ display: "flex" }}
               type="email"
@@ -117,7 +118,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <span style={{ display: "flex" }}>Password</span>
+            <span style={{ display: "flex", fontSize: "20px" }}>Password</span>
             <input
               style={{ display: "flex" }}
               type="password"
@@ -150,23 +151,17 @@ const Login = () => {
   );
 };
 
-const StyledSpan = styled.span`
-  font-family: "Do Hyeon", sans-serif;
-  font-size: 30px;
-  color: #555;
-`;
-
 const StyledInputDiv = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #aaa;
   margin: 5vh auto 20px;
   margin-top: 70px;
   padding: 20px 10px;
-  width: 30vw;
-
+  width: 460px;
   border-radius: 15px;
+
   input {
-    width: 25vw;
+    width: 380px;
     height: 30px;
     margin: 8px 5px;
     margin-left: 30px;
@@ -174,7 +169,6 @@ const StyledInputDiv = styled.div`
     color: #000000;
     opacity: 0.8;
     font-size: 20px;
-
     font-weight: bold;
     outline: none;
     border: none;
@@ -199,7 +193,7 @@ const StyledInputDiv = styled.div`
 const StyledInput = styled.input`
   font-size: 25px;
   font-family: "Do Hyeon", sans-serif;
-  width: 35vw;
+  width: 430px;
   height: 40px;
   border: none;
   font-weight: bold;
@@ -213,7 +207,7 @@ const StyledInput = styled.input`
 const StyledButtonDiv = styled.div`
   border-radius: 32px;
   display: flex;
-  width: 27vw;
+  width: 400px;
   align-items: center;
   background-color: #175cd3;
   color: #fff;
