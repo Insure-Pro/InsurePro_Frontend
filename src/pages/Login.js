@@ -32,14 +32,12 @@ const Login = () => {
             );
           }
         } else {
-          alert(
-            "서버와 연결에 실패했습니다. 이메일과 비밀번호를 확인해주세요."
-          );
+          alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
         }
       })
       .catch((error) => {
         console.error("Login error:", error);
-        alert("서버와 연결에 실패했습니다.");
+        alert("로그인에 실패했습니다.");
       });
   };
 

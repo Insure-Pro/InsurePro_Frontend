@@ -119,7 +119,7 @@ const Navbar = () => {
         <div className="navbar-item" onClick={() => navigate("/main")}>
           전체
         </div>
-        <div className="navbar-item">관리고객</div>
+        <div className="navbar-item">월별고객</div>
         <div className="navbar-item">계약완료고객</div>
       </>
     </div>

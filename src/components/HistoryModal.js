@@ -12,7 +12,7 @@ function HistoryModal({ customerPk, onNewData }) {
   const [address, setAddress] = useState("");
   const [memo, setMemo] = useState("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
-  const progressTypes = ["AP", "APC1", "APC2", "APC", "PC"];
+  const progressTypes = ["TA", "AP", "PT", "PC"];
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

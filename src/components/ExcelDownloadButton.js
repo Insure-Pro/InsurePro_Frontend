@@ -57,7 +57,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
       style={{
         border: "1px solid #007F6D",
         padding: "4px 4px",
-        paddingBottom: "2px",
+        paddingBottom: "2px", //아래쪽만 2px로 수정
         borderRadius: "4px",
         backgroundColor: "#FFF",
         color: "#FFF",
