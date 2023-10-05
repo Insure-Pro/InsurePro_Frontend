@@ -252,7 +252,7 @@ const Signup = () => {
                   right: "5px",
                   margin: "8px 5px",
                   marginBottom: "30px",
-                  marginRight: "45px",
+                  marginRight: "35px",
                   borderRadius: "3px",
                   border: "none",
                   color: "#FFF",
@@ -284,7 +284,7 @@ const Signup = () => {
                   right: "5px",
                   margin: "8px 5px",
                   marginBottom: "30px",
-                  marginRight: "45px",
+                  marginRight: "35px",
                   borderRadius: "3px",
                   border: "none",
                   color: "#FFF",
@@ -364,7 +364,7 @@ const StyledInputDiv = styled.div`
   color: #aaa;
   margin: 5vh auto 20px;
   margin-top: 60px;
-  padding: 20px 2px;
+  padding: 20px 10px;
   width: 460px;
   border-radius: 15px;
 
@@ -372,7 +372,7 @@ const StyledInputDiv = styled.div`
     width: 380px;
     height: 30px;
     margin: 8px 5px;
-    margin-left: -15px;
+    margin-left: 6px;
     margin-bottom: 15px;
     color: #000000;
     opacity: 0.8;
