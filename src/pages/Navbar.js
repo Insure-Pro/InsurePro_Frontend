@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
+import exitIcon from "../external/exit.png";
 
 const Navbar = () => {
   const [showItems, setShowItems] = useState(false);
@@ -10,6 +11,30 @@ const Navbar = () => {
   const navigate = useNavigate();
   const toggleItems = () => {
     setShowItems(!showItems);
+  };
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://3.38.101.62:8080/v1/logout",
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Logout successful");
+        localStorage.removeItem("accessToken"); // 토큰 삭제
+        navigate("/login"); // 로그인 페이지로 리다이렉션
+      }
+    } catch (error) {
+      console.error("Logout failed", error);
+      if (error.response && error.response.data) {
+        console.error("Error message:", error.response.data.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -64,6 +89,12 @@ const Navbar = () => {
         >
           님 환영합니다.
         </div>
+        <img
+          className="userName"
+          src={exitIcon}
+          style={{ paddingLeft: "16px", cursor: "pointer" }}
+          onClick={handleLogout}
+        />
       </div>
 
       <div className="title">
