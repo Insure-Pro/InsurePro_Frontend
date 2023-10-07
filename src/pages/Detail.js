@@ -13,7 +13,8 @@ const Detail = () => {
   const location = useLocation();
   const { customerPk } = location.state;
   const [customerDetail, setCustomerDetail] = useState({});
-  const [customerHistories, setCustomerHistories] = useState([]);
+  const [customerSchedules, setCustomerSchedules] = useState({});
+
   const [showHistoryModal, setShowHistoryModal] = useState(false);
 
   const handleCloseHistoryModal = () => setShowHistoryModal(false);
@@ -22,34 +23,38 @@ const Detail = () => {
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {
-        const urlDetail = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
-        const urlHistory = `http://3.38.101.62:8080/v1/schedule/${customerPk}`;
-
-        // 고객 세부 정보 요청
-        const responseDetail = await axios.get(urlDetail, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        if (responseDetail.data) {
-          setCustomerDetail(responseDetail.data);
-        }
-        // 고객의 일정 정보 요청
-        const responseHistory = await axios.get(urlHistory, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-
-        if (responseHistory.data) {
-          setCustomerHistories(responseHistory.data);
-        }
+        const response = await axios.get(
+          `http://3.38.101.62:8080/v1/customer/${customerPk}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setCustomerDetail(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("Error fetching customer detail:", error);
+      }
+    };
+
+    const fetchCustomerSchedules = async () => {
+      try {
+        const response = await axios.get(
+          `http://3.38.101.62:8080/v1/schedules/${customerPk}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setCustomerSchedules(response.data);
+      } catch (error) {
+        console.error("Error fetching customer schedules:", error);
       }
     };
 
     fetchCustomerDetail();
+    fetchCustomerSchedules();
   }, [customerPk]);
 
   return (
@@ -70,13 +75,13 @@ const Detail = () => {
         }}
       >
         <>
-          <CustomerDetail customerPk={customerPk} />
+          <CustomerDetail data={customerDetail} customerPk={customerPk} />
           <hr />
           <div style={{ display: "flex" }}>
-            <CustomerInfo customerPk={customerPk} />
+            <CustomerInfo data={customerDetail} customerPk={customerPk} />
           </div>
           <hr />
-          <CustomerHistory customerPk={customerPk} />
+          <CustomerHistory data={customerSchedules} customerPk={customerPk} />
         </>
       </div>
     </div>

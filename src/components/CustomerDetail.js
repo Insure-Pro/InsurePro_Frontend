@@ -7,31 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
-const CustomerDetail = ({ customerPk }) => {
-  const [detailData, setDetailData] = useState({
-    customerTypeString: "",
-    name: "",
-    contractYn: "",
-    phone: "",
-  });
+const CustomerDetail = ({ data }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchCustomerDetail = async () => {
-      try {
-        const url = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        setDetailData(response.data);
-      } catch (error) {
-        console.error("Fetching customer detail failed", error);
-      }
-    };
-    fetchCustomerDetail();
-  }, [customerPk]);
 
   return (
     <div className="customer-detail-container">
@@ -70,14 +47,14 @@ const CustomerDetail = ({ customerPk }) => {
           }}
           variant="success"
         >
-          {detailData.customerTypeString}
+          {data.customerTypeString}
         </Button>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 className="customerName">{detailData.name}</h2>
+          <h2 className="customerName">{data.name}</h2>
           <h2>
             <Form.Check
               aria-label="option 1"
-              checked={detailData.contractYn}
+              checked={data.contractYn}
               readOnly
               style={{ paddingTop: "8px", marginLeft: "12px" }}
             />
@@ -85,7 +62,7 @@ const CustomerDetail = ({ customerPk }) => {
         </div>
 
         {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
-        <p className="customerPhone">{detailData.phone}</p>
+        <p className="customerPhone">{data.phone}</p>
       </div>
     </div>
   );

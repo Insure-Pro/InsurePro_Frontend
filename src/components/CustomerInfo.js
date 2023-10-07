@@ -4,25 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const CustomerInfo = ({ customerPk }) => {
-  const [infoData, setInfoData] = useState({});
-
-  useEffect(() => {
-    const fetchCustomerInfo = async () => {
-      try {
-        const url = `http://3.38.101.62:8080/v1/customer/${customerPk}`;
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-        setInfoData(response.data);
-      } catch (error) {
-        console.error("Fetching customer info failed", error);
-      }
-    };
-    fetchCustomerInfo();
-  }, [customerPk]);
+const CustomerInfo = ({ data }) => {
   return (
     <div style={{ margin: "-10px 0px" }}>
       <div>
@@ -30,13 +12,13 @@ const CustomerInfo = ({ customerPk }) => {
         <div className="infoItem">
           <span>생년월일</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {infoData.birth} (만 {infoData.age}세)
+            {data.birth} (만 {data.age}세)
           </span>
         </div>
         <div className="infoItem">
           <span>주소</span>
           <span className="infoSpan" style={{ marginLeft: "115px" }}>
-            {infoData.address}
+            {data.address}
           </span>
         </div>
       </div>
@@ -44,13 +26,13 @@ const CustomerInfo = ({ customerPk }) => {
         <div className="infoItem">
           <span>특이사항</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {infoData.memo}
+            {data.memo}
           </span>
         </div>
         <div className="infoItem">
           <span>인수상태</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {infoData.state}
+            {data.state}
           </span>
         </div>
       </div>
