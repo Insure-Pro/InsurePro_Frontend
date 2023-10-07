@@ -203,17 +203,6 @@ const Main = () => {
 
   const navigate = useNavigate();
 
-  const handleEditClick = (customer) => {
-    setSelectedCustomer(customer);
-    setShowEditModal(true);
-  };
-
-  const handleEditModalClose = () => {
-    setShowEditModal(false);
-    setSelectedCustomer(null);
-    // Refresh customer data, if needed
-  };
-
   const handleCustomerClick = (customer) => {
     navigate("/detail", { state: { customerPk: customer.pk } });
   };
@@ -236,42 +225,57 @@ const Main = () => {
   };
   let pressTimer;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let url;
-      if (selectedAge) {
-        url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
-      } else {
-        url =
-          selectedSort === "latest"
-            ? "http://3.38.101.62:8080/v1/customers/latest"
-            : "http://3.38.101.62:8080/v1/customers/latest";
-      }
+  const fetchData = async () => {
+    let url;
+    if (selectedAge) {
+      url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
+    } else {
+      url =
+        selectedSort === "latest"
+          ? "http://3.38.101.62:8080/v1/customers/latest"
+          : "http://3.38.101.62:8080/v1/customers/latest";
+    }
 
-      try {
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      if (response.data && Array.isArray(response.data)) {
+        const filteredCustomers = response.data.filter((customer) => {
+          if (activeType === "All") {
+            return true;
+          }
+          return customer.customerTypeString === activeType;
         });
-        if (response.data && Array.isArray(response.data)) {
-          const filteredCustomers = response.data.filter((customer) => {
-            if (activeType === "All") {
-              return true;
-            }
-            return customer.customerTypeString === activeType;
-          });
-          setCustomers(filteredCustomers);
-        }
-      } catch (error) {
-        console.error("Error fetching customers:", error.message);
+        setCustomers(filteredCustomers);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching customers:", error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
+    fetchData();
+  };
+
+  const handleEditClick = (customer) => {
+    setSelectedCustomer(customer);
+    setShowEditModal(true);
+    fetchData();
+  };
+
+  const handleEditModalClose = () => {
+    setShowEditModal(false);
+    setSelectedCustomer(null);
+    fetchData();
+    // Refresh customer data, if needed
   };
 
   const handleMouseDown = (customerId) => {
@@ -472,6 +476,7 @@ const Main = () => {
               show={showEditModal}
               onHide={handleEditModalClose}
               selectedCustomer={selectedCustomer}
+              onClose={handleModalClose}
             />
           )}
         </Dbbar>

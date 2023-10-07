@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-const EditModal = ({ show, onHide, selectedCustomer }) => {
+const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const nameRef = useRef("");
   const registerDateRef = useRef("");
   const customerTypesNameRef = useRef("");
@@ -107,7 +107,7 @@ const EditModal = ({ show, onHide, selectedCustomer }) => {
         registerDate: registerDateRef.current.value,
         // Add other form data
       };
-      await axios.patch(
+      const response = await axios.patch(
         `http://3.38.101.62:8080/v1/customer/${selectedCustomer.pk}`,
         updatedData,
         {
@@ -116,6 +116,10 @@ const EditModal = ({ show, onHide, selectedCustomer }) => {
           },
         }
       );
+      // 데이터 업데이트 후 Main.js의 fetchData 함수를 호출하기 위해 onClose를 실행
+      if (response.status === 200) {
+        onClose();
+      }
       console.log(updatedData);
       // Handle success: close the modal, refresh data, etc.
       onHide(); // Close the modal
