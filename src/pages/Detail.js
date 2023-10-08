@@ -15,11 +15,6 @@ const Detail = () => {
   const [customerDetail, setCustomerDetail] = useState({});
   const [customerSchedules, setCustomerSchedules] = useState({});
 
-  const [showHistoryModal, setShowHistoryModal] = useState(false);
-
-  const handleCloseHistoryModal = () => setShowHistoryModal(false);
-  const handleShowHistoryModal = () => setShowHistoryModal(true);
-
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {

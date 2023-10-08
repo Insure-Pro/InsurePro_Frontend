@@ -12,26 +12,20 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const registerDateRef = useRef("");
   const customerTypesNameRef = useRef("");
   const birthRef = useRef("");
-  const ageRef = useRef("");
   const phoneRef = useRef("");
   const addressRef = useRef("");
   const stateRef = useRef("");
   const memoRef = useRef("");
 
-  const customerTypeName = useRef("");
-  const liPk = useRef("");
-  const name = useRef("");
-  const birth = useRef("");
-  const registerDate = useRef("");
-  const age = useRef("");
-  const address = useRef("");
-  const phone = useRef("");
-  const memo = useRef("");
-  const state = useRef("");
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
-  const [selectedCustomerType, setSelectedCustomerType] = useState("");
-  const [contractYn, setContractYn] = useState(false);
+  const [selectedCustomerType, setSelectedCustomerType] = useState(
+    selectedCustomer?.customerTypeString || ""
+  );
+
+  const [contractYn, setContractYn] = useState(
+    selectedCustomer?.contractYn || false
+  );
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
 
@@ -88,7 +82,9 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     //   alert("고객유형에 올바른 숫자를 입력해주세요.");
     //   return;
     // }
-
+    const birthValue = birthRef.current.value.replace(/\./g, "-");
+    const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
+    const ageValue = calculateKoreanAge(birthValue);
     // const birthValue = birth.current.value.replace(/\./g, "-");
     // const registerDateValue = registerDate.current.value.replace(/\./g, "-");
     // const ageValue = calculateKoreanAge(birthValue);
@@ -100,11 +96,13 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         name: nameRef.current.value,
         birth: birthRef.current.value,
         phone: phoneRef.current.value,
+        age: ageValue,
         address: addressRef.current.value,
         state: stateRef.current.value,
         memo: memoRef.current.value,
-        // customerTypeName: customerTypesNameRef.current.value,
-        registerDate: registerDateRef.current.value,
+        contractYn: contractYn,
+        customerTypeName: selectedCustomerType,
+        registerDate: registerDateValue,
         // Add other form data
       };
       const response = await axios.patch(
@@ -120,6 +118,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
       if (response.status === 200) {
         onClose();
       }
+
       console.log(updatedData);
       // Handle success: close the modal, refresh data, etc.
       onHide(); // Close the modal
@@ -205,6 +204,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
               <Form.Check
                 type="checkbox"
                 label="계약 체결 여부"
+                defaultValue={selectedCustomer?.contractYn}
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
                 style={{
@@ -242,7 +242,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
                         ? "primary"
                         : "outline-primary"
                     }
-                    ref={customerTypeName}
                     value={selectedCustomerType}
                     onClick={() => handleCustomerTypeClick(type)}
                   >
