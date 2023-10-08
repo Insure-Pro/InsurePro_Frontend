@@ -223,7 +223,6 @@ const Main = () => {
   const handleTypeChange = (type) => {
     setActiveType(type); // 선택된 유형 업데이트
   };
-  let pressTimer;
 
   const fetchData = async () => {
     let url;
@@ -277,15 +276,30 @@ const Main = () => {
     fetchData();
     // Refresh customer data, if needed
   };
+  let pressTimer;
+  let longPressTriggered = false; // 길게 눌렸는지 확인하는 플래그를 추가
 
   const handleMouseDown = (customerId) => {
+    longPressTriggered = false; // 초기화
     pressTimer = setTimeout(() => {
-      setShowOptions(customerId);
+      setShowOptions(customerId); // 1초 후에 Edit, Delete 버튼을 보여줍니다.
+      longPressTriggered = true; // 길게 눌렸다는 것을 표시
     }, 1000);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (customer) => {
     clearTimeout(pressTimer);
+    // 만약 longPressTriggered가 false이면 (즉, 길게 누르지 않은 상태에서 MouseUp 이벤트가 발생하면)
+    if (!longPressTriggered) {
+      // 약간의 딜레이를 주어 setShowOptions에서의 상태 업데이트가 handleCustomerClick 호출보다 먼저 발생하도록 합니다.
+      setTimeout(() => {
+        if (!showOptions) {
+          handleCustomerClick(customer);
+        }
+      }, 50);
+    }
+    // 길게 눌렸든, 길게 눌리지 않았든, 상태를 초기화
+    longPressTriggered = false;
   };
 
   return (
@@ -388,14 +402,12 @@ const Main = () => {
               <div
                 key={customer.pk}
                 onMouseDown={() => handleMouseDown(customer.pk)}
-                onMouseUp={handleMouseUp}
-                onTouchStart={() => handleMouseDown(customer.pk)}
-                onTouchEnd={handleMouseUp}
+                onMouseUp={() => handleMouseUp(customer)}
               >
                 <ListGroup
                   horizontal
                   key={customer.pk}
-                  onClick={() => handleCustomerClick(customer)}
+                  // onClick={() => handleCustomerClick(customer)}
                 >
                   <ListGroup.Item
                     style={{
