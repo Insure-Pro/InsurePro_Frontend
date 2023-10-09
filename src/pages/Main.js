@@ -109,6 +109,9 @@ const Main = () => {
     borderLeft: "1px solid #ddd",
     borderRadius: "5px",
     boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
+    whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
+    overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
+    textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
     // borderRadius: "5px 0 0 5px",// 왼쪽모서리
   };
   const listItemTitleStyle1 = {
@@ -300,6 +303,7 @@ const Main = () => {
     fetchData();
     // Refresh customer data, if needed
   };
+
   let pressTimer;
   let longPressTriggered = false; // 길게 눌렸는지 확인하는 플래그를 추가
 
