@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import editIcon from "../external/edit.png";
 import "../App.css";
 
 const CustomerDetail = ({ data }) => {
@@ -49,16 +50,34 @@ const CustomerDetail = ({ data }) => {
         >
           {data.customerTypeString}
         </Button>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <h2 className="customerName">{data.name}</h2>
-          <h2>
-            <Form.Check
-              aria-label="option 1"
-              checked={data.contractYn}
-              readOnly
-              style={{ paddingTop: "8px", marginLeft: "12px" }}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h2 className="customerName">{data.name}</h2>
+            <h2>
+              <Form.Check
+                aria-label="option 1"
+                checked={data.contractYn}
+                readOnly
+                style={{ paddingTop: "8px", marginLeft: "12px" }}
+              />
+            </h2>
+          </div>
+          <div>
+            <img
+              className="userName"
+              src={editIcon}
+              style={{
+                paddingTop: "8px",
+                marginLeft: "12px",
+              }}
             />
-          </h2>
+          </div>
         </div>
 
         {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}

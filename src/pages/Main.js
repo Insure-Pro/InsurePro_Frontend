@@ -508,6 +508,7 @@ const Main = () => {
                         fontWeight: "bold",
                         height: "28px",
                         marginBottom: "6px",
+
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                       }}
                     >
@@ -521,6 +522,7 @@ const Main = () => {
                         fontWeight: "bold",
                         height: "28px",
                         marginBottom: "6px",
+
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                       }}
                     >
