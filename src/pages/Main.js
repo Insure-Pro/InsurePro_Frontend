@@ -255,6 +255,28 @@ const Main = () => {
     }
   };
 
+  const handleDeleteClick = async (customer) => {
+    try {
+      const response = await axios.patch(
+        `http://3.38.101.62:8080/v1/customer/${customer.pk}`,
+        {
+          delYn: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        // 이 곳에서 추가적인 작업 (상태 업데이트, UI 변경 등)을 수행할 수 있습니다.
+        fetchData(); // 수정된 데이터를 다시 불러옵니다.
+      }
+    } catch (error) {
+      console.error("Error deleting customer:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
@@ -273,6 +295,8 @@ const Main = () => {
   const handleEditModalClose = () => {
     setShowEditModal(false);
     setSelectedCustomer(null);
+    // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
+    setShowOptions(null);
     fetchData();
     // Refresh customer data, if needed
   };
@@ -401,6 +425,7 @@ const Main = () => {
             .map((customer) => (
               <div
                 key={customer.pk}
+                data-id={customer.pk} // 추가한 data-id 속성
                 onMouseDown={() => handleMouseDown(customer.pk)}
                 onMouseUp={() => handleMouseUp(customer)}
               >
@@ -475,10 +500,32 @@ const Main = () => {
                 </ListGroup>
                 {showOptions === customer.pk && (
                   <div>
-                    <button onClick={() => handleEditClick(customer)}>
-                      Edit
-                    </button>
-                    <button>Delete</button>
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => handleEditClick(customer)}
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: "bold",
+                        height: "28px",
+                        marginBottom: "6px",
+                        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                      }}
+                    >
+                      수정
+                    </Button>{" "}
+                    <Button
+                      variant="outline-danger"
+                      onClick={() => handleDeleteClick(customer)}
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: "bold",
+                        height: "28px",
+                        marginBottom: "6px",
+                        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                      }}
+                    >
+                      삭제
+                    </Button>{" "}
                   </div>
                 )}
               </div>
