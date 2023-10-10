@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -18,14 +18,17 @@ const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
 
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
-  const [selectedCustomerType, setSelectedCustomerType] = useState(
-    selectedCustomer?.customerTypeString || ""
-  );
-  //여기서 customerTypeString이 아닌 customerTypeName 이렇게 되어있어서 계속 오류 났음
+  const [selectedCustomerType, setSelectedCustomerType] = useState("");
+  const [contractYn, setContractYn] = useState(false);
 
-  const [contractYn, setContractYn] = useState(
-    selectedCustomer?.contractYn || false
-  );
+  // useEffect that updates state only when selectedCustomer changes
+  useEffect(() => {
+    if (selectedCustomer) {
+      console.log("EditModalD - selectedCustomer:", selectedCustomer);
+      setSelectedCustomerType(selectedCustomer?.customerTypeString || "");
+      setContractYn(selectedCustomer?.contractYn || false);
+    }
+  }, [selectedCustomer]);
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
 
@@ -149,7 +152,7 @@ const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
               <Form.Check
                 type="checkbox"
                 label="계약 체결 여부"
-                defaultValue={selectedCustomer?.contractYn}
+                // defaultValue={selectedCustomer?.contractYn}
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
                 style={{
