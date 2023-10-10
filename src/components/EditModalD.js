@@ -7,10 +7,9 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
+const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
   const nameRef = useRef("");
   const registerDateRef = useRef("");
-  const customerTypesNameRef = useRef("");
   const birthRef = useRef("");
   const phoneRef = useRef("");
   const addressRef = useRef("");
@@ -22,6 +21,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const [selectedCustomerType, setSelectedCustomerType] = useState(
     selectedCustomer?.customerTypeString || ""
   );
+  //여기서 customerTypeString이 아닌 customerTypeName 이렇게 되어있어서 계속 오류 났음
 
   const [contractYn, setContractYn] = useState(
     selectedCustomer?.contractYn || false
@@ -116,10 +116,10 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
       );
       // 데이터 업데이트 후 Main.js의 fetchData 함수를 호출하기 위해 onClose를 실행
       if (response.status === 200) {
-        onClose();
+        onClose(response.data);
       }
 
-      console.log("this is updatedData", updatedData);
+      console.log(updatedData);
       // Handle success: close the modal, refresh data, etc.
       onHide(); // Close the modal
     } catch (error) {
@@ -128,61 +128,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     }
   };
 
-  /////////
-  //     const data = {
-  //       customerTypeName: selectedCustomerType, // 선택된 고객 유형으로 설정
-  //       name: name.current.value,
-  //       birth: birthValue,
-  //       registerDate: registerDateValue,
-  //       age: ageValue,
-  //       address: address.current.value,
-  //       phone: phone.current.value,
-  //       contractYn: contractYn,
-  //       memo: memo.current.value,
-  //       state: state.current.value,
-  //     };
-
-  //     axios
-  //       .post("http://3.38.101.62:8080/v1/customer", data, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         if (response.status === 201) {
-  //           alert("신규고객 등록이 완료되었습니다.");
-  //           onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
-  //           handleClose(); // Modal 창 닫기
-  //         }
-  //       })
-
-  //       .catch((error) => {
-  //         if (error.response && error.response.status === 401) {
-  //           // accessToken 만료된 경우
-  //           axios
-  //             .post(
-  //               /* refreshToken을 사용하여 새 accessToken 요청 URL */ {
-  //                 refreshToken: localStorage.getItem("refreshToken"),
-  //               }
-  //             )
-  //             .then((tokenResponse) => {
-  //               // 새로 받은 accessToken을 저장하고 원래의 요청을 다시 시도
-  //               localStorage.setItem(
-  //                 "accessToken",
-  //                 tokenResponse.data.accessToken
-  //               );
-  //               handleSubmit(); // 원래의 요청을 다시 시도
-  //             })
-  //             .catch((tokenError) => {
-  //               console.error("토큰 갱신 실패:", tokenError.message);
-  //             });
-  //         } else {
-  //           console.log(data);
-  //           console.error("API 요청 에러:", error.message);
-  //         }
-  //       });
-  //   };
   return (
     <>
       <Modal show={show} onHide={onHide}>
@@ -333,4 +278,4 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   );
 };
 
-export default EditModal;
+export default EditModalD;

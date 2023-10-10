@@ -218,6 +218,7 @@ function Modal1({ onModalClose }) {
                     ref={customerTypeName}
                     value={selectedCustomerType}
                     onClick={() => handleCustomerTypeClick(type)}
+                    // style={{borderRadius: "5px 0 0 5px",}}
                   >
                     {type}
                   </ToggleButton>
