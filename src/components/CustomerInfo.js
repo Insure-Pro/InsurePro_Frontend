@@ -6,7 +6,7 @@ import EditModalD from "../components/EditModalD";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const CustomerInfo = ({ customer, onUpdateSuccess, data }) => {
+const CustomerInfo = ({ onUpdateSuccess, data }) => {
   const navigate = useNavigate();
   // Step 1: Add a state to manage the visibility of the EditModal
   const [showEditModal, setShowEditModal] = useState(false);
@@ -16,7 +16,6 @@ const CustomerInfo = ({ customer, onUpdateSuccess, data }) => {
 
   const handleUpdateSuccess = (updatedCustomerData) => {
     setSelectedCustomer(updatedCustomerData);
-    // 추가적인 로직...
   };
 
   return (

@@ -4,7 +4,7 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import exitIcon from "../external/exit.png";
 
-const Navbar = () => {
+const Navbar = ({ onContractCompleteClick }) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
 
@@ -116,11 +116,11 @@ const Navbar = () => {
         Client
       </div>
       <>
-        <div className="navbar-item" onClick={() => navigate("/main")}>
-          전체
-        </div>
+        <div className="navbar-item">전체</div>
         <div className="navbar-item">월별고객</div>
-        <div className="navbar-item">계약완료고객</div>
+        <div className="navbar-item" onClick={onContractCompleteClick}>
+          계약완료고객
+        </div>
       </>
     </div>
   );

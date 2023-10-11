@@ -19,7 +19,7 @@ const Main = () => {
   const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
   const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
-
+  const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const dropdownButtonStyles = {
@@ -229,7 +229,9 @@ const Main = () => {
 
   const fetchData = async () => {
     let url;
-    if (selectedAge) {
+    if (selectedContractYn != null) {
+      url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}`;
+    } else if (selectedAge) {
       url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
     } else {
       url =
@@ -284,6 +286,11 @@ const Main = () => {
     fetchData();
   }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
+  const handleContractCompleteClick = () => {
+    setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
+    fetchData(); // 데이터를 다시 불러옴
+  };
+
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
     fetchData();
@@ -333,7 +340,10 @@ const Main = () => {
   return (
     <div style={{ width: "1400px", margin: "0 auto" }}>
       <div className="Db_container">
-        <Dbbar onTypeChange={handleTypeChange}>
+        <Dbbar
+          onTypeChange={handleTypeChange}
+          onContractCompleteClick={handleContractCompleteClick}
+        >
           <div
             style={{
               display: "flex",
