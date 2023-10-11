@@ -18,6 +18,9 @@ const Detail = () => {
   const [customerData, setCustomerData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [showEditModalD, setShowEditModalD] = useState(false);
+
   useEffect(() => {
     const fetchCustomerDetail = async () => {
       try {
@@ -81,10 +84,40 @@ const Detail = () => {
     fetchData(); // 데이터 변경 후, fetchData를 호출하여 화면을 업데이트합니다.
   };
 
-  // `customerData`가 변경될 때, fetchData 함수가 실행되어야 합니다.
+  const fetchCustomer = async () => {
+    try {
+      const response = await axios.get(
+        `http://3.38.101.62:8080/v1/customer/${customerPk}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (response.data) {
+        setSelectedCustomer(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching customer:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
-  }, [customerData]);
+    fetchCustomer();
+  }, [customerPk]);
+
+  const handleEditClick = () => {
+    setShowEditModalD(true);
+  };
+
+  const handleUpdateSuccess = (updatedCustomer) => {
+    try {
+      setSelectedCustomer(updatedCustomer);
+    } catch (error) {
+      console.error("Error in handleUpdateSuccess:", error);
+    }
+  };
 
   return (
     <div
@@ -103,20 +136,36 @@ const Detail = () => {
           height: "110vh",
         }}
       >
-        <>
-          <CustomerDetail data={customerDetail} customerPk={customerPk} />
-          <hr />
-          <div style={{ display: "flex" }}>
-            <CustomerInfo data={customerDetail} customerPk={customerPk} />
-          </div>
-          <hr />
-          <CustomerHistory data={customerSchedules} customerPk={customerPk} />
-          <EditModalD
-            isOpen={isModalOpen}
-            onClose={handleModalClose}
-            data={customerData}
-          />
-        </>
+        {selectedCustomer && (
+          <>
+            <CustomerDetail
+              data={selectedCustomer}
+              customer={selectedCustomer}
+              onEditClick={handleEditClick}
+              customerPk={customerPk}
+              onUpdateSuccess={handleUpdateSuccess}
+            />
+            <hr />
+            <div style={{ display: "flex" }}>
+              <CustomerInfo
+                data={customerDetail}
+                customer={selectedCustomer}
+                customerPk={customerPk}
+              />
+            </div>
+            <hr />
+            <CustomerHistory data={customerSchedules} customerPk={customerPk} />
+            <EditModalD
+              show={showEditModalD}
+              onHide={() => setShowEditModalD(false)}
+              selectedCustomer={selectedCustomer}
+              onUpdateSuccess={handleUpdateSuccess}
+              // isOpen={isModalOpen}
+              // onClose={handleModalClose}
+              // data={customerData}
+            />
+          </>
+        )}
       </div>
     </div>
   );

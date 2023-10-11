@@ -4,10 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import PropTypes from "prop-types";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
+const EditModalD = ({
+  onClose,
+  show,
+  onHide,
+  selectedCustomer,
+  onUpdateSuccess,
+}) => {
   const nameRef = useRef("");
   const registerDateRef = useRef("");
   const birthRef = useRef("");
@@ -20,6 +27,13 @@ const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
+
+  EditModalD.propTypes = {
+    show: PropTypes.bool.isRequired,
+    onHide: PropTypes.func.isRequired,
+    selectedCustomer: PropTypes.object.isRequired,
+    onUpdateSuccess: PropTypes.func.isRequired,
+  };
 
   // useEffect that updates state only when selectedCustomer changes
   useEffect(() => {
@@ -81,18 +95,10 @@ const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
     if (event) {
       event.preventDefault();
     }
-    // if (!Number.isSafeInteger(Number(customerTypeName.current.value))) {
-    //   alert("고객유형에 올바른 숫자를 입력해주세요.");
-    //   return;
-    // }
+
     const birthValue = birthRef.current.value.replace(/\./g, "-");
     const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-    // const birthValue = birth.current.value.replace(/\./g, "-");
-    // const registerDateValue = registerDate.current.value.replace(/\./g, "-");
-    // const ageValue = calculateKoreanAge(birthValue);
-    // customerTypeName.current.value = selectedCustomerType;
-    // phone.current = phone.current; // phone Ref를 업데이트하지 않음
 
     try {
       const updatedData = {
@@ -117,14 +123,24 @@ const EditModalD = ({ onClose, show, onHide, selectedCustomer }) => {
           },
         }
       );
+      // Assuming response.data contains the updated customer data
+      const updatedCustomer = response.data;
       // 데이터 업데이트 후 Main.js의 fetchData 함수를 호출하기 위해 onClose를 실행
       if (response.status === 200) {
-        onClose(response.data);
-      }
+        // Check if onUpdateSuccess is defined and is a function
+        if (onUpdateSuccess && typeof onUpdateSuccess === "function") {
+          onUpdateSuccess(updatedCustomer);
+        } else {
+          console.error(
+            "onUpdateSuccess is not defined or not a function. Got:",
+            onUpdateSuccess
+          );
+        }
 
-      console.log(updatedData);
-      // Handle success: close the modal, refresh data, etc.
-      onHide(); // Close the modal
+        console.log(updatedData);
+        // Handle success: close the modal, refresh data, etc.
+        onHide();
+      } // Close the modal
     } catch (error) {
       // Handle error: display error message, etc.
       console.error("Error updating customer:", error);

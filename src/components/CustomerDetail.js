@@ -9,7 +9,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import editIcon from "../external/edit.png";
 import "../App.css";
 
-const CustomerDetail = ({ data }) => {
+const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
   const navigate = useNavigate();
   // Step 1: Add a state to manage the visibility of the EditModal
   const [showEditModal, setShowEditModal] = useState(false);
@@ -18,6 +18,10 @@ const CustomerDetail = ({ data }) => {
   // Step 2: Add an event handler that sets showEditModal to true when the edit icon is clicked
   const handleEditClick = () => {
     setShowEditModal(true);
+  };
+  const handleUpdateSuccess = (updatedCustomerData) => {
+    setSelectedCustomer(updatedCustomerData);
+    // 추가적인 로직...
   };
 
   const handleModalClose = () => {
@@ -101,7 +105,10 @@ const CustomerDetail = ({ data }) => {
                 setSelectedCustomer(updatedData);
               }}
               onHide={() => setShowEditModal(false)}
-              selectedCustomer={data} // Pass the customer data to the EditModal
+              selectedCustomer={data}
+              onUpdateSuccess={onUpdateSuccess}
+
+              // selectedCustomer={data} // Pass the customer data to the EditModal
             />
           </div>
         </div>
