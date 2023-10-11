@@ -227,6 +227,13 @@ const Main = () => {
     setActiveType(type); // 선택된 유형 업데이트
   };
 
+  const handleAllCustomersClick = () => {
+    setSelectedContractYn(null);
+    setSelectedAge("");
+    setSelectedSort("latest");
+    fetchData(); // 데이터를 다시 불러옴
+  };
+
   const fetchData = async () => {
     let url;
     if (selectedContractYn != null) {
@@ -343,6 +350,7 @@ const Main = () => {
         <Dbbar
           onTypeChange={handleTypeChange}
           onContractCompleteClick={handleContractCompleteClick}
+          onAllCustomersClick={handleAllCustomersClick}
         >
           <div
             style={{

@@ -4,7 +4,7 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import exitIcon from "../external/exit.png";
 
-const Navbar = ({ onContractCompleteClick }) => {
+const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
 
@@ -62,6 +62,12 @@ const Navbar = ({ onContractCompleteClick }) => {
     fetchEmployeeName(); // 직원 정보를 가져오는 함수 호출
   }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
 
+  const handleAllCustomersClick = () => {
+    if (onAllCustomersClick) {
+      onAllCustomersClick();
+    }
+  };
+
   return (
     <div className="vertical-navbar">
       <div className="brand">InsurePro</div>
@@ -116,7 +122,9 @@ const Navbar = ({ onContractCompleteClick }) => {
         Client
       </div>
       <>
-        <div className="navbar-item">전체</div>
+        <div className="navbar-item" onClick={handleAllCustomersClick}>
+          전체
+        </div>
         <div className="navbar-item">월별고객</div>
         <div className="navbar-item" onClick={onContractCompleteClick}>
           계약완료고객

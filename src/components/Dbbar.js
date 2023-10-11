@@ -31,7 +31,12 @@ const DraggableNavItem = ({ item, index, moveItem }) => {
   );
 };
 
-const Dbbar = ({ onContractCompleteClick, children, onTypeChange }) => {
+const Dbbar = ({
+  onAllCustomersClick,
+  onContractCompleteClick,
+  children,
+  onTypeChange,
+}) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
     { key: "link-2", label: "OD" },
@@ -63,7 +68,10 @@ const Dbbar = ({ onContractCompleteClick, children, onTypeChange }) => {
     <DndProvider backend={HTML5Backend}>
       <div>
         <div className="navbar-container">
-          <Navbar onContractCompleteClick={onContractCompleteClick} />
+          <Navbar
+            onContractCompleteClick={onContractCompleteClick}
+            onAllCustomersClick={onAllCustomersClick}
+          />
           <div
             className="content"
             style={{
