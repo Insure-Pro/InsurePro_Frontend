@@ -148,9 +148,10 @@ const Detail = () => {
             <hr />
             <div style={{ display: "flex" }}>
               <CustomerInfo
-                data={customerDetail}
+                data={selectedCustomer}
                 customer={selectedCustomer}
                 customerPk={customerPk}
+                onUpdateSuccess={handleUpdateSuccess}
               />
             </div>
             <hr />
