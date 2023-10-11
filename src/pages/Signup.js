@@ -16,7 +16,20 @@ const Signup = () => {
   const passwordConfirm = useRef("");
   const navigate = useNavigate();
 
+  const [verificationMessage, setVerificationMessage] = useState(null);
+  const [isVerified, setIsVerified] = useState(false); // 인증이 완료되었는지 확인하는 상태 추가
+
   const [isCodeSent, setIsCodeSent] = useState(false);
+
+  const handleVerifyClick = () => {
+    if (myAuthNum === parseInt(authNumConfirm.current.value)) {
+      setIsVerified(true);
+      setVerificationMessage("본인 인증이 완료되었습니다");
+    } else {
+      setIsVerified(false);
+      setVerificationMessage("본인 인증에 실패하였습니다");
+    }
+  };
 
   const handleSendCodeClick = () => {
     axios
@@ -50,7 +63,7 @@ const Signup = () => {
   };
 
   // isCodeSent가 true일 때의 배경색 스타일
-  const activeButtonStyle = isCodeSent ? { backgroundColor: "blue" } : {};
+  const activeButtonStyle = isCodeSent ? { backgroundColor: "#175CD3" } : {};
 
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
@@ -277,23 +290,7 @@ const Signup = () => {
                 placeholder="이메일 입력하기"
               />
 
-              <button
-                onClick={handleSendCodeClick}
-                style={{
-                  position: "absolute",
-                  width: "70px",
-                  height: "25px",
-                  fontSize: "13px",
-                  right: "5px",
-                  margin: "8px 5px",
-                  marginBottom: "30px",
-                  marginRight: "35px",
-                  borderRadius: "3px",
-                  border: "none",
-                  color: "#FFF",
-                  backgroundColor: "#98A2B3",
-                }}
-              >
+              <button onClick={handleSendCodeClick} style={baseButtonStyle}>
                 {sendCodeButtonText}
               </button>
             </div>
@@ -312,10 +309,26 @@ const Signup = () => {
                 // }}
                 placeholder="본인 인증 코드를 입력해주세요"
               />
-              <button style={confirmButtonStyle} disabled={!isCodeSent}>
+              <button
+                style={confirmButtonStyle}
+                disabled={!isCodeSent}
+                onClick={handleVerifyClick}
+              >
                 확인
               </button>
             </div>
+            {verificationMessage && (
+              <div
+                style={{
+                  color: isVerified ? "blue" : "red",
+                  fontSize: "16px",
+                  marginTop: "-12px",
+                  textAlign: "center",
+                }}
+              >
+                {verificationMessage}
+              </div>
+            )}
           </div>
           <span style={{ display: "flex", fontSize: "20px" }}>Password</span>
           <div>
