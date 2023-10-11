@@ -16,6 +16,51 @@ const Signup = () => {
   const passwordConfirm = useRef("");
   const navigate = useNavigate();
 
+  const [isCodeSent, setIsCodeSent] = useState(false);
+
+  const handleSendCodeClick = () => {
+    axios
+      .post("http://3.38.101.62:8080/v1/email", {
+        email: myEmail,
+      })
+      .then((response) => {
+        setMyAuthNum(response.data.authNum);
+        setIsCodeSent(true); // 코드가 성공적으로 전송되었을 때만 상태를 true로 변경합니다.
+      })
+      .catch((error) => {
+        console.error("Error sending code:", error);
+        // 에러 핸들링 로직을 여기에 추가할 수 있습니다.
+      });
+  };
+
+  // 기존 스타일
+  const baseButtonStyle = {
+    position: "absolute",
+    width: "70px",
+    height: "25px",
+    fontSize: "13px",
+    right: "5px",
+    margin: "8px 5px",
+    marginBottom: "30px",
+    marginRight: "35px",
+    borderRadius: "3px",
+    border: "none",
+    color: "#FFF",
+    backgroundColor: "#98A2B3",
+  };
+
+  // isCodeSent가 true일 때의 배경색 스타일
+  const activeButtonStyle = isCodeSent ? { backgroundColor: "blue" } : {};
+
+  // 두 스타일 객체를 합칩니다.
+  const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
+
+  // const confirmButtonStyle = isCodeSent
+  //   ? { backgroundColor: 'blue' }
+  //   : { backgroundColor: 'grey' };
+
+  const sendCodeButtonText = isCodeSent ? "재전송" : "코드전송";
+
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
@@ -233,17 +278,7 @@ const Signup = () => {
               />
 
               <button
-                onClick={() => {
-                  axios
-                    .post("http://3.38.101.62:8080/v1/email", {
-                      email: myEmail,
-                    })
-                    .then((결과) => {
-                      setMyAuthNum(결과.data.authNum);
-                      //추후 수정할 떄 authNum비교 오류 여기서 usestatet
-                      //사용하지 말고, authNum 변수에 바로 할당하고 if문 돌려보기
-                    });
-                }}
+                onClick={handleSendCodeClick}
                 style={{
                   position: "absolute",
                   width: "70px",
@@ -259,13 +294,15 @@ const Signup = () => {
                   backgroundColor: "#98A2B3",
                 }}
               >
-                코드전송
+                {sendCodeButtonText}
               </button>
             </div>
           </div>
 
-          <span style={{ display: "flex" }}>본인 인증하기</span>
-          <div style={{ position: "relative" }}>
+          <span style={{ display: "flex", fontSize: "20px" }}>
+            본인 인증하기
+          </span>
+          <div style={{ position: "relative", fontSize: "20px" }}>
             <div>
               <input
                 type="authNum"
@@ -275,27 +312,12 @@ const Signup = () => {
                 // }}
                 placeholder="본인 인증 코드를 입력해주세요"
               />
-              <button
-                style={{
-                  position: "absolute",
-                  width: "70px",
-                  height: "25px",
-                  fontSize: "13px",
-                  right: "5px",
-                  margin: "8px 5px",
-                  marginBottom: "30px",
-                  marginRight: "35px",
-                  borderRadius: "3px",
-                  border: "none",
-                  color: "#FFF",
-                  backgroundColor: "#98A2B3",
-                }}
-              >
+              <button style={confirmButtonStyle} disabled={!isCodeSent}>
                 확인
               </button>
             </div>
           </div>
-          <span style={{ display: "flex" }}>Password</span>
+          <span style={{ display: "flex", fontSize: "20px" }}>Password</span>
           <div>
             <input
               type="password"
