@@ -41,7 +41,7 @@ const Search = ({ setCustomers }) => {
     >
       <input
         type="name"
-        placeholder="검색하려는 이름을 입력해주세요"
+        placeholder="검색하려는 이름을 입력해주세요."
         style={{
           display: "flex",
           width: "250px",

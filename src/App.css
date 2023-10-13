@@ -66,7 +66,9 @@
 .navbar-item:hover:not(.brand) {
   color: #175cd3; /* hover 시 글자 색 변경 */
 }
-
+.navbar-item:focus:not(.brand) {
+  color: #175cd3; /* hover 시 글자 색 변경 */
+}
 /* .title1:hover {
   background-color: #fff;
   color: #175cd3; /* hover 시 글자 색 변경 */

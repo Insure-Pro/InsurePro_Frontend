@@ -7,7 +7,7 @@ import exitIcon from "../external/exit.png";
 const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
-
+  const [selectedTab, setSelectedTab] = useState("");
   const navigate = useNavigate();
   const toggleItems = () => {
     setShowItems(!showItems);
@@ -122,13 +122,37 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
         Client
       </div>
       <>
-        <div className="navbar-item" onClick={handleAllCustomersClick}>
+        <div
+          className="navbar-item"
+          onClick={() => {
+            setSelectedTab("전체");
+            onAllCustomersClick();
+          }}
+          style={{ color: selectedTab === "전체" ? "#175cd3" : "black" }}
+
+          // onClick={handleAllCustomersClick}>
+        >
           전체
         </div>
-        <div className="navbar-item" onClick={onContractCompleteClick}>
+        <div
+          className="navbar-item"
+          onClick={() => {
+            setSelectedTab("계약완료고객");
+            onContractCompleteClick();
+          }}
+          style={{
+            color: selectedTab === "계약완료고객" ? "#175cd3" : "black",
+          }}
+        >
           계약완료고객
         </div>
-        <div className="navbar-item">월별고객</div>
+        <div
+          className="navbar-item"
+          onClick={() => setSelectedTab("월별 고객")}
+          style={{ color: selectedTab === "월별 고객" ? "#175cd3" : "black" }}
+        >
+          월별 고객
+        </div>
       </>
     </div>
   );
