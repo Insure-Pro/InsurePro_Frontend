@@ -4,7 +4,7 @@ import "../App.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
 import EditModal from "../components/EditModal";
-
+import Search from "../components/Search";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -352,6 +352,7 @@ const Main = () => {
           onContractCompleteClick={handleContractCompleteClick}
           onAllCustomersClick={handleAllCustomersClick}
         >
+          <Search setCustomers={setCustomers} />
           <div
             style={{
               display: "flex",
