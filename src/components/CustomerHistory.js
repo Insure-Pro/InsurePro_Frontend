@@ -2,9 +2,17 @@ import HistoryModal from "../components/HistoryModal";
 import React from "react";
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
+import EditModalH from "../components/EditModalH";
+import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 
 const CustomerHistory = ({ customerPk }) => {
-  const [historyData, setHistoryData] = useState([]);
+  const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
+  const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
+  const [pressTimer, setPressTimer] = useState(null);
+  const [longPressTriggered, setLongPressTriggered] = useState(false);
+  const [selectedHistory, setSelectedHistory] = useState(null);
+  const [showEditModalH, setShowEditModalH] = useState(false);
+  const [histories, setHistories] = useState([]);
 
   const fetchCustomerHistory = async () => {
     try {
@@ -14,15 +22,101 @@ const CustomerHistory = ({ customerPk }) => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      setHistoryData(response.data);
+      setHistories(response.data);
     } catch (error) {
       console.error("Error fetching customer history:", error.message);
     }
   };
 
+  // 수정 버튼 클릭 시, EditModalH를 띄우고 해당 히스토리 정보를 전달하는 이벤트 핸들러
+  const handleEditHClick = (History) => {
+    setSelectedHistory(History);
+    setShowEditModalH(true);
+    fetchData();
+  };
+
   useEffect(() => {
     fetchCustomerHistory();
   }, [customerPk]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://3.38.101.62:8080/v1/schedules/${customerPk}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setHistories(response.data); // 가정: 응답의 데이터가 히스토리 목록임
+      }
+    } catch (error) {
+      console.error("Error fetching updated history:", error.message);
+    }
+  };
+
+  const handleDeleteClick = async (history) => {
+    try {
+      const response = await axios.patch(
+        `http://3.38.101.62:8080/v1/schedules/${history.pk}`,
+        {
+          delYn: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        // 이 곳에서 추가적인 작업 (상태 업데이트, UI 변경 등)을 수행할 수 있습니다.
+        fetchData(); // 수정된 데이터를 다시 불러옵니다.
+      }
+    } catch (error) {
+      console.error("Error deleting customer:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [refresh]);
+
+  const handleEditClick = (history) => {
+    setSelectedHistory(history);
+    setShowEditModalH(true);
+    fetchData();
+    fetchCustomerHistory();
+  };
+
+  const handleModalHClose = () => {
+    setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
+    fetchData();
+  };
+  // let pressTimer;
+  // 해당 히스토리 항목에서 마우스를 누르고 있을 때의 이벤트 핸들러
+  const handleMouseDown = (historyId) => {
+    setLongPressTriggered(false); // 초기화
+    setPressTimer(
+      setTimeout(() => {
+        setShowOptions(historyId); // 1초 후에 Edit, Delete 버튼을 보여줍니다.
+        setLongPressTriggered(true);
+      }, 800)
+    );
+  };
+
+  // 해당 히스토리 항목에서 마우스를 뗐을 때의 이벤트 핸들러
+  const handleMouseUp = (history) => {
+    clearTimeout(pressTimer);
+    // if (!longPressTriggered) {
+    //   setTimeout(() => {
+    //     if (!showOptions) {
+    //       //   handleHistoryClick(history);
+    //     }
+    //   }, 50);
+    // }
+    setLongPressTriggered(false); // 상태를 초기화
+  };
 
   //진척도
   const historyItemStyle1 = {
@@ -93,9 +187,11 @@ const CustomerHistory = ({ customerPk }) => {
           onNewData={fetchCustomerHistory}
         />
       </div>
-      {historyData.map((history) => (
+      {histories.map((history) => (
         <div
           key={history.pk}
+          onMouseDown={() => handleMouseDown(history.pk)}
+          onMouseUp={() => handleMouseUp(history)}
           style={{
             display: "flex",
             alignItems: "center", // 진척도 가로축 가운데 정렬
@@ -116,8 +212,51 @@ const CustomerHistory = ({ customerPk }) => {
             </div>
             <div style={historyItemStyle3}>{history.memo}</div>
           </div>
+          {showOptions === history.pk && (
+            <div>
+              <Button
+                variant="outline-primary"
+                onClick={() => handleEditClick(history)}
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  height: "28px",
+                  marginBottom: "6px",
+
+                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                }}
+              >
+                수정
+              </Button>{" "}
+              <Button
+                variant="outline-danger"
+                onClick={() => handleDeleteClick(history)}
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  height: "28px",
+                  marginBottom: "6px",
+
+                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                }}
+              >
+                삭제
+              </Button>{" "}
+            </div>
+          )}
         </div>
       ))}
+
+      {/* 히스토리 항목들을 렌더링하는 코드... */}
+      {selectedHistory && (
+        <EditModalH
+          show={showEditModalH}
+          onHide={() => setShowEditModalH(false)}
+          selectedHistory={selectedHistory}
+          onClose={handleModalHClose}
+          // onHistoryUpdated={onHistoryUpdated}
+        />
+      )}
     </div>
   );
 };

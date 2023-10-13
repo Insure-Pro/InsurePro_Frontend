@@ -125,10 +125,10 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
         <div className="navbar-item" onClick={handleAllCustomersClick}>
           전체
         </div>
-        <div className="navbar-item">월별고객</div>
         <div className="navbar-item" onClick={onContractCompleteClick}>
           계약완료고객
         </div>
+        <div className="navbar-item">월별고객</div>
       </>
     </div>
   );

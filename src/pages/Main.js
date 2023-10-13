@@ -357,7 +357,7 @@ const Main = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              paddingRight: "13px",
+              paddingRight: "37px",
             }}
           >
             <div className="Add_Btn">
@@ -419,7 +419,11 @@ const Main = () => {
           </div>
           <ListGroup
             horizontal
-            style={{ marginTop: "12px", marginBottom: "-10px" }}
+            style={{
+              marginTop: "12px",
+              marginBottom: "-10px",
+              marginBottom: "4px",
+            }}
           >
             <ListGroup.Item variant="primary" style={listItemTitleStyle1}>
               DB 분배일
@@ -440,7 +444,7 @@ const Main = () => {
               거주지
             </ListGroup.Item>
           </ListGroup>
-          <hr />
+          {/* <hr /> */}
           {/* 가져온 데이터를 화면에 출력합니다. */}
           {customers
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
@@ -497,7 +501,7 @@ const Main = () => {
                         : "1px solid #DDDDDD",
                     }}
                   >
-                    {customer.birth} 만 {customer.age}세
+                    {customer.birth} (만 {customer.age}세)
                   </ListGroup.Item>
                   <ListGroup.Item
                     style={{
@@ -526,9 +530,9 @@ const Main = () => {
                       variant="outline-primary"
                       onClick={() => handleEditClick(customer)}
                       style={{
-                        fontSize: "12px",
-                        fontWeight: "bold",
-                        height: "28px",
+                        fontSize: "14px",
+                        // fontWeight: "bold",
+                        height: "36px",
                         marginBottom: "6px",
 
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
@@ -540,9 +544,9 @@ const Main = () => {
                       variant="outline-danger"
                       onClick={() => handleDeleteClick(customer)}
                       style={{
-                        fontSize: "12px",
-                        fontWeight: "bold",
-                        height: "28px",
+                        fontSize: "14px",
+                        // fontWeight: "bold",
+                        height: "36px",
                         marginBottom: "6px",
 
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",

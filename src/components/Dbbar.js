@@ -96,7 +96,12 @@ const Dbbar = ({
               ))}
             </Nav>
             <hr
-              style={{ marginTop: "-2px", marginLeft: "8px", height: "15px" }}
+              style={{
+                marginTop: "-2px",
+                marginLeft: "8px",
+                height: "15px",
+                width: "1030px",
+              }}
             />
             {children}
           </div>

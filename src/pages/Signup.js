@@ -50,8 +50,11 @@ const Signup = () => {
   const baseButtonStyle = {
     position: "absolute",
     width: "70px",
-    height: "25px",
-    fontSize: "13px",
+    height: "28px",
+    fontWeight: "bold",
+    // textAlign: "center",
+    paddingTop: "3px",
+    fontSize: "16px",
     right: "5px",
     margin: "8px 5px",
     marginBottom: "30px",
@@ -210,6 +213,7 @@ const Signup = () => {
         style={{
           width: "560px",
           height: "920px",
+          marginTop: "-24px",
           // marginLeft: "48px",
           // marginTop: "-50px",
         }}
@@ -350,7 +354,14 @@ const Signup = () => {
               placeholder="비밀번호 재입력"
             />
 
-            <div className="error_message"></div>
+            <div
+              className="error_message"
+              style={{
+                fontSize: "16px",
+                paddingTop: "20px",
+                marginBottom: "-20px",
+              }}
+            ></div>
           </div>
         </StyledInputDiv>
         <StyledButtonDiv>

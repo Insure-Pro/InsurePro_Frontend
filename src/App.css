@@ -112,6 +112,7 @@
   /* Content의 스타일을 추가하세요 */
   flex: 1; /* Content가 남은 공간을 모두 차지하도록 설정 */
   padding: 24px; /* Content의 패딩을 조정하세요 */
+  padding-left: 0px;
 }
 .maintitle {
   color: #175cd3;

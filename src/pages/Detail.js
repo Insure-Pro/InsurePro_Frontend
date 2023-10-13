@@ -145,7 +145,7 @@ const Detail = () => {
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
             />
-            <hr />
+            <hr style={{ width: "1020px", marginLeft: "12px" }} />
             <div style={{ display: "flex" }}>
               <CustomerInfo
                 data={selectedCustomer}
@@ -154,7 +154,7 @@ const Detail = () => {
                 onUpdateSuccess={handleUpdateSuccess}
               />
             </div>
-            <hr />
+            <hr style={{ width: "1020px", marginLeft: "12px" }} />
             <CustomerHistory data={customerSchedules} customerPk={customerPk} />
             <EditModalD
               show={showEditModalD}
