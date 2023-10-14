@@ -33,7 +33,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
     <div className="customer-detail-container">
       <div
         className="backpage"
-        style={{ marginTop: "30px", marginBottom: "20px" }}
+        style={{ marginTop: "30px", marginBottom: "40px" }}
       >
         <span
           className="navigation"
@@ -53,7 +53,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             display: "flex",
             width: "34px",
             height: "24px",
-            // margin: "12px 0px",
+            marginBottom: "10px",
             padding: "4.84px 8.067px",
             justifyContent: "center",
             alignItems: "center",

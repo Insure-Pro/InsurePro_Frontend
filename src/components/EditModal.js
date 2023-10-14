@@ -189,13 +189,13 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         <Modal.Header closeButton>
           <Modal.Title>Edit Customer</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="formName">
               <Form.Label></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter name"
+                placeholder="이름"
                 defaultValue={selectedCustomer?.name}
                 ref={nameRef}
               />
@@ -243,6 +243,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
                         : "outline-primary"
                     }
                     value={selectedCustomerType}
+                    style={{ borderRadius: "0px" }}
                     onClick={() => handleCustomerTypeClick(type)}
                   >
                     {type}

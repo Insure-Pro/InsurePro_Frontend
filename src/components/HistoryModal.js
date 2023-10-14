@@ -67,7 +67,7 @@ function HistoryModal({ customerPk, onNewData }) {
       >
         + Add
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} style={{ marginTop: "130px" }}>
         <Modal.Header closeButton>
           <Modal.Title>히스토리 추가하기</Modal.Title>
         </Modal.Header>
@@ -102,6 +102,7 @@ function HistoryModal({ customerPk, onNewData }) {
                   }
                   value={selectedProgressType}
                   onClick={() => handleProgressTypeClick(type)}
+                  style={{ borderRadius: "0px" }}
                 >
                   {type}
                 </ToggleButton>

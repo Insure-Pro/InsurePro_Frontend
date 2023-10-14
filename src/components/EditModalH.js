@@ -101,7 +101,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
   return (
     <>
-      <Modal show={show} onHide={onHide}>
+      <Modal show={show} onHide={onHide} style={{ marginTop: "130px" }}>
         <Modal.Header closeButton>
           <Modal.Title>히스토리 추가하기</Modal.Title>
         </Modal.Header>
@@ -135,6 +135,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
                       : "outline-primary"
                   }
                   value={selectedProgressType}
+                  style={{ borderRadius: "0px" }}
                   onClick={() => handleProgressTypeClick(type)}
                 >
                   {type}

@@ -145,7 +145,9 @@ const Detail = () => {
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
             />
-            <hr style={{ width: "1020px", marginLeft: "12px" }} />
+            <hr
+              style={{ width: "1020px", marginTop: "40px", marginLeft: "12px" }}
+            />
             <div style={{ display: "flex" }}>
               <CustomerInfo
                 data={selectedCustomer}

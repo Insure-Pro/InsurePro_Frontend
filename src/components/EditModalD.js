@@ -149,11 +149,11 @@ const EditModalD = ({
 
   return (
     <>
-      <Modal show={show} onHide={onHide}>
+      <Modal show={show} onHide={onHide} style={{ marginTop: "60px" }}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Customer</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="formName">
               <Form.Label></Form.Label>
@@ -207,6 +207,7 @@ const EditModalD = ({
                         : "outline-primary"
                     }
                     value={selectedCustomerType}
+                    style={{ borderRadius: "0px" }}
                     onClick={() => handleCustomerTypeClick(type)}
                   >
                     {type}

@@ -164,11 +164,16 @@ function Modal1({ onModalClose }) {
         + Add
       </Button>
 
-      <Modal show={show} onHide={handleClose} onExited={onModalClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        onExited={onModalClose}
+        style={{ marginTop: "60px" }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>신규고객 추가</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="name.ControlInput1">
               <Form.Label></Form.Label>
