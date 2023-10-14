@@ -26,6 +26,10 @@ const CustomerHistory = ({ customerPk }) => {
     }
   };
 
+  const handleRightClick = (e, historyId) => {
+    e.preventDefault(); // 기본 우클릭 메뉴 차단
+    setShowOptions((prevId) => (prevId === historyId ? null : historyId)); // 버튼 토글
+  };
   // 수정 버튼 클릭 시, EditModalH를 띄우고 해당 히스토리 정보를 전달하는 이벤트 핸들러
   const handleEditHClick = (History) => {
     setSelectedHistory(History);
@@ -161,7 +165,7 @@ const CustomerHistory = ({ customerPk }) => {
           key={history.pk}
           onContextMenu={(e) => {
             e.preventDefault();
-            setShowOptions(history.pk);
+            handleRightClick(e, history.pk);
           }}
           // onMouseDown={() => handleMouseDown(history.pk)}
           // onMouseUp={() => handleMouseUp(history)}
