@@ -7,22 +7,19 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import { useLocation } from "react-router-dom";
 
-function HistoryModalH({
-  onHide,
-  selectedHistory,
-  onHistoryUpdated,
-  schedule_pk,
-  onNewData,
-}) {
-  const [show, setShow] = useState(false);
+function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
+  // const [show, setShow] = useState(false);
   const dateRef = useRef("");
   const addressRef = useRef("");
   const memoRef = useRef("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
   const progressTypes = ["TA", "AP", "PT", "PC"];
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  useEffect(() => {
+    if (selectedHistory) {
+      setSelectedProgressType(selectedHistory?.progress || "");
+    }
+  }, [selectedHistory]);
 
   const handleProgressTypeClick = (type) => {
     if (selectedProgressType === type) {
@@ -37,26 +34,39 @@ function HistoryModalH({
     setUpdatedHistory(selectedHistory);
   }, [selectedHistory]);
 
-  //   const handleSaveClick = async () => {
-  //     try {
-  //       const response = await axios.patch(
-  //         `http://3.38.101.62:8080/v1/schedule/${selectedHistory.pk}`,
-  //         updatedHistory, // 변경된 히스토리 데이터
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //           },
-  //         }
-  //       );
-  //       if (response.status === 200) {
-  //         onHide(); // 모달 닫기
-  //         onHistoryUpdated(); // 상위 컴포넌트에 변경사항 알리기
-  //       }
-  //     } catch (error) {
-  //       console.error("Error updating history:", error);
-  //     }
-  //   };
+  /////////////////////////////////
 
+  const [editedHistory, setEditedHistory] = useState({
+    progress: "",
+    date: "",
+    address: "",
+    memo: "",
+  });
+
+  useEffect(() => {
+    setEditedHistory(selectedHistory);
+  }, [selectedHistory]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedHistory((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      const url = `http://3.38.101.62:8080/v1/schedule/${selectedHistory.pk}`;
+      await axios.patch(url, editedHistory, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      onClose();
+    } catch (error) {
+      console.error("Error updating history:", error);
+    }
+  };
+
+  ///////////////////////////////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -79,9 +89,9 @@ function HistoryModalH({
       );
       if (response.status === 200) {
         onHide(); // 모달 닫기
-        onHistoryUpdated(); // 상위 컴포넌트에 변경사항 알리기
-        handleClose();
-        onNewData();
+        // onHistoryUpdated(); // 상위 컴포넌트에 변경사항 알리기
+        // handleClose();
+        // onNewData();
       }
     } catch (err) {
       console.log(formData);
@@ -91,18 +101,7 @@ function HistoryModalH({
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={handleShow}
-        style={{
-          alignItems: "center",
-          backgroundColor: "#175CD3",
-          boxShadow: "5px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-        }}
-      >
-        + Add
-      </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={onHide}>
         <Modal.Header closeButton>
           <Modal.Title>히스토리 추가하기</Modal.Title>
         </Modal.Header>
@@ -152,6 +151,9 @@ function HistoryModalH({
                 defaultValue={selectedHistory?.date}
                 ref={dateRef}
                 autoFocus
+                name="date"
+                value={editedHistory.date}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group>
@@ -164,6 +166,9 @@ function HistoryModalH({
                 defaultValue={selectedHistory?.address}
                 ref={addressRef}
                 autoFocus
+                name="address"
+                value={editedHistory.address}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group>
@@ -176,15 +181,22 @@ function HistoryModalH({
                 defaultValue={selectedHistory?.memo}
                 ref={memoRef}
                 autoFocus
+                name="memo"
+                value={editedHistory.memo}
+                onChange={handleInputChange}
               />
             </Form.Group>
             {/* #9BA1B1
             #98A2B3 */}
             <Modal.Footer>
-              {/* <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" onClick={onHide}>
                 닫기
-              </Button> */}
-              <Button type="submit" variant="primary">
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                onClick={handleSaveChanges}
+              >
                 변경사항 저장
               </Button>
             </Modal.Footer>

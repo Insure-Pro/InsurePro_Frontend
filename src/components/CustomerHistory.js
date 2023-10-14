@@ -8,8 +8,6 @@ import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 const CustomerHistory = ({ customerPk }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
-  const [pressTimer, setPressTimer] = useState(null);
-  const [longPressTriggered, setLongPressTriggered] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState(null);
   const [showEditModalH, setShowEditModalH] = useState(false);
   const [histories, setHistories] = useState([]);
@@ -60,7 +58,7 @@ const CustomerHistory = ({ customerPk }) => {
   const handleDeleteClick = async (history) => {
     try {
       const response = await axios.patch(
-        `http://3.38.101.62:8080/v1/schedules/${history.pk}`,
+        `http://3.38.101.62:8080/v1/schedule/${history.pk}`,
         {
           delYn: true,
         },
@@ -83,40 +81,9 @@ const CustomerHistory = ({ customerPk }) => {
     fetchData();
   }, [refresh]);
 
-  const handleEditClick = (history) => {
-    setSelectedHistory(history);
-    setShowEditModalH(true);
-    fetchData();
-    fetchCustomerHistory();
-  };
-
   const handleModalHClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
     fetchData();
-  };
-  // let pressTimer;
-  // 해당 히스토리 항목에서 마우스를 누르고 있을 때의 이벤트 핸들러
-  const handleMouseDown = (historyId) => {
-    setLongPressTriggered(false); // 초기화
-    setPressTimer(
-      setTimeout(() => {
-        setShowOptions(historyId); // 1초 후에 Edit, Delete 버튼을 보여줍니다.
-        setLongPressTriggered(true);
-      }, 800)
-    );
-  };
-
-  // 해당 히스토리 항목에서 마우스를 뗐을 때의 이벤트 핸들러
-  const handleMouseUp = (history) => {
-    clearTimeout(pressTimer);
-    // if (!longPressTriggered) {
-    //   setTimeout(() => {
-    //     if (!showOptions) {
-    //       //   handleHistoryClick(history);
-    //     }
-    //   }, 50);
-    // }
-    setLongPressTriggered(false); // 상태를 초기화
   };
 
   //진척도
@@ -177,6 +144,7 @@ const CustomerHistory = ({ customerPk }) => {
         style={{
           display: "flex",
           justifyContent: "space-between",
+
           alignItems: "center",
           marginBottom: "20px",
           padding: "0px 26px",
@@ -191,11 +159,16 @@ const CustomerHistory = ({ customerPk }) => {
       {histories.map((history) => (
         <div
           key={history.pk}
-          onMouseDown={() => handleMouseDown(history.pk)}
-          onMouseUp={() => handleMouseUp(history)}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            setShowOptions(history.pk);
+          }}
+          // onMouseDown={() => handleMouseDown(history.pk)}
+          // onMouseUp={() => handleMouseUp(history)}
           style={{
             display: "flex",
             alignItems: "center", // 진척도 가로축 가운데 정렬
+
             width: "780px",
             margin: "4px",
             marginBottom: "16px",
@@ -214,32 +187,16 @@ const CustomerHistory = ({ customerPk }) => {
             <div style={historyItemStyle3}>{history.memo}</div>
           </div>
           {showOptions === history.pk && (
-            <div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <Button
                 variant="outline-primary"
-                onClick={() => handleEditClick(history)}
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  height: "28px",
-                  marginBottom: "6px",
-
-                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                }}
+                onClick={() => handleEditHClick(history)}
               >
                 수정
               </Button>{" "}
               <Button
                 variant="outline-danger"
                 onClick={() => handleDeleteClick(history)}
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  height: "28px",
-                  marginBottom: "6px",
-
-                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                }}
               >
                 삭제
               </Button>{" "}
