@@ -50,7 +50,24 @@ const Dbbar = ({
     { key: "link-10", label: "Z" },
   ]);
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
+  const [selectedTab, setSelectedTab] = useState("");
 
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getFullYear()}년 ${String(
+    currentDate.getMonth() + 1
+  ).padStart(2, "0")}월`;
+
+  const handleMonthCustomersClick = () => {
+    setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
+    // fetchData(); // 데이터를 다시 불러옴
+  };
+  const handleAllCustomersClick = () => {
+    setSelectedTab("전체");
+  };
+
+  const handleContractCompleteClick = () => {
+    setSelectedTab("계약완료고객");
+  };
   const moveItem = (fromIndex, toIndex) => {
     const updatedItems = [...items];
     const [movedItem] = updatedItems.splice(fromIndex, 1);
@@ -71,6 +88,9 @@ const Dbbar = ({
           <Navbar
             onContractCompleteClick={onContractCompleteClick}
             onAllCustomersClick={onAllCustomersClick}
+            onMonthCustomersClick={handleMonthCustomersClick}
+            ContractedCustomerClcik={handleContractCompleteClick}
+            AllCustomersClick={handleAllCustomersClick}
           />
           <div
             className="content"
@@ -80,7 +100,11 @@ const Dbbar = ({
               borderRight: "2px solid #dde1e6",
             }}
           >
-            <h1 className="maintitle">{activeType}</h1>
+            <h1 className="maintitle">
+              {" "}
+              {selectedTab === "월별 고객" ? formattedDate : activeType}
+              {console.log(selectedTab)}
+            </h1>
             <Nav
               className="DbbarItem-container"
               variant="underline"

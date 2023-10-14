@@ -4,7 +4,13 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import exitIcon from "../external/exit.png";
 
-const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
+const Navbar = ({
+  onAllCustomersClick,
+  onContractCompleteClick,
+  onMonthCustomersClick,
+  AllCustomersClick,
+  ContractedCustomerClcik,
+}) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
   const [selectedTab, setSelectedTab] = useState("");
@@ -12,6 +18,16 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
   const toggleItems = () => {
     setShowItems(!showItems);
   };
+  const handleTabClick = (tabName) => {
+    if (tabName === "월별 고객") {
+      onMonthCustomersClick(); // 월별 고객을 클릭하면, onMonthCustomersClick을 호출합니다.
+    } else if (tabName === "전체") {
+      onAllCustomersClick(); // 전체를 클릭하면, onAllCustomersClick을 호출합니다.
+    } else if (tabName === "계약완료고객") {
+      onContractCompleteClick(); // 계약완료고객을 클릭하면, onContractCompleteClick을 호출합니다.
+    }
+  };
+
   const handleLogout = async () => {
     try {
       const response = await axios.post(
@@ -127,6 +143,8 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
           onClick={() => {
             setSelectedTab("전체");
             onAllCustomersClick();
+            handleTabClick("전체");
+            AllCustomersClick();
           }}
           style={{ color: selectedTab === "전체" ? "#175cd3" : "black" }}
 
@@ -139,6 +157,8 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
           onClick={() => {
             setSelectedTab("계약완료고객");
             onContractCompleteClick();
+            handleTabClick("계약완료고객");
+            ContractedCustomerClcik();
           }}
           style={{
             color: selectedTab === "계약완료고객" ? "#175cd3" : "black",
@@ -148,7 +168,11 @@ const Navbar = ({ onAllCustomersClick, onContractCompleteClick }) => {
         </div>
         <div
           className="navbar-item"
-          onClick={() => setSelectedTab("월별 고객")}
+          onClick={() => {
+            setSelectedTab("월별 고객");
+            handleTabClick("월별 고객");
+            onMonthCustomersClick();
+          }}
           style={{ color: selectedTab === "월별 고객" ? "#175cd3" : "black" }}
         >
           월별 고객
