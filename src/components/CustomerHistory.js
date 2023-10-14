@@ -191,16 +191,34 @@ const CustomerHistory = ({ customerPk }) => {
             <div style={historyItemStyle3}>{history.memo}</div>
           </div>
           {showOptions === history.pk && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <Button
                 variant="outline-primary"
                 onClick={() => handleEditHClick(history)}
+                style={{
+                  fontSize: "14px",
+                  // fontWeight: "bold",
+                  width: "58px",
+                  height: "32px",
+                  marginBottom: "6px",
+
+                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                }}
               >
                 수정
               </Button>{" "}
               <Button
                 variant="outline-danger"
                 onClick={() => handleDeleteClick(history)}
+                style={{
+                  fontSize: "14px",
+                  // fontWeight: "bold",
+                  width: "58px",
+                  height: "32px",
+                  marginBottom: "6px",
+
+                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                }}
               >
                 삭제
               </Button>{" "}
