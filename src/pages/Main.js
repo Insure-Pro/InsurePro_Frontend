@@ -258,7 +258,7 @@ const Main = () => {
           if (activeType === "All") {
             return true;
           }
-          return customer.customerTypeString === activeType;
+          return customer.customerType === activeType;
         });
         setCustomers(filteredCustomers);
       }
@@ -482,7 +482,7 @@ const Main = () => {
                         : "1px solid #DDDDDD",
                     }}
                   >
-                    {customer.customerTypeString}
+                    {customer.customerType}
                   </ListGroup.Item>
                   <ListGroup.Item
                     style={{

@@ -66,7 +66,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           }}
           variant="success"
         >
-          {data.customerTypeString}
+          {data.customerType}
         </Button>
         <div
           style={{

@@ -13,7 +13,7 @@ function Modal1({ onModalClose }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const customerTypeName = useRef("");
+  const customerType = useRef("");
   const liPk = useRef("");
   const name = useRef("");
   const birth = useRef("");
@@ -83,7 +83,7 @@ function Modal1({ onModalClose }) {
     //   alert("고객유형에 올바른 숫자를 입력해주세요.");
     //   return;
     // }
-    if (!customerTypeName.current) {
+    if (!customerType.current) {
       console.log(selectedCustomerType);
       console.log(selectedCustomerType.current);
       console.log(selectedCustomerType.current.value);
@@ -98,10 +98,10 @@ function Modal1({ onModalClose }) {
     const birthValue = birth.current.value.replace(/\./g, "-");
     const registerDateValue = registerDate.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-    customerTypeName.current.value = selectedCustomerType;
+    customerType.current.value = selectedCustomerType;
     phone.current = phone.current; // phone Ref를 업데이트하지 않음
     const data = {
-      customerTypeName: selectedCustomerType, // 선택된 고객 유형으로 설정
+      customerType: selectedCustomerType, // 선택된 고객 유형으로 설정
       name: name.current.value,
       birth: birthValue,
       registerDate: registerDateValue,
@@ -215,7 +215,7 @@ function Modal1({ onModalClose }) {
                         ? "primary"
                         : "outline-primary"
                     }
-                    ref={customerTypeName}
+                    ref={customerType}
                     value={selectedCustomerType}
                     onClick={() => handleCustomerTypeClick(type)}
                     // style={{borderRadius: "5px 0 0 5px",}}

@@ -39,7 +39,7 @@ const EditModalD = ({
   useEffect(() => {
     if (selectedCustomer) {
       console.log("EditModalD - selectedCustomer:", selectedCustomer);
-      setSelectedCustomerType(selectedCustomer?.customerTypeString || "");
+      setSelectedCustomerType(selectedCustomer?.customerType || "");
       setContractYn(selectedCustomer?.contractYn || false);
     }
   }, [selectedCustomer]);
@@ -110,7 +110,7 @@ const EditModalD = ({
         state: stateRef.current.value,
         memo: memoRef.current.value,
         contractYn: contractYn,
-        customerTypeName: selectedCustomerType,
+        customerType: selectedCustomerType,
         registerDate: registerDateValue,
         // Add other form data
       };

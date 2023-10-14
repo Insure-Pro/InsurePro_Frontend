@@ -20,7 +20,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState(
-    selectedCustomer?.customerTypeString || ""
+    selectedCustomer?.customerType || ""
   );
 
   const [contractYn, setContractYn] = useState(
@@ -101,7 +101,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         state: stateRef.current.value,
         memo: memoRef.current.value,
         contractYn: contractYn,
-        customerTypeName: selectedCustomerType,
+        customerType: selectedCustomerType,
         registerDate: registerDateValue,
         // Add other form data
       };

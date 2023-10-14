@@ -33,6 +33,7 @@ function HistoryModal({ customerPk, onNewData }) {
       address,
       memo,
       progress: selectedProgressType,
+      delYn: "false",
     };
 
     try {
