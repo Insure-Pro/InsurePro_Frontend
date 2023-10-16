@@ -9,7 +9,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
   console.log(customers);
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
-    { header: "고객유형", key: "customerTypeString", width: "90px" },
+    { header: "고객유형", key: "customerType", width: "90px" },
     { header: "이름", key: "name", width: "90px" },
     { header: "생년월일", key: "birth", width: "200px" },
     { header: "나이", key: "age", width: "100px" },
