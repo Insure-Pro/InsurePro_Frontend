@@ -222,6 +222,7 @@ function Modal1({ onModalClose }) {
                     }
                     ref={customerType}
                     value={selectedCustomerType}
+                    style={{ borderRadius: "0px" }}
                     onClick={() => handleCustomerTypeClick(type)}
                     // style={{borderRadius: "5px 0 0 5px",}}
                   >

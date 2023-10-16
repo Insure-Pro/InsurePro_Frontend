@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
 import Nav from "react-bootstrap/Nav";
+import DateChangeModal from "./DateChangeModal";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -52,10 +53,18 @@ const Dbbar = ({
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
 
-  const currentDate = new Date();
-  const formattedDate = `${currentDate.getFullYear()}년 ${String(
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const currentDate = new Date(); // 현재 날짜를 얻습니다.
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(
     currentDate.getMonth() + 1
-  ).padStart(2, "0")}월`;
+  );
+
+  const formattedDate = `${selectedYear}년 ${String(selectedMonth).padStart(
+    2,
+    "0"
+  )}월`; // formattedDate 업데이트
 
   const handleMonthCustomersClick = () => {
     setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
@@ -68,6 +77,20 @@ const Dbbar = ({
   const handleContractCompleteClick = () => {
     setSelectedTab("계약완료고객");
   };
+
+  const handleFormattedDateClick = () => {
+    if (selectedTab === "월별 고객") {
+      setIsModalOpen(true);
+    }
+  };
+
+  // 선택한 년, 월로 formattedDate를 업데이트하는 함수
+  const handleDateChange = (newYear, newMonth) => {
+    setSelectedYear(newYear);
+    setSelectedMonth(newMonth);
+    setIsModalOpen(false); // Optionally, close the modal after changing the date
+  };
+
   const moveItem = (fromIndex, toIndex) => {
     const updatedItems = [...items];
     const [movedItem] = updatedItems.splice(fromIndex, 1);
@@ -100,11 +123,12 @@ const Dbbar = ({
               borderRight: "2px solid #dde1e6",
             }}
           >
-            <h1 className="maintitle">
+            <h1 className="maintitle" onClick={handleFormattedDateClick}>
               {" "}
               {selectedTab === "월별 고객" ? formattedDate : activeType}
               {console.log(selectedTab)}
             </h1>
+
             <Nav
               className="DbbarItem-container"
               variant="underline"
@@ -130,6 +154,14 @@ const Dbbar = ({
             {children}
           </div>
         </div>
+        {isModalOpen && (
+          <DateChangeModal
+            initialYear={selectedYear}
+            initialMonth={selectedMonth}
+            onDateChange={handleDateChange}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
       </div>
     </DndProvider>
   );
