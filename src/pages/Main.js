@@ -356,8 +356,10 @@ const Main = () => {
           onTypeChange={handleTypeChange}
           onContractCompleteClick={handleContractCompleteClick}
           onAllCustomersClick={handleAllCustomersClick}
+          customers={customers}
+          setCustomers={setCustomers}
         >
-          <Search setCustomers={setCustomers} />
+          {/* <Search setCustomers={setCustomers} /> */}
           <div
             style={{
               display: "flex",

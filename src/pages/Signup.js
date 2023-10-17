@@ -393,6 +393,7 @@ const Signup = () => {
                   "비밀번호 확인을 입력해주세요.";
                 return;
               } else {
+                document.querySelector(".error_message").innerHTML = "";
                 //handleSubmit(); 이것 때문에 post요청 중복 된 거임 ㅅㅂ.
               }
             }}

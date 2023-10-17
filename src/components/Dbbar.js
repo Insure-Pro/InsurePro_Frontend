@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Search from "../components/Search";
 import DateChangeModal from "./DateChangeModal";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -37,6 +38,7 @@ const Dbbar = ({
   onContractCompleteClick,
   children,
   onTypeChange,
+  setCustomers,
 }) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
@@ -50,6 +52,9 @@ const Dbbar = ({
     { key: "link-9", label: "Y" },
     { key: "link-10", label: "Z" },
   ]);
+
+  // const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
+
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
 
@@ -133,6 +138,7 @@ const Dbbar = ({
               className="DbbarItem-container"
               variant="underline"
               defaultActiveKey="/home"
+              // style={{ display: "flex", justifyContent: "space-between" }}
             >
               {items.map((item) => (
                 <Nav.Link
@@ -142,6 +148,10 @@ const Dbbar = ({
                   {item.label}
                 </Nav.Link>
               ))}
+              <Search
+                setCustomers={setCustomers}
+                style={{ marginLeft: "300px" }}
+              />
             </Nav>
             <hr
               style={{

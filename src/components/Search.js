@@ -35,9 +35,12 @@ const Search = ({ setCustomers }) => {
       style={{
         display: "flex",
         alignItems: "center",
-        marginBottom: "12px",
-        marginTop: "-16px",
+        marginLeft: "370px",
+
+        // marginBottom: "12px",
+        marginTop: "-10px",
       }}
+      // variant={"primary"}
     >
       <input
         type="name"
@@ -51,6 +54,9 @@ const Search = ({ setCustomers }) => {
           border: "none",
           borderRadius: "5px",
           marginRight: "8px",
+          border: "2px solid #175CD3",
+          borderRadius: "8px",
+          paddingRight: "4px",
         }}
         onChange={(e) => setInputName(e.target.value)}
         onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
