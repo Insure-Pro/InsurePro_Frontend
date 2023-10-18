@@ -101,6 +101,9 @@ const Dbbar = ({
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
     setIsModalOpen(false); // Optionally, close the modal after changing the date
+    const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}`;
+    onMonthCustomersClick(formattedDate2);
+    // setFormattedDate(formattedDate2);
     // setCustomers(fetchedData); // Assuming you have a setCustomers function to update the customer data.
   };
 

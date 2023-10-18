@@ -289,7 +289,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchData();
-  }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
+  }, [refresh, selectedAge, selectedSort, activeType, formattedDate]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleAllCustomersClick = () => {
     setSelectedContractYn(null);
