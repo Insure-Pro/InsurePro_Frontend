@@ -150,8 +150,8 @@ const EditModalD = ({
   return (
     <>
       <Modal show={show} onHide={onHide} style={{ marginTop: "60px" }}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Customer</Modal.Title>
+        <Modal.Header closeButton style={{ marginRight: "16px" }}>
+          <Modal.Title>고객정보 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
@@ -159,7 +159,7 @@ const EditModalD = ({
               <Form.Label></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter name"
+                placeholder="이름"
                 defaultValue={selectedCustomer?.name}
                 ref={nameRef}
               />

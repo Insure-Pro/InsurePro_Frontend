@@ -132,7 +132,11 @@ const Dbbar = ({
               borderRight: "2px solid #dde1e6",
             }}
           >
-            <h1 className="maintitle" onClick={handleFormattedDateClick}>
+            <h1
+              className="maintitle"
+              onClick={handleFormattedDateClick}
+              style={{ width: "300px" }}
+            >
               {" "}
               {selectedTab === "월별 고객" ? formattedDate : activeType}
               {console.log(selectedTab)}
@@ -148,13 +152,14 @@ const Dbbar = ({
                 <Nav.Link
                   key={item.key}
                   onClick={() => handleTypeClick(item.label)}
+                  style={{ fontSize: "20px", marginLeft: "2px" }}
                 >
                   {item.label}
                 </Nav.Link>
               ))}
               <Search
                 setCustomers={setCustomers}
-                style={{ marginLeft: "300px" }}
+                // style={{ marginLeft: "10px" }}
               />
             </Nav>
             <hr

@@ -38,7 +38,7 @@ const DateChangeModal = ({
         onClick={() => handleMonthClick(idx + 1)}
         style={{
           width: "150px",
-          height: "40px",
+          height: "44px",
           margin: "2px",
           border: "none",
           backgroundColor: "#fff",
@@ -58,8 +58,9 @@ const DateChangeModal = ({
         onClick={() => handleYearClick(y)}
         style={{
           width: "150px",
-          height: "40px",
+          height: "44px",
           margin: "2px",
+          border: "none",
           backgroundColor: "#fff",
           //   color: "#98A2B3",
           color: y === year ? "#000" : "#98A2B3",
@@ -96,17 +97,21 @@ const DateChangeModal = ({
 
   return (
     <Modal show={true} onHide={onClose} style={{ marginTop: "130px" }}>
-      <Modal.Header closeButton>
-        <Modal.Title style={{ justifyContent: "center" }}>
+      <Modal.Header closeButton style={{ marginRight: "16px" }}>
+        <Modal.Title
+          style={{ justifyContent: "center", marginBottom: "-16px" }}
+        >
           <img
             className="select"
             src={arrowLeft}
             style={{
-              width: "20px",
-              height: "20px",
+              width: "24px",
+              height: "24px",
               marginLeft: "4px",
               marginRight: "-8px",
               cursor: "pointer",
+              padding: "0px",
+              marginBottom: "14px",
             }}
           />
           {mode === "month" ? (
@@ -115,10 +120,13 @@ const DateChangeModal = ({
               //   variant="link"
               style={{
                 fontWeight: "bold",
-                fontSize: "20px",
+                fontSize: "24px",
                 backgroundColor: "#fff",
                 border: "none",
                 color: "#98A2B3",
+                padding: "0px 8px",
+                paddingBottom: "16px",
+                marginLeft: "8px",
               }}
             >
               {year}년
@@ -129,9 +137,13 @@ const DateChangeModal = ({
               //   variant="link"
               style={{
                 fontWeight: "bold",
+                fontSize: "24px",
                 backgroundColor: "#fff",
                 border: "none",
                 color: "#98A2B3",
+                padding: "0px 8px",
+                paddingBottom: "16px",
+                marginLeft: "8px",
               }}
             >
               {month}월
@@ -143,7 +155,11 @@ const DateChangeModal = ({
         {mode === "month" ? renderMonthButtons() : renderYearButtons()}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleSaveClick}>
+        <Button
+          variant="primary"
+          onClick={handleSaveClick}
+          style={{ marginRight: "16px" }}
+        >
           저장
         </Button>
       </Modal.Footer>

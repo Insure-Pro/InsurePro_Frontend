@@ -5,6 +5,7 @@ import Navbar from "../pages/Navbar";
 
 const Search = ({ setCustomers }) => {
   const [inputName, setInputName] = useState("");
+  const [isInputFocused, setInputFocused] = useState(false);
 
   const handleSearch = async () => {
     try {
@@ -35,10 +36,9 @@ const Search = ({ setCustomers }) => {
       style={{
         display: "flex",
         alignItems: "center",
-        marginLeft: "370px",
-
+        marginLeft: "316px",
         // marginBottom: "12px",
-        marginTop: "-10px",
+        marginTop: "-2px",
       }}
       // variant={"primary"}
     >
@@ -54,20 +54,24 @@ const Search = ({ setCustomers }) => {
           border: "none",
           borderRadius: "5px",
           marginRight: "8px",
-          border: "2px solid #175CD3",
+          border: "2px solid #98A2B3",
           borderRadius: "8px",
           paddingRight: "4px",
         }}
         onChange={(e) => setInputName(e.target.value)}
         onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
+        onFocus={() => setInputFocused(true)}
+        onBlur={() => setInputFocused(false)}
       ></input>
       <button
         style={{
           width: "60px",
           height: "36px",
           borderRadius: "8px",
-          backgroundColor: "#175cd3",
-          color: "#fff",
+          backgroundColor: isInputFocused ? "#175CD3" : "#98A2B3", // initial can be replaced with your default color
+          color: isInputFocused ? "#fff" : "#fff", // initial can be replaced with your default color
+          // backgroundColor: "#98A2B3",
+          // color: "#667085",
           border: "none",
         }}
         onClick={handleSearch}

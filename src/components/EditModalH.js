@@ -102,8 +102,8 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
   return (
     <>
       <Modal show={show} onHide={onHide} style={{ marginTop: "130px" }}>
-        <Modal.Header closeButton>
-          <Modal.Title>히스토리 추가하기</Modal.Title>
+        <Modal.Header closeButton style={{ marginRight: "16px" }}>
+          <Modal.Title>히스토리 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>

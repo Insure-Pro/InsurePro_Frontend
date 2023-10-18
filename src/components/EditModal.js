@@ -186,8 +186,8 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   return (
     <>
       <Modal show={show} onHide={onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Customer</Modal.Title>
+        <Modal.Header closeButton style={{ margin: "0px 4px" }}>
+          <Modal.Title>고객정보 수정</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
@@ -323,7 +323,11 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
               {/* <Button variant="secondary" onClick={handleClose}>
                 취소
               </Button> */}
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                style={{ marginRight: "-12px" }}
+              >
                 변경사항 저장
               </Button>
             </Modal.Footer>

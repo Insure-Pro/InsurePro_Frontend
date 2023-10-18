@@ -119,7 +119,7 @@
 .maintitle {
   color: #175cd3;
   padding: 24px; /* Padding for each Navbar item */
-  padding-left: 0px;
+  padding-left: 8px;
   cursor: pointer; /* Add pointer cursor for interaction */
   transition: background-color 0.3s ease; /* Smooth background color transition */
   text-align: left; /* Align text to the left */
