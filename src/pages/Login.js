@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/buttons/Button";
@@ -10,6 +10,9 @@ const Login = () => {
   const email = useRef("");
   const password = useRef(null);
   const navigate = useNavigate();
+
+  const [myEmail, setMyEmail] = useState("");
+  const [myPassword, setMyPassword] = useState("");
 
   const onLogin = () => {
     axios
@@ -111,6 +114,10 @@ const Login = () => {
               style={{ display: "flex" }}
               type="email"
               ref={email}
+              // defaultValue={myEmail}
+              onChange={(e) => {
+                setMyEmail(e.target.value);
+              }}
               placeholder="이메일을 입력해주세요."
               autoFocus
             />
@@ -121,6 +128,10 @@ const Login = () => {
               style={{ display: "flex" }}
               type="password"
               ref={password}
+              // defaultValue={myPassword}
+              onChange={(e) => {
+                setMyPassword(e.target.value);
+              }}
               placeholder="비밀번호를 입력해주세요."
             />
             <div className="error_message"></div>
@@ -141,7 +152,7 @@ const Login = () => {
                 onLogin();
               }
             }}
-            value="로그인"
+            defaultValue="로그인"
           />
         </StyledButtonDiv>
       </div>
