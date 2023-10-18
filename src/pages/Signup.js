@@ -175,6 +175,7 @@ const Signup = () => {
       console.log(password.current.value);
       console.log(passwordConfirm.current.value);
     } else {
+      document.querySelector(".error_message").innerHTML = "";
       return true;
     }
   };
