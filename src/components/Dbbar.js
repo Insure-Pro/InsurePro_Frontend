@@ -36,6 +36,7 @@ const DraggableNavItem = ({ item, index, moveItem }) => {
 const Dbbar = ({
   onAllCustomersClick,
   onContractCompleteClick,
+  onMonthCustomersClick,
   children,
   onTypeChange,
   setCustomers,
@@ -68,10 +69,14 @@ const Dbbar = ({
     currentDate.getMonth() + 1
   );
 
-  const formattedDate = `${selectedYear}년 ${String(selectedMonth).padStart(
+  // const formattedDate = `${selectedYear}년 ${String(selectedMonth).padStart(
+  //   2,
+  //   "0"
+  // )}월`; // formattedDate 업데이트
+  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
     2,
     "0"
-  )}월`; // formattedDate 업데이트
+  )}`; // formattedDate 업데이트
 
   const handleMonthCustomersClick = () => {
     setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
@@ -119,7 +124,11 @@ const Dbbar = ({
           <Navbar
             onContractCompleteClick={onContractCompleteClick}
             onAllCustomersClick={onAllCustomersClick}
-            onMonthCustomersClick={handleMonthCustomersClick}
+            onMonthCustomersClick={() => {
+              handleMonthCustomersClick();
+              // Here, we will pass the formattedDate value to the function in Main.js
+              onMonthCustomersClick(formattedDate);
+            }}
             ContractedCustomerClcik={handleContractCompleteClick}
             AllCustomersClick={handleAllCustomersClick}
             // setFormattedDate={setFormattedDate}

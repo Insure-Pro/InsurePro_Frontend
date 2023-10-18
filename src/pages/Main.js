@@ -231,10 +231,9 @@ const Main = () => {
 
   const fetchData = async () => {
     let url;
-    // if (formattedDate) {
-    //   url = `http://3.38.101.62:8080/v1/customers/latest/${formattedDate}-01`;
-    // } else
-    if (selectedContractYn != null) {
+    if (formattedDate) {
+      url = `http://3.38.101.62:8080/v1/customers/latest/${formattedDate}-01`;
+    } else if (selectedContractYn != null) {
       url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}/latest`;
     } else if (selectedAge) {
       url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
@@ -262,6 +261,7 @@ const Main = () => {
       }
     } catch (error) {
       console.error("Error fetching customers:", error.message);
+      console.log(formattedDate);
     }
   };
 
@@ -295,12 +295,20 @@ const Main = () => {
     setSelectedContractYn(null);
     setSelectedAge("");
     setSelectedSort("latest");
+    setFormattedDate(null);
     fetchData(); // 데이터를 다시 불러옴
   };
 
   const handleContractCompleteClick = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
+    setFormattedDate(null);
     fetchData(); // 데이터를 다시 불러옴
+  };
+
+  // Dbbar에서 onMonthCustomersClick 함수 전달
+  const handleMonthCustomersClick = (date) => {
+    setFormattedDate(date);
+    fetchData();
   };
 
   const handleModalClose = () => {
@@ -361,6 +369,7 @@ const Main = () => {
           onTypeChange={handleTypeChange}
           onContractCompleteClick={handleContractCompleteClick}
           onAllCustomersClick={handleAllCustomersClick}
+          onMonthCustomersClick={handleMonthCustomersClick}
           customers={customers}
           setCustomers={setCustomers}
           setFormattedDate={setFormattedDate}
