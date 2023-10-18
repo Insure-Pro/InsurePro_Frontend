@@ -69,15 +69,14 @@ const Dbbar = ({
     currentDate.getMonth() + 1
   );
 
-  // const formattedDate = `${selectedYear}년 ${String(selectedMonth).padStart(
-  //   2,
-  //   "0"
-  // )}월`; // formattedDate 업데이트
   const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
     2,
     "0"
   )}`; // formattedDate 업데이트
 
+  const formattedDateTitle = `${selectedYear}년 ${String(
+    selectedMonth
+  ).padStart(2, "0")}월`; // formattedDate 업데이트
   const handleMonthCustomersClick = () => {
     setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
     // fetchData(); // 데이터를 다시 불러옴
@@ -150,7 +149,7 @@ const Dbbar = ({
               style={{ width: "300px" }}
             >
               {" "}
-              {selectedTab === "월별 고객" ? formattedDate : activeType}
+              {selectedTab === "월별 고객" ? formattedDateTitle : activeType}
               {console.log(selectedTab)}
               {console.log(formattedDate)}
             </h1>
