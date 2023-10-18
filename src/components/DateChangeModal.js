@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -13,6 +14,7 @@ const DateChangeModal = ({
   initialMonth,
   onDateChange,
   onClose,
+  setFormattedDate,
 }) => {
   const [year, setYear] = useState(initialYear);
   const [month, setMonth] = useState(initialMonth);
@@ -27,11 +29,6 @@ const DateChangeModal = ({
   const handleYearClick = (selectedYear) => {
     setYear(selectedYear);
     // setMode("month"); // Switch to month mode after selecting a year
-  };
-
-  const handleSaveClick = () => {
-    onDateChange(year, month);
-    onClose();
   };
 
   const renderMonthButtons = () =>
@@ -82,9 +79,19 @@ const DateChangeModal = ({
     setMonth(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onDateChange(year, month);
+  // };
+
+  const handleSaveClick = () => {
+    // if (year && month) {
+    //   const formatted = `${year}-${String(month).padStart(2, "0")}`;
+    //   setFormattedDate(formatted);
+    // }
     onDateChange(year, month);
+    onClose();
+    // handleClose();
   };
 
   return (

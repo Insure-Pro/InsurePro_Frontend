@@ -201,7 +201,7 @@ const CustomerHistory = ({ customerPk }) => {
                   width: "58px",
                   height: "32px",
                   marginBottom: "6px",
-
+                  paddingBottom: "10px",
                   boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                 }}
               >
@@ -216,7 +216,7 @@ const CustomerHistory = ({ customerPk }) => {
                   width: "58px",
                   height: "32px",
                   marginBottom: "6px",
-
+                  paddingBottom: "10px",
                   boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                 }}
               >

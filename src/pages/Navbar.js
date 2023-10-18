@@ -10,6 +10,7 @@ const Navbar = ({
   onMonthCustomersClick,
   AllCustomersClick,
   ContractedCustomerClcik,
+  setFormattedDate,
 }) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
@@ -26,6 +27,11 @@ const Navbar = ({
     } else if (tabName === "계약완료고객") {
       onContractCompleteClick(); // 계약완료고객을 클릭하면, onContractCompleteClick을 호출합니다.
     }
+  };
+
+  const handleMonthClick = (year, month) => {
+    const formatted = `${year}-${month}`;
+    setFormattedDate(formatted);
   };
 
   const handleLogout = async () => {

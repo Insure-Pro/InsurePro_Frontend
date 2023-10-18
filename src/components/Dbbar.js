@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -39,6 +39,8 @@ const Dbbar = ({
   children,
   onTypeChange,
   setCustomers,
+  // formattedDate,
+  // setFormattedDate,
 }) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
@@ -90,10 +92,11 @@ const Dbbar = ({
   };
 
   // 선택한 년, 월로 formattedDate를 업데이트하는 함수
-  const handleDateChange = (newYear, newMonth) => {
+  const handleDateChange = (newYear, newMonth, fetchedData) => {
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
     setIsModalOpen(false); // Optionally, close the modal after changing the date
+    // setCustomers(fetchedData); // Assuming you have a setCustomers function to update the customer data.
   };
 
   const moveItem = (fromIndex, toIndex) => {
@@ -119,6 +122,7 @@ const Dbbar = ({
             onMonthCustomersClick={handleMonthCustomersClick}
             ContractedCustomerClcik={handleContractCompleteClick}
             AllCustomersClick={handleAllCustomersClick}
+            // setFormattedDate={setFormattedDate}
           />
           <div
             className="content"
@@ -170,6 +174,7 @@ const Dbbar = ({
             initialMonth={selectedMonth}
             onDateChange={handleDateChange}
             onClose={() => setIsModalOpen(false)}
+            // setFormattedDate={setFormattedDate}
           />
         )}
       </div>

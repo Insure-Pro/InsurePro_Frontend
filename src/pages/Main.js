@@ -22,6 +22,8 @@ const Main = () => {
   const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  // const [formattedDate, setFormattedDate] = useState("");
+
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
     color: "black", // 글자색
@@ -236,6 +238,9 @@ const Main = () => {
 
   const fetchData = async () => {
     let url;
+    // if (formattedDate) {
+    //   url = `http://3.38.101.62:8080/v1/customers/latest/${formattedDate}-01`;
+    // } else
     if (selectedContractYn != null) {
       url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}`;
     } else if (selectedAge) {
@@ -358,6 +363,7 @@ const Main = () => {
           onAllCustomersClick={handleAllCustomersClick}
           customers={customers}
           setCustomers={setCustomers}
+          // setFormattedDate={setFormattedDate}
         >
           {/* <Search setCustomers={setCustomers} /> */}
           <div
