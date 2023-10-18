@@ -1,9 +1,9 @@
 import HistoryModal from "../components/HistoryModal";
 import React from "react";
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import EditModalH from "../components/EditModalH";
-import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const CustomerHistory = ({ customerPk }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가

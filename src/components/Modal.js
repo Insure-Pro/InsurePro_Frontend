@@ -18,7 +18,6 @@ function Modal1({ onModalClose }) {
   const name = useRef("");
   const birth = useRef("");
   const registerDate = useRef("");
-  const age = useRef("");
   const address = useRef("");
   const phone = useRef("");
   const memo = useRef("");

@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
 import Nav from "react-bootstrap/Nav";

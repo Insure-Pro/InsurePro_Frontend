@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
-import { useLocation } from "react-router-dom";
+
 function HistoryModal({ customerPk, onNewData }) {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");

@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../App.css";
-import Navbar from "../pages/Navbar";
 
 const Search = ({ setCustomers }) => {
   const [inputName, setInputName] = useState("");

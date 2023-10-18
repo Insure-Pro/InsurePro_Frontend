@@ -1,10 +1,7 @@
 import "../App.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import EditModalD from "../components/EditModalD";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 const CustomerInfo = ({ onUpdateSuccess, data }) => {
   const navigate = useNavigate();

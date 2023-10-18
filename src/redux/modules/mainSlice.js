@@ -63,19 +63,19 @@ const main = createSlice({
   name: "main",
   initialState,
   reducers: {},
-  extraReducers: {
-    [getData.fulfilled]: (state, action) => {
-      state.data = action.payload;
-    },
-    [updateData.fulfilled]: (state, action) => {
-      state.data = state.data.map((item) =>
-        item.id === action.payload.restaurant_id ? { ...action.payload } : item
-      );
-    },
-    [getRegionData.fulfilled]: (state, action) => {
-      state.region = action.payload;
-    },
-  },
+  // extraReducers: {
+  //   [getData.fulfilled]: (state, action) => {
+  //     state.data = action.payload;
+  //   },
+  //   [updateData.fulfilled]: (state, action) => {
+  //     state.data = state.data.map((item) =>
+  //       item.id === action.payload.restaurant_id ? { ...action.payload } : item
+  //     );
+  //   },
+  //   [getRegionData.fulfilled]: (state, action) => {
+  //     state.region = action.payload;
+  //   },
+  // },
 });
 
 export default main.reducer;

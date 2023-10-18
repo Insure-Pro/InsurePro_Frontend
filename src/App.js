@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Detail from "./pages/Detail";
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 
 function App() {
   return (

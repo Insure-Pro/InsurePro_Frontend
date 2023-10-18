@@ -4,8 +4,7 @@ import excelIcon from "../external/icons8-excel-28.png";
 
 const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
-  //   console.log(customer.registerDate);
-  //   console.log(customer);
+
   console.log(customers);
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
