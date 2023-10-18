@@ -22,7 +22,7 @@ const Main = () => {
   const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  // const [formattedDate, setFormattedDate] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
 
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
@@ -229,20 +229,13 @@ const Main = () => {
     setActiveType(type); // 선택된 유형 업데이트
   };
 
-  const handleAllCustomersClick = () => {
-    setSelectedContractYn(null);
-    setSelectedAge("");
-    setSelectedSort("latest");
-    fetchData(); // 데이터를 다시 불러옴
-  };
-
   const fetchData = async () => {
     let url;
     // if (formattedDate) {
     //   url = `http://3.38.101.62:8080/v1/customers/latest/${formattedDate}-01`;
     // } else
     if (selectedContractYn != null) {
-      url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}`;
+      url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}/latest`;
     } else if (selectedAge) {
       url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
     } else {
@@ -297,6 +290,13 @@ const Main = () => {
   useEffect(() => {
     fetchData();
   }, [refresh, selectedAge, selectedSort, activeType]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
+
+  const handleAllCustomersClick = () => {
+    setSelectedContractYn(null);
+    setSelectedAge("");
+    setSelectedSort("latest");
+    fetchData(); // 데이터를 다시 불러옴
+  };
 
   const handleContractCompleteClick = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
@@ -363,7 +363,7 @@ const Main = () => {
           onAllCustomersClick={handleAllCustomersClick}
           customers={customers}
           setCustomers={setCustomers}
-          // setFormattedDate={setFormattedDate}
+          setFormattedDate={setFormattedDate}
         >
           {/* <Search setCustomers={setCustomers} /> */}
           <div
