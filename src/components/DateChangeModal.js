@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import arrowLeft from "../external/icons8-arrow-24.png";
+// import arrowLeft from "../external/icons8-arrow-24.png";
 const months = Array.from(
   { length: 12 },
   (_, i) => (i + 1).toString().padStart(2, "0") + "월"
@@ -18,6 +18,8 @@ const DateChangeModal = ({
   const [year, setYear] = useState(initialYear);
   const [month, setMonth] = useState(initialMonth);
   const [mode, setMode] = useState("month"); // month or year
+
+  const imageUrl = process.env.PUBLIC_URL + "/icons8-arrow-24.png";
 
   ////////////////////////////////////////////////////
   const handleMonthClick = (selectedMonth) => {
@@ -102,7 +104,7 @@ const DateChangeModal = ({
         >
           <img
             className="select"
-            src={arrowLeft}
+            src={imageUrl}
             style={{
               width: "24px",
               height: "24px",

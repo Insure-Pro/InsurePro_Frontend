@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import LoginImg from "../external/image 14.png";
+// import LoginImg from "../external/loginImg.png";
+// import LoginImg from "../../public/loginImg.png";
 
 const Signup = () => {
   const fileRef = useRef("");
@@ -19,6 +20,8 @@ const Signup = () => {
   const [isVerified, setIsVerified] = useState(false); // 인증이 완료되었는지 확인하는 상태 추가
 
   const [isCodeSent, setIsCodeSent] = useState(false);
+
+  const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
 
   const handleVerifyClick = () => {
     if (myAuthNum === parseInt(authNumConfirm.current.value)) {
@@ -199,7 +202,7 @@ const Signup = () => {
     >
       <div>
         <img
-          src={LoginImg}
+          src={imageUrl}
           style={{
             width: "800px",
             height: "970px",

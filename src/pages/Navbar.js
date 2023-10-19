@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import exitIcon from "../external/exit.png";
+// import exitIcon from "../external/exit.png";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -16,6 +16,8 @@ const Navbar = ({
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
   const [selectedTab, setSelectedTab] = useState("");
   const navigate = useNavigate();
+  const imageUrl = process.env.PUBLIC_URL + "/exit.png";
+
   const toggleItems = () => {
     setShowItems(!showItems);
   };
@@ -119,7 +121,7 @@ const Navbar = ({
         </div>
         <img
           className="userName"
-          src={exitIcon}
+          src={imageUrl}
           style={{ paddingLeft: "16px", cursor: "pointer" }}
           onClick={handleLogout}
         />

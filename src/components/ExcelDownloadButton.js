@@ -1,9 +1,10 @@
 import React from "react";
 import * as XLSX from "xlsx";
-import excelIcon from "../external/icons8-excel-28.png";
+// import excelIcon from "../external/icons8-excel-28.png";
 
 const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
+  const imageUrl = process.env.PUBLIC_URL + "/icons8-excel-28.png";
 
   console.log(customers);
   const columns = [
@@ -63,7 +64,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.20)",
       }}
     >
-      <img src={excelIcon}></img>
+      <img src={imageUrl}></img>
     </button>
   );
 };

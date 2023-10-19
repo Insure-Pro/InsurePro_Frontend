@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import LoginImg from "../external/image 14.png";
+// import LoginImg from "../external/loginImg.png";
+// import LoginImg from "../../public/loginImg.png";
 
 const Login = () => {
   const email = useRef("");
@@ -11,6 +12,8 @@ const Login = () => {
 
   const [myEmail, setMyEmail] = useState("");
   const [myPassword, setMyPassword] = useState("");
+
+  const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
 
   const onLogin = () => {
     axios
@@ -55,7 +58,7 @@ const Login = () => {
     >
       <div>
         <img
-          src={LoginImg}
+          src={imageUrl}
           style={{
             width: "800px",
             height: "970px",

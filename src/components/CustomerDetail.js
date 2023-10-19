@@ -5,11 +5,13 @@ import Form from "react-bootstrap/Form";
 import EditModalD from "../components/EditModalD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import editIcon from "../external/edit.png";
+// import editIcon from "../external/edit.png";
 import "../App.css";
 
 const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
   const navigate = useNavigate();
+  const imageUrl = process.env.PUBLIC_URL + "/edit.png";
+
   // Step 1: Add a state to manage the visibility of the EditModal
   const [showEditModal, setShowEditModal] = useState(false);
   const [customerData, setCustomerData] = useState(data);
@@ -88,7 +90,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           <div>
             <img
               className="userName"
-              src={editIcon}
+              src={imageUrl}
               style={{
                 paddingTop: "8px",
                 marginLeft: "12px",
