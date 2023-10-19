@@ -30,7 +30,7 @@ const Login = () => {
             localStorage.setItem("refreshToken", refresh);
             navigate("/main");
           } else {
-            console.log(response.headers);
+            // console.log(response.headers);
             console.warn(
               "Authorization and Refresh headers are missing in the response!"
             );

@@ -36,8 +36,8 @@ function Modal1({ onModalClose }) {
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
-    console.log("Clicked button:", type);
-    console.log("Selected customer type before:", selectedCustomerType);
+    // console.log("Clicked button:", type);
+    // console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
@@ -45,7 +45,7 @@ function Modal1({ onModalClose }) {
       setSelectedCustomerType(type);
     }
 
-    console.log("Selected customer type after:", selectedCustomerType);
+    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -83,9 +83,9 @@ function Modal1({ onModalClose }) {
     //   return;
     // }
     if (!customerType.current) {
-      console.log(selectedCustomerType);
-      console.log(selectedCustomerType.current);
-      console.log(selectedCustomerType.current.value);
+      // console.log(selectedCustomerType);
+      // console.log(selectedCustomerType.current);
+      // console.log(selectedCustomerType.current.value);
       alert("고객유형을 선택해주세요.");
       return;
     }
@@ -148,7 +148,7 @@ function Modal1({ onModalClose }) {
               console.error("토큰 갱신 실패:", tokenError.message);
             });
         } else {
-          console.log(data);
+          // console.log(data);
           console.error("API 요청 에러:", error.message);
         }
       });

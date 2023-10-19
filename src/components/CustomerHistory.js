@@ -52,7 +52,7 @@ const CustomerHistory = ({ customerPk }) => {
       );
       if (response.status === 200) {
         setHistories(response.data); // 가정: 응답의 데이터가 히스토리 목록임
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       console.error("Error fetching updated history:", error.message);
@@ -148,7 +148,6 @@ const CustomerHistory = ({ customerPk }) => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-
           alignItems: "center",
           marginBottom: "20px",
           padding: "0px 26px",

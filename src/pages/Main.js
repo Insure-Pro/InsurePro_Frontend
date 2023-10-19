@@ -259,7 +259,7 @@ const Main = () => {
       }
     } catch (error) {
       console.error("Error fetching customers:", error.message);
-      console.log(formattedDate);
+      // console.log(formattedDate);
     }
   };
 
@@ -559,7 +559,6 @@ const Main = () => {
                         // fontWeight: "bold",
                         height: "36px",
                         marginBottom: "6px",
-
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                       }}
                     >
@@ -573,7 +572,6 @@ const Main = () => {
                         // fontWeight: "bold",
                         height: "36px",
                         marginBottom: "6px",
-
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
                       }}
                     >

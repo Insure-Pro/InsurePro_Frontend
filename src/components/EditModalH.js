@@ -93,7 +93,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
         // onNewData();
       }
     } catch (err) {
-      console.log(formData);
+      // console.log(formData);
       console.error("Error while submitting data", err);
     }
   };

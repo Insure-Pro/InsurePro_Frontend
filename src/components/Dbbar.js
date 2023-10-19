@@ -149,8 +149,8 @@ const Dbbar = ({
             >
               {" "}
               {selectedTab === "월별 고객" ? formattedDateTitle : activeType}
-              {console.log(selectedTab)}
-              {console.log(formattedDate)}
+              {/* {console.log(selectedTab)} */}
+              {/* {console.log(formattedDate)} */}
             </h1>
 
             <Nav

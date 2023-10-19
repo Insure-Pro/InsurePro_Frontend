@@ -6,7 +6,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
   const imageUrl = process.env.PUBLIC_URL + "/icons8-excel-28.png";
 
-  console.log(customers);
+  // console.log(customers);
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
     { header: "고객유형", key: "customerType", width: "90px" },

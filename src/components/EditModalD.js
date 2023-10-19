@@ -38,7 +38,7 @@ const EditModalD = ({
   // useEffect that updates state only when selectedCustomer changes
   useEffect(() => {
     if (selectedCustomer) {
-      console.log("EditModalD - selectedCustomer:", selectedCustomer);
+      // console.log("EditModalD - selectedCustomer:", selectedCustomer);
       setSelectedCustomerType(selectedCustomer?.customerType || "");
       setContractYn(selectedCustomer?.contractYn || false);
     }
@@ -53,8 +53,8 @@ const EditModalD = ({
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
-    console.log("Clicked button:", type);
-    console.log("Selected customer type before:", selectedCustomerType);
+    // console.log("Clicked button:", type);
+    // console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
@@ -62,7 +62,7 @@ const EditModalD = ({
       setSelectedCustomerType(type);
     }
 
-    console.log("Selected customer type after:", selectedCustomerType);
+    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -137,7 +137,7 @@ const EditModalD = ({
           );
         }
 
-        console.log(updatedData);
+        // console.log(updatedData);
         // Handle success: close the modal, refresh data, etc.
         onHide();
       } // Close the modal

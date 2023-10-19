@@ -36,8 +36,8 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
-    console.log("Clicked button:", type);
-    console.log("Selected customer type before:", selectedCustomerType);
+    // console.log("Clicked button:", type);
+    // console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
@@ -45,7 +45,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
       setSelectedCustomerType(type);
     }
 
-    console.log("Selected customer type after:", selectedCustomerType);
+    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -119,7 +119,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         onClose();
       }
 
-      console.log("this is updatedData", updatedData);
+      // console.log("this is updatedData", updatedData);
       // Handle success: close the modal, refresh data, etc.
       onHide(); // Close the modal
     } catch (error) {

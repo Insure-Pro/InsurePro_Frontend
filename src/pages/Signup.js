@@ -113,7 +113,7 @@ const Signup = () => {
           authNum: parseInt(authNumConfirm.current.value),
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.data.error === "DUPLICATE_EMAIL") {
             email.current.focus();
             document.querySelector(".error_message").innerHTML =
@@ -141,7 +141,7 @@ const Signup = () => {
             console.error("네트워크 오류:", error.message);
             // 사용자에게 네트워크 오류를 알림
           }
-          console.log({ data });
+          // console.log({ data });
         });
     }
   };
@@ -174,8 +174,8 @@ const Signup = () => {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호가 일치하지 않습니다.";
-      console.log(password.current.value);
-      console.log(passwordConfirm.current.value);
+      // console.log(password.current.value);
+      // console.log(passwordConfirm.current.value);
     } else {
       document.querySelector(".error_message").innerHTML = "";
       return true;
@@ -185,9 +185,9 @@ const Signup = () => {
   // console.log(email);
   // console.log(email.current.value);
 
-  console.log(myAuthNum);
-  console.log(authNum);
-  console.log(authNumConfirm.current.value);
+  // console.log(myAuthNum);
+  // console.log(authNum);
+  // console.log(authNumConfirm.current.value);
   return (
     <div
       style={{
