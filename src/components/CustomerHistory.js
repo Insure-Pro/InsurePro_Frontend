@@ -43,7 +43,7 @@ const CustomerHistory = ({ customerPk }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://3.38.101.62:8080/v1/schedules/${customerPk}`,
+        `https://insurepro.kro.kr/v1/schedules/${customerPk}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

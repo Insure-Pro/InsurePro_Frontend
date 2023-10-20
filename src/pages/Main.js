@@ -230,16 +230,16 @@ const Main = () => {
   const fetchData = async () => {
     let url;
     if (formattedDate) {
-      url = `http://3.38.101.62:8080/v1/customers/latest/${formattedDate}-01`;
+      url = `https://www.insurepro.kro.kr/v1/customers/latest/${formattedDate}-01`;
     } else if (selectedContractYn != null) {
-      url = `http://3.38.101.62:8080/v1/customers/contractYn/${selectedContractYn}/latest`;
+      url = `https://www.insurepro.kro.kr/v1/customers/contractYn/${selectedContractYn}/latest`;
     } else if (selectedAge) {
-      url = `http://3.38.101.62:8080/v1/customers/age/${selectedAge}`;
+      url = `https://www.insurepro.kro.kr/v1/customers/age/${selectedAge}`;
     } else {
       url =
         selectedSort === "latest"
-          ? "http://3.38.101.62:8080/v1/customers/latest"
-          : "http://3.38.101.62:8080/v1/customers/latest";
+          ? "https://www.insurepro.kro.kr/v1/customers/latest"
+          : "https://www.insurepro.kro.kr/v1/customers/latest";
     }
 
     try {
@@ -266,7 +266,7 @@ const Main = () => {
   const handleDeleteClick = async (customer) => {
     try {
       const response = await axios.patch(
-        `http://3.38.101.62:8080/v1/customer/${customer.pk}`,
+        `https://www.insurepro.kro.kr/v1/customer/${customer.pk}`,
         {
           delYn: true,
         },

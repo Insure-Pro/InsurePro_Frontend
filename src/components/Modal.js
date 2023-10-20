@@ -113,7 +113,7 @@ function Modal1({ onModalClose }) {
     };
 
     axios
-      .post("http://3.38.101.62:8080/v1/customer", data, {
+      .post("https://insurepro.kro.kr/v1/customer", data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

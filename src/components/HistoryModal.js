@@ -38,7 +38,7 @@ function HistoryModal({ customerPk, onNewData }) {
 
     try {
       await axios.post(
-        `http://3.38.101.62:8080/v1/schedule/${customerPk}`,
+        `https://insurepro.kro.kr/v1/schedule/${customerPk}`,
         formData,
         {
           headers: {

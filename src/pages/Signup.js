@@ -35,7 +35,7 @@ const Signup = () => {
 
   const handleSendCodeClick = () => {
     axios
-      .post("http://3.38.101.62:8080/v1/email", {
+      .post("https://www.insurepro.kro.kr/v1/email", {
         email: myEmail,
       })
       .then((response) => {
@@ -103,7 +103,7 @@ const Signup = () => {
     // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
-        .post("http://3.38.101.62:8080/v1/employee/signin/", {
+        .post("https://www.insurepro.kro.kr/v1/employee/signin/", {
           name: userName.current.value,
           email: email.current.value,
           id: usernum.current.value,

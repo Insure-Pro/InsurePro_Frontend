@@ -17,7 +17,7 @@ const Login = () => {
 
   const onLogin = () => {
     axios
-      .post(" http://3.38.101.62:8080/v1/login", {
+      .post("https://www.insurepro.kro.kr/v1/login", {
         email: email.current.value,
         password: password.current.value,
       })

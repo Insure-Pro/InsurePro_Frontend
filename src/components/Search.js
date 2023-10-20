@@ -9,7 +9,7 @@ const Search = ({ setCustomers }) => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://3.38.101.62:8080/v1/customers/name/${inputName}`,
+        `https://www.insurepro.kro.kr/v1/customers/name/${inputName}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

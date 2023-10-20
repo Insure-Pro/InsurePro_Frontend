@@ -25,7 +25,7 @@ const Detail = () => {
     const fetchCustomerDetail = async () => {
       try {
         const response = await axios.get(
-          `http://3.38.101.62:8080/v1/customer/${customerPk}`,
+          `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -41,7 +41,7 @@ const Detail = () => {
     const fetchCustomerSchedules = async () => {
       try {
         const response = await axios.get(
-          `http://3.38.101.62:8080/v1/schedules/${customerPk}`,
+          `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -65,7 +65,7 @@ const Detail = () => {
       // const headers = { Authorization: `Bearer your-access-token` };
 
       const response = await axios.get(
-        `http://3.38.101.62:8080/v1/schedules/${customerPk}`,
+        `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -87,7 +87,7 @@ const Detail = () => {
   const fetchCustomer = async () => {
     try {
       const response = await axios.get(
-        `http://3.38.101.62:8080/v1/customer/${customerPk}`,
+        `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -115,7 +115,7 @@ const EditModalD = ({
         // Add other form data
       };
       const response = await axios.patch(
-        `http://3.38.101.62:8080/v1/customer/${selectedCustomer.pk}`,
+        `https://insurepro.kro.kr/v1/customer/${selectedCustomer.pk}`,
         updatedData,
         {
           headers: {
