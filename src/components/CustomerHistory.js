@@ -62,7 +62,7 @@ const CustomerHistory = ({ customerPk }) => {
   const handleDeleteClick = async (history) => {
     try {
       const response = await axios.patch(
-        `http://3.38.101.62:8080/v1/schedule/${history.pk}`,
+        `https://insurepro.kro.kr/v1/schedule/${history.pk}`,
         {
           delYn: true,
         },
