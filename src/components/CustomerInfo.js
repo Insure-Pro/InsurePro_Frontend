@@ -20,7 +20,7 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
       <div>
         {/* <hr /> */}
         <div className="infoItem">
-          <span>생년월일</span>
+          <span>생년월일dd</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
             {data.birth} (만 {data.age}세)
           </span>
