@@ -51,7 +51,7 @@ const Signup = () => {
   // 기존 스타일
   const baseButtonStyle = {
     position: "absolute",
-    width: "70px",
+    width: "74px",
     height: "28px",
     fontWeight: "bold",
     // textAlign: "center",
@@ -349,7 +349,9 @@ const Signup = () => {
               }}
             />
           </div>
-          <span style={{ display: "flex" }}>비밀번호 확인하기</span>
+          <span style={{ display: "flex", fontSize: "20px" }}>
+            비밀번호 확인하기
+          </span>
           <div>
             <input
               type="password"
