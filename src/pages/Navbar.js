@@ -95,9 +95,15 @@ const Navbar = ({
     }
   };
 
+  const handleLogoClick = () => {
+    navigate("/main");
+  };
+
   return (
     <div className="vertical-navbar">
-      <div className="brand">InsurePro</div>
+      <div className="brand" onClick={() => handleLogoClick()}>
+        InsurePro
+      </div>
       <div
         style={{
           display: "flex",
