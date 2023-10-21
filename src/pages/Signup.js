@@ -51,7 +51,7 @@ const Signup = () => {
   // 기존 스타일
   const baseButtonStyle = {
     position: "absolute",
-    width: "74px",
+    width: "78px",
     height: "28px",
     fontWeight: "bold",
     // textAlign: "center",

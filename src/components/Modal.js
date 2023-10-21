@@ -167,7 +167,7 @@ function Modal1({ onModalClose }) {
         show={show}
         onHide={handleClose}
         onExited={onModalClose}
-        style={{ marginTop: "60px" }}
+        style={{ marginTop: "60px", overflow: "auto" }}
       >
         <Modal.Header closeButton>
           <Modal.Title>신규고객 추가</Modal.Title>
