@@ -166,7 +166,7 @@ const Signup = () => {
     //   document.querySelector(".error_message").innerHTML =
     //     "인증코드가 불일치합니다.";
     // }
-    else if (!validPassword.test(myPassword)) {
+    else if (myPassword && !validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호는 영소문자 숫자 특수문자 혼합 8자 이상 입력해주세요.";
@@ -311,7 +311,11 @@ const Signup = () => {
                 placeholder="이메일 입력하기"
               />
 
-              <button onClick={handleSendCodeClick} style={baseButtonStyle}>
+              <button
+                type="button"
+                onClick={handleSendCodeClick}
+                style={baseButtonStyle}
+              >
                 {sendCodeButtonText}
               </button>
             </div>
