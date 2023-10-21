@@ -21,49 +21,45 @@ const Detail = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showEditModalD, setShowEditModalD] = useState(false);
 
-  useEffect(() => {
-    const fetchCustomerDetail = async () => {
-      try {
-        const response = await axios.get(
-          `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        setCustomerDetail(response.data);
-      } catch (error) {
-        console.error("Error fetching customer detail:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCustomerDetail = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //           },
+  //         }
+  //       );
+  //       setCustomerDetail(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching customer detail:", error);
+  //     }
+  //   };
 
-    const fetchCustomerSchedules = async () => {
-      try {
-        const response = await axios.get(
-          `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        setCustomerSchedules(response.data);
-      } catch (error) {
-        console.error("Error fetching customer schedules:", error);
-      }
-    };
+  //   const fetchCustomerSchedules = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //           },
+  //         }
+  //       );
+  //       setCustomerSchedules(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching customer schedules:", error);
+  //     }
+  //   };
 
-    fetchCustomerDetail();
-    fetchCustomerSchedules();
-  }, [customerPk]);
+  //   fetchCustomerDetail();
+  //   fetchCustomerSchedules();
+  // }, [customerPk]);
 
   const fetchData = async () => {
     try {
-      // // 예시 API URL과 헤더입니다. 실제 값을 사용해야 합니다.
-      // const apiUrl = "http://your-api-url";
-      // const headers = { Authorization: `Bearer your-access-token` };
-
       const response = await axios.get(
         `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
         {
