@@ -19,13 +19,13 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
     <div style={{ margin: "-10px 0px" }}>
       <div>
         {/* <hr /> */}
-        <div className="infoItem">
+        <div className="infoItem" style={{ cursor: "default" }}>
           <span>생년월일</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
             {data.birth} (만 {data.age}세)
           </span>
         </div>
-        <div className="infoItem">
+        <div className="infoItem" style={{ cursor: "default" }}>
           <span>주소</span>
           <span className="infoSpan" style={{ marginLeft: "115px" }}>
             {data.address}
@@ -33,13 +33,13 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
         </div>
       </div>
       <div>
-        <div className="infoItem">
+        <div className="infoItem" style={{ cursor: "default" }}>
           <span>특이사항</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
             {data.memo}
           </span>
         </div>
-        <div className="infoItem">
+        <div className="infoItem" style={{ cursor: "default" }}>
           <span>인수상태</span>
           <span className="infoSpan" style={{ marginLeft: "80px" }}>
             {data.state}

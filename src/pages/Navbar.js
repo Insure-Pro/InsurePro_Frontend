@@ -112,13 +112,14 @@ const Navbar = ({
             color: "#175CD3",
             fontWeight: "700",
             justifyItems: "center",
+            cursor: "default",
           }}
         >
           {userName}
         </div>
         <div
           className="userName"
-          style={{ fontSize: "16px", marginLeft: "2px" }}
+          style={{ fontSize: "16px", marginLeft: "2px", cursor: "default" }}
         >
           님 환영합니다.
         </div>

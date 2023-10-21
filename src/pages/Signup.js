@@ -245,6 +245,7 @@ const Signup = () => {
               fontWeight: "bold",
               fontSize: "34px",
               marginBottom: "20px",
+              cursor: "default",
             }}
           >
             {" "}
@@ -258,6 +259,7 @@ const Signup = () => {
               marginLeft: "30px",
               fontSize: "20px",
               fontWeight: "700",
+              cursor: "default",
             }}
           >
             이미 회원이신가요?
@@ -276,15 +278,27 @@ const Signup = () => {
           >
             여기서 로그인하기!
           </h3>
-          <span style={{ display: "flex", fontSize: "20px" }}>User Name</span>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
+            User Name
+          </span>
           <div>
             <input type="name" ref={userName} placeholder="사원이름 입력하기" />
           </div>
-          <span style={{ display: "flex", fontSize: "20px" }}>User number</span>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
+            User number
+          </span>
           <div>
             <input type="text" ref={usernum} placeholder="사원번호 입력하기" />
           </div>
-          <span style={{ display: "flex", fontSize: "20px" }}>Email</span>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
+            Email
+          </span>
           <div>
             <div style={{ position: "relative", fontSize: "20px" }}>
               <input
@@ -303,7 +317,9 @@ const Signup = () => {
             </div>
           </div>
 
-          <span style={{ display: "flex", fontSize: "20px" }}>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
             본인 인증하기
           </span>
           <div style={{ position: "relative", fontSize: "20px" }}>
@@ -337,7 +353,11 @@ const Signup = () => {
               </div>
             )}
           </div>
-          <span style={{ display: "flex", fontSize: "20px" }}>Password</span>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
+            Password
+          </span>
           <div>
             <input
               type="password"
@@ -349,7 +369,9 @@ const Signup = () => {
               }}
             />
           </div>
-          <span style={{ display: "flex", fontSize: "20px" }}>
+          <span
+            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+          >
             비밀번호 확인하기
           </span>
           <div>

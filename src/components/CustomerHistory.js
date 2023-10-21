@@ -103,6 +103,7 @@ const CustomerHistory = ({ customerPk }) => {
     color: "#175CD3",
     fontSize: "20px",
     fontWeight: "700",
+    cursor: "default",
   };
   //시간,장소
   const historyItemStyle2 = {
@@ -115,6 +116,7 @@ const CustomerHistory = ({ customerPk }) => {
     borderRadius: "5px",
     fontSize: "18px",
     fontWeight: "700",
+    cursor: "default",
     // borderRadius: "0 5px 5px 0",//오른쪽 모서리
   };
   //메모
@@ -127,20 +129,12 @@ const CustomerHistory = ({ customerPk }) => {
     marginLeft: "8px",
     fontSize: "16px",
     borderRadius: "5px",
+    cursor: "default",
 
     // borderRadius: "5px 0 0 5px",// 왼쪽모서리
   };
   //
-  const historyItemStyle4 = {
-    flex: "none", // flex 속성 제거
-    width: "200px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-  };
+
   return (
     <div className="customer-history-container">
       <div
@@ -153,7 +147,7 @@ const CustomerHistory = ({ customerPk }) => {
           padding: "0px 26px",
         }}
       >
-        <h5 style={{ fontWeight: "700" }}>고객 히스토리</h5>
+        <h5 style={{ fontWeight: "700", cursor: "default" }}>고객 히스토리</h5>
         <HistoryModal
           customerPk={customerPk}
           onNewData={fetchCustomerHistory}

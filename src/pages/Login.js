@@ -77,6 +77,7 @@ const Login = () => {
               fontWeight: "bold",
               fontSize: "34px",
               marginBottom: "30px",
+              cursor: "default",
             }}
           >
             {" "}
@@ -90,6 +91,7 @@ const Login = () => {
               marginLeft: "30px",
               fontSize: "20px",
               fontWeight: "700",
+              cursor: "default",
             }}
           >
             아직 회원이 아니신가요?
@@ -110,7 +112,11 @@ const Login = () => {
             회원가입 하러가기!
           </h3>
           <div>
-            <span style={{ display: "flex", fontSize: "20px" }}>Email</span>
+            <span
+              style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+            >
+              Email
+            </span>
             <input
               style={{ display: "flex" }}
               type="email"
@@ -124,7 +130,11 @@ const Login = () => {
             />
           </div>
           <div>
-            <span style={{ display: "flex", fontSize: "20px" }}>Password</span>
+            <span
+              style={{ display: "flex", fontSize: "20px", cursor: "default" }}
+            >
+              Password
+            </span>
             <input
               style={{ display: "flex" }}
               type="password"

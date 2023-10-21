@@ -63,6 +63,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             borderBlockWidth: "2px",
             borderRightWidth: "2px",
             borderLeftWidth: "2px",
+            cursor: "default",
             // backgroundColor: "#175CD3",
           }}
           variant="success"
@@ -76,7 +77,9 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             justifyContent: "space-between",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div
+            style={{ display: "flex", alignItems: "center", cursor: "default" }}
+          >
             <h2 className="customerName">{data.name}</h2>
             <h2>
               <Form.Check
@@ -115,7 +118,9 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
         </div>
 
         {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
-        <p className="customerPhone">{data.phone}</p>
+        <p className="customerPhone" style={{ cursor: "default" }}>
+          {data.phone}
+        </p>
       </div>
     </div>
   );
