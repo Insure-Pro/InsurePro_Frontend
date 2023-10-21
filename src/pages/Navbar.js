@@ -14,7 +14,7 @@ const Navbar = ({
 }) => {
   const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
-  const [selectedTab, setSelectedTab] = useState("");
+  const [selectedTab, setSelectedTab] = useState("전체");
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
 
