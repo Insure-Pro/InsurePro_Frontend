@@ -138,7 +138,8 @@ const Dbbar = ({
             className="content"
             style={{
               marginLeft: "300px",
-              height: "100vh",
+              // height: "100vh",
+              minHeight: "100vh",
               borderRight: "2px solid #dde1e6",
             }}
           >
