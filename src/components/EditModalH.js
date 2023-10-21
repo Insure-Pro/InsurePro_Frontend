@@ -53,7 +53,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
   const handleSaveChanges = async () => {
     try {
-      const url = `https://insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`;
+      const url = `https://www.insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`;
       await axios.patch(url, editedHistory, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -78,7 +78,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
     try {
       const response = await axios.patch(
-        `https://insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`,
+        `https://www.insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`,
         formData,
         {
           headers: {

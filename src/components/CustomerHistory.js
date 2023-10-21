@@ -14,7 +14,7 @@ const CustomerHistory = ({ customerPk }) => {
 
   const fetchCustomerHistory = async () => {
     try {
-      const url = `https://insurepro.kro.kr/v1/schedules/${customerPk}`;
+      const url = `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -43,7 +43,7 @@ const CustomerHistory = ({ customerPk }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://insurepro.kro.kr/v1/schedules/${customerPk}`,
+        `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -62,7 +62,7 @@ const CustomerHistory = ({ customerPk }) => {
   const handleDeleteClick = async (history) => {
     try {
       const response = await axios.patch(
-        `https://insurepro.kro.kr/v1/schedule/${history.pk}`,
+        `https://www.insurepro.kro.kr/v1/schedule/${history.pk}`,
         {
           delYn: true,
         },
