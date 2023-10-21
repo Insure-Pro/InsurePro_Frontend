@@ -334,6 +334,7 @@ const Signup = () => {
                 // onChange={(e) => {
                 //   setMyAuthNum(e.target.value);
                 // }}
+                // autocomplete="new-password"
                 placeholder="본인 인증 코드를 입력해주세요"
               />
               <button
@@ -368,6 +369,7 @@ const Signup = () => {
               ref={password}
               placeholder="비밀번호를 입력해주세요"
               value={myPassword}
+              autocomplete="new-password"
               onChange={(e) => {
                 setMyPassword(e.target.value);
               }}
