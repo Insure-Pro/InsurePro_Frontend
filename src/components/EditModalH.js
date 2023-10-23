@@ -188,7 +188,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
             </Form.Group>
             {/* #9BA1B1
             #98A2B3 */}
-            <Modal.Footer>
+            <Modal.Footer style={{ marginRight: "-12px" }}>
               <Button variant="secondary" onClick={onHide}>
                 닫기
               </Button>

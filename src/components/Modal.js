@@ -292,7 +292,7 @@ function Modal1({ onModalClose }) {
                 rows={2}
               />
             </Form.Group>
-            <Modal.Footer>
+            <Modal.Footer style={{ marginRight: "-12px" }}>
               <Button variant="secondary" onClick={handleClose}>
                 취소
               </Button>

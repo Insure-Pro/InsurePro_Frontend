@@ -142,7 +142,7 @@ function HistoryModal({ customerPk, onNewData }) {
               />
             </Form.Group>
 
-            <Modal.Footer>
+            <Modal.Footer style={{ marginRight: "-12px" }}>
               <Button variant="secondary" onClick={handleClose}>
                 닫기
               </Button>
