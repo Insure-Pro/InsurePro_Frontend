@@ -49,6 +49,7 @@ const Search = ({ setCustomers }) => {
           width: "250px",
           height: "36px",
           padding: "13px", // 아이템 내부 여백 조절
+          fontSize: "14px",
           marginLeft: "8px",
           border: "none",
           borderRadius: "5px",
