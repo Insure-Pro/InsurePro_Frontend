@@ -164,7 +164,10 @@ const Navbar = ({
             handleTabClick("전체");
             AllCustomersClick();
           }}
-          style={{ color: selectedTab === "전체" ? "#175cd3" : "black" }}
+          style={{
+            color: selectedTab === "전체" ? "#175cd3" : "black",
+            fontWeight: selectedTab === "전체" ? "bold" : "500",
+          }}
 
           // onClick={handleAllCustomersClick}>
         >
@@ -180,6 +183,7 @@ const Navbar = ({
           }}
           style={{
             color: selectedTab === "계약완료고객" ? "#175cd3" : "black",
+            fontWeight: selectedTab === "계약완료고객" ? "bold" : "500",
           }}
         >
           계약완료고객
@@ -191,7 +195,10 @@ const Navbar = ({
             handleTabClick("월별 고객");
             onMonthCustomersClick();
           }}
-          style={{ color: selectedTab === "월별 고객" ? "#175cd3" : "black" }}
+          style={{
+            color: selectedTab === "월별 고객" ? "#175cd3" : "black",
+            fontWeight: selectedTab === "월별 고객" ? "bold" : "500",
+          }}
         >
           월별 고객
         </div>

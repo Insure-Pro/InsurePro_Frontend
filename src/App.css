@@ -56,7 +56,7 @@
   cursor: pointer; /* Add pointer cursor for interaction */
   transition: background-color 0.3s ease; /* Smooth background color transition */
   text-align: left; /* Align text to the left */
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 /* .navbar-item:hover {
