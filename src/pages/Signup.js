@@ -369,7 +369,7 @@ const Signup = () => {
               ref={password}
               placeholder="비밀번호를 입력해주세요"
               value={myPassword}
-              autocomplete="new-password"
+              // autocomplete="new-password"
               onChange={(e) => {
                 setMyPassword(e.target.value);
               }}
