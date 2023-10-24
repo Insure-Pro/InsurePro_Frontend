@@ -52,7 +52,7 @@ const Login = () => {
         flexDirection: "row",
         width: "1360px",
         margin: "0 auto",
-        height: "970px",
+        height: "920px",
         borderRight: "2px solid #dde1e6",
       }}
     >
@@ -61,11 +61,11 @@ const Login = () => {
           src={imageUrl}
           style={{
             width: "800px",
-            height: "970px",
+            height: "920px",
           }}
         />
       </div>
-      <div style={{ paddingTop: "110px", width: "560px", height: "9700px" }}>
+      <div style={{ paddingTop: "110px", width: "560px", height: "920px" }}>
         {/* <Header /> */}
         {/* <StyledSpan>로그인</StyledSpan> */}
         <StyledInputDiv>
@@ -147,6 +147,7 @@ const Login = () => {
             />
             <div className="error_message"></div>
           </div>
+          <div>아이디 찾기ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
         </StyledInputDiv>
         <StyledButtonDiv>
           <StyledInput
