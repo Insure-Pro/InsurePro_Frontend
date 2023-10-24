@@ -204,7 +204,7 @@ const Password = () => {
               fontWeight: "bold",
               fontSize: "34px",
               marginTop: "150px",
-              marginBottom: "20px",
+              marginBottom: "52px",
               cursor: "default",
             }}
           >
