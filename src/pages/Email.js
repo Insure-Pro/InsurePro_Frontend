@@ -9,6 +9,8 @@ const Email = () => {
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
   const [usernum, setUsernum] = useState("");
   const [emailInfo, setEmailInfo] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const findEmail = async () => {
@@ -18,7 +20,12 @@ const Email = () => {
       );
       setEmailInfo(response.data);
     } catch (error) {
-      console.error("Error fetching email:", error);
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("존재하지 않는 사원번호 입니다.");
+      } else {
+        console.error("Error fetching email:", error);
+      }
+
       // Additional error handling can be added here if needed
     }
   };
@@ -95,6 +102,11 @@ const Email = () => {
                     onChange={(e) => setUsernum(e.target.value)}
                     placeholder="사원 번호 입력하기"
                   />
+                  {errorMessage && (
+                    <div style={{ color: "red", margin: "-30px 0px 30px 0px" }}>
+                      {errorMessage}
+                    </div>
+                  )}
                   <StyledButtonDiv onClick={findEmail}>
                     아이디 찾기
                   </StyledButtonDiv>
