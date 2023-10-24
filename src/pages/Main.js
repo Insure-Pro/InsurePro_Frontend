@@ -420,12 +420,12 @@ const Main = () => {
               >
                 최신순
               </Dropdown.Item>
-              <Dropdown.Item
+              {/* <Dropdown.Item
                 href="#/action-2"
                 style={customDropdownItemStyles1}
               >
                 지역별
-              </Dropdown.Item>
+              </Dropdown.Item> */}
               <Dropdown.Item
                 href="#/action-3"
                 style={customDropdownItemStyles1}
