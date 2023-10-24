@@ -153,6 +153,8 @@ const Login = () => {
               flexDirection: "column",
               cursor: "pointer",
               color: "#000",
+              marginTop: "-16px",
+              marginBottom: "-12px",
               paddingRight: "30px",
               alignItems: "end",
             }}
