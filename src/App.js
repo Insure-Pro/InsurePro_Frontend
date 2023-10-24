@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = lazy(() => import("./pages/Login"));
+const Email = lazy(() => import("./pages/Email"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Main = lazy(() => import("./pages/Main"));
 const Detail = lazy(() => import("./pages/Detail"));
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/email" element={<Email />} />
             <Route path="/main" element={<Main />} />
             <Route path="/detail" element={<Detail />} />
           </Routes>

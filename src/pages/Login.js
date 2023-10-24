@@ -52,7 +52,7 @@ const Login = () => {
         flexDirection: "row",
         width: "1360px",
         margin: "0 auto",
-        height: "920px",
+        height: "970px",
         borderRight: "2px solid #dde1e6",
       }}
     >
@@ -61,11 +61,11 @@ const Login = () => {
           src={imageUrl}
           style={{
             width: "800px",
-            height: "920px",
+            height: "970px",
           }}
         />
       </div>
-      <div style={{ paddingTop: "110px", width: "560px", height: "920px" }}>
+      <div style={{ paddingTop: "110px", width: "560px", height: "970px" }}>
         {/* <Header /> */}
         {/* <StyledSpan>로그인</StyledSpan> */}
         <StyledInputDiv>
@@ -147,7 +147,24 @@ const Login = () => {
             />
             <div className="error_message"></div>
           </div>
-          <div>아이디 찾기ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ</div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              cursor: "pointer",
+              color: "#000",
+              paddingRight: "30px",
+              alignItems: "end",
+            }}
+          >
+            <div
+              style={{ marginBottom: "4px", fontSize: "16px" }}
+              onClick={() => navigate("/Email")}
+            >
+              아이디 찾기
+            </div>
+            <div>비밀번호 찾기</div>
+          </div>
         </StyledInputDiv>
         <StyledButtonDiv>
           <StyledInput

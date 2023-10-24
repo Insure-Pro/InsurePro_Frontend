@@ -195,7 +195,7 @@ const Signup = () => {
         flexDirection: "row",
         width: "1360px",
         margin: "0 auto",
-        height: "920px",
+        height: "970px",
         borderRight: "2px solid #dde1e6",
         // position: "center",
       }}
@@ -205,7 +205,7 @@ const Signup = () => {
           src={imageUrl}
           style={{
             width: "800px",
-            height: "920px",
+            height: "970px",
           }}
         />
       </div>
@@ -215,7 +215,7 @@ const Signup = () => {
         onSubmit={handleSubmit}
         style={{
           width: "560px",
-          height: "920px",
+          height: "970px",
           // marginTop: "-24px",
           // marginLeft: "48px",
           // marginTop: "-50px",
