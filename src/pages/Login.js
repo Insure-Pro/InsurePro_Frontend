@@ -165,7 +165,7 @@ const Login = () => {
             >
               아이디 찾기
             </div>
-            <div>비밀번호 찾기</div>
+            <div onClick={() => navigate("/Password")}>비밀번호 변경</div>
           </div>
         </StyledInputDiv>
         <StyledButtonDiv>
