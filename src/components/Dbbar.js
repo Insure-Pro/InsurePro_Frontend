@@ -60,6 +60,8 @@ const Dbbar = ({
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
 
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
@@ -163,6 +165,16 @@ const Dbbar = ({
                 <Nav.Link
                   key={item.key}
                   onClick={() => handleTypeClick(item.label)}
+                  onMouseEnter={() => setHoveredItem(item.label)} // 추가
+                  onMouseLeave={() => setHoveredItem(null)}
+                  style={{
+                    fontSize: "20px",
+                    marginLeft: "2px",
+                    borderBottom:
+                      activeType === item.label || hoveredItem === item.label
+                        ? "2px solid #175cd3"
+                        : "none",
+                  }}
                 >
                   {item.label}
                 </Nav.Link>
