@@ -6,6 +6,9 @@ import "./App.css";
 // import Detail from "./pages/Detail";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+
+import { Provider } from "react-redux";
+import store from "./redux/store";
 // import Spinner from './components/Spinner';
 import "bootstrap/dist/css/bootstrap.min.css";
 

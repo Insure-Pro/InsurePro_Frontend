@@ -5,22 +5,63 @@ import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
 import EditModal from "../components/EditModal";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setCustomers,
+  setActiveType,
+  setSelectedAge,
+  setSelectedSort,
+  setShowOptions,
+  setSelectedContractYn,
+  setShowEditModal,
+  setSelectedCustomer,
+  setFormattedDate,
+} from "../redux/customerSlice";
+
 const Main = () => {
-  const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
+  // const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
-  const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
-  const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
+  // const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
+  // const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
+  // const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
-  const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
+  // const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [formattedDate, setFormattedDate] = useState("");
+  // const [selectedCustomer, setSelectedCustomer] = useState(null);
+  // const [formattedDate, setFormattedDate] = useState("");
+
+  const customers = useSelector((state) => state.customer.customers);
+  const activeType = useSelector((state) => state.customer.activeType);
+  const selectedAge = useSelector((state) => state.customer.selectedAge);
+  const selectedSort = useSelector((state) => state.customer.selectedSort);
+  const selectedContractYn = useSelector(
+    (state) => state.customer.selectedContractYn
+  );
+  const selectedCustomer = useSelector(
+    (state) => state.customer.selectedCustomer
+  );
+  const formattedDate = useSelector((state) => state.customer.formattedDate);
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { selectedTab } = location.state || {};
+
+  useEffect(() => {
+    if (selectedTab) {
+      if (selectedTab === "월별 고객") {
+        handleMonthCustomersClick();
+      } else if (selectedTab === "전체") {
+        handleAllCustomersClick();
+      } else if (selectedTab === "계약완료고객") {
+        handleContractCompleteClick();
+      }
+    }
+  }, [selectedTab]);
 
   const dropdownButtonStyles = {
     backgroundColor: "#e0e0e0", // 연한 회색
@@ -230,19 +271,19 @@ const Main = () => {
 
   const handleSortChange = (sortType) => {
     // 선택된 정렬 기준을 저장하고, 새로고침 상태 변경
-    setSelectedSort(sortType);
+    dispatch(setSelectedSort(sortType));
     // 정렬 버튼을 누를 때 'selectedAge'를 초기화합니다.
-    setSelectedAge("");
+    dispatch(setSelectedAge(""));
     setRefresh((prevRefresh) => !prevRefresh);
   };
 
   const handleAgeFilterChange = async (age) => {
-    setSelectedAge(age); // 선택된 나이 필터 업데이트
+    dispatch(setSelectedAge(age)); // 선택된 나이 필터 업데이트
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
   };
 
   const handleTypeChange = (type) => {
-    setActiveType(type); // 선택된 유형 업데이트
+    dispatch(setActiveType(type)); // 선택된 유형 업데이트
   };
 
   const fetchData = async () => {
@@ -273,7 +314,7 @@ const Main = () => {
           }
           return customer.customerType === activeType;
         });
-        setCustomers(filteredCustomers);
+        dispatch(setCustomers(filteredCustomers));
       }
     } catch (error) {
       console.error("Error fetching customers:", error.message);
@@ -308,22 +349,22 @@ const Main = () => {
   }, [refresh, selectedAge, selectedSort, activeType, formattedDate]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleAllCustomersClick = () => {
-    setSelectedContractYn(null);
-    setSelectedAge("");
-    setSelectedSort("latest");
-    setFormattedDate(null);
+    dispatch(setSelectedContractYn(null));
+    dispatch(setSelectedAge(""));
+    dispatch(setSelectedSort("latest"));
+    dispatch(setFormattedDate(null));
     fetchData(); // 데이터를 다시 불러옴
   };
 
   const handleContractCompleteClick = () => {
-    setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
-    setFormattedDate(null);
+    dispatch(setSelectedContractYn(true)); // 계약 완료 여부를 true로 설정
+    dispatch(setFormattedDate(null));
     fetchData(); // 데이터를 다시 불러옴
   };
 
   // Dbbar에서 onMonthCustomersClick 함수 전달
   const handleMonthCustomersClick = (date) => {
-    setFormattedDate(date);
+    dispatch(setFormattedDate(date));
     fetchData();
   };
 
@@ -333,14 +374,14 @@ const Main = () => {
   };
 
   const handleEditClick = (customer) => {
-    setSelectedCustomer(customer);
+    dispatch(setSelectedCustomer(customer));
     setShowEditModal(true);
     fetchData();
   };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
-    setSelectedCustomer(null);
+    dispatch(setSelectedCustomer(null));
     // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
     setShowOptions(null);
     fetchData();
@@ -485,7 +526,7 @@ const Main = () => {
           </ListGroup>
           {/* <hr /> */}
           {/* 가져온 데이터를 화면에 출력합니다. */}
-          {customers
+          {[...customers]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
               <div

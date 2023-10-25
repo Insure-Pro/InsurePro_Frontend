@@ -157,14 +157,12 @@ const Dbbar = ({
             <Nav
               className="DbbarItem-container"
               variant="underline"
-              defaultActiveKey="/home"
               // style={{ display: "flex", justifyContent: "space-between" }}
             >
               {items.map((item) => (
                 <Nav.Link
                   key={item.key}
                   onClick={() => handleTypeClick(item.label)}
-                  style={{ fontSize: "20px", marginLeft: "2px" }}
                 >
                   {item.label}
                 </Nav.Link>
