@@ -187,7 +187,10 @@ const Main = () => {
   };
 
   return (
-    <div style={{ width: "1400px", margin: "0 auto" }}>
+    <div
+      className="Main_container"
+      style={{ width: "1400px", margin: "0 auto" }}
+    >
       <div className="Db_container">
         <Dbbar
           onTypeChange={handleTypeChange}
@@ -200,6 +203,7 @@ const Main = () => {
         >
           {/* <Search setCustomers={setCustomers} /> */}
           <div
+            className="Dbbar_hr "
             style={{
               display: "flex",
               justifyContent: "space-between",

@@ -164,6 +164,7 @@ const Dbbar = ({
               {items.map((item) => (
                 <Nav.Link
                   key={item.key}
+                  className="DbbarItems"
                   onClick={() => handleTypeClick(item.label)}
                   onMouseEnter={() => setHoveredItem(item.label)} // 추가
                   onMouseLeave={() => setHoveredItem(null)}
@@ -185,6 +186,7 @@ const Dbbar = ({
               />
             </Nav>
             <hr
+              className="Dbbar_hr"
               style={{
                 marginTop: "-2px",
                 marginLeft: "8px",

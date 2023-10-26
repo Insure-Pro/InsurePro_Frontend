@@ -246,14 +246,106 @@
   align-items: center;
 }
 
-@media (max-width: 570px) {
+@media (max-width: 700px) {
   /* .navbar-container  */
-  .vertical-navbar {
+  .vertical-navbar,
+  .Dbbar_hr {
     display: none;
     /* flex-direction: column; */
   }
+  .content {
+    border-right: none !important;
+  }
+
+  .Main_container,
   .Detail_content,
   .content {
-    margin-left: 30px !important;
+    margin-left: 12px !important;
+    font-size: 12px;
+    width: 600px !important;
+  }
+  .listItemStyle1 {
+    width: 110px !important;
+    display: none !important;
+  }
+  .listItemStyle2 {
+    width: 70px !important;
+    padding: 11.5px 0px !important;
+  }
+  .listItemStyle3 {
+    width: 60px !important;
+  }
+  .listItemStyle4 {
+    width: 154px !important;
+  }
+  .listItemStyle5 {
+    width: 120px !important;
+  }
+  .listItemStyle6 {
+    width: 140px !important;
+  }
+  .listItemTitleStyle1 {
+    width: 110px !important;
+    display: none !important;
+  }
+  .listItemTitleStyle2 {
+    width: 70px !important;
+  }
+  .listItemTitleStyle3 {
+    width: 60px !important;
+  }
+  .listItemTitleStyle4 {
+    width: 154px !important;
+  }
+  .listItemTitleStyle5 {
+    width: 120px !important;
+  }
+  .listItemTitleStyle6 {
+    width: 140px !important;
+  }
+
+  .DbbarItems {
+    font-size: 16px !important;
+    margin-left: 0px !important;
+  }
+  .DbbarItem-container,
+  .Dbbar_hr {
+    width: 684px !important;
+  }
+  .Search_container {
+    margin-left: 0px !important;
+  }
+  .Dbbar_hr {
+    margin-top: 8px !important;
+  }
+  .Search_input {
+    width: 180px !important;
+    height: 32px !important;
+    padding: 8px !important ;
+    margin-left: 18px !important;
+    font-size: 12px !important;
+  }
+  .Search_button {
+    width: 40px !important;
+    height: 32px !important;
+  }
+  .maintitle {
+    font-size: 30px !important;
+    margin-bottom: -10px !important;
+  }
+  .Add_Btn {
+    width: 120px !important;
+    height: 32px !important;
+    display: flex !important;
+  }
+  .Add_Btn2 {
+    width: 58px !important;
+    height: 35px !important;
+    font-size: 12px !important;
+  }
+  #dropdown-basic-button {
+    font-size: 12px !important;
+    margin-left: -200px !important;
+    height: 35px !important;
   }
 }

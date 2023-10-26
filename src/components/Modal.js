@@ -156,6 +156,7 @@ function Modal1({ onModalClose }) {
   return (
     <>
       <Button
+        className="Add_Btn2"
         variant="primary"
         style={{ boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)" }}
         onClick={handleShow}

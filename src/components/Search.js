@@ -32,6 +32,7 @@ const Search = ({ setCustomers }) => {
   };
   return (
     <div
+      className="Search_container"
       style={{
         display: "flex",
         alignItems: "center",
@@ -42,6 +43,7 @@ const Search = ({ setCustomers }) => {
       // variant={"primary"}
     >
       <input
+        className="Search_input"
         type="name"
         placeholder="검색하려는 이름을 입력해주세요."
         style={{
@@ -64,6 +66,7 @@ const Search = ({ setCustomers }) => {
         onBlur={() => setInputFocused(false)}
       ></input>
       <button
+        className="Search_button"
         style={{
           width: "60px",
           height: "36px",
