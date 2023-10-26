@@ -27,6 +27,7 @@ const Navbar = ({
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
   const [selectedTab, setSelectedTab] = useState("전체");
   const activeType = useSelector((state) => state.customer.activeType);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
@@ -38,7 +39,7 @@ const Navbar = ({
     if (tabName === "월별 고객") {
       onMonthCustomersClick(); // 월별 고객을 클릭하면, onMonthCustomersClick을 호출합니다.
     } else if (tabName === "전체") {
-      dispatch(setActiveType("All")); // 전체를 클릭하면, onAllCustomersClick을 호출합니다.
+      onAllCustomersClick(); // 전체를 클릭하면, onAllCustomersClick을 호출합니다.
     } else if (tabName === "계약완료고객") {
       onContractCompleteClick(); // 계약완료고객을 클릭하면, onContractCompleteClick을 호출합니다.
     }

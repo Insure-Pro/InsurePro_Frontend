@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../App.css";
+import "../MainStyles.css";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal";
 import EditModal from "../components/EditModal";
@@ -24,28 +25,16 @@ import {
 } from "../redux/customerSlice";
 
 const Main = () => {
-  // const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
+  const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  // const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
-  // const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
-  // const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
+  const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
+  const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
+  const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
-  // const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
+  const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [selectedCustomer, setSelectedCustomer] = useState(null);
-  // const [formattedDate, setFormattedDate] = useState("");
-
-  const customers = useSelector((state) => state.customer.customers);
-  const activeType = useSelector((state) => state.customer.activeType);
-  const selectedAge = useSelector((state) => state.customer.selectedAge);
-  const selectedSort = useSelector((state) => state.customer.selectedSort);
-  const selectedContractYn = useSelector(
-    (state) => state.customer.selectedContractYn
-  );
-  const selectedCustomer = useSelector(
-    (state) => state.customer.selectedCustomer
-  );
-  const formattedDate = useSelector((state) => state.customer.formattedDate);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [formattedDate, setFormattedDate] = useState("");
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -63,205 +52,9 @@ const Main = () => {
     }
   }, [selectedTab]);
 
-  const dropdownButtonStyles = {
-    backgroundColor: "#e0e0e0", // 연한 회색
-    color: "black", // 글자색
-    borderColor: "#b0b0b0", // 테두리 색
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-  };
-
-  const customDropdownItemStyles1 = {
-    width: "100px", // 원하는 너비로 설정합니다.
-    paddingLeft: "30px",
-
-    // whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
-    // overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
-    // textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
-  };
-  //DB분배일
-  const listItemStyle1 = {
-    flex: "none", // flex 속성 제거
-    width: "170px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderRightRadius: "20px",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-    // borderRadius: "0 5px 5px 0",//오른쪽 모서리
-  };
-  //고객유형
-  const listItemStyle2 = {
-    flex: "none", // flex 속성 제거
-    width: "110px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-  };
-  //이름
-  const listItemStyle3 = {
-    flex: "none", // flex 속성 제거
-    width: "110px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-  };
-  //생년월일(나이)
-  const listItemStyle4 = {
-    flex: "none", // flex 속성 제거
-    width: "200px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-  };
-  //연락처
-  const listItemStyle5 = {
-    flex: "none", // flex 속성 제거
-    width: "170px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-  };
-  //거주지
-  const listItemStyle6 = {
-    flex: "none", // flex 속성 제거
-    width: "230px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-    cursor: "default",
-    whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
-    overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
-    textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
-    // borderRadius: "5px 0 0 5px",// 왼쪽모서리
-  };
-  const listItemTitleStyle1 = {
-    flex: "none", // flex 속성 제거
-    width: "170px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderRightRadius: "20px",
-    borderRadius: "5px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
-  const listItemTitleStyle2 = {
-    flex: "none", // flex 속성 제거
-    width: "110px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
-  const listItemTitleStyle3 = {
-    flex: "none", // flex 속성 제거
-    width: "110px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
-  const listItemTitleStyle4 = {
-    flex: "none", // flex 속성 제거
-    width: "200px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
-  const listItemTitleStyle5 = {
-    flex: "none", // flex 속성 제거
-    width: "170px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
-  const listItemTitleStyle6 = {
-    flex: "none", // flex 속성 제거
-    width: "230px",
-    textAlign: "center",
-    padding: "13px", // 아이템 내부 여백 조절
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderLeft: "1px solid #ddd",
-    borderRadius: "5px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#175CD3",
-    fontWeight: "bold",
-    opacity: "0.9",
-    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)",
-    cursor: "default",
-  };
+  // whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
+  // overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
+  // textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
 
   const navigate = useNavigate();
 
@@ -271,19 +64,19 @@ const Main = () => {
 
   const handleSortChange = (sortType) => {
     // 선택된 정렬 기준을 저장하고, 새로고침 상태 변경
-    dispatch(setSelectedSort(sortType));
+    setSelectedSort(sortType);
     // 정렬 버튼을 누를 때 'selectedAge'를 초기화합니다.
-    dispatch(setSelectedAge(""));
+    setSelectedAge("");
     setRefresh((prevRefresh) => !prevRefresh);
   };
 
   const handleAgeFilterChange = async (age) => {
-    dispatch(setSelectedAge(age)); // 선택된 나이 필터 업데이트
+    setSelectedAge(age); // 선택된 나이 필터 업데이트
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
   };
 
   const handleTypeChange = (type) => {
-    dispatch(setActiveType(type)); // 선택된 유형 업데이트
+    setActiveType(type); // 선택된 유형 업데이트
   };
 
   const fetchData = async () => {
@@ -314,7 +107,7 @@ const Main = () => {
           }
           return customer.customerType === activeType;
         });
-        dispatch(setCustomers(filteredCustomers));
+        setCustomers(filteredCustomers);
       }
     } catch (error) {
       console.error("Error fetching customers:", error.message);
@@ -349,22 +142,22 @@ const Main = () => {
   }, [refresh, selectedAge, selectedSort, activeType, formattedDate]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleAllCustomersClick = () => {
-    dispatch(setSelectedContractYn(null));
-    dispatch(setSelectedAge(""));
-    dispatch(setSelectedSort("latest"));
-    dispatch(setFormattedDate(null));
+    setSelectedContractYn(null);
+    setSelectedAge("");
+    setSelectedSort("latest");
+    setFormattedDate(null);
     fetchData(); // 데이터를 다시 불러옴
   };
 
   const handleContractCompleteClick = () => {
-    dispatch(setSelectedContractYn(true)); // 계약 완료 여부를 true로 설정
-    dispatch(setFormattedDate(null));
+    setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
+    setFormattedDate(null);
     fetchData(); // 데이터를 다시 불러옴
   };
 
   // Dbbar에서 onMonthCustomersClick 함수 전달
   const handleMonthCustomersClick = (date) => {
-    dispatch(setFormattedDate(date));
+    setFormattedDate(date);
     fetchData();
   };
 
@@ -374,14 +167,14 @@ const Main = () => {
   };
 
   const handleEditClick = (customer) => {
-    dispatch(setSelectedCustomer(customer));
+    setSelectedCustomer(customer);
     setShowEditModal(true);
     fetchData();
   };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
-    dispatch(setSelectedCustomer(null));
+    setSelectedCustomer(null);
     // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
     setShowOptions(null);
     fetchData();
@@ -392,32 +185,6 @@ const Main = () => {
     e.preventDefault(); // 기본 우클릭 메뉴 차단
     setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
   };
-
-  // let pressTimer;
-  // let longPressTriggered = false; // 길게 눌렸는지 확인하는 플래그를 추가
-
-  // const handleMouseDown = (customerId) => {
-  //   longPressTriggered = false; // 초기화
-  //   pressTimer = setTimeout(() => {
-  //     setShowOptions(customerId); // 1초 후에 Edit, Delete 버튼을 보여줍니다.
-  //     longPressTriggered = true; // 길게 눌렸다는 것을 표시
-  //   }, 1000);
-  // };
-
-  // const handleMouseUp = (customer) => {
-  //   clearTimeout(pressTimer);
-  //   // 만약 longPressTriggered가 false이면 (즉, 길게 누르지 않은 상태에서 MouseUp 이벤트가 발생하면)
-  //   if (!longPressTriggered) {
-  //     // 약간의 딜레이를 주어 setShowOptions에서의 상태 업데이트가 handleCustomerClick 호출보다 먼저 발생하도록 합니다.
-  //     setTimeout(() => {
-  //       if (!showOptions) {
-  //         handleCustomerClick(customer);
-  //       }
-  //     }, 50);
-  //   }
-  //   // 길게 눌렸든, 길게 눌리지 않았든, 상태를 초기화
-  //   longPressTriggered = false;
-  // };
 
   return (
     <div style={{ width: "1400px", margin: "0 auto" }}>
@@ -449,48 +216,46 @@ const Main = () => {
             </div>
             <DropdownButton
               id="dropdown-basic-button"
+              className="dropdownButtonStyles"
               size="ml"
               title="정렬기준"
               variant="secondary"
-              style={dropdownButtonStyles}
             >
               <Dropdown.Item
                 href="#/action-1"
-                style={customDropdownItemStyles1}
+                className="customDropdownItemStyles1"
                 onClick={() => handleSortChange("latest")}
               >
                 최신순
               </Dropdown.Item>
               {/* <Dropdown.Item
                 href="#/action-2"
-                style={customDropdownItemStyles1}
-              >
                 지역별
               </Dropdown.Item> */}
               <Dropdown.Item
                 href="#/action-3"
-                style={customDropdownItemStyles1}
+                className="customDropdownItemStyles1"
                 onClick={() => handleAgeFilterChange("1020")}
               >
                 10-20대
               </Dropdown.Item>
               <Dropdown.Item
                 href="#/action-4"
-                style={customDropdownItemStyles1}
+                className="customDropdownItemStyles1"
                 onClick={() => handleAgeFilterChange("3040")}
               >
                 30-40대
               </Dropdown.Item>
               <Dropdown.Item
                 href="#/action-5"
-                style={customDropdownItemStyles1}
+                className="customDropdownItemStyles1"
                 onClick={() => handleAgeFilterChange("5060")}
               >
                 50-60대
               </Dropdown.Item>
               <Dropdown.Item
                 href="#/action-6"
-                style={customDropdownItemStyles1}
+                className="customDropdownItemStyles1"
                 onClick={() => handleAgeFilterChange("7080")}
               >
                 70-80대
@@ -505,27 +270,26 @@ const Main = () => {
               marginBottom: "4px",
             }}
           >
-            <ListGroup.Item variant="primary" style={listItemTitleStyle1}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle1">
               DB 분배일
             </ListGroup.Item>
-            <ListGroup.Item variant="primary" style={listItemTitleStyle2}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle2">
               고객유형
             </ListGroup.Item>
-            <ListGroup.Item variant="primary" style={listItemTitleStyle3}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle3">
               이름
             </ListGroup.Item>
-            <ListGroup.Item variant="primary" style={listItemTitleStyle4}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle4">
               생년월일 (나이)
             </ListGroup.Item>
-            <ListGroup.Item variant="primary" style={listItemTitleStyle5}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle5">
               연락처
             </ListGroup.Item>
-            <ListGroup.Item variant="primary" style={listItemTitleStyle6}>
+            <ListGroup.Item variant="primary" className="listItemTitleStyle6">
               거주지
             </ListGroup.Item>
           </ListGroup>
           {/* <hr /> */}
-          {/* 가져온 데이터를 화면에 출력합니다. */}
           {[...customers]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
@@ -536,8 +300,6 @@ const Main = () => {
                   e.preventDefault();
                   handleRightClick(e, customer.pk);
                 }}
-                // onMouseDown={() => handleMouseDown(customer.pk)}
-                // onMouseUp={() => handleMouseUp(customer)}
               >
                 <ListGroup
                   horizontal
@@ -545,65 +307,56 @@ const Main = () => {
                   onClick={() => handleCustomerClick(customer)}
                 >
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle1,
-                      // backgroundColor: customer.contractYn
-                      //   ? "#4FFA7A"
-                      //   : "transparent",
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle1 ${
+                      customer.contractYn
+                        ? "listItemStyle1-contract"
+                        : "listItemStyle1-noContract"
+                    }`}
                   >
                     {customer.registerDate}
                   </ListGroup.Item>
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle2,
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle2 ${
+                      customer.contractYn
+                        ? "listItemStyle2-contract"
+                        : "listItemStyle2-noContract"
+                    }`}
                   >
                     {customer.customerType}
                   </ListGroup.Item>
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle3,
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle3 ${
+                      customer.contractYn
+                        ? "listItemStyle3-contract"
+                        : "listItemStyle3-noContract"
+                    }`}
                   >
                     {customer.name}
                   </ListGroup.Item>
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle4,
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle4 ${
+                      customer.contractYn
+                        ? "listItemStyle4-contract"
+                        : "listItemStyle4-noContract"
+                    }`}
                   >
                     {customer.birth} (만 {customer.age}세)
                   </ListGroup.Item>
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle5,
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle5 ${
+                      customer.contractYn
+                        ? "listItemStyle5-contract"
+                        : "listItemStyle5-noContract"
+                    }`}
                   >
                     {customer.phone}
                   </ListGroup.Item>
                   <ListGroup.Item
-                    style={{
-                      ...listItemStyle6,
-                      border: customer.contractYn
-                        ? "1px solid #53B1FD"
-                        : "1px solid #DDDDDD",
-                    }}
+                    className={`listItemStyle6 ${
+                      customer.contractYn
+                        ? "listItemStyle6-contract"
+                        : "listItemStyle6-noContract"
+                    }`}
                   >
                     {customer.address}
                   </ListGroup.Item>
@@ -615,7 +368,6 @@ const Main = () => {
                       onClick={() => handleEditClick(customer)}
                       style={{
                         fontSize: "14px",
-                        // fontWeight: "bold",
                         height: "36px",
                         marginBottom: "6px",
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
@@ -628,7 +380,6 @@ const Main = () => {
                       onClick={() => handleDeleteClick(customer)}
                       style={{
                         fontSize: "14px",
-                        // fontWeight: "bold",
                         height: "36px",
                         marginBottom: "6px",
                         boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
