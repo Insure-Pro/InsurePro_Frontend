@@ -199,6 +199,7 @@ const Detail = ({
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
+        className="Detail_content"
         style={{
           marginLeft: "302px",
           height: "110vh",

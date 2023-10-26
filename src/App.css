@@ -245,3 +245,15 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media (max-width: 570px) {
+  /* .navbar-container  */
+  .vertical-navbar {
+    display: none;
+    /* flex-direction: column; */
+  }
+  .Detail_content,
+  .content {
+    margin-left: 30px !important;
+  }
+}

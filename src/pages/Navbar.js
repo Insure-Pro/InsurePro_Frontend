@@ -169,7 +169,7 @@ const Navbar = ({
         </svg>
         Client
       </div>
-      <>
+      <div className="navbar-items">
         <div
           className="navbar-item"
           onClick={() => {
@@ -216,7 +216,7 @@ const Navbar = ({
         >
           월별 고객
         </div>
-      </>
+      </div>
     </div>
   );
 };
