@@ -363,4 +363,37 @@
     margin-right: -6px !important;
     height: 35px !important;
   }
+
+  .modal-title {
+    font-size: 18px !important;
+    margin-bottom: -4px !important;
+  }
+
+  .modal-content,
+  .Modal_container {
+    width: 380px !important;
+    font-size: 14px !important;
+  }
+  .Modal_container input,
+  .Modal_container textarea {
+    font-size: 14px !important;
+  }
+
+  .Modal_container textarea:last-of-type {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .Modal_container .btn {
+    font-size: 12px !important;
+  }
+
+  .Modal_customerType_item:first-of-type {
+    margin-left: 4px !important;
+  }
+
+  .Modal_customerType {
+    display: none !important;
+  }
 }

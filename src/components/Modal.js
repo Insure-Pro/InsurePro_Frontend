@@ -173,7 +173,7 @@ function Modal1({ onModalClose }) {
         <Modal.Header closeButton>
           <Modal.Title>신규고객 추가</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ margin: "-15px 0px" }}>
+        <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="name.ControlInput1">
               <Form.Label></Form.Label>
@@ -195,6 +195,7 @@ function Modal1({ onModalClose }) {
             <Form.Group className="mb-0">
               <ButtonGroup>
                 <div
+                  className="Modal_customerType"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -214,6 +215,7 @@ function Modal1({ onModalClose }) {
                 {customerTypes.map((type, idx) => (
                   <ToggleButton
                     key={idx}
+                    className="Modal_customerType_item"
                     type="button"
                     variant={
                       selectedCustomerType === type
