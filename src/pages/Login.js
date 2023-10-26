@@ -41,7 +41,18 @@ const Login = () => {
       })
       .catch((error) => {
         console.error("Login error:", error);
-        alert("로그인에 실패했습니다.");
+        if (error.response && error.response.data) {
+          if (error.response.data.message === "Invalid Email") {
+            document.querySelector(".error_message").innerHTML =
+              "등록되지 않은 이메일 주소입니다.";
+          } else if (error.response.data.message === "Wrong Password") {
+            document.querySelector(".error_message").innerHTML =
+              "비밀번호가 일치하지 않습니다.";
+          }
+        } else {
+          document.querySelector(".error_message").innerHTML =
+            "로그인에 실패했습니다.";
+        }
       });
   };
 
@@ -145,7 +156,10 @@ const Login = () => {
               }}
               placeholder="비밀번호를 입력해주세요."
             />
-            <div className="error_message"></div>
+            <div
+              className="error_message"
+              style={{ marginTop: "-20px", paddingBottom: "20px" }}
+            ></div>
           </div>
           <div
             style={{
