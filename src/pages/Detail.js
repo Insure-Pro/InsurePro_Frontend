@@ -173,6 +173,7 @@ const Detail = ({
 
   return (
     <div
+      className="Detail_container"
       style={{
         display: "flex",
         backgroundColor: "#F5FAFF",
@@ -215,6 +216,7 @@ const Detail = ({
               onUpdateSuccess={handleUpdateSuccess}
             />
             <hr
+              className="Detail_hr"
               style={{ width: "1020px", marginTop: "40px", marginLeft: "12px" }}
             />
             <div style={{ display: "flex" }}>
@@ -225,7 +227,10 @@ const Detail = ({
                 onUpdateSuccess={handleUpdateSuccess}
               />
             </div>
-            <hr style={{ width: "1020px", marginLeft: "12px" }} />
+            <hr
+              className="Detail_hr Detail_hr2"
+              style={{ width: "1020px", marginLeft: "12px" }}
+            />
             <CustomerHistory data={customerSchedules} customerPk={customerPk} />
             <EditModalD
               show={showEditModalD}

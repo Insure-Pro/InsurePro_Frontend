@@ -155,6 +155,7 @@ const CustomerHistory = ({ customerPk }) => {
       </div>
       {histories.map((history) => (
         <div
+          className="history_item_container"
           key={history.pk}
           onContextMenu={(e) => {
             e.preventDefault();
@@ -176,12 +177,19 @@ const CustomerHistory = ({ customerPk }) => {
             boxShadow: "10px 4px 4px 0px rgba(46, 64, 97, 0.10)",
           }}
         >
-          <div style={historyItemStyle1}>{history.progress}</div>
-          <div>
-            <div style={historyItemStyle2}>
+          <div className="history_items_progress" style={historyItemStyle1}>
+            {history.progress}
+          </div>
+          <div className="history_items">
+            <div
+              className="history_items_dateaddress"
+              style={historyItemStyle2}
+            >
               {history.date} {history.address}
             </div>
-            <div style={historyItemStyle3}>{history.memo}</div>
+            <div className="history_items_memo" style={historyItemStyle3}>
+              {history.memo}
+            </div>
           </div>
           {showOptions === history.pk && (
             <div style={{ display: "flex", flexDirection: "column" }}>

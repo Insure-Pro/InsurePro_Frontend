@@ -48,8 +48,9 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           이전 화면으로 돌아가기
         </span>
       </div>
-      <div className="customer_tnp">
+      <div>
         <Button
+          className="customer_tnp"
           style={{
             display: "flex",
             width: "34px",
@@ -71,6 +72,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           {data.customerType}
         </Button>
         <div
+          className="customerdetail_editmodal"
           style={{
             display: "flex",
             alignItems: "center",

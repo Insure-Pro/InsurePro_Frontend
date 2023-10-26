@@ -16,7 +16,7 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
   };
 
   return (
-    <div style={{ margin: "-10px 0px" }}>
+    <div className="customer_info_container" style={{ margin: "-10px 0px" }}>
       <div>
         {/* <hr /> */}
         <div className="infoItem" style={{ cursor: "default" }}>
@@ -27,7 +27,10 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
         </div>
         <div className="infoItem" style={{ cursor: "default" }}>
           <span>주소</span>
-          <span className="infoSpan" style={{ marginLeft: "115px" }}>
+          <span
+            className="infoSpan infoSpanaddress"
+            style={{ marginLeft: "115px" }}
+          >
             {data.address}
           </span>
         </div>

@@ -57,6 +57,7 @@ function HistoryModal({ customerPk, onNewData }) {
   return (
     <>
       <Button
+        className="history_Add_Btn"
         variant="primary"
         onClick={handleShow}
         style={{
