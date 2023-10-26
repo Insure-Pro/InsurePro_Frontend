@@ -270,19 +270,27 @@
   }
   .listItemStyle2 {
     width: 70px !important;
-    padding: 11.5px 0px !important;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemStyle3 {
-    width: 60px !important;
+    width: 60px !important
+    ;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemStyle4 {
-    width: 154px !important;
+    width: 150px !important
+    ;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemStyle5 {
-    width: 120px !important;
+    width: 120px !important
+    ;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemStyle6 {
-    width: 140px !important;
+    width: 130px !important
+    ;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemTitleStyle1 {
     width: 110px !important;
@@ -290,18 +298,23 @@
   }
   .listItemTitleStyle2 {
     width: 70px !important;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemTitleStyle3 {
     width: 60px !important;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemTitleStyle4 {
-    width: 154px !important;
+    width: 150px !important;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemTitleStyle5 {
     width: 120px !important;
+    padding: 8px 10px 8px 10px !important;
   }
   .listItemTitleStyle6 {
-    width: 140px !important;
+    width: 130px !important;
+    padding: 8px 10px 8px 10px !important;
   }
 
   .DbbarItems {
@@ -310,7 +323,7 @@
   }
   .DbbarItem-container,
   .Dbbar_hr {
-    width: 684px !important;
+    width: 600px !important;
   }
   .Search_container {
     margin-left: 0px !important;
@@ -322,16 +335,17 @@
     width: 180px !important;
     height: 32px !important;
     padding: 8px !important ;
-    margin-left: 18px !important;
+    margin-left: 12px !important;
     font-size: 12px !important;
   }
   .Search_button {
-    width: 40px !important;
+    width: 44px !important;
     height: 32px !important;
   }
   .maintitle {
     font-size: 30px !important;
     margin-bottom: -10px !important;
+    margin-top: -12px;
   }
   .Add_Btn {
     width: 120px !important;
@@ -345,7 +359,8 @@
   }
   #dropdown-basic-button {
     font-size: 12px !important;
-    margin-left: -200px !important;
+    margin-left: 0px !important;
+    margin-right: -6px !important;
     height: 35px !important;
   }
 }
