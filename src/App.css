@@ -50,6 +50,13 @@
   border-right: 2px solid #dde1e6;
 }
 
+@media (max-width: 700px) {
+  .vertical-navbar {
+    position: static;
+    margin-right: -240px;
+  }
+}
+
 .navbar-item {
   padding: 10px; /* Padding for each Navbar item */
   padding-left: 44px; /*전체, 관리고객, 계약완료 고객 간격 수정*/
