@@ -363,7 +363,8 @@
     margin-right: -6px !important;
     height: 35px !important;
   }
-
+  /* 고객 추가 모달창 모바일 */
+  /* 디테일창 고객정보 수정 모달창 모바일 */
   .modal-title {
     font-size: 18px !important;
     margin-bottom: -4px !important;
@@ -396,7 +397,7 @@
   .Modal_customerType {
     display: none !important;
   }
-
+  /* 디테일창 모바일 */
   .Detail_container,
   .customer-detail-container,
   .customer_info_container,
@@ -455,7 +456,7 @@
   .customer-histoy-top > h5 {
     font-size: 16px !important;
   }
-
+  /* 히스토리창 모바일 */
   .history_item_container,
   .history_items,
   .history_items_dateaddress,

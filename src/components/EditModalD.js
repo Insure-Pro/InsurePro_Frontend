@@ -153,7 +153,7 @@ const EditModalD = ({
         <Modal.Header closeButton style={{ marginRight: "16px" }}>
           <Modal.Title>고객정보 수정</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ margin: "-15px 0px" }}>
+        <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4" controlId="formName">
               <Form.Label></Form.Label>
@@ -181,6 +181,7 @@ const EditModalD = ({
             <Form.Group className="mb-0">
               <ButtonGroup>
                 <div
+                  className="Modal_customerType"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -200,6 +201,7 @@ const EditModalD = ({
                 {customerTypes.map((type, idx) => (
                   <ToggleButton
                     key={idx}
+                    className="Modal_customerType_item"
                     type="button"
                     variant={
                       selectedCustomerType === type
