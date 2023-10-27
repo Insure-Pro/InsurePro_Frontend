@@ -85,6 +85,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             <h2 className="customerName">{data.name}</h2>
             <h2>
               <Form.Check
+                className="Detail_checkbox"
                 aria-label="option 1"
                 checked={data.contractYn}
                 readOnly

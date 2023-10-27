@@ -424,7 +424,7 @@
     margin-right: 55px !important;
   }
   .customer_tnp {
-    font-size: 14px !important;
+    font-size: 12px !important;
     width: 30px !important;
     height: 22px !important;
     margin-bottom: 0px !important;
@@ -434,15 +434,22 @@
     width: 360px !important;
   }
   .customerName {
-    font-size: 24px !important;
+    font-size: 22px !important;
+    padding-bottom: 4px !important;
+  }
+  .Detail_checkbox {
+    font-size: 22px !important;
+  }
+  .userName {
+    margin: 0px !important;
   }
   .customerPhone {
-    font-size: 18px !important;
+    font-size: 16px !important;
     margin-bottom: 0px !important;
   }
   .infoItem,
   .infoSpan {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
   .infoSpan {
     margin-left: 24px !important;
@@ -461,15 +468,20 @@
   .history_items,
   .history_items_dateaddress,
   .history_items_memo {
-    width: 200px !important;
+    width: 300px !important;
     margin-left: 0px !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .history_items_progress {
-    font-size: 18px !important;
+    font-size: 16px !important;
     width: 60px !important;
-    padding: 4px 13px 0px 0px !important;
+    padding: 4px 0px 0px 0px !important;
+    margin: 0px 0px 8px 0px !important;
   }
+
   .history_items_memo {
     margin-bottom: 0px !important ;
   }
@@ -478,7 +490,7 @@
     padding-top: 413px !important;
     width: 320px !important;
     height: 60px !important;
-    padding: 6px 10px !important;
+    padding: 6px 2px !important;
   }
   .history_Add_Btn {
     width: 68px !important;
