@@ -174,12 +174,21 @@ const Login = () => {
             }}
           >
             <div
-              style={{ marginBottom: "4px", fontSize: "16px" }}
+              style={{
+                color: "#98a2b3",
+                marginBottom: "4px",
+                fontSize: "14px",
+              }}
               onClick={() => navigate("/Email")}
             >
               아이디 찾기
             </div>
-            <div onClick={() => navigate("/Password")}>비밀번호 변경</div>
+            <div
+              style={{ color: "#98a2b3", fontSize: "14px" }}
+              onClick={() => navigate("/Password")}
+            >
+              비밀번호 변경
+            </div>
           </div>
         </StyledInputDiv>
         <StyledButtonDiv>
