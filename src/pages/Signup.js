@@ -312,6 +312,7 @@ const Signup = () => {
               />
 
               <button
+                className="signin_code_button"
                 type="button"
                 onClick={handleSendCodeClick}
                 style={baseButtonStyle}
@@ -338,6 +339,7 @@ const Signup = () => {
                 placeholder="본인 인증 코드를 입력해주세요"
               />
               <button
+                className="signin_code_button"
                 style={confirmButtonStyle}
                 disabled={!isCodeSent}
                 onClick={handleVerifyClick}

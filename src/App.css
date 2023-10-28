@@ -248,6 +248,9 @@
 
 @media (max-width: 700px) {
   /* .navbar-container  */
+  .signin_code_button {
+    font-size: 14px !important;
+  }
   .vertical-navbar,
   .Dbbar_hr {
     display: none;
