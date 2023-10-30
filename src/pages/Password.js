@@ -209,7 +209,7 @@ const Password = () => {
             }}
           >
             {" "}
-            비밀번호 변경
+            비밀번호 찾기
           </h1>
 
           <span
@@ -230,6 +230,7 @@ const Password = () => {
               />
 
               <button
+                className="signin_code_button"
                 type="button"
                 onClick={handleSendCodeClick}
                 style={baseButtonStyle}
@@ -252,6 +253,7 @@ const Password = () => {
                 placeholder="본인 인증 코드를 입력해주세요"
               />
               <button
+                className="signin_code_button"
                 style={confirmButtonStyle}
                 disabled={!isCodeSent}
                 onClick={handleVerifyClick}

@@ -474,9 +474,10 @@
     width: 300px !important;
     margin-left: 0px !important;
     font-size: 12px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    /* white-space: nowrap !important; */
+    /* overflow: hidden !important;
+    text-overflow: ellipsis !important; */
+    padding-right: 60px !important;
   }
   .history_items_progress {
     font-size: 16px !important;

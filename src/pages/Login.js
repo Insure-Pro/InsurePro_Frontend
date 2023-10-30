@@ -187,7 +187,7 @@ const Login = () => {
               style={{ color: "#98a2b3", fontSize: "14px" }}
               onClick={() => navigate("/Password")}
             >
-              비밀번호 변경
+              비밀번호 찾기
             </div>
           </div>
         </StyledInputDiv>
