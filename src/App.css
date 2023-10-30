@@ -40,21 +40,13 @@
 .vertical-navbar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: auto;
   width: 254px; /* Adjust the width as needed */
   background-color: #f5faff; /* Navbar background color */
   color: #21272a; /* Text color */
   padding: 17px; /* Padding for the entire Navbar */
-  position: fixed;
   border-left: 2px solid #dde1e6;
   border-right: 2px solid #dde1e6;
-}
-
-@media (max-width: 800px) {
-  .vertical-navbar {
-    position: static;
-    margin-right: -240px;
-  }
 }
 
 .navbar-item {
