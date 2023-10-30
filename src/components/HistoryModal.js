@@ -144,9 +144,6 @@ function HistoryModal({ customerPk, onNewData }) {
             </Form.Group>
 
             <Modal.Footer style={{ marginRight: "-12px" }}>
-              <Button variant="secondary" onClick={handleClose}>
-                닫기
-              </Button>
               <Button variant="primary" type="submit">
                 저장
               </Button>
