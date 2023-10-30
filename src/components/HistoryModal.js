@@ -72,7 +72,7 @@ function HistoryModal({ customerPk, onNewData }) {
         <Modal.Header closeButton style={{ marginRight: "16px" }}>
           <Modal.Title>히스토리 추가</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="Modal_container">
           <Form onSubmit={handleSubmit}>
             <ButtonGroup>
               <div
