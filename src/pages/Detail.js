@@ -202,7 +202,7 @@ const Detail = ({
       <div
         className="Detail_content"
         style={{
-          marginLeft: "302px",
+          marginLeft: "52px",
           height: "110vh",
         }}
       >

@@ -12,6 +12,8 @@ const CustomerHistory = ({ customerPk }) => {
   const [showEditModalH, setShowEditModalH] = useState(false);
   const [histories, setHistories] = useState([]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   const fetchCustomerHistory = async () => {
     try {
       const url = `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`;
@@ -80,6 +82,20 @@ const CustomerHistory = ({ customerPk }) => {
       console.error("Error deleting customer:", error);
     }
   };
+
+  useEffect(() => {
+    // 창 크기가 변경될 때마다 windowWidth 상태를 업데이트
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -160,6 +176,12 @@ const CustomerHistory = ({ customerPk }) => {
           onContextMenu={(e) => {
             e.preventDefault();
             handleRightClick(e, history.pk);
+          }}
+          onClick={(e) => {
+            if (windowWidth <= 700) {
+              e.preventDefault();
+              handleRightClick(e, history.pk);
+            }
           }}
           // onMouseDown={() => handleMouseDown(history.pk)}
           // onMouseUp={() => handleMouseUp(history)}
