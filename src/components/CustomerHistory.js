@@ -216,6 +216,7 @@ const CustomerHistory = ({ customerPk }) => {
           {showOptions === history.pk && (
             <div style={{ display: "flex", flexDirection: "column" }}>
               <Button
+                className="history_edit_Btn"
                 variant="outline-primary"
                 onClick={() => handleEditHClick(history)}
                 style={{
@@ -232,6 +233,7 @@ const CustomerHistory = ({ customerPk }) => {
                 수정
               </Button>{" "}
               <Button
+                className="history_edit_Btn"
                 variant="outline-danger"
                 onClick={() => handleDeleteClick(history)}
                 style={{
