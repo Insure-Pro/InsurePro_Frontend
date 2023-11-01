@@ -12,17 +12,6 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setCustomers,
-  setActiveType,
-  setSelectedAge,
-  setSelectedSort,
-  setShowOptions,
-  setSelectedContractYn,
-  setShowEditModal,
-  setSelectedCustomer,
-  setFormattedDate,
-} from "../redux/customerSlice";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
@@ -51,10 +40,6 @@ const Main = () => {
       }
     }
   }, [selectedTab]);
-
-  // whiteSpace: "nowrap", // 텍스트가 넘칠 경우 줄 바꿈을 방지합니다.
-  // overflow: "hidden", // 내용이 넘칠 경우 숨깁니다.
-  // textOverflow: "ellipsis", // 내용이 넘칠 경우 생략 부호(...)를 표시합니다.
 
   const navigate = useNavigate();
 
@@ -186,6 +171,87 @@ const Main = () => {
     setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
   };
 
+  // 페이지네이션을 위한 상태 추가
+  const [currentPage, setCurrentPage] = useState(1);
+  const customersPerPage = 15;
+
+  // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
+  const indexOfLastCustomer = currentPage * customersPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+
+  // 현재 페이지에 표시될 고객 데이터 슬라이싱
+  const currentCustomers = customers.slice(
+    indexOfFirstCustomer,
+    indexOfLastCustomer
+  );
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // '다음' 버튼 클릭 핸들러
+  const handleNextClick = () => {
+    if (currentPage < Math.ceil(customers.length / customersPerPage)) {
+      setCurrentPage(currentPage + (6 - (currentPage % 5)));
+    }
+  };
+
+  // '이전' 버튼 클릭 핸들러
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - ((currentPage - 1) % 5 || 5));
+    }
+  };
+  const [shouldPaginate, setShouldPaginate] = useState(
+    window.innerWidth <= 700
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShouldPaginate(window.innerWidth <= 700);
+    };
+
+    // 창 크기가 변경될 때마다 handleResize 함수를 호출
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // 화면의 가로 크기에 따라 사용할 배열 결정
+  const displayCustomers = shouldPaginate ? currentCustomers : customers;
+
+  // 페이지네이션 컴포넌트 렌더링
+  const renderPagination = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(customers.length / customersPerPage); i++) {
+      pageNumbers.push(i);
+    }
+    const startPage = 1 + 5 * Math.floor((currentPage - 1) / 5);
+    const endPage = Math.min(startPage + 4, pageNumbers.length);
+
+    return (
+      <div className="pageNationBtn">
+        <button onClick={handlePrevClick} disabled={startPage === 1}>
+          이전
+        </button>
+        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
+          <button key={number} onClick={() => handlePageClick(number)}>
+            {number}
+          </button>
+        ))}
+        <button
+          onClick={handleNextClick}
+          disabled={endPage === pageNumbers.length}
+        >
+          다음
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div
       className="Main_container"
@@ -293,8 +359,9 @@ const Main = () => {
               거주지
             </ListGroup.Item>
           </ListGroup>
+
           {/* <hr /> */}
-          {[...customers]
+          {[...displayCustomers]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
             .map((customer) => (
               <div
@@ -395,6 +462,7 @@ const Main = () => {
                 )}
               </div>
             ))}
+          {shouldPaginate && renderPagination()}
           {selectedCustomer && (
             <EditModal
               show={showEditModal}
