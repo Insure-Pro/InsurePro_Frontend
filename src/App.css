@@ -162,9 +162,7 @@
   flex: 1;
   margin-right: 10px; /* Add margin-right for spacing between divs */
 }
-/* .pageNationBtn {
-  display: none;
-} */
+
 .customer-detail-container {
   width: 1000px; /* 원하는 가로 크기 */
   height: 250px; /* 원하는 세로 크기 */
@@ -211,7 +209,14 @@
   margin: 30px 48px;
   background-color: #fff;
 }
-
+.pageNation_Btn {
+  margin-top: 4px;
+}
+.pageNation_Btn button {
+  border: none;
+  background-color: #fff;
+  color: #175cd3;
+}
 .CustomerInfo_title,
 .CustomerHistory_title {
   display: flex;
@@ -314,9 +319,6 @@
     padding: 8px 10px 8px 10px !important;
   }
 
-  /* .pageNationBtn {
-    display: block !important;
-  } */
   .DbbarItems {
     font-size: 16px !important;
     margin-left: -2px !important;

@@ -233,7 +233,7 @@ const Main = () => {
     const endPage = Math.min(startPage + 4, pageNumbers.length);
 
     return (
-      <div className="pageNationBtn">
+      <div className="pageNation_Btn">
         <button onClick={handlePrevClick} disabled={startPage === 1}>
           이전
         </button>
