@@ -18,6 +18,7 @@ const Search = ({ setCustomers }) => {
       );
       if (response.status === 200) {
         setCustomers(response.data);
+        setInputName("");
       }
     } catch (error) {
       console.error("Error fetching customers by name:", error);
@@ -60,6 +61,7 @@ const Search = ({ setCustomers }) => {
           borderRadius: "8px",
           paddingRight: "4px",
         }}
+        value={inputName}
         onChange={(e) => setInputName(e.target.value)}
         onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
         onFocus={() => setInputFocused(true)}
@@ -73,8 +75,6 @@ const Search = ({ setCustomers }) => {
           borderRadius: "8px",
           backgroundColor: isInputFocused ? "#175CD3" : "#98A2B3", // initial can be replaced with your default color
           color: isInputFocused ? "#fff" : "#fff", // initial can be replaced with your default color
-          // backgroundColor: "#98A2B3",
-          // color: "#667085",
           border: "none",
         }}
         onClick={handleSearch}
