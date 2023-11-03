@@ -235,10 +235,17 @@ const Main = () => {
     return (
       <div className="pageNation_Btn">
         <button onClick={handlePrevClick} disabled={startPage === 1}>
-          이전
+          〈
         </button>
         {pageNumbers.slice(startPage - 1, endPage).map((number) => (
-          <button key={number} onClick={() => handlePageClick(number)}>
+          <button
+            style={{
+              fontWeight: currentPage === number ? "bold" : "normal",
+              color: "#175cd3",
+            }}
+            key={number}
+            onClick={() => handlePageClick(number)}
+          >
             {number}
           </button>
         ))}
@@ -246,7 +253,7 @@ const Main = () => {
           onClick={handleNextClick}
           disabled={endPage === pageNumbers.length}
         >
-          다음
+          〉
         </button>
       </div>
     );

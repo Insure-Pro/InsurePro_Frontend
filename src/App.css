@@ -217,7 +217,7 @@
 .pageNation_Btn button {
   border: none;
   background-color: #fff;
-  color: #175cd3;
+  /* color: #175cd3; */
 }
 .CustomerInfo_title,
 .CustomerHistory_title {
