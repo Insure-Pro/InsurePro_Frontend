@@ -173,7 +173,7 @@ const Main = () => {
 
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 1;
+  const customersPerPage = 15;
 
   // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
   const indexOfLastCustomer = currentPage * customersPerPage;
