@@ -109,12 +109,13 @@ const EditModalD = ({
     const birthValue = birthRef.current.value.replace(/\./g, "-");
     const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
+    const phoneSend = phoneNumber || phoneRef.current.value;
 
     try {
       const updatedData = {
         name: nameRef.current.value,
         birth: birthRef.current.value,
-        phone: phoneNumber,
+        phone: phoneSend,
         age: ageValue,
         address: addressRef.current.value,
         state: stateRef.current.value,

@@ -68,8 +68,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     return age;
   };
 
-  // Ref 객체가 null인 경우 에러 방지
-
   // 전화번호 형식에 맞게 변환하는 함수
   const formatPhoneNumber = (phoneNumber) => {
     // 숫자만 추출
@@ -98,6 +96,8 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     const birthValue = birthRef.current.value.replace(/\./g, "-");
     const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
+    const phoneSend = phoneNumber || phoneRef.current.value;
+
     // const birthValue = birth.current.value.replace(/\./g, "-");
     // const registerDateValue = registerDate.current.value.replace(/\./g, "-");
     // const ageValue = calculateKoreanAge(birthValue);
@@ -108,7 +108,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
       const updatedData = {
         name: nameRef.current.value,
         birth: birthRef.current.value,
-        phone: phoneNumber,
+        phone: phoneSend,
         age: ageValue,
         address: addressRef.current.value,
         state: stateRef.current.value,
@@ -141,61 +141,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     }
   };
 
-  /////////
-  //     const data = {
-  //       customerTypeName: selectedCustomerType, // 선택된 고객 유형으로 설정
-  //       name: name.current.value,
-  //       birth: birthValue,
-  //       registerDate: registerDateValue,
-  //       age: ageValue,
-  //       address: address.current.value,
-  //       phone: phone.current.value,
-  //       contractYn: contractYn,
-  //       memo: memo.current.value,
-  //       state: state.current.value,
-  //     };
-
-  //     axios
-  //       .post("http://3.38.101.62:8080/v1/customer", data, {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         if (response.status === 201) {
-  //           alert("신규고객 등록이 완료되었습니다.");
-  //           onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
-  //           handleClose(); // Modal 창 닫기
-  //         }
-  //       })
-
-  //       .catch((error) => {
-  //         if (error.response && error.response.status === 401) {
-  //           // accessToken 만료된 경우
-  //           axios
-  //             .post(
-  //               /* refreshToken을 사용하여 새 accessToken 요청 URL */ {
-  //                 refreshToken: localStorage.getItem("refreshToken"),
-  //               }
-  //             )
-  //             .then((tokenResponse) => {
-  //               // 새로 받은 accessToken을 저장하고 원래의 요청을 다시 시도
-  //               localStorage.setItem(
-  //                 "accessToken",
-  //                 tokenResponse.data.accessToken
-  //               );
-  //               handleSubmit(); // 원래의 요청을 다시 시도
-  //             })
-  //             .catch((tokenError) => {
-  //               console.error("토큰 갱신 실패:", tokenError.message);
-  //             });
-  //         } else {
-  //           console.log(data);
-  //           console.error("API 요청 에러:", error.message);
-  //         }
-  //       });
-  //   };
   return (
     <>
       <Modal show={show} onHide={onHide}>
