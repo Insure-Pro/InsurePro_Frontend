@@ -188,7 +188,6 @@ const CustomerHistory = ({ customerPk }) => {
           style={{
             display: "flex",
             alignItems: "center", // 진척도 가로축 가운데 정렬
-
             width: "780px",
             margin: "4px",
             marginBottom: "16px",
@@ -197,6 +196,7 @@ const CustomerHistory = ({ customerPk }) => {
             backgroundColor: "#FFF",
             borderRadius: "13px",
             boxShadow: "10px 4px 4px 0px rgba(46, 64, 97, 0.10)",
+            userSelect: "text",
           }}
         >
           <div className="history_items_progress" style={historyItemStyle1}>

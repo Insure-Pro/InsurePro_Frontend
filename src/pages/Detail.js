@@ -204,6 +204,7 @@ const Detail = ({
         style={{
           marginLeft: "52px",
           height: "110vh",
+          userSelect: "none",
         }}
       >
         {selectedCustomer && (

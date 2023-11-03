@@ -144,10 +144,23 @@ const Dbbar = ({
               borderRight: "2px solid #dde1e6",
             }}
           >
+            {/* <span
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                paddingRight: "50px",
+                marginBottom: "-30px",
+                fontWeight: "600",
+                color: "#D0D5DD",
+                cursor: "pointer",
+              }}
+            >
+              불편사항 접수하기
+            </span> */}
             <h1
               className="maintitle"
               onClick={handleFormattedDateClick}
-              style={{ width: "300px" }}
+              style={{ width: "300px", userSelect: "none" }}
             >
               {" "}
               {selectedTab === "월별 고객" ? formattedDateTitle : activeType}

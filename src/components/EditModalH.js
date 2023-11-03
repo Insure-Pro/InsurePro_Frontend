@@ -120,6 +120,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
                   borderColor: "#DEE2E5",
                   backgroundColor: "transparent",
                   color: "#585C5E",
+                  userSelect: "none",
                 }}
               >
                 진척도
@@ -142,7 +143,13 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
               ))}
             </ButtonGroup>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 일정시간
               </Form.Label>
               <Form.Control
@@ -157,7 +164,13 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 장소
               </Form.Label>
               <Form.Control
@@ -172,7 +185,13 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 메모
               </Form.Label>
               <Form.Control

@@ -88,6 +88,7 @@ function HistoryModal({ customerPk, onNewData }) {
                   borderColor: "#DEE2E5",
                   backgroundColor: "transparent",
                   color: "#585C5E",
+                  userSelect: "none",
                 }}
               >
                 진척도
@@ -110,7 +111,13 @@ function HistoryModal({ customerPk, onNewData }) {
               ))}
             </ButtonGroup>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 일정시간
               </Form.Label>
               <Form.Control
@@ -121,7 +128,13 @@ function HistoryModal({ customerPk, onNewData }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 장소
               </Form.Label>
               <Form.Control
@@ -132,7 +145,13 @@ function HistoryModal({ customerPk, onNewData }) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label style={{ marginTop: "12px", paddingLeft: "2px" }}>
+              <Form.Label
+                style={{
+                  marginTop: "12px",
+                  paddingLeft: "2px",
+                  userSelect: "none",
+                }}
+              >
                 메모
               </Form.Label>
               <Form.Control

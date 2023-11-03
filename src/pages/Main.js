@@ -338,6 +338,7 @@ const Main = () => {
               marginTop: "12px",
               marginBottom: "-10px",
               marginBottom: "4px",
+              userSelect: "none",
             }}
           >
             <ListGroup.Item variant="primary" className="listItemTitleStyle1">
