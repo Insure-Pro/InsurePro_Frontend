@@ -106,8 +106,8 @@ function Modal1({ onModalClose }) {
     //   alert("전화번호 형태가 올바르지 않습니다.");
     //   return;
     // }
-    const birthValue = birth.current.value.replace(/\./g, "-");
-    const registerDateValue = registerDate.current.value.replace(/\./g, "-");
+    const birthValue = birth.current.value.replace(/[./]/g, "-");
+    const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
     customerType.current.value = selectedCustomerType;
     phone.current = phone.current; // phone Ref를 업데이트하지 않음

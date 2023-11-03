@@ -106,8 +106,11 @@ const EditModalD = ({
       event.preventDefault();
     }
 
-    const birthValue = birthRef.current.value.replace(/\./g, "-");
-    const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
+    const birthValue = birthRef.current.value.replace(/[./]/g, "-");
+    const registerDateValue = registerDateRef.current.value.replace(
+      /[./]/g,
+      "-"
+    );
     const ageValue = calculateKoreanAge(birthValue);
     const phoneSend = phoneNumber || phoneRef.current.value;
 

@@ -14,7 +14,13 @@ function HistoryModal({ customerPk, onNewData }) {
   const [selectedProgressType, setSelectedProgressType] = useState("");
   const progressTypes = ["TA", "AP", "PT", "PC"];
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    // setDate("");
+    // setAddress("");
+    // setMemo("");
+    // setSelectedProgressType("");
+  };
   const handleShow = () => setShow(true);
 
   const handleProgressTypeClick = (type) => {
@@ -27,9 +33,9 @@ function HistoryModal({ customerPk, onNewData }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let formattedDateValue = date.replace(/[./]/g, "-");
     const formData = {
-      date,
+      date: formattedDateValue,
       address,
       memo,
       progress: selectedProgressType,
@@ -47,6 +53,7 @@ function HistoryModal({ customerPk, onNewData }) {
         }
       );
       handleClose();
+
       onNewData();
     } catch (err) {
       console.log(formData);
@@ -121,7 +128,7 @@ function HistoryModal({ customerPk, onNewData }) {
                 일정시간
               </Form.Label>
               <Form.Control
-                type="text"
+                type="date"
                 placeholder="YYYY-MM-DD"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}

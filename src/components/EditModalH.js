@@ -68,9 +68,10 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
   ///////////////////////////////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const formattedDateValue = dateRef.current.value.replace(/[./]/g, "-");
+    const dateSend = formattedDateValue || dateRef.current.value;
     const formData = {
-      date: dateRef.current.value,
+      date: dateSend,
       address: addressRef.current.value,
       memo: memoRef.current.value,
       progress: selectedProgressType,
@@ -153,7 +154,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
                 일정시간
               </Form.Label>
               <Form.Control
-                type="text"
+                type="date"
                 placeholder="YYYY-MM-DD"
                 defaultValue={selectedHistory?.date}
                 ref={dateRef}
