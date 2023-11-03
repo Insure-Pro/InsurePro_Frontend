@@ -23,6 +23,9 @@ function Modal1({ onModalClose }) {
   const memo = useRef("");
   const state = useRef("");
   const navigate = useNavigate();
+  // 상태에 저장하는 함수 (React의 useState를 사용한다고 가정)
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
@@ -66,12 +69,21 @@ function Modal1({ onModalClose }) {
     return age;
   };
 
-  // Ref 객체가 null인 경우 에러 방지
+  // 전화번호 형식에 맞게 변환하는 함수
+  const formatPhoneNumber = (phoneNumber) => {
+    // 숫자만 추출
+    const numbers = phoneNumber.replace(/\D/g, "");
+    // 숫자를 그룹으로 나누어 하이픈 추가
+    const match = numbers.match(/^(\d{3})(\d{3,4})(\d{4})$/);
+    // 하이픈으로 그룹을 결합하여 반환
+    return match ? `${match[1]}-${match[2]}-${match[3]}` : numbers;
+  };
 
-  //전화번호 유효성 검사 추가
-  const validatePhoneNumber = (phone) => {
-    const pattern = /^\d{3}-\d{4}-\d{4}$/;
-    return pattern.test(phone);
+  // 사용자 입력을 처리하는 함수
+  const handlePhoneInputChange = (event) => {
+    const formattedNumber = formatPhoneNumber(event.target.value);
+    setPhoneNumber(formattedNumber);
+    // 여기서 서버에 데이터를 보낼 수 있습니다. 예: Axios를 사용하는 API 호출 등
   };
 
   const handleSubmit = (event) => {
@@ -90,10 +102,10 @@ function Modal1({ onModalClose }) {
       return;
     }
     //전화번호 유효성 검사 추가
-    if (!validatePhoneNumber(phone.current.value)) {
-      alert("전화번호 형태가 올바르지 않습니다.");
-      return;
-    }
+    // if (!validatePhoneNumber(phone.current.value)) {
+    //   alert("전화번호 형태가 올바르지 않습니다.");
+    //   return;
+    // }
     const birthValue = birth.current.value.replace(/\./g, "-");
     const registerDateValue = registerDate.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
@@ -106,7 +118,7 @@ function Modal1({ onModalClose }) {
       registerDate: registerDateValue,
       age: ageValue,
       address: address.current.value,
-      phone: phone.current.value,
+      phone: phoneNumber,
       contractYn: contractYn,
       memo: memo.current.value,
       state: state.current.value,
@@ -254,8 +266,9 @@ function Modal1({ onModalClose }) {
             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
-                type="phone"
+                type="phoneNumber"
                 ref={phone}
+                onChange={handlePhoneInputChange}
                 placeholder="연락처 | 010-0000-0000"
                 autoFocus
               />

@@ -23,6 +23,8 @@ const EditModalD = ({
   const stateRef = useRef("");
   const memoRef = useRef("");
 
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
@@ -82,13 +84,21 @@ const EditModalD = ({
 
     return age;
   };
+  // 전화번호 형식에 맞게 변환하는 함수
+  const formatPhoneNumber = (phoneNumber) => {
+    // 숫자만 추출
+    const numbers = phoneNumber.replace(/\D/g, "");
+    // 숫자를 그룹으로 나누어 하이픈 추가
+    const match = numbers.match(/^(\d{3})(\d{3,4})(\d{4})$/);
+    // 하이픈으로 그룹을 결합하여 반환
+    return match ? `${match[1]}-${match[2]}-${match[3]}` : numbers;
+  };
 
-  // Ref 객체가 null인 경우 에러 방지
-
-  //전화번호 유효성 검사 추가
-  const validatePhoneNumber = (phone) => {
-    const pattern = /^\d{3}-\d{4}-\d{4}$/;
-    return pattern.test(phone);
+  // 사용자 입력을 처리하는 함수
+  const handlePhoneInputChange = (event) => {
+    const formattedNumber = formatPhoneNumber(event.target.value);
+    setPhoneNumber(formattedNumber);
+    // 여기서 서버에 데이터를 보낼 수 있습니다. 예: Axios를 사용하는 API 호출 등
   };
 
   const handleSubmit = async (event) => {
@@ -104,7 +114,7 @@ const EditModalD = ({
       const updatedData = {
         name: nameRef.current.value,
         birth: birthRef.current.value,
-        phone: phoneRef.current.value,
+        phone: phoneNumber,
         age: ageValue,
         address: addressRef.current.value,
         state: stateRef.current.value,
@@ -240,9 +250,10 @@ const EditModalD = ({
             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
-                type="phone"
+                type="phoneNumber"
                 placeholder="연락처 | 010-0000-0000"
                 defaultValue={selectedCustomer?.phone}
+                onChange={handlePhoneInputChange}
                 ref={phoneRef}
                 autoFocus
               />
