@@ -9,7 +9,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
-// import Spinner from './components/Spinner';
+import { withAuth } from "./withAuth";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = lazy(() => import("./pages/Login"));
@@ -18,6 +19,9 @@ const Password = lazy(() => import("./pages/Password"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Main = lazy(() => import("./pages/Main"));
 const Detail = lazy(() => import("./pages/Detail"));
+
+const ProtectedMain = withAuth(Main);
+const ProtectedDetail = withAuth(Detail);
 
 function App() {
   return (
@@ -30,8 +34,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
             <Route path="/password" element={<Password />} />
-            <Route path="/main" element={<Main />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/main" element={<ProtectedMain />} />
+            <Route path="/detail" element={<ProtectedDetail />} />
           </Routes>
         </div>
       </div>

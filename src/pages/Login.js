@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/authSlice";
 import styled from "styled-components";
 // import LoginImg from "../external/loginImg.png";
 // import LoginImg from "../../public/loginImg.png";
@@ -9,6 +11,8 @@ const Login = () => {
   const email = useRef("");
   const password = useRef(null);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [myEmail, setMyEmail] = useState("");
   const [myPassword, setMyPassword] = useState("");
@@ -25,18 +29,16 @@ const Login = () => {
         if (response.status == 200) {
           const { authorization, refresh } = response.headers;
 
-          if (authorization && refresh) {
-            localStorage.setItem("accessToken", authorization);
-            localStorage.setItem("refreshToken", refresh);
-            navigate("/main");
-          } else {
-            // console.log(response.headers);
-            console.warn(
-              "Authorization and Refresh headers are missing in the response!"
-            );
-          }
-        } else {
-          alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
+          localStorage.setItem("accessToken", authorization);
+          localStorage.setItem("refreshToken", refresh);
+
+          dispatch(
+            loginSuccess({
+              accessToken: authorization,
+              refreshToken: refresh,
+            })
+          );
+          navigate("/main");
         }
       })
       .catch((error) => {
