@@ -16,10 +16,10 @@ function HistoryModal({ customerPk, onNewData }) {
 
   const handleClose = () => {
     setShow(false);
-    // setDate("");
-    // setAddress("");
-    // setMemo("");
-    // setSelectedProgressType("");
+    setDate("");
+    setAddress("");
+    setMemo("");
+    setSelectedProgressType("");
   };
   const handleShow = () => setShow(true);
 
