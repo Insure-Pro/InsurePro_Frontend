@@ -249,6 +249,63 @@
 .modal-title {
   user-select: none;
 }
+.analysis_container {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 600px 300px;
+  grid-template-rows: 100px 50px 220px 220px 220px;
+  grid-template-areas:
+    "header header" "subtitle subtitle"
+    "explain graph1" "graph4 graph2" "graph4 graph3";
+}
+.analysis_container > div {
+  border: 1px solid #198754;
+}
+.analysis_header {
+  grid-area: header;
+}
+.analysis_subtitle {
+  grid-area: subtitle;
+  text-align: left;
+  padding-left: 8px;
+  font-weight: 600;
+}
+.analysis_subtitle > span {
+  padding-right: 60px;
+}
+
+.analysis_explain {
+  grid-area: explain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.analysis_explain > div {
+  margin-bottom: 10px;
+}
+.analysis_explain_item > span {
+  text-align: left;
+  padding-left: 12px;
+}
+.analysis_explain_item :first-child {
+  width: 80px;
+  text-align: left;
+}
+
+.analysis_graph1 {
+  grid-area: graph1;
+}
+.analysis_graph2 {
+  grid-area: graph2;
+}
+.analysis_graph3 {
+  grid-area: graph3;
+}
+.analysis_graph4 {
+  grid-area: graph4;
+}
+
 @media (max-width: 700px) {
   /* .navbar-container  */
   .signin_code_button {

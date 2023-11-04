@@ -19,6 +19,7 @@ const Password = lazy(() => import("./pages/Password"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Main = lazy(() => import("./pages/Main"));
 const Detail = lazy(() => import("./pages/Detail"));
+const Analysis = lazy(() => import("./pages/Analysis"));
 
 const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
@@ -36,6 +37,7 @@ function App() {
             <Route path="/password" element={<Password />} />
             <Route path="/main" element={<ProtectedMain />} />
             <Route path="/detail" element={<ProtectedDetail />} />
+            <Route path="/analysis" element={<Analysis />} />
           </Routes>
         </div>
       </div>
