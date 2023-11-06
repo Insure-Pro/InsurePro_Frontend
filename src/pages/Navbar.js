@@ -3,17 +3,6 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setCustomers,
-  setActiveType,
-  setSelectedAge,
-  setSelectedSort,
-  setShowOptions,
-  setSelectedContractYn,
-  setShowEditModal,
-  setSelectedCustomer,
-  setFormattedDate,
-} from "../redux/customerSlice";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -23,7 +12,7 @@ const Navbar = ({
   ContractedCustomerClcik,
   setFormattedDate,
 }) => {
-  const [showItems, setShowItems] = useState(false);
+  // const [showItems, setShowItems] = useState(false);
   const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
   const [selectedTab, setSelectedTab] = useState("전체");
   const activeType = useSelector((state) => state.customer.activeType);
@@ -32,9 +21,9 @@ const Navbar = ({
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
 
-  const toggleItems = () => {
-    setShowItems(!showItems);
-  };
+  // const toggleItems = () => {
+  //   setShowItems(!showItems);
+  // };
   const handleTabClick = (tabName) => {
     if (tabName === "월별 고객") {
       onMonthCustomersClick(); // 월별 고객을 클릭하면, onMonthCustomersClick을 호출합니다.
@@ -43,11 +32,6 @@ const Navbar = ({
     } else if (tabName === "계약완료고객") {
       onContractCompleteClick(); // 계약완료고객을 클릭하면, onContractCompleteClick을 호출합니다.
     }
-  };
-
-  const handleMonthClick = (year, month) => {
-    const formatted = `${year}-${month}`;
-    setFormattedDate(formatted);
   };
 
   const handleLogout = async () => {
@@ -103,11 +87,11 @@ const Navbar = ({
     fetchEmployeeName(); // 직원 정보를 가져오는 함수 호출
   }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
 
-  const handleAllCustomersClick = () => {
-    if (onAllCustomersClick) {
-      onAllCustomersClick();
-    }
-  };
+  // const handleAllCustomersClick = () => {
+  //   if (onAllCustomersClick) {
+  //     onAllCustomersClick();
+  //   }
+  // };
 
   const handleLogoClick = () => {
     navigate("/main");

@@ -251,35 +251,60 @@
 }
 .analysis_container {
   display: grid;
+  padding-right: 60px;
   grid-gap: 8px;
-  grid-template-columns: 600px 300px;
-  grid-template-rows: 100px 50px 220px 220px 220px;
+  grid-template-columns: 160px 470px 400px;
+  grid-template-rows: 118px 42px 220px 220px 220px 30px;
   grid-template-areas:
-    "header header" "subtitle subtitle"
-    "explain graph1" "graph4 graph2" "graph4 graph3";
+    "header header header"
+    "subtitleleft subtitle subtitle"
+    "explain explain graph1"
+    "graph4  graph4 graph2"
+    "graph4 graph4 graph3"
+    "update update update";
 }
 .analysis_container > div {
-  border: 1px solid #198754;
+  border: 1px solid #98a2b3;
 }
 .analysis_header {
   grid-area: header;
+  margin-top: 18px;
+  margin-left: -10px;
+}
+.analysis_header {
+  border: none !important;
 }
 .analysis_subtitle {
   grid-area: subtitle;
-  text-align: left;
+  text-align: right;
   padding-left: 8px;
-  font-weight: 600;
+  margin-top: 10px;
+  /* font-weight: 600; */
+  border: none !important;
 }
 .analysis_subtitle > span {
-  padding-right: 60px;
+  padding-right: 34px;
 }
-
+.analysis_subtitle > span:last-of-type {
+  padding-right: 8px;
+  margin-left: -4px;
+}
+.analysis_subtitle_left {
+  grid-area: subtitleleft;
+  border: none !important;
+  margin-top: 4px;
+  margin-right: 14px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #4f5256;
+}
 .analysis_explain {
   grid-area: explain;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: 10px;
 }
 .analysis_explain > div {
   margin-bottom: 10px;
@@ -291,6 +316,10 @@
 .analysis_explain_item :first-child {
   width: 80px;
   text-align: left;
+}
+.explain_item_title {
+  width: 90px !important;
+  text-align: left !important;
 }
 
 .analysis_graph1 {
@@ -304,6 +333,34 @@
 }
 .analysis_graph4 {
   grid-area: graph4;
+}
+.analysis_graph3,
+.analysis_graph2,
+.analysis_graph1 {
+  position: relative; /* 이것은 내부의 absolute 요소를 정확한 위치에 배치하기 위함입니다. */
+  /* 기타 스타일... */
+}
+
+.Ta_ratio_item {
+  position: absolute; /* 이것은 요소를 겹치게 할 것입니다. */
+  /* top: 0; 상단에서부터의 위치 */
+  right: 0; /* 오른쪽에서부터의 위치 */
+  z-index: 10; /* TaGraph 위에 오도록 z-index 설정 */
+  margin-top: 30px;
+}
+.Ta_ratio_item > span {
+  padding-bottom: 6px;
+}
+.recharts-pie-sector:focus {
+  outline: none;
+}
+.updateMessage {
+  grid-area: update;
+  color: #4f5256;
+  text-align: right;
+  font-size: 14px;
+  border: none !important;
+  opacity: 0.7;
 }
 
 @media (max-width: 700px) {

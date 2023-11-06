@@ -109,11 +109,11 @@ const Detail = ({
     }
   };
 
-  const handleModalOpen = () => setIsModalOpen(true);
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    fetchData(); // 데이터 변경 후, fetchData를 호출하여 화면을 업데이트합니다.
-  };
+  // const handleModalOpen = () => setIsModalOpen(true);
+  // const handleModalClose = () => {
+  //   setIsModalOpen(false);
+  //   fetchData(); // 데이터 변경 후, fetchData를 호출하여 화면을 업데이트합니다.
+  // };
 
   const fetchCustomer = async () => {
     try {

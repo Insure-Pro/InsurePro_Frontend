@@ -107,13 +107,13 @@ const Dbbar = ({
     // setCustomers(fetchedData); // Assuming you have a setCustomers function to update the customer data.
   };
 
-  const moveItem = (fromIndex, toIndex) => {
-    const updatedItems = [...items];
-    const [movedItem] = updatedItems.splice(fromIndex, 1);
-    updatedItems.splice(toIndex, 0, movedItem);
+  // const moveItem = (fromIndex, toIndex) => {
+  //   const updatedItems = [...items];
+  //   const [movedItem] = updatedItems.splice(fromIndex, 1);
+  //   updatedItems.splice(toIndex, 0, movedItem);
 
-    setItems(updatedItems);
-  };
+  //   setItems(updatedItems);
+  // };
 
   const handleTypeClick = (type) => {
     setActiveType(type);

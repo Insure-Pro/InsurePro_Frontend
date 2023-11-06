@@ -73,13 +73,13 @@ const DateChangeModal = ({
     ));
   //////////////////////////////////////////////
 
-  const handleYearChange = (e) => {
-    setYear(e.target.value);
-  };
+  // const handleYearChange = (e) => {
+  //   setYear(e.target.value);
+  // };
 
-  const handleMonthChange = (e) => {
-    setMonth(e.target.value);
-  };
+  // const handleMonthChange = (e) => {
+  //   setMonth(e.target.value);
+  // };
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
