@@ -270,6 +270,7 @@
   grid-area: header;
   margin-top: 18px;
   margin-left: -10px;
+  cursor: default;
 }
 .analysis_header {
   border: none !important;
@@ -297,6 +298,7 @@
   font-size: 24px;
   font-weight: 700;
   color: #4f5256;
+  cursor: pointer;
 }
 .analysis_explain {
   grid-area: explain;

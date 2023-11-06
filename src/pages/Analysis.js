@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Navbar from "../pages/Navbar";
+import DateChangeModal from "../components/DateChangeModal";
 
 import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";
@@ -10,6 +11,21 @@ import ContractGraph from "../components/Graph/ContractGraph";
 import { Colors } from "chart.js";
 
 const Analysis = () => {
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [showModal, setShowModal] = useState(false);
+
+  // Function to format the date for display
+  const formattedDate = () =>
+    `${year}년 ${month.toString().padStart(2, "0")}월`;
+
+  // Function to handle date changes from the modal
+  const handleDateChange = (newYear, newMonth) => {
+    setYear(newYear);
+    setMonth(newMonth);
+    setShowModal(false); // Close modal after date change
+  };
+
   return (
     <div
       className="Detail_container"
@@ -33,13 +49,16 @@ const Analysis = () => {
         }}
       >
         <div className="analysis_header maintitle">성과분석</div>
-        <div className="analysis_subtitle_left">
-          <div>2023년 11월</div>
+        <div
+          className="analysis_subtitle_left"
+          onClick={() => setShowModal(true)}
+        >
+          <div>{formattedDate()}</div>
         </div>
         <div className="analysis_subtitle">
-          <span>TA 확률 : 00</span>
-          <span>AP 확률: 00</span>
-          <span>PC 확률: 00</span>
+          <span>총 TA 개수 : 00</span>
+          <span>AP 개수: 00</span>
+          <span>PC 개수: 00</span>
           <span> 청약 건수: 00</span>
         </div>
         <div
@@ -185,6 +204,15 @@ const Analysis = () => {
           2023년 11월 10일에 마지막으로 업데이트 되었습니다.{" "}
         </div>
       </div>
+      {/* DateChangeModal component */}
+      {showModal && (
+        <DateChangeModal
+          initialYear={year}
+          initialMonth={month}
+          onDateChange={handleDateChange}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
