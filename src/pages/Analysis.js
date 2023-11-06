@@ -15,6 +15,17 @@ const Analysis = () => {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [showModal, setShowModal] = useState(false);
 
+  const [date, setDate] = useState(
+    `${new Date().getFullYear()}-${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-01`
+  );
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const customerTypes = ["OD", "AD", "CD", "CP", "JD"];
+
   // Function to format the date for display
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
@@ -23,8 +34,76 @@ const Analysis = () => {
   const handleDateChange = (newYear, newMonth) => {
     setYear(newYear);
     setMonth(newMonth);
+    const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}-01`;
+    setDate(formattedDate2);
     setShowModal(false); // Close modal after date change
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const responses = await Promise.all(
+          customerTypes.map((customerType) =>
+            fetch(
+              `https://www.insurepro.kro.kr/v1/analysis?date=${date}&customerType=${customerType}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "accessToken"
+                  )}`,
+                },
+              }
+            ).then((response) => response.json())
+          )
+        );
+
+        // Map responses to an object with customerType keys
+        const newData = responses.reduce((acc, response, index) => {
+          acc[customerTypes[index]] = response;
+          return acc;
+        }, {});
+
+        setData(newData);
+      } catch (error) {
+        setError(error);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [date]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  console.log(data);
+  console.log(date);
+
+  const allTaCount =
+    data["OD"]?.ta +
+    data["AD"]?.ta +
+    data["CD"]?.ta +
+    data["CP"]?.ta +
+    data["JD"]?.ta;
+  const allApCount =
+    data["OD"]?.ap +
+    data["AD"]?.ap +
+    data["CD"]?.ap +
+    data["CP"]?.ap +
+    data["JD"]?.ap;
+  const allPcCount =
+    data["OD"]?.pc +
+    data["AD"]?.pc +
+    data["CD"]?.pc +
+    data["CP"]?.pc +
+    data["JD"]?.pc;
+  const allContractCount =
+    data["OD"]?.subscriptionCount +
+    data["AD"]?.subscriptionCount +
+    data["CD"]?.subscriptionCount +
+    data["CP"]?.subscriptionCount +
+    data["JD"]?.subscriptionCount;
 
   return (
     <div
@@ -56,10 +135,10 @@ const Analysis = () => {
           <div>{formattedDate()}</div>
         </div>
         <div className="analysis_subtitle">
-          <span>총 TA 개수 : 00</span>
-          <span>AP 개수: 00</span>
-          <span>PC 개수: 00</span>
-          <span> 청약 건수: 00</span>
+          <span>총 TA 개수 : {allTaCount}</span>
+          <span>AP 개수: {allApCount}</span>
+          <span>PC 개수: {allPcCount}</span>
+          <span> 청약 건수: {allContractCount}</span>
         </div>
         <div
           className="analysis_explain"
@@ -113,13 +192,21 @@ const Analysis = () => {
               marginRight: "22px",
             }}
           >
-            <span>36%</span>
-            <span>52%</span>
-            <span>14%</span>
-            <span>24%</span>
-            <span>6%</span>
+            <span>{Math.round(data["OD"]?.taratio * 100)}%</span>
+            <span>{Math.round(data["AD"]?.taratio * 100)}%</span>
+            <span>{Math.round(data["CD"]?.taratio * 100)}%</span>
+            <span>{Math.round(data["CP"]?.taratio * 100)}%</span>
+            <span>{Math.round(data["JD"]?.taratio * 100)}%</span>
           </div>
-          <TaGraph />
+          <TaGraph
+            data={{
+              OD: data["OD"]?.taratio,
+              AD: data["AD"]?.taratio,
+              CD: data["CD"]?.taratio,
+              CP: data["CP"]?.taratio,
+              JD: data["JD"]?.taratio,
+            }}
+          />
         </div>
         <div className="analysis_graph2">
           <span
@@ -144,14 +231,21 @@ const Analysis = () => {
               marginRight: "22px",
             }}
           >
-            <span>36%</span>
-            <span>52%</span>
-            <span>14%</span>
-            <span>24%</span>
-            <span>6%</span>
+            <span>{Math.round(data["OD"]?.apratio * 100)}%</span>
+            <span>{Math.round(data["AD"]?.apratio * 100)}%</span>
+            <span>{Math.round(data["CD"]?.apratio * 100)}%</span>
+            <span>{Math.round(data["CP"]?.apratio * 100)}%</span>
+            <span>{Math.round(data["JD"]?.apratio * 100)}%</span>
           </div>
-          <TaGraph />
-          {/* <ApGraph /> */}
+          <ApGraph
+            data={{
+              OD: data["OD"]?.apratio,
+              AD: data["AD"]?.apratio,
+              CD: data["CD"]?.apratio,
+              CP: data["CP"]?.apratio,
+              JD: data["JD"]?.apratio,
+            }}
+          />
         </div>
         <div className="analysis_graph3">
           <span
@@ -176,14 +270,21 @@ const Analysis = () => {
               marginRight: "22px",
             }}
           >
-            <span>36%</span>
-            <span>52%</span>
-            <span>14%</span>
-            <span>24%</span>
-            <span>6%</span>
+            <span>{Math.round(data["OD"]?.pcratio * 100)}%</span>
+            <span>{Math.round(data["AD"]?.pcratio * 100)}%</span>
+            <span>{Math.round(data["CD"]?.pcratio * 100)}%</span>
+            <span>{Math.round(data["CP"]?.pcratio * 100)}%</span>
+            <span>{Math.round(data["JD"]?.pcratio * 100)}%</span>
           </div>
-          <TaGraph />
-          {/* <PcGraph /> */}
+          <PcGraph
+            data={{
+              OD: data["OD"]?.pcratio,
+              AD: data["AD"]?.pcratio,
+              CD: data["CD"]?.pcratio,
+              CP: data["CP"]?.pcratio,
+              JD: data["JD"]?.pcratio,
+            }}
+          />
         </div>
         <div className="analysis_graph4">
           <span
@@ -198,7 +299,15 @@ const Analysis = () => {
           >
             청약 건수
           </span>
-          <ContractGraph />
+          <ContractGraph
+            data={{
+              OD: data["OD"]?.subscriptionCount,
+              AD: data["AD"]?.subscriptionCount,
+              CD: data["CD"]?.subscriptionCount,
+              CP: data["CP"]?.subscriptionCount,
+              JD: data["JD"]?.subscriptionCount,
+            }}
+          />
         </div>
         <div className="updateMessage">
           2023년 11월 10일에 마지막으로 업데이트 되었습니다.{" "}

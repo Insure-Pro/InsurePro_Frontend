@@ -9,28 +9,30 @@ import {
   Sector,
 } from "recharts";
 
-const data = [
-  {
-    name: "OD",
-    청약건수: 5,
-  },
-  {
-    name: "AD",
-    청약건수: 4,
-  },
-  {
-    name: "CD",
-    청약건수: 4,
-  },
-  {
-    name: "CP",
-    청약건수: 1,
-  },
-  {
-    name: "JD",
-    청약건수: 1,
-  },
-];
+// const data5 = (data) => {
+//   return [
+//     {
+//       name: "OD",
+//       ta개수: data.OD ?? 0,
+//     },
+//     {
+//       name: "AD",
+//       ta개수: data.AD ?? 0,
+//     },
+//     {
+//       name: "CD",
+//       ta개수: data.CD ?? 0,
+//     },
+//     {
+//       name: "CP",
+//       ta개수: data.CP ?? 0,
+//     },
+//     {
+//       name: "JD",
+//       ta개수: data.JD ?? 0,
+//     },
+//   ];
+// };
 const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
 
 const renderActiveShape = (props) => {
@@ -117,15 +119,27 @@ export default class ContractGraph extends PureComponent {
       activeIndex: index,
     });
   };
+  createChartData = () => {
+    const { data } = this.props; // props에서 data를 가져옵니다.
+
+    return [
+      { name: "OD", 청약건수: data.OD ?? 0 },
+      { name: "AD", 청약건수: data.AD ?? 0 },
+      { name: "CD", 청약건수: data.CD ?? 0 },
+      { name: "CP", 청약건수: data.CP ?? 0 },
+      { name: "JD", 청약건수: data.JD ?? 0 },
+    ];
+  };
 
   render() {
+    const chartData = this.createChartData(); // 차트 데이터를 생성합니다.
     return (
       <ResponsiveContainer width="100%" height="100%">
         <PieChart margin={{ top: 80 }}>
           <Pie
             activeIndex={this.state.activeIndex}
             activeShape={renderActiveShape}
-            data={data}
+            data={chartData}
             cx="50%"
             cy="50%"
             innerRadius={90}
@@ -134,7 +148,7 @@ export default class ContractGraph extends PureComponent {
             dataKey="청약건수"
             onMouseEnter={this.onPieEnter}
           >
-            {data.map((entry, index) => (
+            {chartData.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={colors[index % colors.length]}
