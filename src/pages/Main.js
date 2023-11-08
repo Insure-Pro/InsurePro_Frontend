@@ -143,19 +143,22 @@ const Main = () => {
     setSelectedAge("");
     setSelectedSort("latest");
     setFormattedDate(null);
-    fetchData(); // 데이터를 다시 불러옴
+    // fetchData(); // 데이터를 다시 불러옴
   };
 
   const handleContractCompleteClick = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
     setFormattedDate(null);
-    fetchData(); // 데이터를 다시 불러옴
+    setSelectedSort("");
+    // fetchData(); // 데이터를 다시 불러옴
   };
 
   // Dbbar에서 onMonthCustomersClick 함수 전달
   const handleMonthCustomersClick = (date) => {
+    setSelectedContractYn(null);
     setFormattedDate(date);
-    fetchData();
+    setSelectedSort("");
+    // fetchData();
   };
 
   const handleModalClose = () => {
