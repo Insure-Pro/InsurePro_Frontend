@@ -29,7 +29,7 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
           <span>주소</span>
           <span
             className="infoSpan infoSpanaddress"
-            style={{ marginLeft: "115px" }}
+            style={{ marginLeft: "114px" }}
           >
             {data.address}
           </span>
