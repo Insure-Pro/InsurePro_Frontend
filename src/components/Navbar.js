@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../App.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = ({
@@ -22,6 +22,8 @@ const Navbar = ({
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
 
   const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
+
+  const location = useLocation();
 
   const users_black = process.env.PUBLIC_URL + "/users_black.png";
   const users_white = process.env.PUBLIC_URL + "/users_white.png";
@@ -99,8 +101,15 @@ const Navbar = ({
   };
 
   const handleAnalysisClick = () => {
-    navigate("/analysis");
+    navigate("/analysis", { state: { selectedTab: "Analysis" } });
   };
+  useEffect(() => {
+    // Assuming 'selectedTab' is passed in state when navigating to this page
+    const tab = location.state?.selectedTab;
+    if (tab === "Analysis") {
+      setIsAnalysisSelected(true);
+    }
+  }, [location]);
   return (
     <div className="vertical-navbar">
       <div className="brand" onClick={() => handleLogoClick()}>
@@ -209,10 +218,7 @@ const Navbar = ({
         </div>
         <div
           className="title analysis"
-          onClick={() => {
-            handleAnalysisClick();
-            handleTabClick("Analysis");
-          }}
+          onClick={handleAnalysisClick}
           style={{
             backgroundColor: isAnalysisSelected ? "#175cd3" : "transparent",
             color: isAnalysisSelected ? "#fff" : "#000",
