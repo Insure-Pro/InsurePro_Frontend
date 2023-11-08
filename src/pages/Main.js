@@ -6,6 +6,7 @@ import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -494,6 +495,7 @@ const Main = () => {
               </div>
             ))}
           {shouldPaginate && renderPagination()}
+
           {selectedCustomer && (
             <EditModal
               show={showEditModal}

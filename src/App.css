@@ -89,11 +89,10 @@
   margin-bottom: 24px;
 }
 /* 전체, 관리고객, 계약완료고객 왼쪽 여백 추가 */
-.navbar-item:not(.brand) {
-}
+
 .title {
-  background-color: #175cd3;
-  color: #fff;
+  /* background-color: #175cd3; */
+  /* color: #fff; */
   padding: 10px; /* Padding for each Navbar item */
   cursor: pointer; /* Add pointer cursor for interaction */
   transition: background-color 0.3s ease; /* Smooth background color transition */
@@ -126,10 +125,6 @@
   text-align: left; /* Align text to the left */
   font-size: 42px;
   font-weight: bold;
-}
-
-.DbbarItem-container {
-  /* margin-left: -12px; */
 }
 
 .nav {
