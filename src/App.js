@@ -23,6 +23,7 @@ const Analysis = lazy(() => import("./pages/Analysis"));
 
 const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
+const ProtectedAnalysis = withAuth(Analysis);
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
             <Route path="/password" element={<Password />} />
             <Route path="/main" element={<ProtectedMain />} />
             <Route path="/detail" element={<ProtectedDetail />} />
-            <Route path="/analysis" element={<Analysis />} />
+            <Route path="/analysis" element={<ProtectedAnalysis />} />
           </Routes>
         </div>
       </div>
