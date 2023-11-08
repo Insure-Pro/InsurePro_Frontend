@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
+import { setSelectedTab } from "../redux/navbarSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -31,15 +32,25 @@ const Main = () => {
 
   useEffect(() => {
     if (selectedTab) {
-      if (selectedTab === "월별 고객") {
-        handleMonthCustomersClick();
-      } else if (selectedTab === "전체") {
-        handleAllCustomersClick();
-      } else if (selectedTab === "계약완료고객") {
-        handleContractCompleteClick();
+      switch (selectedTab) {
+        case "전체":
+          handleAllCustomersClick();
+          break;
+        case "계약완료고객":
+          handleContractCompleteClick();
+          break;
+        case "월별 고객":
+          if (formattedDate) {
+            handleMonthCustomersClick(formattedDate);
+          }
+          break;
+        // Add cases for other tabs if necessary
+        default:
+          // Default action
+          break;
       }
     }
-  }, [selectedTab]);
+  }, [selectedTab, location]);
 
   const navigate = useNavigate();
 

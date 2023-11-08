@@ -11,33 +11,12 @@ import HistoryModal from "../components/HistoryModal";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setCustomers,
-  setActiveType,
-  setSelectedAge,
-  setSelectedSort,
-  setShowOptions,
-  setSelectedContractYn,
-  setShowEditModal,
-  setSelectedCustomer,
-  setFormattedDate,
-  setSelectedTab,
-} from "../redux/customerSlice";
 
-const Detail = ({
-  onAllCustomersClick,
-  onContractCompleteClick,
-  onMonthCustomersClick,
-  children,
-  onTypeChange,
-  setCustomers,
-}) => {
+const Detail = ({}) => {
   const location = useLocation();
   const { customerPk } = location.state;
-  const [customerDetail, setCustomerDetail] = useState({});
   const [customerSchedules, setCustomerSchedules] = useState({});
   const [customerData, setCustomerData] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -55,65 +34,6 @@ const Detail = ({
     2,
     "0"
   )}`; // formattedDate 업데이트
-
-  // useEffect(() => {
-  //   const fetchCustomerDetail = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //           },
-  //         }
-  //       );
-  //       setCustomerDetail(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching customer detail:", error);
-  //     }
-  //   };
-
-  //   const fetchCustomerSchedules = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //           },
-  //         }
-  //       );
-  //       setCustomerSchedules(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching customer schedules:", error);
-  //     }
-  //   };
-
-  //   fetchCustomerDetail();
-  //   fetchCustomerSchedules();
-  // }, [customerPk]);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      setCustomerData(response.data);
-    } catch (error) {
-      console.error("Error fetching customer data:", error);
-    }
-  };
-
-  // const handleModalOpen = () => setIsModalOpen(true);
-  // const handleModalClose = () => {
-  //   setIsModalOpen(false);
-  //   fetchData(); // 데이터 변경 후, fetchData를 호출하여 화면을 업데이트합니다.
-  // };
 
   const fetchCustomer = async () => {
     try {
@@ -151,24 +71,15 @@ const Detail = ({
   };
 
   const handleMonthCustomersClick = () => {
-    setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
-    // navigate("/main"); // 예시로 Main 페이지로 리다이렉트
-    // fetchData(); // 데이터를 다시 불러옴
+    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate } });
   };
+
   const handleAllCustomersClick = () => {
-    setSelectedTab("전체");
-    // navigate("/main"); // 예시로 Main 페이지로 리다이렉트
+    navigate("/main", { state: { selectedTab: "전체" } });
   };
 
   const handleContractCompleteClick = () => {
-    setSelectedTab("계약완료고객");
-    // navigate("/main"); // 예시로 Main 페이지로 리다이렉트
-  };
-
-  const handleFormattedDateClick = () => {
-    if (selectedTab === "월별 고객") {
-      setIsModalOpen(true);
-    }
+    navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
 
   return (
@@ -182,20 +93,10 @@ const Detail = ({
         borderRight: "2px solid #dde1e6",
       }}
     >
-      {/* <Dbbar
-        onAllCustomersClick={handleAllCustomersClick}
-        onContractCompleteClick={handleContractCompleteClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
-        // ... 다른 필요한 props들
-      /> */}
       <Navbar
-        onContractCompleteClick={onContractCompleteClick}
-        onAllCustomersClick={onAllCustomersClick}
-        onMonthCustomersClick={() => {
-          handleMonthCustomersClick();
-          // Here, we will pass the formattedDate value to the function in Main.js
-          onMonthCustomersClick(formattedDate);
-        }}
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
       />
@@ -238,9 +139,6 @@ const Detail = ({
               onHide={() => setShowEditModalD(false)}
               selectedCustomer={selectedCustomer}
               onUpdateSuccess={handleUpdateSuccess}
-              // isOpen={isModalOpen}
-              // onClose={handleModalClose}
-              // data={customerData}
             />
           </>
         )}

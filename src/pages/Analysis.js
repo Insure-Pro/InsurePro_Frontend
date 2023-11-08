@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 import Navbar from "../pages/Navbar";
-import DateChangeModal from "../components/DateChangeModal";
+import DateChangeAModal from "../components/DateChangeAModal";
 
 import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";
@@ -26,7 +27,18 @@ const Analysis = () => {
 
   const customerTypes = ["OD", "AD", "CD", "CP", "JD"];
 
+  const navigate = useNavigate();
   // Function to format the date for display
+
+  const currentDate = new Date(); // 현재 날짜를 얻습니다.
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentDate.getMonth() + 1
+  );
+  const formattedDate1 = `${selectedYear}-${String(selectedMonth).padStart(
+    2,
+    "0"
+  )}`; // formattedDate 업데이트
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
 
@@ -105,6 +117,18 @@ const Analysis = () => {
     data["CP"]?.subscriptionCount +
     data["JD"]?.subscriptionCount;
 
+  const handleMonthCustomersClick = () => {
+    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate1 } });
+  };
+
+  const handleAllCustomersClick = () => {
+    navigate("/main", { state: { selectedTab: "전체" } });
+  };
+
+  const handleContractCompleteClick = () => {
+    navigate("/main", { state: { selectedTab: "계약완료고객" } });
+  };
+
   return (
     <div
       className="Detail_container"
@@ -117,7 +141,13 @@ const Analysis = () => {
         // borderRight: "2px solid #dde1e6",
       }}
     >
-      <Navbar />
+      <Navbar
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        onMonthCustomersClick={handleMonthCustomersClick}
+        ContractedCustomerClcik={handleContractCompleteClick}
+        AllCustomersClick={handleAllCustomersClick}
+      />
       <div
         className="analysis_container"
         style={{
@@ -315,7 +345,7 @@ const Analysis = () => {
       </div>
       {/* DateChangeModal component */}
       {showModal && (
-        <DateChangeModal
+        <DateChangeAModal
           initialYear={year}
           initialMonth={month}
           onDateChange={handleDateChange}

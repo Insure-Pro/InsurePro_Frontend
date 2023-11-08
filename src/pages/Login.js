@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/authSlice";
 import styled from "styled-components";
-// import LoginImg from "../external/loginImg.png";
-// import LoginImg from "../../public/loginImg.png";
 
 const Login = () => {
   const email = useRef("");
