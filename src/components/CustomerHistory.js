@@ -1,8 +1,8 @@
-import HistoryModal from "../components/HistoryModal";
+import HistoryModal from "./Modal/HistoryModal";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import EditModalH from "../components/EditModalH";
+import EditModalH from "./Modal/EditModalH";
 import { Button } from "react-bootstrap";
 
 const CustomerHistory = ({ customerPk }) => {

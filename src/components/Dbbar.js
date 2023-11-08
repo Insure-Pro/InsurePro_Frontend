@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../App.css";
-import Navbar from "../pages/Navbar";
+import Navbar from "./Navbar";
 import Nav from "react-bootstrap/Nav";
 import Search from "../components/Search";
-import DateChangeModal from "./DateChangeModal";
+import DateChangeModal from "./Modal/DateChangeModal";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { setSelectedTab } from "../redux/customerSlice";

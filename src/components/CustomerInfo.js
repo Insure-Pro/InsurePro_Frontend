@@ -1,7 +1,7 @@
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import EditModalD from "../components/EditModalD";
+import EditModalD from "./Modal/EditModalD";
 
 const CustomerInfo = ({ onUpdateSuccess, data }) => {
   const navigate = useNavigate();

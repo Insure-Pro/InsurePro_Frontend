@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
-import Navbar from "../pages/Navbar";
+import Navbar from "../components/Navbar";
 import Dbbar from "../components/Dbbar";
 import CustomerDetail from "../components/CustomerDetail";
 import CustomerInfo from "../components/CustomerInfo"; // Assuming you have this component
 import CustomerHistory from "../components/CustomerHistory"; // Assuming you have this component
-import EditModalD from "../components/EditModalD";
-import HistoryModal from "../components/HistoryModal";
+import EditModalD from "../components/Modal/EditModalD";
+import HistoryModal from "../components/Modal/HistoryModal";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

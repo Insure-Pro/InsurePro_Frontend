@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
-import Navbar from "../pages/Navbar";
-import DateChangeAModal from "../components/DateChangeAModal";
+import Navbar from "../components/Navbar";
+import DateChangeAModal from "../components/Modal/DateChangeAModal";
 
 import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";
