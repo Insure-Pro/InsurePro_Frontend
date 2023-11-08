@@ -31,15 +31,19 @@ const Navbar = ({
   const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
 
   const handleTabClick = (tabName) => {
+    // Update the analysis selected state based on whether the 'Analysis' tab is clicked
+    setIsAnalysisSelected(tabName === "Analysis");
+
+    // Update selected tab state
+    setSelectedTab(tabName);
+
+    // Call the appropriate handler based on the tab name
     if (tabName === "월별 고객") {
-      onMonthCustomersClick(); // 월별 고객을 클릭하면, onMonthCustomersClick을 호출합니다.
+      onMonthCustomersClick();
     } else if (tabName === "전체") {
-      onAllCustomersClick(); // 전체를 클릭하면, onAllCustomersClick을 호출합니다.
+      onAllCustomersClick();
     } else if (tabName === "계약완료고객") {
-      onContractCompleteClick(); // 계약완료고객을 클릭하면, onContractCompleteClick을 호출합니다.
-    } else if (tabName === "Analysis") {
-      setIsAnalysisSelected(tabName === "Analysis"); // Set the analysis selected state based on the tab name
-      setSelectedTab(tabName); // Set the selected tab state
+      onContractCompleteClick();
     }
   };
 
@@ -110,6 +114,7 @@ const Navbar = ({
       setIsAnalysisSelected(true);
     }
   }, [location]);
+
   return (
     <div className="vertical-navbar">
       <div className="brand" onClick={() => handleLogoClick()}>
@@ -179,7 +184,10 @@ const Navbar = ({
             AllCustomersClick();
           }}
           style={{
-            color: selectedTab === "전체" ? "#175cd3" : "black",
+            color:
+              selectedTab === "전체" && !isAnalysisSelected
+                ? "#175cd3"
+                : "black",
             fontWeight: selectedTab === "전체" ? "bold" : "500",
           }}
 
