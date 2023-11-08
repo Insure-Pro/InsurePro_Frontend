@@ -42,6 +42,17 @@ const Analysis = () => {
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
 
+  const updateDate = () => {
+    const now = new Date(); // 현재 날짜와 시간을 가진 Date 객체 생성
+    const year = now.getFullYear(); // 현재 연도
+    const month = (now.getMonth() + 1).toString().padStart(2, "0"); // 현재 월 (getMonth는 0부터 시작하므로 1을 더함)
+    const day = now.getDate().toString().padStart(2, "0"); // 현재 일
+    const hours = now.getHours().toString().padStart(2, "0"); // 현재 시간
+
+    // 형식화된 날짜와 시간 문자열을 반환
+    return `${year}년 ${month}월 ${day}일 ${hours}시`;
+  };
+
   // Function to handle date changes from the modal
   const handleDateChange = (newYear, newMonth) => {
     setYear(newYear);
@@ -340,7 +351,7 @@ const Analysis = () => {
           />
         </div>
         <div className="updateMessage">
-          2023년 11월 10일에 마지막으로 업데이트 되었습니다.{" "}
+          {updateDate()}에 마지막으로 업데이트 되었습니다.{" "}
         </div>
       </div>
       {/* DateChangeModal component */}
