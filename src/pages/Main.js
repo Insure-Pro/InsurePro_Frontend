@@ -6,7 +6,8 @@ import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
-
+import { jwtDecode } from "jwt-decode";
+import { refreshTokenIfNeeded } from "../redux/JWTtoken";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -54,6 +55,12 @@ const Main = () => {
   }, [selectedTab, location]);
 
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Call the function on component mount
+  //   refreshTokenIfNeeded(navigate);
+  //   console.log("useEffect with refreshTokenIfNeeded called");
+  // }, [navigate]);
 
   const handleCustomerClick = (customer) => {
     navigate("/detail", { state: { customerPk: customer.pk } });

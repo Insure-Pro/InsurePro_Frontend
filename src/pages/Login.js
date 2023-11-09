@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -27,7 +28,7 @@ const Login = () => {
         if (response.status == 200) {
           const { authorization, refresh } = response.headers;
 
-          localStorage.setItem("accessToken", authorization);
+          localStorage.setItem("accessToken", authorization.split(" ")[1]);
           localStorage.setItem("refreshToken", refresh);
 
           dispatch(
@@ -36,7 +37,9 @@ const Login = () => {
               refreshToken: refresh,
             })
           );
+          // refreshTokenIfNeeded().then(() => {
           navigate("/main");
+          // });
         }
       })
       .catch((error) => {
