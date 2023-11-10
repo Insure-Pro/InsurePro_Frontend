@@ -5,13 +5,14 @@ import { useEffect } from "react";
 export const withAuth = (WrappedComponent) => {
   return (props) => {
     const navigate = useNavigate();
-    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
 
     useEffect(() => {
-      if (!isLoggedIn) {
+      // Wait for loading to be false before checking isLoggedIn
+      if (!isLoading && !isLoggedIn) {
         navigate("/login");
       }
-    }, [isLoggedIn, navigate]);
+    }, [isLoggedIn, isLoading, navigate]);
 
     return <WrappedComponent {...props} />;
   };

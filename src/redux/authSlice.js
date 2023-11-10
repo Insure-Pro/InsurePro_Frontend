@@ -39,6 +39,7 @@ const authSlice = createSlice({
     isLoggedIn: false,
     accessToken: null,
     refreshToken: null,
+    isLoading: true,
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -51,20 +52,26 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
+    setAuthLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(refreshToken.fulfilled, (state, action) => {
       // Update state with new token
       state.accessToken = action.payload;
+      state.isLoggedIn = true;
+      state.isLoading = false;
     });
     builder.addCase(refreshToken.rejected, (state, action) => {
       // Handle case where refresh token is invalid or expired
       state.isLoggedIn = false;
       state.accessToken = null;
       state.refreshToken = null;
+      state.isLoading = false;
     });
   },
 });
 // 액션 생성자와 리듀서를 내보냄
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout, setAuthLoading } = authSlice.actions;
 export default authSlice.reducer;

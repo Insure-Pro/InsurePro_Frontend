@@ -1,12 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-// import Main from "./pages/Main";
-// import Signup from "./pages/Signup";
-// import Login from "./pages/Login";
-// import Detail from "./pages/Detail";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { refreshToken } from "./redux/authSlice";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { withAuth } from "./withAuth";
@@ -26,6 +24,11 @@ const ProtectedDetail = withAuth(Detail);
 const ProtectedAnalysis = withAuth(Analysis);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshToken()); // Dispatch the refreshToken thunk on app initialization
+  }, [dispatch]);
   return (
     <Suspense>
       <div className="App">

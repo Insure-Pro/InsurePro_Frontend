@@ -7,12 +7,14 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store"; // Import persistor from the file where you have defined your store
 import { Provider } from "react-redux";
+import { setAuthLoading } from "./redux/authSlice";
+import { refreshToken } from "./redux/authSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>

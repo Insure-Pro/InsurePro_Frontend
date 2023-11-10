@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axiosConfig";
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import "../MainStyles.css";
@@ -6,14 +6,11 @@ import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
-import { jwtDecode } from "jwt-decode";
-import { refreshTokenIfNeeded } from "../redux/JWTtoken";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
-import { setSelectedTab } from "../redux/navbarSlice";
-
+import { store } from "../redux/store"; // Adjust the path as necessary
 import { useSelector, useDispatch } from "react-redux";
 
 const Main = () => {

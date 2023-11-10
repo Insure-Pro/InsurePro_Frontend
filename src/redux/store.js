@@ -6,6 +6,7 @@ import customerReducer from "./customerSlice";
 import authReducer from "./authSlice";
 import navbarReducer from "./navbarSlice";
 import main from "./modules/mainSlice";
+
 // import contractReducer from "./modules/contractSlice";
 const reducers = combineReducers({
   customer: customerReducer,
