@@ -281,10 +281,15 @@ const Analysis = () => {
           <ApGraph
             data={{
               OD: data["OD"]?.apratio,
+              ODcount: data["OD"]?.ap,
               AD: data["AD"]?.apratio,
+              ADcount: data["AD"]?.ap,
               CD: data["CD"]?.apratio,
+              CDcount: data["CD"]?.ap,
               CP: data["CP"]?.apratio,
+              CPcount: data["CP"]?.ap,
               JD: data["JD"]?.apratio,
+              JDcount: data["JD"]?.ap,
             }}
           />
         </div>

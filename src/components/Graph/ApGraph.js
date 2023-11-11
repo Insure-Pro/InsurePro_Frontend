@@ -15,23 +15,28 @@ const data5 = (data) => {
   return [
     {
       name: "OD",
-      ap개수: data.OD ?? 0,
+      ap확률: data.OD ?? 0,
+      ap개수: data.ODcount ?? 0,
     },
     {
       name: "AD",
-      ap개수: data.AD ?? 0,
+      ap확률: data.AD ?? 0,
+      ap개수: data.ADcount ?? 0,
     },
     {
       name: "CD",
-      ap개수: data.CD ?? 0,
+      ap확률: data.CD ?? 0,
+      ap개수: data.CDcount ?? 0,
     },
     {
       name: "CP",
-      ap개수: data.CP ?? 0,
+      ap확률: data.CP ?? 0,
+      ap개수: data.CPcount ?? 0,
     },
     {
       name: "JD",
-      ap개수: data.JD ?? 0,
+      ap확률: data.JD ?? 0,
+      ap개수: data.JDcount ?? 0,
     },
   ];
 };
@@ -130,7 +135,7 @@ const ApGraph = ({ data }) => {
         />
 
         <CartesianGrid strokeDasharray="3 3" />
-        <Bar dataKey="ap개수" background={{ fill: "#eee" }}>
+        <Bar dataKey="ap확률" background={{ fill: "#eee" }}>
           {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} /> // 각 막대의 색상 지정
           ))}

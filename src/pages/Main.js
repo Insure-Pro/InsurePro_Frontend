@@ -94,7 +94,6 @@ const Main = () => {
           ? "https://www.insurepro.kro.kr/v1/customers/latest"
           : "https://www.insurepro.kro.kr/v1/customers/latest";
     }
-
     try {
       const response = await axios.get(url, {
         headers: {
@@ -468,7 +467,7 @@ const Main = () => {
                         : "listItemStyle6-noContract"
                     }`}
                   >
-                    {customer.address}
+                    {customer.address} {customer.lipk}
                   </ListGroup.Item>
                 </ListGroup>
                 {showOptions === customer.pk && (
