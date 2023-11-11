@@ -42,6 +42,34 @@ const data5 = (data) => {
 };
 const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
 
+const CustomTooltip = ({ active, payload, label, chartData }) => {
+  if (active) {
+    // 해당 항목의 'ap개수' 찾기
+    const apCountItem = chartData.find((item) => item.name === label);
+    const apCount = apCountItem ? apCountItem["ap개수"] : 0;
+    const apCountFormatted = String(apCount).padStart(2, "0");
+
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          fontSize: "12px",
+          height: "40px",
+          backgroundColor: "#fff",
+          padding: "10px",
+          border: "1px solid #ccc",
+          display: "flex",
+        }}
+      >
+        <p className="label">{label}</p>
+        <p className="intro">{`: ${apCountFormatted} 개`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const CustomLegend = (props) => {
   const { payload } = props; // 이 payload는 Recharts에서 제공하는 데이터 포맷입니다.
 
@@ -97,6 +125,7 @@ const ApGraph = ({ data }) => {
           type="number"
           fontSize={"12px"}
           tickLine={false}
+          domain={[0, 1]}
           display={"none"}
         />
         <YAxis
@@ -109,18 +138,7 @@ const ApGraph = ({ data }) => {
           tickLine={false}
           display={"none"}
         />
-        <Tooltip
-          itemStyle={{
-            fontSize: "12px",
-            paddingTop: "0px",
-            paddingBottom: "0px",
-            marginBottom: "-4px",
-            marginTop: "-4px",
-          }}
-          labelStyle={{ fontSize: "12px" }}
-          labelFormatter={() => ""}
-          formatter={(value, name, entry) => `${entry.payload.name} : ${value}`}
-        />
+        <Tooltip content={<CustomTooltip chartData={chartData} />} />
         <Legend
           align="left"
           verticalAlign="top"
