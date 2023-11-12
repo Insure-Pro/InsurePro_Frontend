@@ -17,26 +17,31 @@ const data5 = (data) => {
       name: "OD",
       ap확률: data.OD ?? 0,
       ap개수: data.ODcount ?? 0,
+      fill: "#F87676",
     },
     {
       name: "AD",
       ap확률: data.AD ?? 0,
       ap개수: data.ADcount ?? 0,
+      fill: "#F4A358",
     },
     {
       name: "CD",
       ap확률: data.CD ?? 0,
       ap개수: data.CDcount ?? 0,
+      fill: "#53B1FD",
     },
     {
       name: "CP",
       ap확률: data.CP ?? 0,
       ap개수: data.CPcount ?? 0,
+      fill: "#26CEB6",
     },
     {
       name: "JD",
       ap확률: data.JD ?? 0,
       ap개수: data.JDcount ?? 0,
+      fill: "#F1BEEF",
     },
   ];
 };
