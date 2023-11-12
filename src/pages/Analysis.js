@@ -162,7 +162,7 @@ const Analysis = () => {
       <div
         className="analysis_container"
         style={{
-          marginLeft: "52px",
+          marginLeft: "38px",
           height: "100vh",
           userSelect: "none",
           borderRight: "2px solid #dde1e6",
@@ -242,10 +242,15 @@ const Analysis = () => {
           <TaGraph
             data={{
               OD: data["OD"]?.taratio,
+              ODcount: data["OD"]?.ta,
               AD: data["AD"]?.taratio,
+              ADcount: data["AD"]?.ta,
               CD: data["CD"]?.taratio,
+              CDcount: data["CD"]?.ta,
               CP: data["CP"]?.taratio,
+              CPcount: data["CP"]?.ta,
               JD: data["JD"]?.taratio,
+              JDcount: data["JD"]?.ta,
             }}
           />
         </div>
@@ -325,10 +330,15 @@ const Analysis = () => {
           <PcGraph
             data={{
               OD: data["OD"]?.pcratio,
+              ODcount: data["OD"]?.pc,
               AD: data["AD"]?.pcratio,
+              ADcount: data["AD"]?.pc,
               CD: data["CD"]?.pcratio,
+              CDcount: data["CD"]?.pc,
               CP: data["CP"]?.pcratio,
+              CPcount: data["CP"]?.pc,
               JD: data["JD"]?.pcratio,
+              JDcount: data["JD"]?.pc,
             }}
           />
         </div>

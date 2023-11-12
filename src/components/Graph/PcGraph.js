@@ -15,28 +15,66 @@ const data5 = (data) => {
   return [
     {
       name: "OD",
-      pc개수: data.OD ?? 0,
+      pc확률: data.OD ?? 0,
+      pc개수: data.ODcount ?? 0,
+      fill: "#F87676",
     },
     {
       name: "AD",
-      pc개수: data.AD ?? 0,
+      pc확률: data.AD ?? 0,
+      pc개수: data.ADcount ?? 0,
+      fill: "#F4A358",
     },
     {
       name: "CD",
-      pc개수: data.CD ?? 0,
+      pc확률: data.CD ?? 0,
+      pc개수: data.CDcount ?? 0,
+      fill: "#53B1FD",
     },
     {
       name: "CP",
-      pc개수: data.CP ?? 0,
+      pc확률: data.CP ?? 0,
+      pc개수: data.CPcount ?? 0,
+      fill: "#26CEB6",
     },
     {
       name: "JD",
-      pc개수: data.JD ?? 0,
+      pc확률: data.JD ?? 0,
+      pc개수: data.JDcount ?? 0,
+      fill: "#F1BEEF",
     },
   ];
 };
 
 const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
+
+const CustomTooltip = ({ active, payload, label, chartData }) => {
+  if (active) {
+    // 해당 항목의 'ap개수' 찾기
+    const taCountItem = chartData.find((item) => item.name === label);
+    const taCount = taCountItem ? taCountItem["pc개수"] : 0;
+    const taCountFormatted = String(taCount).padStart(2, "0");
+
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          fontSize: "12px",
+          height: "40px",
+          backgroundColor: "#fff",
+          padding: "10px",
+          border: "1px solid #ccc",
+          display: "flex",
+        }}
+      >
+        <p className="label">{label}</p>
+        <p className="intro">{`: ${taCountFormatted} 개`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 const CustomLegend = (props) => {
   const { payload } = props; // 이 payload는 Recharts에서 제공하는 데이터 포맷입니다.
@@ -93,6 +131,7 @@ const PcGraph = ({ data }) => {
           type="number"
           fontSize={"12px"}
           tickLine={false}
+          domain={[0, 1]}
           display={"none"}
         />
         <YAxis
@@ -105,18 +144,7 @@ const PcGraph = ({ data }) => {
           tickLine={false}
           display={"none"}
         />
-        <Tooltip
-          itemStyle={{
-            fontSize: "12px",
-            paddingTop: "0px",
-            paddingBottom: "0px",
-            marginBottom: "-4px",
-            marginTop: "-4px",
-          }}
-          labelStyle={{ fontSize: "12px" }}
-          labelFormatter={() => ""}
-          formatter={(value, name, entry) => `${entry.payload.name} : ${value}`}
-        />
+        <Tooltip content={<CustomTooltip chartData={chartData} />} />
         <Legend
           align="left"
           verticalAlign="top"
@@ -131,7 +159,7 @@ const PcGraph = ({ data }) => {
         />
 
         <CartesianGrid strokeDasharray="3 3" />
-        <Bar dataKey="pc개수" background={{ fill: "#eee" }}>
+        <Bar dataKey="pc확률" background={{ fill: "#eee" }}>
           {chartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} /> // 각 막대의 색상 지정
           ))}
