@@ -105,6 +105,7 @@ const Navbar = ({
   };
 
   const handleAnalysisClick = () => {
+    setSelectedTab("Analysis"); // 'Analysis' 탭을 선택했음을 상태에 설정
     navigate("/analysis", { state: { selectedTab: "Analysis" } });
   };
   useEffect(() => {
@@ -188,7 +189,8 @@ const Navbar = ({
               selectedTab === "전체" && !isAnalysisSelected
                 ? "#175cd3"
                 : "black",
-            fontWeight: selectedTab === "전체" ? "bold" : "500",
+            fontWeight:
+              selectedTab === "전체" && !isAnalysisSelected ? "bold" : "500",
           }}
 
           // onClick={handleAllCustomersClick}>
