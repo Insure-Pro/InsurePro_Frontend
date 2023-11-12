@@ -230,6 +230,7 @@ const Navbar = ({
           style={{
             backgroundColor: isAnalysisSelected ? "#175cd3" : "transparent",
             color: isAnalysisSelected ? "#fff" : "#000",
+            fontWeight: "600",
           }}
         >
           <img

@@ -600,7 +600,7 @@ function Modal1({ onModalClose }) {
               <Form.Control
                 type="address"
                 ref={address}
-                placeholder="주소 | 상세주소입력"
+                placeholder="주소입력"
                 autoFocus
               />
             </Form.Group>
