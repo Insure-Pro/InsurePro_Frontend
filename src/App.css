@@ -482,6 +482,9 @@
   }
   /* 고객 추가 모달창 모바일 */
   /* 디테일창 고객정보 수정 모달창 모바일 */
+  .modal-content {
+    margin: auto;
+  }
   .modal-title {
     font-size: 18px !important;
     margin-bottom: -4px !important;
