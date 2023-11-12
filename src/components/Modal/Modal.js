@@ -559,7 +559,7 @@ function Modal1({ onModalClose }) {
                 autoFocus
               />
             </Form.Group>
-            <Row>
+            {/* <Row>
               <Col>
                 <Form.Group
                   className="mb-0"
@@ -594,13 +594,13 @@ function Modal1({ onModalClose }) {
                   </Form.Select>
                 </Form.Group>
               </Col>
-            </Row>
+            </Row> */}
             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
                 type="address"
                 ref={address}
-                placeholder="주소입력"
+                placeholder="주소 | 주소입력"
                 autoFocus
               />
             </Form.Group>
