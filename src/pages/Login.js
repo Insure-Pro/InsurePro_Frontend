@@ -19,6 +19,12 @@ const Login = () => {
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
 
   const onLogin = () => {
+    console.log(
+      "Login Attempt with",
+      email.current.value,
+      password.current.value
+    );
+
     axios
       .post("https://www.insurepro.kro.kr/v1/login", {
         email: email.current.value,
@@ -26,11 +32,16 @@ const Login = () => {
       })
       .then((response) => {
         if (response.status == 200) {
+          console.log("Login Successful", response);
           const { authorization, refresh } = response.headers;
 
           localStorage.setItem("accessToken", authorization.split(" ")[1]);
           localStorage.setItem("refreshToken", refresh);
-
+          console.log(
+            "Tokens set:",
+            localStorage.getItem("accessToken"),
+            localStorage.getItem("refreshToken")
+          );
           dispatch(
             loginSuccess({
               accessToken: authorization,
@@ -57,6 +68,15 @@ const Login = () => {
             "로그인에 실패했습니다.";
         }
       });
+  };
+
+  const handleLogin = async (credentials) => {
+    // 로그인 처리 로직
+    console.log("Login Attempt with", credentials);
+
+    // 로그인 성공 후
+    console.log("Login Successful. Redirecting to main page.");
+    // 리다이렉트 로직
   };
 
   return (

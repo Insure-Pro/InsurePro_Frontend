@@ -18,6 +18,8 @@ const Detail = ({}) => {
   const [customerSchedules, setCustomerSchedules] = useState({});
   const [customerData, setCustomerData] = useState(null);
 
+  const { testData, setTestData } = useState("");
+  const { testData2, setTestData2 } = useState("");
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showEditModalD, setShowEditModalD] = useState(false);
@@ -53,6 +55,45 @@ const Detail = ({}) => {
       console.error("Error fetching customer:", error);
     }
   };
+
+  // const test = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.insurepro.kro.kr/v1/metros`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         },
+  //       }
+  //     );
+
+  //     if (response.data) {
+  //       setTestData(response.data);
+  //       console.log(testData);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching customer:", error);
+  //   }
+  // };
+  // const test2 = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.insurepro.kro.kr/v1/gus?metro=1`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         },
+  //       }
+  //     );
+
+  //     if (response.data) {
+  //       setTestData2(response.data);
+  //       console.log(testData2);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching customer:", error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchCustomer();
@@ -129,6 +170,8 @@ const Detail = ({}) => {
                 onUpdateSuccess={handleUpdateSuccess}
               />
             </div>
+            {/* <button onClick={() => test()}>test</button>
+            <button onClick={() => test2()}>test2</button> */}
             <hr
               className="Detail_hr Detail_hr2"
               style={{ width: "1020px", marginLeft: "12px" }}

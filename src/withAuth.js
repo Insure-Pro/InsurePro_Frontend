@@ -2,18 +2,20 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export const withAuth = (WrappedComponent) => {
+const withAuth = (WrappedComponent) => {
   return (props) => {
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const navigate = useNavigate();
-    const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
-
+    console.log("Current isLoggedIn status", isLoggedIn);
     useEffect(() => {
-      // Wait for loading to be false before checking isLoggedIn
-      if (!isLoading && !isLoggedIn) {
+      console.log("isLoggedIn state changed:", isLoggedIn);
+      if (!isLoggedIn) {
         navigate("/login");
       }
-    }, [isLoggedIn, isLoading, navigate]);
+    }, [isLoggedIn, navigate]);
 
     return <WrappedComponent {...props} />;
   };
 };
+
+export default withAuth;

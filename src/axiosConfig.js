@@ -1,6 +1,6 @@
 import axios from "axios";
 import { store } from "./redux/store";
-import { loginSuccess, logout } from "./redux/authSlice";
+import { loginSuccess, logoutSuccess } from "./redux/authSlice";
 
 // Create an Axios instance
 const axiosInstance = axios.create();
@@ -9,10 +9,12 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
+      console.log("Attempting token refresh", error.response);
+      const refreshToken = localStorage.getItem("refreshToken");
       const originalRequest = error.config;
       try {
-        const refreshToken = store.getState().auth.refreshToken;
+        // const refreshToken = store.getState().auth.refreshToken;
         const response = await axiosInstance.patch(
           "https://www.insurepro.kro.kr/v1/employee/authorization",
           null,
@@ -32,7 +34,8 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        store.dispatch(logout());
+        console.log("Token refresh failed", refreshError);
+        store.dispatch(logoutSuccess());
         return Promise.reject(refreshError);
       }
     }

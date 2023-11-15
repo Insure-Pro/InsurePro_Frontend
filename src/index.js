@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import { setAuthLoading } from "./redux/authSlice";
 import { refreshToken } from "./redux/authSlice";
 
+console.log("Application Starting. Initial State:", store.getState());
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

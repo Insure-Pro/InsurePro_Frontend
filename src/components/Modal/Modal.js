@@ -328,7 +328,7 @@ function Modal1({ onModalClose }) {
     // 전체 주소 업데이트
     setFullAddress(selectedSido + " " + newGugun);
   };
-  console.log(fullAddress);
+  // console.log(fullAddress);
   const handleContractYnChange = () => {
     // 체크박스 상태를 토글
     setContractYn(!contractYn);
@@ -390,7 +390,7 @@ function Modal1({ onModalClose }) {
       return;
     }
 
-    console.log("Updated fullAddress:", fullAddress);
+    // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
@@ -407,7 +407,7 @@ function Modal1({ onModalClose }) {
       contractYn: contractYn,
       memo: memo.current.value,
       state: state.current.value,
-      lipk: fullAddress,
+      dongString: fullAddress,
     };
 
     axios

@@ -36,19 +36,34 @@ export const refreshToken = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem("isLoggedIn") === "true" ? true : false,
     accessToken: null,
     refreshToken: null,
     isLoading: true,
   },
   reducers: {
     loginSuccess: (state, action) => {
+      console.log("Login successful", action.payload);
       state.isLoggedIn = true;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Check if payload is provided and contains accessToken and refreshToken
+      if (
+        action.payload &&
+        action.payload.accessToken &&
+        action.payload.refreshToken
+      ) {
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+      } else {
+        // Handle case where payload is not provided or missing tokens
+        console.error("Payload missing or incomplete in loginSuccess action");
+      }
     },
-    logout: (state) => {
+    logoutSuccess: (state) => {
+      console.log("Logout action triggered");
       state.isLoggedIn = false;
+      localStorage.setItem("isLoggedIn", "false");
       state.accessToken = null;
       state.refreshToken = null;
     },
@@ -73,5 +88,6 @@ const authSlice = createSlice({
   },
 });
 // 액션 생성자와 리듀서를 내보냄
-export const { loginSuccess, logout, setAuthLoading } = authSlice.actions;
+export const { loginSuccess, logoutSuccess, setAuthLoading } =
+  authSlice.actions;
 export default authSlice.reducer;

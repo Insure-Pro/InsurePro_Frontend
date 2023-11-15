@@ -3,11 +3,13 @@ import "./App.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { refreshToken } from "./redux/authSlice";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { withAuth } from "./withAuth";
+import withAuth from "./withAuth";
+import { loginSuccess, logoutSuccess } from "./redux/authSlice";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -26,14 +28,38 @@ const ProtectedAnalysis = withAuth(Analysis);
 function App() {
   const dispatch = useDispatch();
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   useEffect(() => {
-    dispatch(refreshToken()); // Dispatch the refreshToken thunk on app initialization
+    const isLoggedInStorage = localStorage.getItem("isLoggedIn") === "true";
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    console.log("App Loaded. isLoggedIn from storage:", isLoggedInStorage);
+    if (isLoggedInStorage && accessToken && refreshToken) {
+      dispatch(
+        loginSuccess({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        })
+      );
+    } else {
+      dispatch(logoutSuccess());
+    }
   }, [dispatch]);
+
+  console.log("App Rendered. Current isLoggedIn status:", isLoggedIn);
+
   return (
     <Suspense>
       <div className="App">
         <div>
           <Routes>
+            <Route
+              exact
+              path="/"
+              element={isLoggedIn ? <ProtectedMain /> : <Login />}
+            />
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
