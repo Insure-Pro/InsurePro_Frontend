@@ -67,6 +67,7 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
+
     setAuthLoading: (state, action) => {
       state.isLoading = action.payload;
     },

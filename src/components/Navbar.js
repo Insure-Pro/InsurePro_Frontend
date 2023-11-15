@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { logoutSuccess } from "../redux/authSlice";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -60,8 +61,10 @@ const Navbar = ({
       );
 
       if (response.status === 200) {
-        localStorage.removeItem("accessToken"); // 토큰 삭제
-        navigate("/login"); // 로그인 페이지로 리다이렉션
+        localStorage.removeItem("accessToken"); // Remove access token
+        localStorage.removeItem("refreshToken"); // Remove refresh token
+        dispatch(logoutSuccess()); // Dispatch logoutSuccess action
+        navigate("/login"); // Redirect to login page
       }
     } catch (error) {
       console.error("Logout failed", error);
