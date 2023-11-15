@@ -100,8 +100,8 @@ const Analysis = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  console.log(data);
-  console.log(date);
+  // console.log(data);
+  // console.log(date);
 
   const allTaCount =
     data["OD"]?.ta +

@@ -43,7 +43,7 @@ const authSlice = createSlice({
   },
   reducers: {
     loginSuccess: (state, action) => {
-      console.log("Login successful", action.payload);
+      // console.log("Login successful", action.payload);
       state.isLoggedIn = true;
       localStorage.setItem("isLoggedIn", "true");
 
@@ -61,7 +61,7 @@ const authSlice = createSlice({
       }
     },
     logoutSuccess: (state) => {
-      console.log("Logout action triggered");
+      // console.log("Logout action triggered");
       state.isLoggedIn = false;
       localStorage.setItem("isLoggedIn", "false");
       state.accessToken = null;

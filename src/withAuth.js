@@ -6,9 +6,9 @@ const withAuth = (WrappedComponent) => {
   return (props) => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const navigate = useNavigate();
-    console.log("Current isLoggedIn status", isLoggedIn);
+    // console.log("Current isLoggedIn status", isLoggedIn);
     useEffect(() => {
-      console.log("isLoggedIn state changed:", isLoggedIn);
+      // console.log("isLoggedIn state changed:", isLoggedIn);
       if (!isLoggedIn) {
         navigate("/login");
       }

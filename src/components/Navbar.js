@@ -60,7 +60,6 @@ const Navbar = ({
       );
 
       if (response.status === 200) {
-        console.log("Logout successful");
         localStorage.removeItem("accessToken"); // 토큰 삭제
         navigate("/login"); // 로그인 페이지로 리다이렉션
       }

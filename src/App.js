@@ -35,7 +35,7 @@ function App() {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    console.log("App Loaded. isLoggedIn from storage:", isLoggedInStorage);
+    // console.log("App Loaded. isLoggedIn from storage:", isLoggedInStorage);
     if (isLoggedInStorage && accessToken && refreshToken) {
       dispatch(
         loginSuccess({
@@ -48,7 +48,7 @@ function App() {
     }
   }, [dispatch]);
 
-  console.log("App Rendered. Current isLoggedIn status:", isLoggedIn);
+  // console.log("App Rendered. Current isLoggedIn status:", isLoggedIn);
 
   return (
     <Suspense>

@@ -10,7 +10,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
-      console.log("Attempting token refresh", error.response);
+      // console.log("Attempting token refresh", error.response);
       const refreshToken = localStorage.getItem("refreshToken");
       const originalRequest = error.config;
       try {
