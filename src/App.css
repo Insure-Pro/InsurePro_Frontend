@@ -187,6 +187,7 @@
   font-size: 24px;
   font-weight: bold;
   opacity: 0.9;
+  user-select: text !important;
 }
 .customer-info-container {
   width: 500px; /* 원하는 가로 크기 */
