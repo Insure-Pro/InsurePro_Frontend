@@ -99,7 +99,21 @@ const Analysis = () => {
     fetchData();
   }, [date]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: "bold",
+          fontSize: "24px",
+        }}
+      >
+        Loading...
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
   // console.log(data);
   // console.log(date);
