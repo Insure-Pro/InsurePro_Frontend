@@ -53,6 +53,7 @@ const Analysis = () => {
     return `${year}년 ${month}월 ${day}일 ${hours}시`;
   };
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
   // Function to handle date changes from the modal
   const handleDateChange = (newYear, newMonth) => {
     setYear(newYear);
@@ -70,7 +71,7 @@ const Analysis = () => {
         const responses = await Promise.all(
           customerTypes.map((customerType) =>
             fetch(
-              `https://www.insurepro.kro.kr/v1/analysis?date=${date}&customerType=${customerType}`,
+              `${MAIN_URL}/analysis?date=${date}&customerType=${customerType}`,
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem(

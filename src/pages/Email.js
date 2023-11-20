@@ -13,10 +13,12 @@ const Email = () => {
 
   const navigate = useNavigate();
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const findEmail = async () => {
     try {
       const response = await axios.get(
-        `https://www.insurepro.kro.kr/v1/employee/email?id=${usernum}`
+        `${MAIN_URL}/employee/email?id=${usernum}`
       );
       setEmailInfo(response.data);
     } catch (error) {

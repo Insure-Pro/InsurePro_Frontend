@@ -29,6 +29,8 @@ const Main = () => {
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   useEffect(() => {
     if (selectedTab) {
       switch (selectedTab) {
@@ -83,16 +85,16 @@ const Main = () => {
   const fetchData = async () => {
     let url;
     if (formattedDate) {
-      url = `https://www.insurepro.kro.kr/v1/customers/latest/${formattedDate}-01`;
+      url = `${MAIN_URL}/customers/latest/${formattedDate}-01`;
     } else if (selectedContractYn != null) {
-      url = `https://www.insurepro.kro.kr/v1/customers/contractYn/${selectedContractYn}/latest`;
+      url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest`;
     } else if (selectedAge) {
-      url = `https://www.insurepro.kro.kr/v1/customers/age/${selectedAge}`;
+      url = `${MAIN_URL}/customers/age/${selectedAge}`;
     } else {
       url =
         selectedSort === "latest"
-          ? "https://www.insurepro.kro.kr/v1/customers/latest"
-          : "https://www.insurepro.kro.kr/v1/customers/latest";
+          ? `${MAIN_URL}/customers/latest`
+          : `${MAIN_URL}/customers/latest`;
     }
     try {
       const response = await axios.get(url, {
@@ -118,7 +120,7 @@ const Main = () => {
   const handleDeleteClick = async (customer) => {
     try {
       const response = await axios.patch(
-        `https://www.insurepro.kro.kr/v1/customer/${customer.pk}`,
+        `${MAIN_URL}/customer/${customer.pk}`,
         {
           delYn: true,
         },

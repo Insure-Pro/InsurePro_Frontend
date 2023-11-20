@@ -14,9 +14,11 @@ const CustomerHistory = ({ customerPk }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const fetchCustomerHistory = async () => {
     try {
-      const url = `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`;
+      const url = `${MAIN_URL}/schedules/${customerPk}`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -44,14 +46,11 @@ const CustomerHistory = ({ customerPk }) => {
   }, [customerPk]);
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `https://www.insurepro.kro.kr/v1/schedules/${customerPk}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${MAIN_URL}/schedules/${customerPk}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
       if (response.status === 200) {
         setHistories(response.data); // 가정: 응답의 데이터가 히스토리 목록임
         // console.log(response.data);
@@ -64,7 +63,7 @@ const CustomerHistory = ({ customerPk }) => {
   const handleDeleteClick = async (history) => {
     try {
       const response = await axios.patch(
-        `https://www.insurepro.kro.kr/v1/schedule/${history.pk}`,
+        `${MAIN_URL}/schedule/${history.pk}`,
         {
           delYn: true,
         },

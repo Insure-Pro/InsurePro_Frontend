@@ -14,6 +14,8 @@ function HistoryModal({ customerPk, onNewData }) {
   const [selectedProgressType, setSelectedProgressType] = useState("");
   const progressTypes = ["TA", "AP", "PT", "PC"];
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const handleClose = () => {
     setShow(false);
     setDate("");
@@ -43,15 +45,11 @@ function HistoryModal({ customerPk, onNewData }) {
     };
 
     try {
-      await axios.post(
-        `https://www.insurepro.kro.kr/v1/schedule/${customerPk}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      await axios.post(`${MAIN_URL}/schedule/${customerPk}`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
       handleClose();
 
       onNewData();

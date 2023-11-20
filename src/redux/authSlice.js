@@ -8,7 +8,7 @@ export const refreshToken = createAsyncThunk(
     const state = getState();
     const accessToken = state.auth.accessToken;
     const refreshToken = state.auth.refreshToken;
-
+    const MAIN_URL = process.env.REACT_APP_MAIN_URL;
     if (!accessToken || !refreshToken) {
       throw new Error("No access or refresh token available");
     }
@@ -18,7 +18,7 @@ export const refreshToken = createAsyncThunk(
 
     if (decodedToken.exp < currentTime) {
       const response = await axios.patch(
-        "https://www.insurepro.kro.kr/v1/employee/authorization",
+        `${MAIN_URL}/employee/authorization`,
         null,
         { headers: { Refresh: refreshToken } }
       );

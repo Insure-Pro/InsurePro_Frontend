@@ -22,6 +22,7 @@ const Signup = () => {
   const [isCodeSent, setIsCodeSent] = useState(false);
 
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleVerifyClick = () => {
     if (myAuthNum === parseInt(authNumConfirm.current.value)) {
@@ -35,7 +36,7 @@ const Signup = () => {
 
   const handleSendCodeClick = () => {
     axios
-      .post("https://www.insurepro.kro.kr/v1/email", {
+      .post(`${MAIN_URL}/email`, {
         email: myEmail,
       })
       .then((response) => {
@@ -103,7 +104,7 @@ const Signup = () => {
     // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
-        .post("https://www.insurepro.kro.kr/v1/employee/signin", {
+        .post(`${MAIN_URL}/employee/signin`, {
           name: userName.current.value,
           email: email.current.value,
           id: usernum.current.value,

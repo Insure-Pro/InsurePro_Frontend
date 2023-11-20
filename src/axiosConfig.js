@@ -13,10 +13,12 @@ axiosInstance.interceptors.response.use(
       // console.log("Attempting token refresh", error.response);
       const refreshToken = localStorage.getItem("refreshToken");
       const originalRequest = error.config;
+      const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
       try {
         // const refreshToken = store.getState().auth.refreshToken;
         const response = await axiosInstance.patch(
-          "https://www.insurepro.kro.kr/v1/employee/authorization",
+          `${MAIN_URL}/employee/authorization`,
           null,
           { headers: { Refresh: refreshToken } }
         );

@@ -18,9 +18,11 @@ const Login = () => {
 
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const onLogin = () => {
     axios
-      .post("https://www.insurepro.kro.kr/v1/login", {
+      .post(`${MAIN_URL}/login`, {
         email: email.current.value,
         password: password.current.value,
       })

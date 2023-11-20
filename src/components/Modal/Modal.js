@@ -389,7 +389,7 @@ function Modal1({ onModalClose }) {
       alert("고객유형을 선택해주세요.");
       return;
     }
-
+    const MAIN_URL = process.env.REACT_APP_MAIN_URL;
     // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
@@ -411,7 +411,7 @@ function Modal1({ onModalClose }) {
     };
 
     axios
-      .post("https://www.insurepro.kro.kr/v1/customer", data, {
+      .post(`${MAIN_URL}/customer`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

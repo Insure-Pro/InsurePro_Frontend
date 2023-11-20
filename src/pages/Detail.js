@@ -37,16 +37,15 @@ const Detail = ({}) => {
     "0"
   )}`; // formattedDate 업데이트
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const fetchCustomer = async () => {
     try {
-      const response = await axios.get(
-        `https://www.insurepro.kro.kr/v1/customer/${customerPk}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${MAIN_URL}/customer/${customerPk}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (response.data) {
         setSelectedCustomer(response.data);

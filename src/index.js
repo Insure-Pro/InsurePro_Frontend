@@ -9,6 +9,7 @@ import { store, persistor } from "./redux/store"; // Import persistor from the f
 import { Provider } from "react-redux";
 import { setAuthLoading } from "./redux/authSlice";
 import { refreshToken } from "./redux/authSlice";
+// require("dotenv").config({ path: "src/.env" });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

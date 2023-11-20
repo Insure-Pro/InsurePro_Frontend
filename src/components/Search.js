@@ -6,10 +6,12 @@ const Search = ({ setCustomers }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://www.insurepro.kro.kr/v1/customers/name/${inputName}`,
+        `${MAIN_URL}/customers/name/${inputName}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

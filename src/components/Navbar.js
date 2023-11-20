@@ -41,24 +41,24 @@ const Navbar = ({
     // Call the appropriate handler based on the tab name
     if (tabName === "월별 고객") {
       onMonthCustomersClick();
+      navigate("/main", { state: { selectedTab: "월별 고객" } });
     } else if (tabName === "전체") {
       onAllCustomersClick();
+      navigate("/main", { state: { selectedTab: "전체" } });
     } else if (tabName === "계약완료고객") {
       onContractCompleteClick();
+      navigate("/main", { state: { selectedTab: "계약완료고객" } });
     }
   };
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        "https://www.insurepro.kro.kr/v1/logout",
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.post(`${MAIN_URL}/logout`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (response.status === 200) {
         localStorage.removeItem("accessToken"); // Remove access token

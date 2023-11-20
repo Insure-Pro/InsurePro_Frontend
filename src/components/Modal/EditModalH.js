@@ -14,6 +14,8 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
   const [selectedProgressType, setSelectedProgressType] = useState("");
   const progressTypes = ["TA", "AP", "PT", "PC"];
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   useEffect(() => {
     if (selectedHistory) {
       setSelectedProgressType(selectedHistory?.progress || "");
@@ -53,7 +55,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
   const handleSaveChanges = async () => {
     try {
-      const url = `https://www.insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`;
+      const url = `${MAIN_URL}/schedule/${selectedHistory.pk}`;
       await axios.patch(url, editedHistory, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -79,7 +81,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
     try {
       const response = await axios.patch(
-        `https://www.insurepro.kro.kr/v1/schedule/${selectedHistory.pk}`,
+        `${MAIN_URL}/schedule/${selectedHistory.pk}`,
         formData,
         {
           headers: {

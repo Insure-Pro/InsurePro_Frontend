@@ -31,6 +31,8 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
 
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   const handleContractYnChange = () => {
     // 체크박스 상태를 토글
     setContractYn(!contractYn);
@@ -119,7 +121,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         // Add other form data
       };
       const response = await axios.patch(
-        `https://www.insurepro.kro.kr/v1/customer/${selectedCustomer.pk}`,
+        `${MAIN_URL}/customer/${selectedCustomer.pk}`,
         updatedData,
         {
           headers: {
