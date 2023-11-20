@@ -195,15 +195,15 @@ const Analysis = () => {
             <span className="explain_item_title">TA 확률 </span>
             <span>:</span>
             {"     "}
-            <span> TA 갯수/ 이번달 분배받은 db고객 수 기준</span>
+            <span> TA 개수/ 이번달 분배받은 db고객 수 기준</span>
           </div>
           <div className="analysis_explain_item">
             <span className="explain_item_title">AP 확률 </span> <span>:</span>
-            <span> AP 갯수/ 이번달 분배받은 db고객 수 기준</span>
+            <span> AP 개수/ 이번달 분배받은 db고객 수 기준</span>
           </div>
           <div className="analysis_explain_item">
             <span className="explain_item_title">PC 확률 </span> <span>:</span>
-            <span> PC 갯수/ 이번달 분배받은 db고객 수 기준</span>
+            <span> PC 개수/ 이번달 분배받은 db고객 수 기준</span>
           </div>
           <div className="analysis_explain_item">
             <span className="explain_item_title">청약 건수 </span>{" "}
