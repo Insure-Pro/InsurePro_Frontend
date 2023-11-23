@@ -4,37 +4,45 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 
 const KakaoMap = () => {
+  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
   useEffect(() => {
     const initializeMap = () => {
       const container = document.getElementById("map");
       const options = {
-        center: new window.kakao.maps.LatLng(36.2683, 127.6358),
-        level: 14,
+        center: new window.kakao.maps.LatLng(35.1379222, 129.05562775),
+        level: 3,
       };
-      const map = new window.kakao.maps.Map(container, options);
 
-      //   const markerPosition = new window.kakao.maps.LatLng(
-      //     33.450701,
-      //     126.570667
-      //   );
-      //   const marker = new window.kakao.maps.Marker({
-      //     position: markerPosition,
-      //   });
-      //   marker.setMap(map);
-      // 여기에 마커 클러스터 등 추가 로직을 구현할 수 있습니다.
+      const map = new window.kakao.maps.Map(container, options);
+      const geocoder = new window.kakao.maps.services.Geocoder();
+
+      axios
+        .get(`${MAIN_URL}/customers/latest`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+        .then((response) => {
+          response.data.forEach((customer) => {
+            geocoder.addressSearch(customer.address, function (result, status) {
+              if (status === window.kakao.maps.services.Status.OK) {
+                const coords = new window.kakao.maps.LatLng(
+                  result[0].y,
+                  result[0].x
+                );
+                new window.kakao.maps.Marker({
+                  map: map,
+                  position: coords,
+                });
+              }
+            });
+          });
+        })
+        .catch((error) => console.log(error));
     };
 
-    if (window.kakao && window.kakao.maps) {
-      initializeMap();
-    } else {
-      const kakaoScript = document.createElement("script");
-      kakaoScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=5f312e942c7a1fa1133c655d80e8230e&autoload=true`;
-      document.head.appendChild(kakaoScript);
-
-      kakaoScript.onload = () => {
-        window.kakao.maps.load(initializeMap);
-      };
-    }
+    window.kakao.maps.load(initializeMap);
   }, []);
 
   return (
