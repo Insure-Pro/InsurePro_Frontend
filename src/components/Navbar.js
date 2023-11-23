@@ -21,7 +21,7 @@ const Navbar = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
-
+  const icon_map = process.env.PUBLIC_URL + "/map-24.png";
   const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
 
   const location = useLocation();
@@ -109,6 +109,11 @@ const Navbar = ({
   const handleAnalysisClick = () => {
     setSelectedTab("Analysis"); // 'Analysis' 탭을 선택했음을 상태에 설정
     navigate("/analysis", { state: { selectedTab: "Analysis" } });
+  };
+
+  const handleMapClick = () => {
+    setSelectedTab("Map"); // 'Analysis' 탭을 선택했음을 상태에 설정
+    navigate("/map", { state: { selectedTab: "Map" } });
   };
   useEffect(() => {
     // Assuming 'selectedTab' is passed in state when navigating to this page
@@ -244,6 +249,15 @@ const Navbar = ({
             }}
           />
           Analysis
+        </div>
+        <div className="title analysis" onClick={handleMapClick} style={{}}>
+          <img
+            src={icon_map}
+            style={{
+              paddingRight: "8px",
+            }}
+          />
+          Map
         </div>
       </div>
     </div>
