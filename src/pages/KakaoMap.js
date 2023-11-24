@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const KakaoMap = () => {
@@ -113,6 +113,31 @@ const KakaoMap = () => {
     }
   }, [locationObtained, mapCenter]);
 
+  const navigate = useNavigate();
+
+  const currentDate = new Date(); // 현재 날짜를 얻습니다.
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentDate.getMonth() + 1
+  );
+
+  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
+    2,
+    "0"
+  )}`; // formattedDate 업데이트
+
+  const handleMonthCustomersClick = () => {
+    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate } });
+  };
+
+  const handleAllCustomersClick = () => {
+    navigate("/main", { state: { selectedTab: "전체" } });
+  };
+
+  const handleContractCompleteClick = () => {
+    navigate("/main", { state: { selectedTab: "계약완료고객" } });
+  };
+
   return (
     <div
       style={{
@@ -123,7 +148,13 @@ const KakaoMap = () => {
         borderRight: "2px solid #dde1e6",
       }}
     >
-      <Navbar />
+      <Navbar
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        onMonthCustomersClick={handleMonthCustomersClick}
+        ContractedCustomerClcik={handleContractCompleteClick}
+        AllCustomersClick={handleAllCustomersClick}
+      />
       <div>
         <h1 className="maintitle" style={{ margin: "40px" }}>
           지도보기
