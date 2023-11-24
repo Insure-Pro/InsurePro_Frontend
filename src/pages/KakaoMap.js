@@ -11,6 +11,19 @@ const KakaoMap = () => {
   });
   const [locationObtained, setLocationObtained] = useState(false);
 
+  const createCurrentLocationCircle = (map, position) => {
+    new window.kakao.maps.Circle({
+      map: map,
+      center: new window.kakao.maps.LatLng(position.lat, position.lng),
+      radius: 5, // Radius of the circle (in meters)
+      strokeWeight: 3, // Stroke width
+      strokeColor: "#FF0000", // Stroke color (red)
+      strokeOpacity: 0.8, // Stroke transparency
+      fillColor: "#FF0000", // Fill color (red)
+      fillOpacity: 0.7, // Fill transparency
+    });
+  };
+
   const initializeMap = () => {
     const container = document.getElementById("map");
     const options = {
@@ -19,6 +32,10 @@ const KakaoMap = () => {
     };
     const map = new window.kakao.maps.Map(container, options);
     const geocoder = new window.kakao.maps.services.Geocoder();
+
+    if (locationObtained) {
+      createCurrentLocationCircle(map, mapCenter);
+    }
 
     axios
       .get(`${MAIN_URL}/customers/latest`, {
