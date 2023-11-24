@@ -10,19 +10,21 @@ const KakaoMap = () => {
     lng: 129.05562775, // Default longitude (Busan City Hall)
   });
   const [locationObtained, setLocationObtained] = useState(false);
+  const [markers, setMarkers] = useState([]); // New state for storing marker objects
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
       map: map,
       center: new window.kakao.maps.LatLng(position.lat, position.lng),
-      radius: 5, // Radius of the circle (in meters)
-      strokeWeight: 3, // Stroke width
-      strokeColor: "#FF0000", // Stroke color (red)
-      strokeOpacity: 0.8, // Stroke transparency
-      fillColor: "#FF0000", // Fill color (red)
-      fillOpacity: 0.7, // Fill transparency
+      radius: 5,
+      strokeWeight: 5,
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      fillColor: "#FF0000",
+      fillOpacity: 0.7,
     });
   };
+  let clusterer; // Declare clusterer globally
 
   const initializeMap = () => {
     const container = document.getElementById("map");
@@ -32,11 +34,15 @@ const KakaoMap = () => {
     };
     const map = new window.kakao.maps.Map(container, options);
     const geocoder = new window.kakao.maps.services.Geocoder();
+    // New: Initialize marker clusterer
+    clusterer = new window.kakao.maps.MarkerClusterer({
+      map: map,
+      averageCenter: true,
+      minLevel: 5,
+      disableClickZoom: true,
+    });
 
-    if (locationObtained) {
-      createCurrentLocationCircle(map, mapCenter);
-    }
-
+    // Existing Axios request to fetch markers
     axios
       .get(`${MAIN_URL}/customers/latest`, {
         headers: {
@@ -45,21 +51,37 @@ const KakaoMap = () => {
       })
       .then((response) => {
         response.data.forEach((customer) => {
-          geocoder.addressSearch(customer.address, function (result, status) {
+          geocoder.addressSearch(customer.address, (result, status) => {
             if (status === window.kakao.maps.services.Status.OK) {
               const coords = new window.kakao.maps.LatLng(
                 result[0].y,
                 result[0].x
               );
-              new window.kakao.maps.Marker({
-                map: map,
-                position: coords,
-              });
+              const marker = new window.kakao.maps.Marker({ position: coords });
+              clusterer.addMarker(marker); // Add each marker to clusterer
+            } else {
+              console.error(
+                `Geocode was not successful for the following reason: ${status}`
+              );
             }
           });
         });
       })
       .catch((error) => console.log(error));
+
+    // New: Add event listener for cluster click
+    window.kakao.maps.event.addListener(
+      clusterer,
+      "clusterclick",
+      (cluster) => {
+        const level = map.getLevel() - 1;
+        map.setLevel(level, { anchor: cluster.getCenter() });
+      }
+    );
+
+    if (locationObtained) {
+      createCurrentLocationCircle(map, mapCenter);
+    }
   };
 
   useEffect(() => {
