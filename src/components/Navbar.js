@@ -21,8 +21,9 @@ const Navbar = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/exit.png";
-  const icon_map = process.env.PUBLIC_URL + "/map-24.png";
+
   const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
+  const [isMapSelected, setIsMapSelected] = useState(false);
 
   const location = useLocation();
 
@@ -30,10 +31,13 @@ const Navbar = ({
   const users_white = process.env.PUBLIC_URL + "/users_white.png";
   const graph_black = process.env.PUBLIC_URL + "/bar_graph_black.png";
   const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
+  const map_black = process.env.PUBLIC_URL + "/map_black.png";
+  const map_white = process.env.PUBLIC_URL + "/map_white.png";
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
     setIsAnalysisSelected(tabName === "Analysis");
+    setIsMapSelected(tabName === "Map");
 
     // Update selected tab state
     setSelectedTab(tabName);
@@ -107,19 +111,27 @@ const Navbar = ({
   };
 
   const handleAnalysisClick = () => {
+    setIsAnalysisSelected(true);
+    setIsMapSelected(false); // Ensure 'Map' is not selected
     setSelectedTab("Analysis"); // 'Analysis' 탭을 선택했음을 상태에 설정
     navigate("/analysis", { state: { selectedTab: "Analysis" } });
   };
 
   const handleMapClick = () => {
+    setIsMapSelected(true);
+    setIsAnalysisSelected(false);
     setSelectedTab("Map"); // 'Analysis' 탭을 선택했음을 상태에 설정
     navigate("/map", { state: { selectedTab: "Map" } });
   };
+
   useEffect(() => {
-    // Assuming 'selectedTab' is passed in state when navigating to this page
     const tab = location.state?.selectedTab;
     if (tab === "Analysis") {
       setIsAnalysisSelected(true);
+      setIsMapSelected(false); // Ensure that map is not selected when analysis is selected
+    } else if (tab === "Map") {
+      setIsMapSelected(true);
+      setIsAnalysisSelected(false); // Ensure that analysis is not selected when map is selected
     }
   }, [location]);
 
@@ -164,8 +176,9 @@ const Navbar = ({
       <div
         className="title"
         style={{
-          backgroundColor: !isAnalysisSelected ? "#175cd3" : "transparent",
-          color: !isAnalysisSelected ? "#fff" : "#000",
+          backgroundColor:
+            !isMapSelected && !isAnalysisSelected ? "#175cd3" : "transparent",
+          color: !isMapSelected && !isAnalysisSelected ? "#fff" : "#000",
         }}
         onClick={() => {
           setSelectedTab("전체");
@@ -175,7 +188,7 @@ const Navbar = ({
         }}
       >
         <img
-          src={isAnalysisSelected ? users_black : users_white}
+          src={isAnalysisSelected || isMapSelected ? users_black : users_white}
           style={{
             paddingRight: "8px",
           }}
@@ -193,11 +206,13 @@ const Navbar = ({
           }}
           style={{
             color:
-              selectedTab === "전체" && !isAnalysisSelected
+              selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
                 ? "#175cd3"
                 : "black",
             fontWeight:
-              selectedTab === "전체" && !isAnalysisSelected ? "bold" : "500",
+              selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
+                ? "bold"
+                : "500",
           }}
 
           // onClick={handleAllCustomersClick}>
@@ -237,8 +252,9 @@ const Navbar = ({
           className="title analysis"
           onClick={handleAnalysisClick}
           style={{
-            backgroundColor: isAnalysisSelected ? "#175cd3" : "transparent",
-            color: isAnalysisSelected ? "#fff" : "#000",
+            backgroundColor:
+              isAnalysisSelected && !isMapSelected ? "#175cd3" : "transparent",
+            color: isAnalysisSelected && !isMapSelected ? "#fff" : "#000",
             fontWeight: "600",
           }}
         >
@@ -250,9 +266,16 @@ const Navbar = ({
           />
           Analysis
         </div>
-        <div className="title analysis" onClick={handleMapClick} style={{}}>
+        <div
+          className="title analysis"
+          onClick={handleMapClick}
+          style={{
+            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+            color: isMapSelected ? "#fff" : "#000",
+          }}
+        >
           <img
-            src={icon_map}
+            src={!isMapSelected ? map_black : map_white}
             style={{
               paddingRight: "8px",
             }}
