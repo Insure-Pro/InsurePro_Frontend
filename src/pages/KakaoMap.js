@@ -239,6 +239,8 @@ const KakaoMap = () => {
         height: "100vh",
         margin: "0 auto",
         borderRight: "2px solid #dde1e6",
+
+        userSelect: "none",
       }}
     >
       <Navbar
@@ -249,7 +251,7 @@ const KakaoMap = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div>
-        <h1 className="maintitle" style={{ margin: "40px" }}>
+        <h1 className="maintitle" style={{ margin: "40px", cursor: "default" }}>
           지도보기
         </h1>
         <div
