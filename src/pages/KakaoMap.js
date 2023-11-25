@@ -13,7 +13,7 @@ const KakaoMap = () => {
   const [markers, setMarkers] = useState([]); // New state for storing marker objects
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
-  const marker_green = process.env.PUBLIC_URL + "/marker_green.png";
+  const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
@@ -45,6 +45,18 @@ const KakaoMap = () => {
       disableClickZoom: true,
     });
 
+    // Create a map type control
+    const mapTypeControl = new window.kakao.maps.MapTypeControl();
+
+    // Add the map type control to the map
+    map.addControl(mapTypeControl, window.kakao.maps.ControlPosition.RIGHT);
+
+    // Create a zoom control
+    const zoomControl = new window.kakao.maps.ZoomControl();
+
+    // Add the zoom control to the map
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
+
     const markerImageBlue = new window.kakao.maps.MarkerImage(
       marker_blue,
       new window.kakao.maps.Size(28, 28),
@@ -52,7 +64,7 @@ const KakaoMap = () => {
     );
 
     const markerImageGreen = new window.kakao.maps.MarkerImage(
-      marker_green,
+      marker_red,
       new window.kakao.maps.Size(28, 28),
       { offset: new window.kakao.maps.Point(27, 69) }
     );
