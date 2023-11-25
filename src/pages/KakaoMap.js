@@ -119,8 +119,8 @@ const KakaoMap = () => {
       clusterer,
       "clusterclick",
       (cluster) => {
-        const level = map.getLevel() - 1;
-        map.setLevel(level, { anchor: cluster.getCenter() });
+        // const level = map.getLevel() - 1;
+        // map.setLevel(level, { anchor: cluster.getCenter() });
       }
     );
 
