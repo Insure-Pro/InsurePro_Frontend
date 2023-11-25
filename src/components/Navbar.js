@@ -31,8 +31,8 @@ const Navbar = ({
   const users_white = process.env.PUBLIC_URL + "/users_white.png";
   const graph_black = process.env.PUBLIC_URL + "/bar_graph_black.png";
   const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
-  const map_black = process.env.PUBLIC_URL + "/map_black.png";
-  const map_white = process.env.PUBLIC_URL + "/map_white.png";
+  const map_black = process.env.PUBLIC_URL + "/map_black2.png";
+  const map_white = process.env.PUBLIC_URL + "/map_white2.png";
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
