@@ -39,10 +39,58 @@ const KakaoMap = () => {
     const geocoder = new window.kakao.maps.services.Geocoder();
     // New: Initialize marker clusterer
     clusterer = new window.kakao.maps.MarkerClusterer({
-      map: map,
-      averageCenter: true,
-      minLevel: 5,
+      map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+      averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+      minLevel: 5, // 클러스터 할 최소 지도 레벨
       disableClickZoom: true,
+      calculator: [10, 30, 50, 100], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
+      styles: [
+        {
+          // calculator 각 사이 값 마다 적용될 스타일을 지정한다
+          width: "30px",
+          height: "30px",
+          background: "#1570EF",
+          borderRadius: "15px",
+          opacity: "0.8",
+          color: "#fff",
+          textAlign: "center",
+          fontWeight: "bold",
+          lineHeight: "31px",
+        },
+        {
+          width: "40px",
+          height: "40px",
+          background: "#009883",
+          borderRadius: "20px",
+          opacity: "0.8",
+          color: "#fff",
+          textAlign: "center",
+          fontWeight: "bold",
+          lineHeight: "41px",
+        },
+        {
+          width: "50px",
+          height: "50px",
+          background: "rgba(255, 51, 204, .8)",
+          borderRadius: "25px",
+          opacity: "0.8",
+          color: "#fff",
+          textAlign: "center",
+          fontWeight: "bold",
+          lineHeight: "51px",
+        },
+        {
+          width: "60px",
+          height: "60px",
+          background: "rgba(255, 80, 80, .8)",
+          borderRadius: "30px",
+          opacity: "0.8",
+          color: "#fff",
+          textAlign: "center",
+          fontWeight: "bold",
+          lineHeight: "61px",
+        },
+      ],
     });
 
     // Create a map type control
