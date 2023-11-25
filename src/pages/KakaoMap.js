@@ -59,6 +59,11 @@ const KakaoMap = () => {
               );
               const marker = new window.kakao.maps.Marker({ position: coords });
               clusterer.addMarker(marker); // Add each marker to clusterer
+            } else if (
+              status === window.kakao.maps.services.Status.ZERO_RESULT
+            ) {
+              // Log the address that could not be found
+              console.log(`Address not found: ${customer.address}`);
             } else {
               console.error(
                 `Geocode was not successful for the following reason: ${status}`
