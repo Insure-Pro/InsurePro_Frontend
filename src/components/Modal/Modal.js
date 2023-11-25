@@ -316,7 +316,7 @@ function Modal1({ onModalClose }) {
     setGugunOptions(areaData[areaKey] || []);
 
     // 주소 업데이트 (구/군 초기화)
-    setFullAddress(newSido);
+    // setFullAddress(newSido);
     setSelectedGugun("");
   };
 
@@ -326,7 +326,7 @@ function Modal1({ onModalClose }) {
     setSelectedGugun(newGugun);
 
     // 전체 주소 업데이트
-    setFullAddress(selectedSido + " " + newGugun);
+    // setFullAddress(selectedSido + " " + newGugun);
   };
   // console.log(fullAddress);
   const handleContractYnChange = () => {
@@ -390,6 +390,12 @@ function Modal1({ onModalClose }) {
       return;
     }
     const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
+    const metroGuDong = {
+      metroName: selectedSido,
+      guName: selectedGugun,
+      // dongName: "", // Populate this if needed
+    };
     // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
@@ -407,7 +413,7 @@ function Modal1({ onModalClose }) {
       contractYn: contractYn,
       memo: memo.current.value,
       state: state.current.value,
-      dongString: fullAddress,
+      metroGuDong: metroGuDong,
     };
 
     axios
@@ -559,7 +565,7 @@ function Modal1({ onModalClose }) {
                 autoFocus
               />
             </Form.Group>
-            {/* <Row>
+            <Row>
               <Col>
                 <Form.Group
                   className="mb-0"
@@ -594,7 +600,7 @@ function Modal1({ onModalClose }) {
                   </Form.Select>
                 </Form.Group>
               </Col>
-            </Row> */}
+            </Row>
             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control

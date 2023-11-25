@@ -469,7 +469,7 @@ const Main = () => {
                         : "listItemStyle6-noContract"
                     }`}
                   >
-                    {customer.address} {customer.lipk}
+                    {customer.dongString}
                   </ListGroup.Item>
                 </ListGroup>
                 {showOptions === customer.pk && (
