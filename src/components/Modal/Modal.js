@@ -11,7 +11,10 @@ import { Row, Col } from "react-bootstrap";
 function Modal1({ onModalClose }) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    resetSelections();
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   const customerType = useRef("");
@@ -54,6 +57,7 @@ function Modal1({ onModalClose }) {
       "제주도",
     ],
     area1: [
+      "구/군 선택",
       "강남구",
       "강동구",
       "강북구",
@@ -81,6 +85,7 @@ function Modal1({ onModalClose }) {
       "중랑구",
     ],
     area2: [
+      "구/군 선택",
       "계양구",
       "남구",
       "남동구",
@@ -92,9 +97,10 @@ function Modal1({ onModalClose }) {
       "강화군",
       "옹진군",
     ],
-    area3: ["대덕구", "동구", "서구", "유성구", "중구"],
-    area4: ["광산구", "남구", "동구", "북구", "서구"],
+    area3: ["구/군 선택", "대덕구", "동구", "서구", "유성구", "중구"],
+    area4: ["구/군 선택", "광산구", "남구", "동구", "북구", "서구"],
     area5: [
+      "구/군 선택",
       "남구",
       "달서구",
       "동구",
@@ -104,8 +110,9 @@ function Modal1({ onModalClose }) {
       "중구",
       "달성군",
     ],
-    area6: ["남구", "동구", "북구", "중구", "울주군"],
+    area6: ["구/군 선택", "남구", "동구", "북구", "중구", "울주군"],
     area7: [
+      "구/군 선택",
       "부산진구",
       "동구",
       "서구",
@@ -124,6 +131,7 @@ function Modal1({ onModalClose }) {
       "기장군",
     ],
     area8: [
+      "구/군 선택",
       "고양시",
       "과천시",
       "광명시",
@@ -157,6 +165,7 @@ function Modal1({ onModalClose }) {
       "연천군",
     ],
     area9: [
+      "구/군 선택",
       "강릉시",
       "동해시",
       "삼척시",
@@ -177,6 +186,7 @@ function Modal1({ onModalClose }) {
       "횡성군",
     ],
     area10: [
+      "구/군 선택",
       "제천시",
       "청주시",
       "충주시",
@@ -191,6 +201,7 @@ function Modal1({ onModalClose }) {
       "청원군",
     ],
     area11: [
+      "구/군 선택",
       "계룡시",
       "공주시",
       "논산시",
@@ -209,6 +220,7 @@ function Modal1({ onModalClose }) {
       "홍성군",
     ],
     area12: [
+      "구/군 선택",
       "군산시",
       "김제시",
       "남원시",
@@ -225,6 +237,7 @@ function Modal1({ onModalClose }) {
       "진안군",
     ],
     area13: [
+      "구/군 선택",
       "광양시",
       "나주시",
       "목포시",
@@ -249,6 +262,7 @@ function Modal1({ onModalClose }) {
       "화순군",
     ],
     area14: [
+      "구/군 선택",
       "경산시",
       "경주시",
       "구미시",
@@ -274,6 +288,7 @@ function Modal1({ onModalClose }) {
       "칠곡군",
     ],
     area15: [
+      "구/군 선택",
       "거제시",
       "김해시",
       "마산시",
@@ -295,7 +310,7 @@ function Modal1({ onModalClose }) {
       "함양군",
       "합천군",
     ],
-    area16: ["서귀포시", "제주시", "남제주군", "북제주군"],
+    area16: ["구/군 선택", "서귀포시", "제주시", "남제주군", "북제주군"],
   };
 
   // 상태 관리
@@ -327,6 +342,11 @@ function Modal1({ onModalClose }) {
 
     // 전체 주소 업데이트
     // setFullAddress(selectedSido + " " + newGugun);
+  };
+
+  const resetSelections = () => {
+    setSelectedSido("부산광역시"); // Set this to your default sido value
+    setSelectedGugun(""); // Set this to your default gugun value
   };
   // console.log(fullAddress);
   const handleContractYnChange = () => {
@@ -428,6 +448,7 @@ function Modal1({ onModalClose }) {
           alert("신규고객 등록이 완료되었습니다.");
           onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           handleClose(); // Modal 창 닫기
+          resetSelections();
         }
       })
 
