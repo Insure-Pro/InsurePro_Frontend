@@ -12,6 +12,9 @@ const KakaoMap = () => {
   const [locationObtained, setLocationObtained] = useState(false);
   const [markers, setMarkers] = useState([]); // New state for storing marker objects
 
+  const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
+  const marker_green = process.env.PUBLIC_URL + "/marker_green.png";
+
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
       map: map,
@@ -42,6 +45,18 @@ const KakaoMap = () => {
       disableClickZoom: true,
     });
 
+    const markerImageBlue = new window.kakao.maps.MarkerImage(
+      marker_blue,
+      new window.kakao.maps.Size(28, 28),
+      { offset: new window.kakao.maps.Point(27, 69) }
+    );
+
+    const markerImageGreen = new window.kakao.maps.MarkerImage(
+      marker_green,
+      new window.kakao.maps.Size(28, 28),
+      { offset: new window.kakao.maps.Point(27, 69) }
+    );
+
     // Existing Axios request to fetch markers
     axios
       .get(`${MAIN_URL}/customers/latest`, {
@@ -57,7 +72,20 @@ const KakaoMap = () => {
                 result[0].y,
                 result[0].x
               );
-              const marker = new window.kakao.maps.Marker({ position: coords });
+              const marker = new window.kakao.maps.Marker({
+                position: coords,
+                image: markerImageBlue,
+              });
+              // Add click event listener
+              window.kakao.maps.event.addListener(marker, "click", function () {
+                const currentImage = marker.getImage();
+                if (currentImage === markerImageBlue) {
+                  marker.setImage(markerImageGreen);
+                } else {
+                  marker.setImage(markerImageBlue);
+                }
+              });
+
               clusterer.addMarker(marker); // Add each marker to clusterer
             } else if (
               status === window.kakao.maps.services.Status.ZERO_RESULT
