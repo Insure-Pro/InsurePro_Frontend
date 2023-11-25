@@ -679,7 +679,7 @@ function Modal1({ onModalClose }) {
               <Form.Control
                 type="address"
                 ref={address}
-                placeholder="주소 | 주소입력"
+                placeholder="상세 주소 입력하기"
                 autoFocus
               />
             </Form.Group>
