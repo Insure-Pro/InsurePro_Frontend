@@ -7,12 +7,13 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
+import hangjungdong from "./hangjungdong";
 
 function Modal1({ onModalClose }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
-    resetSelections();
+    // resetSelections();
     setShow(false);
   };
   const handleShow = () => setShow(true);
@@ -313,41 +314,48 @@ function Modal1({ onModalClose }) {
     area16: ["구/군 선택", "서귀포시", "제주시", "남제주군", "북제주군"],
   };
 
-  // 상태 관리
-  const [selectedSido, setSelectedSido] = useState("부산광역시");
-  const [gugunOptions, setGugunOptions] = useState(areaData["area7"]);
-  const [selectedGugun, setSelectedGugun] = useState("");
-  const [fullAddress, setFullAddress] = useState(
-    `${selectedSido} ${gugunOptions[0] || ""}`
-  );
+  // // 상태 관리
+  // const [selectedSido, setSelectedSido] = useState("부산광역시");
+  // const [gugunOptions, setGugunOptions] = useState(areaData["area7"]);
+  // const [selectedGugun, setSelectedGugun] = useState("");
+  // const [fullAddress, setFullAddress] = useState(
+  //   `${selectedSido} ${gugunOptions[0] || ""}`
+  // );
 
-  // 시/도 선택 핸들러
-  const handleSidoChange = (event) => {
-    const newSido = event.target.value;
-    setSelectedSido(newSido);
+  // // 시/도 선택 핸들러
+  // const handleSidoChange = (event) => {
+  //   const newSido = event.target.value;
+  //   setSelectedSido(newSido);
 
-    // 구/군 데이터 업데이트
-    const areaKey = "area" + areaData.area0.indexOf(newSido);
-    setGugunOptions(areaData[areaKey] || []);
+  //   // 구/군 데이터 업데이트
+  //   const areaKey = "area" + areaData.area0.indexOf(newSido);
+  //   setGugunOptions(areaData[areaKey] || []);
 
-    // 주소 업데이트 (구/군 초기화)
-    // setFullAddress(newSido);
-    setSelectedGugun("");
-  };
+  //   // 주소 업데이트 (구/군 초기화)
+  //   // setFullAddress(newSido);
+  //   setSelectedGugun("");
+  // };
 
-  // 구/군 선택 핸들러
-  const handleGugunChange = (event) => {
-    const newGugun = event.target.value;
-    setSelectedGugun(newGugun);
+  // // 구/군 선택 핸들러
+  // const handleGugunChange = (event) => {
+  //   const newGugun = event.target.value;
+  //   setSelectedGugun(newGugun);
 
-    // 전체 주소 업데이트
-    // setFullAddress(selectedSido + " " + newGugun);
-  };
+  //   // 전체 주소 업데이트
+  //   // setFullAddress(selectedSido + " " + newGugun);
+  // };
 
-  const resetSelections = () => {
-    setSelectedSido("부산광역시"); // Set this to your default sido value
-    setSelectedGugun(""); // Set this to your default gugun value
-  };
+  // const resetSelections = () => {
+  //   setSelectedSido("부산광역시"); // Set this to your default sido value
+  //   setSelectedGugun(""); // Set this to your default gugun value
+  // };
+
+  const [selectedSido, setSelectedSido] = useState("");
+  const [selectedSigugun, setSelectedSigugun] = useState("");
+  const [selectedDong, setSelectedDong] = useState("");
+
+  const { sido, sigugun, dong } = hangjungdong;
+
   // console.log(fullAddress);
   const handleContractYnChange = () => {
     // 체크박스 상태를 토글
@@ -411,10 +419,25 @@ function Modal1({ onModalClose }) {
     }
     const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+    const metroName =
+      hangjungdong.sido.find((el) => el.sido === selectedSido)?.codeNm || "";
+    const guName =
+      hangjungdong.sigugun.find(
+        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun
+      )?.codeNm || "";
+
+    const dongName =
+      hangjungdong.dong.find(
+        (el) =>
+          el.sido === selectedSido &&
+          el.sigugun === selectedSigugun &&
+          el.dong === selectedDong
+      )?.codeNm || "";
+
     const metroGuDong = {
-      metroName: selectedSido,
-      guName: selectedGugun,
-      // dongName: "", // Populate this if needed
+      metroName: metroName,
+      guName: guName,
+      dongName: dongName, // Populate this if needed
     };
     // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
@@ -448,7 +471,7 @@ function Modal1({ onModalClose }) {
           alert("신규고객 등록이 완료되었습니다.");
           onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           handleClose(); // Modal 창 닫기
-          resetSelections();
+          // resetSelections();
         }
       })
 
@@ -587,37 +610,66 @@ function Modal1({ onModalClose }) {
               />
             </Form.Group>
             <Row>
+              {/* Sido Dropdown */}
               <Col>
-                <Form.Group
-                  className="mb-0"
-                  controlId="exampleForm.ControlSelect1"
-                >
+                <Form.Group className="mb-0" controlId="sidoSelect">
                   <Form.Label></Form.Label>
-                  <Form.Select onChange={handleSidoChange} value={selectedSido}>
-                    {areaData.area0.map((sido) => (
-                      <option key={sido} value={sido}>
-                        {sido}
+                  <Form.Select
+                    value={selectedSido}
+                    onChange={(e) => setSelectedSido(e.target.value)}
+                  >
+                    <option value="">시/도 선택</option>
+                    {sido.map((el) => (
+                      <option key={el.sido} value={el.sido}>
+                        {el.codeNm}
                       </option>
                     ))}
                   </Form.Select>
                 </Form.Group>
               </Col>
+
+              {/* Sigugun Dropdown */}
               <Col>
-                <Form.Group
-                  className="mb-0"
-                  controlId="exampleForm.ControlSelect2"
-                >
+                <Form.Group className="mb-0" controlId="sigugunSelect">
                   <Form.Label></Form.Label>
                   <Form.Select
-                    onChange={handleGugunChange}
-                    value={selectedGugun}
-                    disabled={!selectedSido || selectedSido === "시/도 선택"}
+                    value={selectedSigugun}
+                    onChange={(e) => setSelectedSigugun(e.target.value)}
+                    disabled={!selectedSido}
                   >
-                    {gugunOptions.map((gugun) => (
-                      <option key={gugun} value={gugun}>
-                        {gugun}
-                      </option>
-                    ))}
+                    <option value="">구/군 선택</option>
+                    {sigugun
+                      .filter((el) => el.sido === selectedSido)
+                      .map((el) => (
+                        <option key={el.sigugun} value={el.sigugun}>
+                          {el.codeNm}
+                        </option>
+                      ))}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+
+              {/* Dong Dropdown */}
+              <Col>
+                <Form.Group className="mb-0" controlId="dongSelect">
+                  <Form.Label></Form.Label>
+                  <Form.Select
+                    value={selectedDong}
+                    onChange={(e) => setSelectedDong(e.target.value)}
+                    disabled={!selectedSigugun}
+                  >
+                    <option value="">동 선택</option>
+                    {dong
+                      .filter(
+                        (el) =>
+                          el.sido === selectedSido &&
+                          el.sigugun === selectedSigugun
+                      )
+                      .map((el) => (
+                        <option key={el.dong} value={el.dong}>
+                          {el.codeNm}
+                        </option>
+                      ))}
                   </Form.Select>
                 </Form.Group>
               </Col>
