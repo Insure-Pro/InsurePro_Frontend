@@ -340,18 +340,31 @@ const KakaoMap = () => {
               height: "600px", // 높이를 "100%"로 설정
               backgroundColor: "white",
               opacity: 0.8,
-              paddingTop: "10px",
-              paddingLeft: "10px",
+              paddingTop: "15px",
+              // paddingLeft: "10px",
               overflowY: "auto",
               zIndex: 2,
             }}
           >
             {visibleCustomers.map((customer, index) => (
-              <div key={index} style={{ display: "flex" }}>
-                <p style={{ marginRight: "6px" }}>{customer.name}</p>
-                <p style={{ marginRight: "6px" }}>{customer.customerType}</p>
-                <p style={{ marginRight: "6px" }}>{customer.phone}</p>
-                {/* <p style={{ marginRight: "6px" }}>{customer.address}</p> */}
+              <div key={index} style={{ marginBottom: "8px" }}>
+                <div className="inline-container">
+                  <p className="customer-info customer-type">
+                    {customer.customerType}
+                  </p>
+                  <p className="customer-info">{customer.name}</p>
+                </div>
+                <p className="customer-info font12">{customer.phone}</p>
+                <p className="customer-info font12">{customer.address}</p>
+                <hr
+                  className="Map_list_hr"
+                  style={{
+                    width: "100%",
+                    borderTop: "1px solid #000",
+                    margin: "10px",
+                    marginLeft: "0px",
+                  }}
+                />
               </div>
             ))}
           </div>

@@ -360,8 +360,23 @@
   border: none !important;
   opacity: 0.7;
 }
-/* .fade.modal.show {
-  width: 100vh;
+.inline-container {
+  display: flex;
+}
+.customer-info {
+  margin-bottom: 2px;
+  padding-left: 10px;
+  text-align: left;
+}
+.customer-type {
+  font-weight: bold;
+  color: #175cd3;
+}
+.font12 {
+  font-size: 12px;
+}
+/* .Map_list_hr {
+  padding-left: 0px !important;
 } */
 
 @media (max-width: 700px) {
