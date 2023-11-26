@@ -169,6 +169,8 @@ const KakaoMap = () => {
             }
           });
         });
+        // After markers are added, call refreshCustomerList to populate the list
+        refreshCustomerList();
       })
       .catch((error) => console.log(error));
 
@@ -260,8 +262,9 @@ const KakaoMap = () => {
     }
   }, [locationObtained]);
 
+  //카카오맵 라이브러리가 완전히 로드된 후에만 initializeMap이 호출되도록
   useEffect(() => {
-    if (locationObtained) {
+    if (locationObtained && window.kakao && window.kakao.maps) {
       window.kakao.maps.load(initializeMap);
     }
   }, [locationObtained, mapCenter]);
