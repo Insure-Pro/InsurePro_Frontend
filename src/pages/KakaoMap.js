@@ -187,37 +187,53 @@ const KakaoMap = () => {
     }
   };
 
+  // 전역 변수나 상태로 모든 고객의 좌표를 저장
+  const [allCustomerCoords, setAllCustomerCoords] = useState([]);
+
+  // 고객 데이터 가져오기 및 좌표 저장
+  useEffect(() => {
+    axios
+      .get(`${MAIN_URL}/customers/latest`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((response) => {
+        const customers = response.data;
+        const geocoder = new window.kakao.maps.services.Geocoder();
+
+        customers.forEach((customer) => {
+          geocoder.addressSearch(customer.address, (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = {
+                lat: result[0].y,
+                lng: result[0].x,
+                ...customer, // 고객 정보 포함
+              };
+              setAllCustomerCoords((prev) => [...prev, coords]);
+            }
+          });
+        });
+      })
+      .catch((error) => console.error("Error fetching all customers:", error));
+  }, []);
+
   function refreshCustomerList() {
     if (mapRef.current) {
       const bounds = mapRef.current.getBounds();
-      // const bounds = map.getBounds();
       const swLatLng = bounds.getSouthWest();
       const neLatLng = bounds.getNorthEast();
 
-      // Assuming you have an API endpoint that can filter customers by geographical bounds
-      axios
-        .get(`${MAIN_URL}/customers/latest`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-          params: {
-            swLat: swLatLng.getLat(),
-            swLng: swLatLng.getLng(),
-            neLat: neLatLng.getLat(),
-            neLng: neLatLng.getLng(),
-          },
-        })
-        .then((response) => {
-          setVisibleCustomers(
-            response.data.map((customer) => ({
-              name: customer.name,
-              customerType: customer.customerType,
-              phone: customer.phone,
-              address: customer.address,
-            }))
-          );
-        })
-        .catch((error) => console.error("Error fetching customers:", error));
+      const filteredCustomers = allCustomerCoords.filter((customer) => {
+        return (
+          customer.lat >= swLatLng.getLat() &&
+          customer.lat <= neLatLng.getLat() &&
+          customer.lng >= swLatLng.getLng() &&
+          customer.lng <= neLatLng.getLng()
+        );
+      });
+
+      setVisibleCustomers(filteredCustomers);
     }
   }
 
@@ -317,12 +333,12 @@ const KakaoMap = () => {
           <div
             style={{
               position: "absolute",
-
               width: "300px",
               height: "600px", // 높이를 "100%"로 설정
               backgroundColor: "white",
               opacity: 0.8,
-              marginTop: "1px",
+              paddingTop: "10px",
+              paddingLeft: "10px",
               overflowY: "auto",
               zIndex: 2,
             }}
