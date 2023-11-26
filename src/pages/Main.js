@@ -470,6 +470,7 @@ const Main = () => {
                     }`}
                   >
                     {customer.dongString}
+                    {customer.address}
                   </ListGroup.Item>
                 </ListGroup>
                 {showOptions === customer.pk && (

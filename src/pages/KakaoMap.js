@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+  const [visibleCustomers, setVisibleCustomers] = useState([]);
+  const mapRef = useRef(null);
   const [mapCenter, setMapCenter] = useState({
     lat: 35.1379222, // Default latitude (Busan City Hall)
     lng: 129.05562775, // Default longitude (Busan City Hall)
@@ -17,7 +19,7 @@ const KakaoMap = () => {
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
-      map: map,
+      map: mapRef.current,
       center: new window.kakao.maps.LatLng(position.lat, position.lng),
       radius: 5,
       strokeWeight: 5,
@@ -35,11 +37,13 @@ const KakaoMap = () => {
       center: new window.kakao.maps.LatLng(mapCenter.lat, mapCenter.lng),
       level: 3,
     };
-    const map = new window.kakao.maps.Map(container, options);
+    mapRef.current = new window.kakao.maps.Map(container, options); // Modify this line
+
+    // const map = new window.kakao.maps.Map(container, options);
     const geocoder = new window.kakao.maps.services.Geocoder();
     // New: Initialize marker clusterer
     clusterer = new window.kakao.maps.MarkerClusterer({
-      map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+      map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
       minLevel: 5, // 클러스터 할 최소 지도 레벨
       disableClickZoom: true,
@@ -97,13 +101,19 @@ const KakaoMap = () => {
     const mapTypeControl = new window.kakao.maps.MapTypeControl();
 
     // Add the map type control to the map
-    map.addControl(mapTypeControl, window.kakao.maps.ControlPosition.RIGHT);
+    mapRef.current.addControl(
+      mapTypeControl,
+      window.kakao.maps.ControlPosition.RIGHT
+    );
 
     // Create a zoom control
     const zoomControl = new window.kakao.maps.ZoomControl();
 
     // Add the zoom control to the map
-    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
+    mapRef.current.addControl(
+      zoomControl,
+      window.kakao.maps.ControlPosition.RIGHT
+    );
 
     const markerImageBlue = new window.kakao.maps.MarkerImage(
       marker_blue,
@@ -173,9 +183,43 @@ const KakaoMap = () => {
     );
 
     if (locationObtained) {
-      createCurrentLocationCircle(map, mapCenter);
+      createCurrentLocationCircle(mapRef.current, mapCenter);
     }
   };
+
+  function refreshCustomerList() {
+    if (mapRef.current) {
+      const bounds = mapRef.current.getBounds();
+      // const bounds = map.getBounds();
+      const swLatLng = bounds.getSouthWest();
+      const neLatLng = bounds.getNorthEast();
+
+      // Assuming you have an API endpoint that can filter customers by geographical bounds
+      axios
+        .get(`${MAIN_URL}/customers/latest`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          params: {
+            swLat: swLatLng.getLat(),
+            swLng: swLatLng.getLng(),
+            neLat: neLatLng.getLat(),
+            neLng: neLatLng.getLng(),
+          },
+        })
+        .then((response) => {
+          setVisibleCustomers(
+            response.data.map((customer) => ({
+              name: customer.name,
+              customerType: customer.customerType,
+              phone: customer.phone,
+              address: customer.address,
+            }))
+          );
+        })
+        .catch((error) => console.error("Error fetching customers:", error));
+    }
+  }
 
   useEffect(() => {
     if (!locationObtained && navigator.geolocation) {
@@ -239,7 +283,6 @@ const KakaoMap = () => {
         height: "100vh",
         margin: "0 auto",
         borderRight: "2px solid #dde1e6",
-
         userSelect: "none",
       }}
     >
@@ -250,19 +293,50 @@ const KakaoMap = () => {
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
       />
-      <div>
+      <div style={{}}>
         <h1 className="maintitle" style={{ margin: "40px", cursor: "default" }}>
           지도보기
         </h1>
+        <button
+          style={{ display: "flex", marginLeft: "40px", marginBottom: "-40px" }}
+          onClick={refreshCustomerList}
+        >
+          새로고침
+        </button>
         <div
           id="map"
           style={{
             marginLeft: "40px",
             marginTop: "50px",
-            width: "1000px",
+            width: "1100px",
             height: "600px",
+            position: "relative",
+            zIndex: 1,
           }}
-        />
+        >
+          <div
+            style={{
+              position: "absolute",
+
+              width: "300px",
+              height: "600px", // 높이를 "100%"로 설정
+              backgroundColor: "white",
+              opacity: 0.8,
+              marginTop: "1px",
+              overflowY: "auto",
+              zIndex: 2,
+            }}
+          >
+            {visibleCustomers.map((customer, index) => (
+              <div key={index} style={{ display: "flex" }}>
+                <p style={{ marginRight: "6px" }}>{customer.name}</p>
+                <p style={{ marginRight: "6px" }}>{customer.customerType}</p>
+                <p style={{ marginRight: "6px" }}>{customer.phone}</p>
+                {/* <p style={{ marginRight: "6px" }}>{customer.address}</p> */}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
