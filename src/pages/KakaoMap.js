@@ -41,6 +41,7 @@ const KakaoMap = () => {
 
     // const map = new window.kakao.maps.Map(container, options);
     const geocoder = new window.kakao.maps.services.Geocoder();
+
     // New: Initialize marker clusterer
     clusterer = new window.kakao.maps.MarkerClusterer({
       map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체
@@ -136,38 +137,44 @@ const KakaoMap = () => {
       })
       .then((response) => {
         response.data.forEach((customer) => {
-          geocoder.addressSearch(customer.address, (result, status) => {
-            if (status === window.kakao.maps.services.Status.OK) {
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
-              const marker = new window.kakao.maps.Marker({
-                position: coords,
-                image: markerImageBlue,
-              });
-              // Add click event listener
-              window.kakao.maps.event.addListener(marker, "click", function () {
-                const currentImage = marker.getImage();
-                if (currentImage === markerImageBlue) {
-                  marker.setImage(markerImageGreen);
-                } else {
-                  marker.setImage(markerImageBlue);
-                }
-              });
+          if (customer.address && customer.address.trim() !== "") {
+            geocoder.addressSearch(customer.address, (result, status) => {
+              if (status === window.kakao.maps.services.Status.OK) {
+                const coords = new window.kakao.maps.LatLng(
+                  result[0].y,
+                  result[0].x
+                );
+                const marker = new window.kakao.maps.Marker({
+                  position: coords,
+                  image: markerImageBlue,
+                });
+                // Add click event listener
+                window.kakao.maps.event.addListener(
+                  marker,
+                  "click",
+                  function () {
+                    const currentImage = marker.getImage();
+                    if (currentImage === markerImageBlue) {
+                      marker.setImage(markerImageGreen);
+                    } else {
+                      marker.setImage(markerImageBlue);
+                    }
+                  }
+                );
 
-              clusterer.addMarker(marker); // Add each marker to clusterer
-            } else if (
-              status === window.kakao.maps.services.Status.ZERO_RESULT
-            ) {
-              // Log the address that could not be found
-              console.log(`Address not found: ${customer.address}`);
-            } else {
-              console.error(
-                `Geocode was not successful for the following reason: ${status}`
-              );
-            }
-          });
+                clusterer.addMarker(marker); // Add each marker to clusterer
+              } else if (
+                status === window.kakao.maps.services.Status.ZERO_RESULT
+              ) {
+                // Log the address that could not be found
+                console.log(`Address not found: ${customer.address}`);
+              } else {
+                console.error(
+                  `Geocode was not successful for the following reason: ${status}`
+                );
+              }
+            });
+          }
         });
         // After markers are added, call refreshCustomerList to populate the list
         refreshCustomerList();
@@ -202,19 +209,22 @@ const KakaoMap = () => {
       })
       .then((response) => {
         const customers = response.data;
+
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         customers.forEach((customer) => {
-          geocoder.addressSearch(customer.address, (result, status) => {
-            if (status === window.kakao.maps.services.Status.OK) {
-              const coords = {
-                lat: result[0].y,
-                lng: result[0].x,
-                ...customer, // 고객 정보 포함
-              };
-              setAllCustomerCoords((prev) => [...prev, coords]);
-            }
-          });
+          if (customer.address && customer.address.trim() !== "") {
+            geocoder.addressSearch(customer.address, (result, status) => {
+              if (status === window.kakao.maps.services.Status.OK) {
+                const coords = {
+                  lat: result[0].y,
+                  lng: result[0].x,
+                  ...customer, // 고객 정보 포함
+                };
+                setAllCustomerCoords((prev) => [...prev, coords]);
+              }
+            });
+          }
         });
       })
       .catch((error) => console.error("Error fetching all customers:", error));
