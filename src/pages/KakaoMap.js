@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { PropagateLoader } from "react-spinners";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -17,6 +18,8 @@ const KakaoMap = () => {
   const marker_blue = process.env.PUBLIC_URL + "/marker.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh_icon.png";
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
@@ -141,6 +144,7 @@ const KakaoMap = () => {
           if (customer.address && customer.address.trim() !== "") {
             geocoder.addressSearch(customer.address, (result, status) => {
               if (status === window.kakao.maps.services.Status.OK) {
+                setIsLoading(false);
                 const coords = new window.kakao.maps.LatLng(
                   result[0].y,
                   result[0].x
@@ -367,6 +371,29 @@ const KakaoMap = () => {
               border: "1px solid #C9CAC9",
             }}
           >
+            {isLoading && (
+              <div
+                className="map_spinner"
+                // style={{
+                //   position: "absolute",
+                //   top: 0,
+                //   left: 0,
+                //   right: 0,
+                //   bottom: 0,
+                //   display: "flex",
+                //   alignItems: "center",
+                //   justifyContent: "center",
+                //   color: "#000",
+                //   zIndex: 5,
+                // }}
+              >
+                <PropagateLoader
+                  color="#84CAFF"
+                  size={20}
+                  speedMultiplier={0.8}
+                />
+              </div>
+            )}
             <div
               className="Map_customerList_container"
               style={{

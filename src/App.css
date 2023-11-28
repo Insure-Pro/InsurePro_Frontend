@@ -419,7 +419,18 @@
 .Map_list_hr {
   display: block !important;
 }
-
+.map_spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  z-index: 5;
+}
 @media (max-width: 700px) {
   /* .navbar-container  */
   .signin_code_button {

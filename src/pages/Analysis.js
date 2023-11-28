@@ -9,6 +9,7 @@ import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";
 import PcGraph from "../components/Graph/PcGraph";
 import ContractGraph from "../components/Graph/ContractGraph";
+import { PropagateLoader } from "react-spinners";
 import { Colors } from "chart.js";
 
 const Analysis = () => {
@@ -21,6 +22,7 @@ const Analysis = () => {
       .toString()
       .padStart(2, "0")}-01`
   );
+
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -107,11 +109,9 @@ const Analysis = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontWeight: "bold",
-          fontSize: "24px",
         }}
       >
-        Loading...
+        <PropagateLoader color="#84CAFF" size={20} speedMultiplier={0.8} />
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
