@@ -230,6 +230,9 @@ const KakaoMap = () => {
       .catch((error) => console.error("Error fetching all customers:", error));
   }, []);
 
+  useEffect(() => {
+    refreshCustomerList(); // 첫 마운트 시 고객 목록 새로고침
+  }, []);
   function refreshCustomerList() {
     if (mapRef.current) {
       const bounds = mapRef.current.getBounds();
