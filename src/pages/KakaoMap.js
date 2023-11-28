@@ -14,8 +14,9 @@ const KakaoMap = () => {
   const [locationObtained, setLocationObtained] = useState(false);
   const [markers, setMarkers] = useState([]); // New state for storing marker objects
 
-  const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
+  const marker_blue = process.env.PUBLIC_URL + "/marker.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
+  const refresh = process.env.PUBLIC_URL + "/map_refresh_icon.png";
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
@@ -323,60 +324,93 @@ const KakaoMap = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div style={{}}>
-        <h1 className="maintitle" style={{ margin: "40px", cursor: "default" }}>
+        <h1
+          className="maintitle"
+          style={{ margin: "25px 40px 10px 32px", cursor: "default" }}
+        >
           지도보기
         </h1>
-        <button
-          style={{ display: "flex", marginLeft: "40px", marginBottom: "-40px" }}
-          onClick={refreshCustomerList}
-        >
-          새로고침
-        </button>
+        {/* Main Content Container */}
         <div
-          id="map"
           style={{
-            marginLeft: "40px",
-            marginTop: "50px",
-            width: "1100px",
-            height: "600px",
             position: "relative",
-            zIndex: 1,
+            marginLeft: "40px",
+            marginTop: "24px",
+            width: "1100px",
+            height: "650px",
           }}
         >
-          <div
+          {/* Refresh Button */}
+          <button
+            className="Map_Search_Btn"
             style={{
               position: "absolute",
-              width: "300px",
-              height: "600px", // 높이를 "100%"로 설정
-              backgroundColor: "white",
-              opacity: 0.8,
-              paddingTop: "15px",
-              // paddingLeft: "10px",
-              overflowY: "auto",
-              zIndex: 2,
+              bottom: "10px", // Position from bottom
+              left: "50%", // Center horizontally
+              transform: "translateX(-50%)", // Adjust for the button's width to center
+              zIndex: 3, // Ensure it's above the map
+            }}
+            onClick={refreshCustomerList}
+          >
+            <img src={refresh} style={{ paddingRight: "16px" }} />현 지도에서
+            검색
+          </button>
+
+          {/* Map Container */}
+          <div
+            id="map"
+            style={{
+              width: "100%", // Use full width of the container
+              height: "100%", // Use full height of the container
+              position: "relative",
+              zIndex: 1,
+              border: "1px solid #C9CAC9",
             }}
           >
-            {visibleCustomers.map((customer, index) => (
-              <div key={index} style={{ marginBottom: "8px" }}>
-                <div className="inline-container">
-                  <p className="customer-info customer-type">
-                    {customer.customerType}
-                  </p>
-                  <p className="customer-info">{customer.name}</p>
+            <div
+              className="Map_customerList_container"
+              style={{
+                position: "absolute",
+                width: "300px",
+                height: "650px", // 높이를 "100%"로 설정
+                backgroundColor: "white",
+                opacity: "0.8",
+                paddingTop: "12px",
+                overflowY: "auto",
+                zIndex: 2,
+              }}
+            >
+              {visibleCustomers.map((customer, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      display: "flex",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <div className="inline-container-left">
+                      <p className="customer-info customer-type">
+                        {customer.customerType}
+                      </p>
+                      <p className="customer-info">{customer.name}</p>
+                    </div>
+                    <div className="inline-container-right">
+                      <p className="customer-info font12">{customer.phone}</p>
+                      <p className="customer-info font12">{customer.address}</p>
+                    </div>
+                  </div>
+                  <hr
+                    className="Map_list_hr"
+                    style={{
+                      width: "100%",
+                      borderTop: "1px solid #000",
+                      margin: "10px",
+                      marginLeft: "0px",
+                    }}
+                  />
                 </div>
-                <p className="customer-info font12">{customer.phone}</p>
-                <p className="customer-info font12">{customer.address}</p>
-                <hr
-                  className="Map_list_hr"
-                  style={{
-                    width: "100%",
-                    borderTop: "1px solid #000",
-                    margin: "10px",
-                    marginLeft: "0px",
-                  }}
-                />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
