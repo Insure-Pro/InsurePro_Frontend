@@ -345,21 +345,22 @@ const KakaoMap = () => {
           }}
         >
           {/* Refresh Button */}
-          <button
-            className="Map_Search_Btn"
-            style={{
-              position: "absolute",
-              bottom: "10px", // Position from bottom
-              left: "50%", // Center horizontally
-              transform: "translateX(-50%)", // Adjust for the button's width to center
-              zIndex: 3, // Ensure it's above the map
-            }}
-            onClick={refreshCustomerList}
-          >
-            <img src={refresh} style={{ paddingRight: "16px" }} />현 지도에서
-            검색
-          </button>
-
+          {!isLoading && (
+            <button
+              className="Map_Search_Btn"
+              style={{
+                position: "absolute",
+                bottom: "10px", // Position from bottom
+                left: "50%", // Center horizontally
+                transform: "translateX(-50%)", // Adjust for the button's width to center
+                zIndex: 3, // Ensure it's above the map
+              }}
+              onClick={refreshCustomerList}
+            >
+              <img src={refresh} style={{ paddingRight: "16px" }} />현 지도에서
+              검색
+            </button>
+          )}
           {/* Map Container */}
           <div
             id="map"
@@ -372,21 +373,7 @@ const KakaoMap = () => {
             }}
           >
             {isLoading && (
-              <div
-                className="map_spinner"
-                // style={{
-                //   position: "absolute",
-                //   top: 0,
-                //   left: 0,
-                //   right: 0,
-                //   bottom: 0,
-                //   display: "flex",
-                //   alignItems: "center",
-                //   justifyContent: "center",
-                //   color: "#000",
-                //   zIndex: 5,
-                // }}
-              >
+              <div className="map_spinner">
                 <PropagateLoader
                   color="#84CAFF"
                   size={20}
