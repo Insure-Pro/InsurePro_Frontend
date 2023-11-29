@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import { Row, Col } from "react-bootstrap";
+import hangjungdong from "./hangjungdong";
 
 const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const nameRef = useRef("");
@@ -30,6 +32,12 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   );
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
+
+  const [selectedSido, setSelectedSido] = useState("");
+  const [selectedSigugun, setSelectedSigugun] = useState("");
+  const [selectedDong, setSelectedDong] = useState("");
+
+  const { sido, sigugun, dong } = hangjungdong;
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -100,11 +108,26 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     const ageValue = calculateKoreanAge(birthValue);
     const phoneSend = phoneNumber || phoneRef.current.value;
 
-    // const birthValue = birth.current.value.replace(/\./g, "-");
-    // const registerDateValue = registerDate.current.value.replace(/\./g, "-");
-    // const ageValue = calculateKoreanAge(birthValue);
-    // customerTypeName.current.value = selectedCustomerType;
-    // phone.current = phone.current; // phone Ref를 업데이트하지 않음
+    const metroName =
+      hangjungdong.sido.find((el) => el.sido === selectedSido)?.codeNm || "";
+    const guName =
+      hangjungdong.sigugun.find(
+        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun
+      )?.codeNm || "";
+
+    const dongName =
+      hangjungdong.dong.find(
+        (el) =>
+          el.sido === selectedSido &&
+          el.sigugun === selectedSigugun &&
+          el.dong === selectedDong
+      )?.codeNm || "";
+
+    const metroGuDong = {
+      metroName: metroName,
+      guName: guName,
+      dongName: dongName, // Populate this if needed
+    };
 
     try {
       const updatedData = {
@@ -118,7 +141,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
         contractYn: contractYn,
         customerType: selectedCustomerType,
         registerDate: registerDateValue,
-        // Add other form data
+        metroGuDong: metroGuDong,
       };
       const response = await axios.patch(
         `${MAIN_URL}/customer/${selectedCustomer.pk}`,
@@ -244,11 +267,76 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
                 autoFocus
               />
             </Form.Group>
+            <Row>
+              {/* Sido Dropdown */}
+              <Col>
+                <Form.Group className="mb-0" controlId="sidoSelect">
+                  <Form.Label></Form.Label>
+                  <Form.Select
+                    value={selectedSido}
+                    onChange={(e) => setSelectedSido(e.target.value)}
+                  >
+                    <option value="">시/도 선택</option>
+                    {sido.map((el) => (
+                      <option key={el.sido} value={el.sido}>
+                        {el.codeNm}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+
+              {/* Sigugun Dropdown */}
+              <Col>
+                <Form.Group className="mb-0" controlId="sigugunSelect">
+                  <Form.Label></Form.Label>
+                  <Form.Select
+                    value={selectedSigugun}
+                    onChange={(e) => setSelectedSigugun(e.target.value)}
+                    disabled={!selectedSido}
+                  >
+                    <option value="">구/군 선택</option>
+                    {sigugun
+                      .filter((el) => el.sido === selectedSido)
+                      .map((el) => (
+                        <option key={el.sigugun} value={el.sigugun}>
+                          {el.codeNm}
+                        </option>
+                      ))}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+
+              {/* Dong Dropdown */}
+              <Col>
+                <Form.Group className="mb-0" controlId="dongSelect">
+                  <Form.Label></Form.Label>
+                  <Form.Select
+                    value={selectedDong}
+                    onChange={(e) => setSelectedDong(e.target.value)}
+                    disabled={!selectedSigugun}
+                  >
+                    <option value="">동 선택</option>
+                    {dong
+                      .filter(
+                        (el) =>
+                          el.sido === selectedSido &&
+                          el.sigugun === selectedSigugun
+                      )
+                      .map((el) => (
+                        <option key={el.dong} value={el.dong}>
+                          {el.codeNm}
+                        </option>
+                      ))}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+            </Row>
             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
                 type="address"
-                placeholder="거주지 | 주소입력"
+                placeholder="도로명 주소 | 지번 주소 입력하기"
                 defaultValue={selectedCustomer?.address}
                 ref={addressRef}
                 autoFocus

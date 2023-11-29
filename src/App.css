@@ -362,7 +362,7 @@
 }
 .inline-container-left {
   display: flex;
-  width: 35%;
+  width: 37%;
   align-items: center;
   opacity: 1;
   color: #000;
@@ -371,10 +371,11 @@
   padding-left: 16px;
 }
 .inline-container-right {
-  width: 65%;
+  width: 63%;
   color: #000;
   font-weight: 600;
   padding-left: 16px;
+
   /* opacity: 0.9; */
 }
 .customer-info {
@@ -403,13 +404,14 @@
   width: 32px;
 }
 .inline-container-left :nth-child(2) {
-  width: 54px;
+  width: 60px;
 }
 .inline-container-right :nth-child(1) {
   width: 140px;
 }
 .inline-container-right :nth-child(2) {
-  width: 180px;
+  width: 170px;
+  padding-right: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
