@@ -235,6 +235,9 @@ const KakaoMap = () => {
       .catch((error) => console.error("Error fetching all customers:", error));
   }, []);
 
+  // Add a new state to track if there are visible customers
+  const [hasVisibleCustomers, setHasVisibleCustomers] = useState(true);
+
   function refreshCustomerList() {
     if (mapRef.current) {
       const bounds = mapRef.current.getBounds();
@@ -249,6 +252,9 @@ const KakaoMap = () => {
           customer.lng <= neLatLng.getLng()
         );
       });
+
+      // Update the state based on whether there are visible customers
+      setHasVisibleCustomers(filteredCustomers.length > 0);
 
       setVisibleCustomers(filteredCustomers);
     }
@@ -394,36 +400,42 @@ const KakaoMap = () => {
                 zIndex: 2,
               }}
             >
-              {visibleCustomers.map((customer, index) => (
-                <div key={index}>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <div className="inline-container-left">
-                      <p className="customer-info customer-type">
-                        {customer.customerType}
-                      </p>
-                      <p className="customer-info">{customer.name}</p>
+              {hasVisibleCustomers ? (
+                visibleCustomers.map((customer, index) => (
+                  <div key={index}>
+                    <div
+                      style={{
+                        display: "flex",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <div className="inline-container-left">
+                        <p className="customer-info customer-type">
+                          {customer.customerType}
+                        </p>
+                        <p className="customer-info">{customer.name}</p>
+                      </div>
+                      <div className="inline-container-right">
+                        <p className="customer-info font12">{customer.phone}</p>
+                        <p className="customer-info font12">
+                          {customer.address}
+                        </p>
+                      </div>
                     </div>
-                    <div className="inline-container-right">
-                      <p className="customer-info font12">{customer.phone}</p>
-                      <p className="customer-info font12">{customer.address}</p>
-                    </div>
+                    <hr
+                      className="Map_list_hr"
+                      style={{
+                        width: "100%",
+                        borderTop: "1px solid #000",
+                        margin: "10px",
+                        marginLeft: "0px",
+                      }}
+                    />
                   </div>
-                  <hr
-                    className="Map_list_hr"
-                    style={{
-                      width: "100%",
-                      borderTop: "1px solid #000",
-                      margin: "10px",
-                      marginLeft: "0px",
-                    }}
-                  />
-                </div>
-              ))}
+                ))
+              ) : (
+                <div> 현 위치에 해당하는 고객이 없습니다.</div>
+              )}
             </div>
           </div>
         </div>

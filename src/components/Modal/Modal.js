@@ -56,8 +56,6 @@ function Modal1({ onModalClose }) {
     } else {
       setSelectedCustomerType(type);
     }
-
-    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -126,6 +124,7 @@ function Modal1({ onModalClose }) {
       guName: guName,
       dongName: dongName, // Populate this if needed
     };
+
     // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
