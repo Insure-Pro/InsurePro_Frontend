@@ -386,7 +386,7 @@ const KakaoMap = () => {
               style={{
                 position: "absolute",
                 width: "300px",
-                height: "650px", // 높이를 "100%"로 설정
+                height: "648px", // 높이를 "100%"로 설정
                 backgroundColor: "white",
                 opacity: "0.8",
                 paddingTop: "12px",
