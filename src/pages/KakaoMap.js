@@ -15,7 +15,7 @@ const KakaoMap = () => {
   const [locationObtained, setLocationObtained] = useState(false);
   const [markers, setMarkers] = useState([]); // New state for storing marker objects
 
-  const marker_blue = process.env.PUBLIC_URL + "/marker.png";
+  const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh_icon.png";
 
@@ -122,13 +122,13 @@ const KakaoMap = () => {
 
     const markerImageBlue = new window.kakao.maps.MarkerImage(
       marker_blue,
-      new window.kakao.maps.Size(28, 28),
+      new window.kakao.maps.Size(21, 28),
       { offset: new window.kakao.maps.Point(27, 69) }
     );
 
     const markerImageGreen = new window.kakao.maps.MarkerImage(
       marker_red,
-      new window.kakao.maps.Size(28, 28),
+      new window.kakao.maps.Size(21, 28),
       { offset: new window.kakao.maps.Point(27, 69) }
     );
 
@@ -330,7 +330,7 @@ const KakaoMap = () => {
       <div style={{}}>
         <h1
           className="maintitle"
-          style={{ margin: "25px 40px 10px 32px", cursor: "default" }}
+          style={{ margin: "25px 40px -20px 32px", cursor: "default" }}
         >
           지도보기
         </h1>
@@ -338,9 +338,9 @@ const KakaoMap = () => {
         <div
           style={{
             position: "relative",
-            marginLeft: "40px",
-            marginTop: "24px",
-            width: "1100px",
+            margin: "24px 40px 10px 42px",
+            // marginTop: "24px",
+            width: "1060px",
             height: "650px",
           }}
         >
