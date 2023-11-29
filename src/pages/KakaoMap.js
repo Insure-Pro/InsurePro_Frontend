@@ -357,7 +357,7 @@ const KakaoMap = () => {
               }}
               onClick={refreshCustomerList}
             >
-              <img src={refresh} style={{ paddingRight: "16px" }} />현 지도에서
+              <img src={refresh} style={{ paddingRight: "10px" }} />현 지도에서
               검색
             </button>
           )}
