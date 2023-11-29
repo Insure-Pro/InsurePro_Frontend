@@ -25,12 +25,12 @@ const KakaoMap = () => {
     new window.kakao.maps.Circle({
       map: mapRef.current,
       center: new window.kakao.maps.LatLng(position.lat, position.lng),
-      radius: 5,
+      radius: 1,
       strokeWeight: 5,
       strokeColor: "#FF0000",
       strokeOpacity: 0.8,
       fillColor: "#FF0000",
-      fillOpacity: 0.7,
+      fillOpacity: 0.9,
     });
   };
   let clusterer; // Declare clusterer globally
