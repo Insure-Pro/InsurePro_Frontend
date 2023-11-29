@@ -391,7 +391,7 @@
 }
 .Map_Search_Btn {
   border: none;
-  width: 200px;
+  width: 210px;
   height: 32px;
   padding: 4px 28px;
   color: #fff;
@@ -400,10 +400,10 @@
   border-radius: 10px;
 }
 .inline-container-left :nth-child(1) {
-  width: 30px;
+  width: 32px;
 }
 .inline-container-left :nth-child(2) {
-  width: 50px;
+  width: 54px;
 }
 .inline-container-right :nth-child(1) {
   width: 140px;
