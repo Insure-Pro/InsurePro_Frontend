@@ -167,6 +167,40 @@ const KakaoMap = () => {
                   }
                 );
 
+                // Create a custom overlay for the tooltip
+                const content = `
+  <div class="custom-overlay">
+    <span style="margin-right: 8px;">${customer.customerType}</span>
+    <span style="margin-right: 8px;">${customer.name} (${customer.age})</span>
+
+  </div>
+`;
+
+                const customOverlay = new window.kakao.maps.CustomOverlay({
+                  content: content,
+                  position: coords,
+                  xAnchor: 0.6,
+                  yAnchor: 3.2, // Adjust this to position the tooltip above the marker
+                  zIndex: 3,
+                });
+
+                // Add event listeners to show/hide the tooltip
+                window.kakao.maps.event.addListener(
+                  marker,
+                  "mouseover",
+                  function () {
+                    customOverlay.setMap(mapRef.current);
+                  }
+                );
+
+                window.kakao.maps.event.addListener(
+                  marker,
+                  "mouseout",
+                  function () {
+                    customOverlay.setMap(null);
+                  }
+                );
+
                 clusterer.addMarker(marker); // Add each marker to clusterer
               } else if (
                 status === window.kakao.maps.services.Status.ZERO_RESULT
@@ -434,7 +468,7 @@ const KakaoMap = () => {
                   </div>
                 ))
               ) : (
-                <div> 현 위치에 해당하는 고객이 없습니다.</div>
+                <div> 현 위치에 해당하는 고객정보가 없습니다.</div>
               )}
             </div>
           </div>

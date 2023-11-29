@@ -432,6 +432,16 @@
   color: #000;
   z-index: 5;
 }
+
+.custom-overlay {
+  width: 148px;
+  padding: 5px;
+  background-color: #175cd3;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
 @media (max-width: 700px) {
   /* .navbar-container  */
   .signin_code_button {
