@@ -126,7 +126,7 @@ const KakaoMap = () => {
       { offset: new window.kakao.maps.Point(27, 69) }
     );
 
-    const markerImageGreen = new window.kakao.maps.MarkerImage(
+    const markerImageRed = new window.kakao.maps.MarkerImage(
       marker_red,
       new window.kakao.maps.Size(21, 28),
       { offset: new window.kakao.maps.Point(27, 69) }
@@ -160,7 +160,7 @@ const KakaoMap = () => {
                   function () {
                     const currentImage = marker.getImage();
                     if (currentImage === markerImageBlue) {
-                      marker.setImage(markerImageGreen);
+                      marker.setImage(markerImageRed);
                     } else {
                       marker.setImage(markerImageBlue);
                     }
@@ -171,7 +171,7 @@ const KakaoMap = () => {
                 const content = `
   <div class="custom-overlay">
     <span style="margin-right: 8px;">${customer.customerType}</span>
-    <span style="margin-right: 8px;">${customer.name} (${customer.age})</span>
+    <span>${customer.name} (${customer.age})</span>
 
   </div>
 `;
@@ -189,6 +189,7 @@ const KakaoMap = () => {
                   marker,
                   "mouseover",
                   function () {
+                    marker.setImage(markerImageRed);
                     customOverlay.setMap(mapRef.current);
                   }
                 );
@@ -198,6 +199,7 @@ const KakaoMap = () => {
                   "mouseout",
                   function () {
                     customOverlay.setMap(null);
+                    marker.setImage(markerImageBlue);
                   }
                 );
 
@@ -436,7 +438,7 @@ const KakaoMap = () => {
             >
               {hasVisibleCustomers ? (
                 visibleCustomers.map((customer, index) => (
-                  <div key={index}>
+                  <div className="Map_customerList_item" key={index}>
                     <div
                       style={{
                         display: "flex",

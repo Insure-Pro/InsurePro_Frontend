@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../App.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
@@ -93,6 +94,8 @@ function Modal1({ onModalClose }) {
     // 여기서 서버에 데이터를 보낼 수 있습니다. 예: Axios를 사용하는 API 호출 등
   };
 
+  const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
+  const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
@@ -204,13 +207,37 @@ function Modal1({ onModalClose }) {
         onExited={onModalClose}
         style={{ marginTop: "60px", overflow: "auto" }}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>신규고객 추가</Modal.Title>
+        <Modal.Header style={{ margin: "0px" }} closeButton>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Modal.Title>신규고객 추가 </Modal.Title>
+          </div>
         </Modal.Header>
+        <div
+          style={{
+            display: "flex",
+            margin: "4px 18px -16px 0px",
+            justifyContent: "end",
+          }}
+        >
+          <img
+            src={circle_icon_middle}
+            style={{ width: "12px", height: "12px", marginTop: "2px" }}
+          />
+          <span style={{ fontSize: "12px", justifyContent: "" }}>
+            필수입력사항
+          </span>
+        </div>
         <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-4" controlId="name.ControlInput1">
-              <Form.Label></Form.Label>
+            <Form.Group
+              className="mb-4"
+              style={{ display: "flex", marginTop: "22px" }}
+              controlId="name.ControlInput1"
+            >
+              <Form.Label>
+                {" "}
+                <img src={circle_icon} style={{ marginBottom: "12px" }} />
+              </Form.Label>
               <Form.Control type="text" ref={name} placeholder="이름" />
             </Form.Group>
             <Form.Group controlId="contractYn.ControlCheckbox1">
@@ -220,19 +247,21 @@ function Modal1({ onModalClose }) {
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
                 style={{
-                  marginLeft: "2px",
+                  marginLeft: "14px",
                   marginBottom: "10px",
                   marginTop: "-20px",
                 }}
               />
             </Form.Group>
             <Form.Group className="mb-0">
+              <img src={circle_icon} style={{ marginBottom: "20px" }} />
               <ButtonGroup>
                 <div
                   className="Modal_customerType"
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    fontSize: "16px",
                     paddingRight: "9px",
                     paddingLeft: "9px",
                     marginRight: "10px",
@@ -242,6 +271,9 @@ function Modal1({ onModalClose }) {
                     borderColor: "#DEE2E5", //  테두리 색 적용
                     backgroundColor: "transparent", // 배경을 투명하게 설정
                     color: "#585C5E", // 글자색을 설정
+                    // backgroundImage: `url(${circle_icon})`,
+                    // backgroundRepeat: "no-repeat",
+                    // backgroundPosition: "left top",
                   }}
                 >
                   고객유형
@@ -258,7 +290,7 @@ function Modal1({ onModalClose }) {
                     }
                     ref={customerType}
                     value={selectedCustomerType}
-                    style={{ borderRadius: "0px" }}
+                    style={{ borderRadius: "0px", fontSize: "14px" }}
                     onClick={() => handleCustomerTypeClick(type)}
                     // style={{borderRadius: "5px 0 0 5px",}}
                   >
@@ -267,17 +299,34 @@ function Modal1({ onModalClose }) {
                 ))}
               </ButtonGroup>
             </Form.Group>
-            <Form.Group className="mb-0" controlId="example.ControlInput1">
-              <Form.Label></Form.Label>
+            <Form.Group
+              className="mb-0"
+              style={{ display: "flex", marginTop: "22px" }}
+              controlId="example.ControlInput1"
+            >
+              <Form.Label>
+                <img src={circle_icon} style={{ marginBottom: "12px" }} />
+              </Form.Label>
               <Form.Control
+                // style={{
+                //   backgroundImage: `url(${circle_icon})`,
+                //   backgroundRepeat: "no-repeat",
+                //   backgroundPosition: "left top",
+                // }}
                 type="registerDate"
                 ref={registerDate}
                 placeholder="DB분배일 | 2023.00.00"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-0" controlId="example.ControlInput1">
-              <Form.Label></Form.Label>
+            <Form.Group
+              className="mb-0"
+              style={{ display: "flex", marginTop: "22px" }}
+              controlId="example.ControlInput1"
+            >
+              <Form.Label>
+                <img src={circle_icon} style={{ marginBottom: "12px" }} />
+              </Form.Label>
               <Form.Control
                 type="birth"
                 ref={birth}
@@ -285,8 +334,15 @@ function Modal1({ onModalClose }) {
                 autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-              <Form.Label></Form.Label>
+            <Form.Group
+              className="mb-0"
+              style={{ display: "flex", marginTop: "22px" }}
+              controlId="exampleForm.ControlInput1"
+            >
+              <Form.Label>
+                {" "}
+                <img src={circle_icon} style={{ marginBottom: "12px" }} />
+              </Form.Label>
               <Form.Control
                 type="phoneNumber"
                 ref={phone}
@@ -298,13 +354,29 @@ function Modal1({ onModalClose }) {
             <Row>
               {/* Sido Dropdown */}
               <Col>
-                <Form.Group className="mb-0" controlId="sidoSelect">
-                  <Form.Label></Form.Label>
+                <Form.Group
+                  className="mb-0"
+                  style={{ display: "flex", marginTop: "22px" }}
+                  controlId="sidoSelect"
+                >
+                  <Form.Label>
+                    {" "}
+                    <img src={circle_icon} style={{ marginBottom: "12px" }} />
+                  </Form.Label>
                   <Form.Select
                     value={selectedSido}
                     onChange={(e) => setSelectedSido(e.target.value)}
                   >
-                    <option value="">시/도 선택</option>
+                    <option className="form-group required" value="">
+                      시/도 선택
+                      {/* <span
+                        className="last-letter"
+                        style={{ color: "red", backgroundColor: "red" }}
+                      >
+                        ㅇ*
+                      </span> */}
+                    </option>
+
                     {sido.map((el) => (
                       <option key={el.sido} value={el.sido}>
                         {el.codeNm}
@@ -316,8 +388,15 @@ function Modal1({ onModalClose }) {
 
               {/* Sigugun Dropdown */}
               <Col>
-                <Form.Group className="mb-0" controlId="sigugunSelect">
-                  <Form.Label></Form.Label>
+                <Form.Group
+                  className="mb-0"
+                  style={{ display: "flex", marginTop: "22px" }}
+                  controlId="sigugunSelect"
+                >
+                  <Form.Label>
+                    {" "}
+                    <img src={circle_icon} style={{ marginBottom: "12px" }} />
+                  </Form.Label>
                   <Form.Select
                     value={selectedSigugun}
                     onChange={(e) => setSelectedSigugun(e.target.value)}
@@ -337,7 +416,11 @@ function Modal1({ onModalClose }) {
 
               {/* Dong Dropdown */}
               <Col>
-                <Form.Group className="mb-0" controlId="dongSelect">
+                <Form.Group
+                  className="mb-0"
+                  style={{ display: "flex", marginTop: "22px" }}
+                  controlId="dongSelect"
+                >
                   <Form.Label></Form.Label>
                   <Form.Select
                     value={selectedDong}

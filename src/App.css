@@ -434,7 +434,7 @@
 }
 
 .custom-overlay {
-  width: 148px;
+  width: 144px;
   padding: 5px;
   background-color: #175cd3;
   color: #fff;
@@ -442,6 +442,7 @@
   border: none;
   border-radius: 5px;
 }
+
 @media (max-width: 700px) {
   /* .navbar-container  */
   .signin_code_button {
