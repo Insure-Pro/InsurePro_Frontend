@@ -141,8 +141,8 @@ const KakaoMap = () => {
       })
       .then((response) => {
         response.data.forEach((customer) => {
-          if (customer.address && customer.address.trim() !== "") {
-            geocoder.addressSearch(customer.address, (result, status) => {
+          if (customer.dongString && customer.dongString.trim() !== "") {
+            geocoder.addressSearch(customer.dongString, (result, status) => {
               if (status === window.kakao.maps.services.Status.OK) {
                 setIsLoading(false);
                 const coords = new window.kakao.maps.LatLng(
@@ -207,8 +207,8 @@ const KakaoMap = () => {
               } else if (
                 status === window.kakao.maps.services.Status.ZERO_RESULT
               ) {
-                // Log the address that could not be found
-                console.log(`Address not found: ${customer.address}`);
+                // Log the dongString that could not be found
+                console.log(`Address not found: ${customer.dongString}`);
               } else {
                 console.error(
                   `Geocode was not successful for the following reason: ${status}`
@@ -254,8 +254,8 @@ const KakaoMap = () => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         customers.forEach((customer) => {
-          if (customer.address && customer.address.trim() !== "") {
-            geocoder.addressSearch(customer.address, (result, status) => {
+          if (customer.dongString && customer.dongString.trim() !== "") {
+            geocoder.addressSearch(customer.dongString, (result, status) => {
               if (status === window.kakao.maps.services.Status.OK) {
                 const coords = {
                   lat: result[0].y,
@@ -454,7 +454,7 @@ const KakaoMap = () => {
                       <div className="inline-container-right">
                         <p className="customer-info font12">{customer.phone}</p>
                         <p className="customer-info font12">
-                          {customer.address}
+                          {customer.dongString}
                         </p>
                       </div>
                     </div>
