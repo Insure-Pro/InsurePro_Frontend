@@ -3,10 +3,12 @@ import "../App.css";
 import Navbar from "./Navbar";
 import Nav from "react-bootstrap/Nav";
 import Search from "../components/Search";
+import ExcelUploadModal from "./Modal/ExcelUploadModal";
 import DateChangeModal from "./Modal/DateChangeModal";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { setSelectedTab } from "../redux/customerSlice";
+import { useNavigate } from "react-router-dom";
 const ItemType = "NAV_ITEM";
 
 const DraggableNavItem = ({ item, index, moveItem }) => {
@@ -95,7 +97,11 @@ const Dbbar = ({
       setIsModalOpen(true);
     }
   };
+  // const navigate = useNavigate();
 
+  // const handleExcelUpload = ()=>{
+  //   useNavigate()
+  // }
   // 선택한 년, 월로 formattedDate를 업데이트하는 함수
   const handleDateChange = (newYear, newMonth, fetchedData) => {
     setSelectedYear(newYear);
@@ -114,6 +120,18 @@ const Dbbar = ({
 
   //   setItems(updatedItems);
   // };
+
+  const [showExcelModal, setShowExcelModal] = useState(false); // State to control Excel Modal visibility
+
+  // Handler for opening Excel Modal
+  const handleExcelModalShow = () => {
+    setShowExcelModal(true);
+  };
+
+  // Handler for closing Excel Modal
+  const handleExcelModalClose = () => {
+    setShowExcelModal(false);
+  };
 
   const handleTypeClick = (type) => {
     setActiveType(type);
@@ -144,19 +162,22 @@ const Dbbar = ({
               borderRight: "2px solid #dde1e6",
             }}
           >
-            {/* <span
+            <span
               style={{
                 display: "flex",
                 justifyContent: "end",
                 paddingRight: "50px",
                 marginBottom: "-30px",
                 fontWeight: "600",
-                color: "#D0D5DD",
+                opacity: "0.7",
+                color: "#000",
                 cursor: "pointer",
               }}
+              onClick={handleExcelModalShow}
             >
-              불편사항 접수하기
-            </span> */}
+              엑셀로 고객 추가하기
+            </span>
+            {/* <h6>엑셀로 고객추가하기</h6> */}
             <h1
               className="maintitle"
               onClick={handleFormattedDateClick}
@@ -167,7 +188,6 @@ const Dbbar = ({
               {/* {console.log(selectedTab)} */}
               {/* {console.log(formattedDate)} */}
             </h1>
-
             <Nav
               className="DbbarItem-container"
               variant="underline"
@@ -216,6 +236,13 @@ const Dbbar = ({
             onDateChange={handleDateChange}
             onClose={() => setIsModalOpen(false)}
             // setFormattedDate={setFormattedDate}
+          />
+        )}
+        {showExcelModal && (
+          <ExcelUploadModal
+            show={showExcelModal}
+            onHide={handleExcelModalClose}
+            // ... pass any other required props ...
           />
         )}
       </div>

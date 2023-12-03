@@ -442,6 +442,9 @@
   border: none;
   border-radius: 5px;
 }
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #e0f2f1 !important; /* 원하는 색으로 변경 */
+}
 
 @media (max-width: 700px) {
   /* .navbar-container  */
