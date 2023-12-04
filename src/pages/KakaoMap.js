@@ -253,15 +253,26 @@ const KakaoMap = () => {
     if (marker) {
       mapRef.current.panTo(marker.getPosition());
 
-      const currentImageSrc = marker.getImage()?.src;
-      if (currentImageSrc && currentImageSrc.includes("marker_blue.png")) {
+      // 마커의 현재 상태를 확인하는 로직 수정
+      if (marker.getDraggable()) {
+        // getDraggable() 함수를 사용하여 현재 마커의 상태를 추적 (예시)
         marker.setImage(
-          new kakao.maps.MarkerImage(marker_red, new kakao.maps.Size(21, 28))
+          new kakao.maps.MarkerImage(
+            marker_blue,
+            new window.kakao.maps.Size(21, 28),
+            { offset: new window.kakao.maps.Point(27, 69) }
+          )
         );
+        marker.setDraggable(false); // setDraggable() 함수를 사용하여 마커 상태 변경 (예시)
       } else {
         marker.setImage(
-          new kakao.maps.MarkerImage(marker_blue, new kakao.maps.Size(21, 28))
+          new kakao.maps.MarkerImage(
+            marker_red,
+            new window.kakao.maps.Size(21, 28),
+            { offset: new window.kakao.maps.Point(27, 69) }
+          )
         );
+        marker.setDraggable(true); // setDraggable() 함수를 사용하여 마커 상태 변경 (예시)
       }
     }
   };
@@ -473,6 +484,7 @@ const KakaoMap = () => {
                       style={{
                         display: "flex",
                         marginBottom: "8px",
+                        cursor: "pointer",
                       }}
                     >
                       <div className="inline-container-left">
