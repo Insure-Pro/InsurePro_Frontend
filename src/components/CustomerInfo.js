@@ -31,6 +31,7 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
             className="infoSpan infoSpanaddress"
             style={{ marginLeft: "114px" }}
           >
+            {data.dongString}
             {data.address}
           </span>
         </div>

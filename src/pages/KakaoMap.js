@@ -1,3 +1,4 @@
+/* global kakao */
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -153,6 +154,13 @@ const KakaoMap = () => {
                   position: coords,
                   image: markerImageBlue,
                 });
+                setMarkers((prevMarkers) => [...prevMarkers, marker]);
+                marker.setTitle(String(customer.pk));
+                console.log(
+                  "마커 생성:",
+                  marker.getTitle(),
+                  marker.getPosition()
+                );
                 // Add click event listener
                 window.kakao.maps.event.addListener(
                   marker,
@@ -172,7 +180,6 @@ const KakaoMap = () => {
   <div class="custom-overlay">
     <span style="margin-right: 8px;">${customer.customerType}</span>
     <span>${customer.name} (${customer.age})</span>
-
   </div>
 `;
 
@@ -240,6 +247,24 @@ const KakaoMap = () => {
   // 전역 변수나 상태로 모든 고객의 좌표를 저장
   const [allCustomerCoords, setAllCustomerCoords] = useState([]);
 
+  const handleCustomerClick = (customer) => {
+    const marker = markers.find((m) => m.getTitle() === String(customer.pk));
+    console.log(marker);
+    if (marker) {
+      mapRef.current.panTo(marker.getPosition());
+
+      const currentImageSrc = marker.getImage()?.src;
+      if (currentImageSrc && currentImageSrc.includes("marker_blue.png")) {
+        marker.setImage(
+          new kakao.maps.MarkerImage(marker_red, new kakao.maps.Size(21, 28))
+        );
+      } else {
+        marker.setImage(
+          new kakao.maps.MarkerImage(marker_blue, new kakao.maps.Size(21, 28))
+        );
+      }
+    }
+  };
   // 고객 데이터 가져오기 및 좌표 저장
   useEffect(() => {
     axios
@@ -262,6 +287,7 @@ const KakaoMap = () => {
                   lng: result[0].x,
                   ...customer, // 고객 정보 포함
                 };
+
                 setAllCustomerCoords((prev) => [...prev, coords]);
               }
             });
@@ -438,7 +464,11 @@ const KakaoMap = () => {
             >
               {hasVisibleCustomers ? (
                 visibleCustomers.map((customer, index) => (
-                  <div className="Map_customerList_item" key={index}>
+                  <div
+                    className="Map_customerList_item"
+                    key={index}
+                    onClick={() => handleCustomerClick(customer)}
+                  >
                     <div
                       style={{
                         display: "flex",
