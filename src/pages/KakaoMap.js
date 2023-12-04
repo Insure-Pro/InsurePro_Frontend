@@ -254,26 +254,28 @@ const KakaoMap = () => {
       mapRef.current.panTo(marker.getPosition());
 
       // 마커의 현재 상태를 확인하는 로직 수정
-      if (marker.getDraggable()) {
-        // getDraggable() 함수를 사용하여 현재 마커의 상태를 추적 (예시)
-        marker.setImage(
+      // getDraggable() 함수를 사용하여 현재 마커의 상태를 추적 (예시)
+      // Set all markers to blue first
+      markers.forEach((m) => {
+        m.setImage(
           new kakao.maps.MarkerImage(
             marker_blue,
             new window.kakao.maps.Size(21, 28),
             { offset: new window.kakao.maps.Point(27, 69) }
           )
         );
-        marker.setDraggable(false); // setDraggable() 함수를 사용하여 마커 상태 변경 (예시)
-      } else {
-        marker.setImage(
-          new kakao.maps.MarkerImage(
-            marker_red,
-            new window.kakao.maps.Size(21, 28),
-            { offset: new window.kakao.maps.Point(27, 69) }
-          )
-        );
-        marker.setDraggable(true); // setDraggable() 함수를 사용하여 마커 상태 변경 (예시)
-      }
+        m.setDraggable(false);
+      });
+
+      // Then set the clicked marker to red
+      marker.setImage(
+        new kakao.maps.MarkerImage(
+          marker_red,
+          new window.kakao.maps.Size(21, 28),
+          { offset: new window.kakao.maps.Point(27, 69) }
+        )
+      );
+      marker.setDraggable(true);
     }
   };
   // 고객 데이터 가져오기 및 좌표 저장
