@@ -446,6 +446,22 @@
   background-color: #e0f2f1 !important; /* 원하는 색으로 변경 */
 }
 
+.MapCustomerDetail_item_container {
+  display: flex;
+  width: 276px;
+  height: 60px;
+  padding: 4px;
+  margin-left: 10px;
+  background-color: #fff !important;
+  opacity: 1 !important;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 8px 4px 4px 0px rgba(10, 10, 10, 0.1);
+}
+.MapCustomerDetail_item_wrapper > div {
+  margin-bottom: 4px;
+}
+
 @media (max-width: 700px) {
   /* .navbar-container  */
   .signin_code_button {

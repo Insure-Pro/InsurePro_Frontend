@@ -1,6 +1,7 @@
 /* global kakao */
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
+import MapCustomerDetail from "../components/MapCustomerDetail";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
@@ -156,11 +157,11 @@ const KakaoMap = () => {
                 });
                 setMarkers((prevMarkers) => [...prevMarkers, marker]);
                 marker.setTitle(String(customer.pk));
-                console.log(
-                  "마커 생성:",
-                  marker.getTitle(),
-                  marker.getPosition()
-                );
+                // console.log(
+                //   "마커 생성:",
+                //   marker.getTitle(),
+                //   marker.getPosition()
+                // );
                 // Add click event listener
                 window.kakao.maps.event.addListener(
                   marker,
@@ -172,6 +173,7 @@ const KakaoMap = () => {
                     } else {
                       marker.setImage(markerImageBlue);
                     }
+                    setSelectedCustomerPk(customer.pk);
                   }
                 );
 
@@ -365,6 +367,13 @@ const KakaoMap = () => {
     }
   }, [locationObtained, mapCenter]);
 
+  const [selectedCustomerPk, setSelectedCustomerPk] = useState(null);
+
+  const handleMarkerClick = (customerPk) => {
+    setSelectedCustomerPk(customerPk);
+    // Additional logic if required
+  };
+
   const navigate = useNavigate();
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
@@ -517,6 +526,7 @@ const KakaoMap = () => {
                 <div> 현 위치에 해당하는 고객정보가 없습니다.</div>
               )}
             </div>
+            <MapCustomerDetail customerPk={selectedCustomerPk} />
           </div>
         </div>
       </div>
