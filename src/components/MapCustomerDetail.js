@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-
+import CloseButton from "react-bootstrap/CloseButton";
 // import "../App.css";
 
-const MapCustomerDetail = ({ customerPk }) => {
+const MapCustomerDetail = ({ customerPk, onClose }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const [customerData, setCustomerData] = useState("");
@@ -38,6 +38,11 @@ const MapCustomerDetail = ({ customerPk }) => {
 
   if (!customerPk) return null;
 
+  //   const handleClose = () => {
+  //     onClose();
+  //     // logic to close the MapCustomerDetail window
+  //   };
+
   return (
     <div
       className="customer-details"
@@ -62,6 +67,7 @@ const MapCustomerDetail = ({ customerPk }) => {
           height: "60px",
           fontSize: "14px",
           alignItems: "center",
+          justifyContent: "flex-start",
           marginLeft: "10px",
           padding: "8px",
         }}
@@ -78,18 +84,30 @@ const MapCustomerDetail = ({ customerPk }) => {
         </div>
         <div>{customerData.name}</div>
         <div
-          style={{ display: "flex", alignItems: "center", cursor: "default" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+
+            cursor: "default",
+          }}
         >
-          <h8>
+          <h7 style={{ marginBottom: "-4px" }}>
             <Form.Check
               className="Detail_checkbox"
               aria-label="option 1"
-              checked={customerData.contractYn}
+              checked={customerData.contractYn || false}
               readOnly
-              style={{ marginLeft: "12px" }}
+              style={{ marginLeft: "8px", marginTop: "-4px" }}
             />
-          </h8>
+          </h7>
         </div>
+        <CloseButton
+          onClick={onClose}
+          style={{
+            marginLeft: "auto",
+            paddingRight: "8px",
+          }}
+        />
       </div>
       <hr style={{ margin: "0px" }} />
       <div

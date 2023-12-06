@@ -23,6 +23,8 @@ const KakaoMap = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const [isDetailVisible, setIsDetailVisible] = useState(false);
+
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
       map: mapRef.current,
@@ -174,6 +176,7 @@ const KakaoMap = () => {
                       marker.setImage(markerImageBlue);
                     }
                     setSelectedCustomerPk(customer.pk);
+                    setIsDetailVisible(true);
                   }
                 );
 
@@ -369,9 +372,15 @@ const KakaoMap = () => {
 
   const [selectedCustomerPk, setSelectedCustomerPk] = useState(null);
 
-  const handleMarkerClick = (customerPk) => {
-    setSelectedCustomerPk(customerPk);
-    // Additional logic if required
+  // const handleMarkerClick = (customerPk) => {
+  //   setSelectedCustomerPk(customerPk);
+  //   setIsDetailVisible(true);
+  //   // Additional logic if required
+  // };
+
+  const Map_customer_DetailClose = () => {
+    // setSelectedCustomerPk(null);
+    setIsDetailVisible(false);
   };
 
   const navigate = useNavigate();
@@ -526,7 +535,12 @@ const KakaoMap = () => {
                 <div> 현 위치에 해당하는 고객정보가 없습니다.</div>
               )}
             </div>
-            <MapCustomerDetail customerPk={selectedCustomerPk} />
+            {isDetailVisible && (
+              <MapCustomerDetail
+                customerPk={selectedCustomerPk}
+                onClose={Map_customer_DetailClose}
+              />
+            )}
           </div>
         </div>
       </div>
