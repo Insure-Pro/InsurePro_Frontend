@@ -175,6 +175,7 @@ const KakaoMap = () => {
                     } else {
                       marker.setImage(markerImageBlue);
                     }
+                    // MapCustomerDetail 컴포넌트 띄우기
                     setSelectedCustomerPk(customer.pk);
                     setIsDetailVisible(true);
                   }
@@ -426,7 +427,7 @@ const KakaoMap = () => {
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
       />
-      <div style={{}}>
+      <div>
         <h1
           className="maintitle"
           style={{ margin: "25px 40px -20px 32px", cursor: "default" }}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -59,6 +59,34 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
 
     // console.log("Selected customer type after:", selectedCustomerType);
   };
+
+  useEffect(() => {
+    if (selectedCustomer && selectedCustomer.metroGuDong) {
+      // 이름을 식별자로 변환
+      const sidoId =
+        hangjungdong.sido.find(
+          (el) => el.codeNm === selectedCustomer.metroGuDong.metroName
+        )?.sido || "";
+      const sigugunId =
+        hangjungdong.sigugun.find(
+          (el) =>
+            el.codeNm === selectedCustomer.metroGuDong.guName &&
+            el.sido === sidoId
+        )?.sigugun || "";
+      const dongId =
+        hangjungdong.dong.find(
+          (el) =>
+            el.codeNm === selectedCustomer.metroGuDong.dongName &&
+            el.sido === sidoId &&
+            el.sigugun === sigugunId
+        )?.dong || "";
+
+      // 상태 업데이트
+      setSelectedSido(sidoId);
+      setSelectedSigugun(sigugunId);
+      setSelectedDong(dongId);
+    }
+  }, [selectedCustomer, hangjungdong]);
 
   //만나이 계산 함수
   const calculateKoreanAge = (birthDate) => {
