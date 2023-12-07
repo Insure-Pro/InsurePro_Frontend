@@ -164,7 +164,6 @@ const Analysis = () => {
         width: "1400px",
         margin: "0 auto",
         backgroundColor: "#fff",
-        // borderRight: "2px solid #dde1e6",
       }}
     >
       <Navbar
@@ -202,7 +201,6 @@ const Analysis = () => {
             fontWeight: "normal",
             color: "#475467",
             backgroundColor: "#F5FAFF",
-            // fontWeight: "bold",
           }}
         >
           <div className="analysis_explain_item">

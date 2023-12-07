@@ -6,10 +6,7 @@ import styled from "styled-components";
 // import LoginImg from "../../public/loginImg.png";
 
 const Password = () => {
-  const fileRef = useRef("");
-  const userName = useRef("");
   const email = useRef("");
-  const usernum = useRef("");
   const authNum = useRef("");
   const authNumConfirm = useRef("");
   const password = useRef("");
@@ -74,10 +71,6 @@ const Password = () => {
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
 
-  // const confirmButtonStyle = isCodeSent
-  //   ? { backgroundColor: 'blue' }
-  //   : { backgroundColor: 'grey' };
-
   const sendCodeButtonText = isCodeSent ? "재전송" : "코드전송";
 
   const handleSubmit = (event) => {
@@ -85,21 +78,12 @@ const Password = () => {
       event.preventDefault();
     }
 
-    const data = {
-      email: email.current.value,
-      password: password.current.value,
-      rePassword: passwordConfirm.current.value,
-      // companyPk: 2,// 이거 pk2로 설정 해놨으면서 챰내
-      authNum: parseInt(authNumConfirm.current.value),
-    };
-
     if (validate()) {
       axios
         .patch(`${MAIN_URL}/employee/password`, {
           email: email.current.value,
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
-          // companyPk: 2,//
           authNum: parseInt(authNumConfirm.current.value),
         })
         .then((response) => {
@@ -131,7 +115,6 @@ const Password = () => {
             console.error("네트워크 오류:", error.message);
             // 사용자에게 네트워크 오류를 알림
           }
-          // console.log({ data });
         });
     }
   };
@@ -158,8 +141,6 @@ const Password = () => {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호가 일치하지 않습니다.";
-      // console.log(password.current.value);
-      // console.log(passwordConfirm.current.value);
     } else {
       document.querySelector(".error_message").innerHTML = "";
       return true;
@@ -175,7 +156,6 @@ const Password = () => {
         margin: "0 auto",
         height: "970px",
         borderRight: "2px solid #dde1e6",
-        // position: "center",
       }}
     >
       <div>
@@ -229,7 +209,6 @@ const Password = () => {
                 }}
                 placeholder="이메일 입력하기"
               />
-
               <button
                 className="signin_code_button"
                 type="button"
@@ -240,7 +219,6 @@ const Password = () => {
               </button>
             </div>
           </div>
-
           <span
             style={{ display: "flex", fontSize: "20px", cursor: "default" }}
           >
@@ -339,7 +317,6 @@ const Password = () => {
                 return;
               } else {
                 document.querySelector(".error_message").innerHTML = "";
-                //handleSubmit(); 이것 때문에 post요청 중복 된 거임 ㅅㅂ.
               }
             }}
             type="submit"

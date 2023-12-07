@@ -1,12 +1,10 @@
 import React from "react";
 import * as XLSX from "xlsx";
-// import excelIcon from "../external/icons8-excel-28.png";
 
 const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
   const imageUrl = process.env.PUBLIC_URL + "/icons8-excel-28.png";
 
-  // console.log(customers);
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
     { header: "고객유형", key: "customerType", width: "90px" },
@@ -17,7 +15,6 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
     { header: "거주지", key: "address", width: "250px" },
     { header: "특이사항", key: "memo", width: "500px" },
     { header: "계약체결여부", key: "contractYn", width: "80px" },
-    // ... 나머지 컬럼 설정
   ];
 
   const generateExcelFile = () => {
@@ -57,7 +54,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
       style={{
         border: "1px solid #007F6D",
         padding: "4px 4px",
-        paddingBottom: "2px", //아래쪽만 2px로 수정
+        paddingBottom: "2px",
         borderRadius: "4px",
         backgroundColor: "#FFF",
         color: "#FFF",

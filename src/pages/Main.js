@@ -10,8 +10,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import ListGroup from "react-bootstrap/ListGroup";
-import { store } from "../redux/store"; // Adjust the path as necessary
-import { useSelector, useDispatch } from "react-redux";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
@@ -25,7 +23,6 @@ const Main = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
 
-  const dispatch = useDispatch();
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
@@ -54,12 +51,6 @@ const Main = () => {
   }, [selectedTab, location]);
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // Call the function on component mount
-  //   refreshTokenIfNeeded(navigate);
-  //   console.log("useEffect with refreshTokenIfNeeded called");
-  // }, [navigate]);
 
   const handleCustomerClick = (customer) => {
     navigate("/detail", { state: { customerPk: customer.pk } });
@@ -113,7 +104,6 @@ const Main = () => {
       }
     } catch (error) {
       console.error("Error fetching customers:", error.message);
-      // console.log(formattedDate);
     }
   };
 
@@ -148,14 +138,12 @@ const Main = () => {
     setSelectedAge("");
     setSelectedSort("latest");
     setFormattedDate(null);
-    // fetchData(); // 데이터를 다시 불러옴
   };
 
   const handleContractCompleteClick = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
     setFormattedDate(null);
     setSelectedSort("");
-    // fetchData(); // 데이터를 다시 불러옴
   };
 
   // Dbbar에서 onMonthCustomersClick 함수 전달
@@ -163,7 +151,6 @@ const Main = () => {
     setSelectedContractYn(null);
     setFormattedDate(date);
     setSelectedSort("");
-    // fetchData();
   };
 
   const handleModalClose = () => {
@@ -183,7 +170,6 @@ const Main = () => {
     // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
     setShowOptions(null);
     fetchData();
-    // Refresh customer data, if needed
   };
 
   const handleRightClick = (e, customerId) => {
@@ -306,7 +292,6 @@ const Main = () => {
           setCustomers={setCustomers}
           setFormattedDate={setFormattedDate}
         >
-          {/* <Search setCustomers={setCustomers} /> */}
           <div
             className="Dbbar_hr "
             style={{
@@ -337,10 +322,6 @@ const Main = () => {
               >
                 최신순
               </Dropdown.Item>
-              {/* <Dropdown.Item
-                href="#/action-2"
-                지역별
-              </Dropdown.Item> */}
               <Dropdown.Item
                 href="#/action-3"
                 className="customDropdownItemStyles1"

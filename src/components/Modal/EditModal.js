@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
@@ -18,8 +17,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
   const addressRef = useRef("");
   const stateRef = useRef("");
   const memoRef = useRef("");
-
-  const navigate = useNavigate();
 
   const [phoneNumber, setPhoneNumber] = useState("");
   // 선택된 고객 유형을 나타내는 state
@@ -48,16 +45,12 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
-    // console.log("Clicked button:", type);
-    // console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
     } else {
       setSelectedCustomerType(type);
     }
-
-    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   useEffect(() => {
@@ -102,7 +95,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     ) {
       age -= 1;
     }
-
     return age;
   };
 
@@ -127,10 +119,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     if (event) {
       event.preventDefault();
     }
-    // if (!Number.isSafeInteger(Number(customerTypeName.current.value))) {
-    //   alert("고객유형에 올바른 숫자를 입력해주세요.");
-    //   return;
-    // }
     const birthValue = birthRef.current.value.replace(/\./g, "-");
     const registerDateValue = registerDateRef.current.value.replace(/\./g, "-");
     const ageValue = calculateKoreanAge(birthValue);
@@ -154,7 +142,7 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
     const metroGuDong = {
       metroName: metroName,
       guName: guName,
-      dongName: dongName, // Populate this if needed
+      dongName: dongName,
     };
 
     try {
@@ -184,9 +172,6 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
       if (response.status === 200) {
         onClose();
       }
-
-      // console.log("this is updatedData", updatedData);
-      // Handle success: close the modal, refresh data, etc.
       onHide(); // Close the modal
     } catch (error) {
       // Handle error: display error message, etc.
@@ -238,9 +223,9 @@ const EditModal = ({ onClose, show, onHide, selectedCustomer }) => {
                     borderWidth: "1px",
                     borderRadius: "5px",
                     borderStyle: "solid",
-                    borderColor: "#DEE2E5", //  테두리 색 적용
-                    backgroundColor: "transparent", // 배경을 투명하게 설정
-                    color: "#585C5E", // 글자색을 설정
+                    borderColor: "#DEE2E5",
+                    backgroundColor: "transparent",
+                    color: "#585C5E",
                   }}
                 >
                   고객유형

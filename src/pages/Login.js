@@ -28,25 +28,19 @@ const Login = () => {
       })
       .then((response) => {
         if (response.status == 200) {
-          // console.log("Login Successful", response);
           const { authorization, refresh } = response.headers;
 
           localStorage.setItem("accessToken", authorization.split(" ")[1]);
           localStorage.setItem("refreshToken", refresh);
-          // console.log(
-          //   "Tokens set:",
-          //   localStorage.getItem("accessToken"),
-          //   localStorage.getItem("refreshToken")
-          // );
+
           dispatch(
             loginSuccess({
               accessToken: authorization,
               refreshToken: refresh,
             })
           );
-          // refreshTokenIfNeeded().then(() => {
+
           navigate("/main");
-          // });
         }
       })
       .catch((error) => {
@@ -150,7 +144,6 @@ const Login = () => {
               style={{ display: "flex" }}
               type="email"
               ref={email}
-              // defaultValue={myEmail}
               onChange={(e) => {
                 setMyEmail(e.target.value);
               }}
@@ -168,7 +161,6 @@ const Login = () => {
               style={{ display: "flex" }}
               type="password"
               ref={password}
-              // defaultValue={myPassword}
               onChange={(e) => {
                 setMyPassword(e.target.value);
               }}

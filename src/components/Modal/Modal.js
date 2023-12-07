@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../App.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import Modal from "react-bootstrap/Modal";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
@@ -14,13 +13,11 @@ function Modal1({ onModalClose }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
-    // resetSelections();
     setShow(false);
   };
   const handleShow = () => setShow(true);
 
   const customerType = useRef("");
-  const liPk = useRef("");
   const name = useRef("");
   const birth = useRef("");
   const registerDate = useRef("");
@@ -28,11 +25,9 @@ function Modal1({ onModalClose }) {
   const phone = useRef("");
   const memo = useRef("");
   const state = useRef("");
-  const navigate = useNavigate();
-  // 상태에 저장하는 함수 (React의 useState를 사용한다고 가정)
+
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
 
@@ -91,7 +86,6 @@ function Modal1({ onModalClose }) {
   const handlePhoneInputChange = (event) => {
     const formattedNumber = formatPhoneNumber(event.target.value);
     setPhoneNumber(formattedNumber);
-    // 여기서 서버에 데이터를 보낼 수 있습니다. 예: Axios를 사용하는 API 호출 등
   };
 
   const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
@@ -125,17 +119,16 @@ function Modal1({ onModalClose }) {
     const metroGuDong = {
       metroName: metroName,
       guName: guName,
-      dongName: dongName, // Populate this if needed
+      dongName: dongName,
     };
 
-    // console.log("Updated fullAddress:", fullAddress);
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
     customerType.current.value = selectedCustomerType;
     phone.current = phone.current; // phone Ref를 업데이트하지 않음
     const data = {
-      customerType: selectedCustomerType, // 선택된 고객 유형으로 설정
+      customerType: selectedCustomerType,
       name: name.current.value,
       birth: birthValue,
       registerDate: registerDateValue,
@@ -160,7 +153,6 @@ function Modal1({ onModalClose }) {
           alert("신규고객 등록이 완료되었습니다.");
           onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           handleClose(); // Modal 창 닫기
-          // resetSelections();
         }
       })
 
@@ -200,7 +192,6 @@ function Modal1({ onModalClose }) {
       >
         + Add
       </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -268,12 +259,9 @@ function Modal1({ onModalClose }) {
                     borderWidth: "1px",
                     borderRadius: "5px",
                     borderStyle: "solid",
-                    borderColor: "#DEE2E5", //  테두리 색 적용
-                    backgroundColor: "transparent", // 배경을 투명하게 설정
-                    color: "#585C5E", // 글자색을 설정
-                    // backgroundImage: `url(${circle_icon})`,
-                    // backgroundRepeat: "no-repeat",
-                    // backgroundPosition: "left top",
+                    borderColor: "#DEE2E5",
+                    backgroundColor: "transparent",
+                    color: "#585C5E",
                   }}
                 >
                   고객유형
@@ -292,7 +280,6 @@ function Modal1({ onModalClose }) {
                     value={selectedCustomerType}
                     style={{ borderRadius: "0px", fontSize: "14px" }}
                     onClick={() => handleCustomerTypeClick(type)}
-                    // style={{borderRadius: "5px 0 0 5px",}}
                   >
                     {type}
                   </ToggleButton>
@@ -308,11 +295,6 @@ function Modal1({ onModalClose }) {
                 <img src={circle_icon} style={{ marginBottom: "12px" }} />
               </Form.Label>
               <Form.Control
-                // style={{
-                //   backgroundImage: `url(${circle_icon})`,
-                //   backgroundRepeat: "no-repeat",
-                //   backgroundPosition: "left top",
-                // }}
                 type="registerDate"
                 ref={registerDate}
                 placeholder="DB분배일 | 2023.00.00"
@@ -352,7 +334,6 @@ function Modal1({ onModalClose }) {
               />
             </Form.Group>
             <Row>
-              {/* Sido Dropdown */}
               <Col>
                 <Form.Group
                   className="mb-0"
@@ -369,12 +350,6 @@ function Modal1({ onModalClose }) {
                   >
                     <option className="form-group required" value="">
                       시/도 선택
-                      {/* <span
-                        className="last-letter"
-                        style={{ color: "red", backgroundColor: "red" }}
-                      >
-                        ㅇ*
-                      </span> */}
                     </option>
 
                     {sido.map((el) => (
@@ -385,8 +360,6 @@ function Modal1({ onModalClose }) {
                   </Form.Select>
                 </Form.Group>
               </Col>
-
-              {/* Sigugun Dropdown */}
               <Col>
                 <Form.Group
                   className="mb-0"
@@ -413,8 +386,6 @@ function Modal1({ onModalClose }) {
                   </Form.Select>
                 </Form.Group>
               </Col>
-
-              {/* Dong Dropdown */}
               <Col>
                 <Form.Group
                   className="mb-0"

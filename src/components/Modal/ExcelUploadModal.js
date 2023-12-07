@@ -39,9 +39,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       birth: rowData[3],
       age: rowData[4],
       phone: rowData[5],
-      // Extracting region information
-      dongString: rowData[6], // Assuming region is in the format "MetroName, GuName, DongName"
-
+      dongString: rowData[6],
       memo: rowData[7],
     };
   };

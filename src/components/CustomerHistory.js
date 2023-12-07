@@ -53,7 +53,6 @@ const CustomerHistory = ({ customerPk }) => {
       });
       if (response.status === 200) {
         setHistories(response.data); // 가정: 응답의 데이터가 히스토리 목록임
-        // console.log(response.data);
       }
     } catch (error) {
       console.error("Error fetching updated history:", error.message);
@@ -74,7 +73,6 @@ const CustomerHistory = ({ customerPk }) => {
         }
       );
       if (response.status === 200) {
-        // 이 곳에서 추가적인 작업 (상태 업데이트, UI 변경 등)을 수행할 수 있습니다.
         fetchData(); // 수정된 데이터를 다시 불러옵니다.
       }
     } catch (error) {
@@ -110,8 +108,8 @@ const CustomerHistory = ({ customerPk }) => {
     flex: "none",
     width: "90px",
     textAlign: "center",
-    justifyContent: "center", //진척도 세로축 가운데 정렬
-    padding: "13px", // 아이템 내부 여백 조절
+    justifyContent: "center",
+    padding: "13px",
     marginBottom: "8px",
     marginLeft: "8px",
     borderRadius: "5px",
@@ -122,33 +120,29 @@ const CustomerHistory = ({ customerPk }) => {
   };
   //시간,장소
   const historyItemStyle2 = {
-    flex: "none", // flex 속성 제거
+    flex: "none",
     width: "700px",
     textAlign: "start",
-    padding: "2px", // 아이템 내부 여백 조절
+    padding: "2px",
     marginLeft: "8px",
     borderRightRadius: "20px",
     borderRadius: "5px",
     fontSize: "18px",
     fontWeight: "700",
     cursor: "default",
-    // borderRadius: "0 5px 5px 0",//오른쪽 모서리
   };
   //메모
   const historyItemStyle3 = {
-    flex: "none", // flex 속성 제거
+    flex: "none",
     width: "700px",
     textAlign: "start",
-    padding: "2px", // 아이템 내부 여백 조절
+    padding: "2px",
     marginBottom: "8px",
     marginLeft: "8px",
     fontSize: "16px",
     borderRadius: "5px",
     cursor: "default",
-
-    // borderRadius: "5px 0 0 5px",// 왼쪽모서리
   };
-  //
 
   return (
     <div className="customer-history-container">
@@ -182,11 +176,9 @@ const CustomerHistory = ({ customerPk }) => {
               handleRightClick(e, history.pk);
             }
           }}
-          // onMouseDown={() => handleMouseDown(history.pk)}
-          // onMouseUp={() => handleMouseUp(history)}
           style={{
             display: "flex",
-            alignItems: "center", // 진척도 가로축 가운데 정렬
+            alignItems: "center",
             width: "780px",
             margin: "4px",
             marginBottom: "16px",
@@ -220,7 +212,6 @@ const CustomerHistory = ({ customerPk }) => {
                 onClick={() => handleEditHClick(history)}
                 style={{
                   fontSize: "14px",
-                  // fontWeight: "bold",
                   width: "58px",
                   height: "32px",
                   marginBottom: "6px",
@@ -237,7 +228,6 @@ const CustomerHistory = ({ customerPk }) => {
                 onClick={() => handleDeleteClick(history)}
                 style={{
                   fontSize: "14px",
-                  // fontWeight: "bold",
                   width: "58px",
                   height: "32px",
                   marginBottom: "6px",
@@ -260,7 +250,6 @@ const CustomerHistory = ({ customerPk }) => {
           onHide={() => setShowEditModalH(false)}
           selectedHistory={selectedHistory}
           onClose={handleModalHClose}
-          // onHistoryUpdated={onHistoryUpdated}
         />
       )}
     </div>

@@ -24,7 +24,6 @@ const Search = ({ setCustomers }) => {
       }
     } catch (error) {
       console.error("Error fetching customers by name:", error);
-      // Handle error accordingly, maybe set an error state and display an error message to the user
     }
   };
 
@@ -40,10 +39,8 @@ const Search = ({ setCustomers }) => {
         display: "flex",
         alignItems: "center",
         marginLeft: "316px",
-        // marginBottom: "12px",
         marginTop: "-2px",
       }}
-      // variant={"primary"}
     >
       <input
         className="Search_input"
@@ -53,7 +50,7 @@ const Search = ({ setCustomers }) => {
           display: "flex",
           width: "250px",
           height: "36px",
-          padding: "13px", // 아이템 내부 여백 조절
+          padding: "13px",
           fontSize: "14px",
           marginLeft: "8px",
           border: "none",
@@ -75,12 +72,11 @@ const Search = ({ setCustomers }) => {
           width: "60px",
           height: "36px",
           borderRadius: "8px",
-          backgroundColor: isInputFocused ? "#175CD3" : "#98A2B3", // initial can be replaced with your default color
-          color: isInputFocused ? "#fff" : "#fff", // initial can be replaced with your default color
+          backgroundColor: isInputFocused ? "#175CD3" : "#98A2B3",
+          color: isInputFocused ? "#fff" : "#fff",
           border: "none",
         }}
         onClick={handleSearch}
-        // onClick={}
       >
         검색
       </button>

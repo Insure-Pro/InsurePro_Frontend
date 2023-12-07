@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import CloseButton from "react-bootstrap/CloseButton";
-// import "../App.css";
 
 const MapCustomerDetail = ({ customerPk, onClose }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -38,11 +37,6 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
 
   if (!customerPk) return null;
 
-  //   const handleClose = () => {
-  //     onClose();
-  //     // logic to close the MapCustomerDetail window
-  //   };
-
   return (
     <div
       className="customer-details"
@@ -50,16 +44,14 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         position: "absolute",
         left: "300px", // Adjust based on the width of the Map_customerList_container
         top: 0,
-        width: "300px", // Or your desired width
-        height: "100%", // Take full height
+        width: "300px",
+        height: "100%",
         backgroundColor: "rgba(245, 250, 255, 0.9)",
         zIndex: 2, // Ensure it's above other elements
         borderLeft: "2px solid #dde1e6",
-        // borderRight: "2px solid #dde1e6",
         fontSize: "12px",
       }}
     >
-      {/* <div style={{ width: "300px", height: "700px" }}>dafsdfasf</div> */}
       <div
         style={{
           display: "flex",
@@ -120,10 +112,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
           marginLeft: "10px",
         }}
       >
-        <div>
-          주소 : {customerData.dongString}
-          {/* {customerData.address} */}
-        </div>
+        <div>주소 : {customerData.dongString}</div>
         <div>전화번호 : {customerData.phone}</div>
         <div>
           생년월일 : {customerData.birth} ({customerData.age}세)
@@ -137,11 +126,9 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
           <div className="MapCustomerDetail_item_container" key={index}>
             <div
               style={{
-                // paddingRight: "8px",
                 padding: "0px 12px",
                 color: "#175cd3",
                 fontWeight: "bold",
-
                 display: "flex",
                 alignItems: "center",
               }}

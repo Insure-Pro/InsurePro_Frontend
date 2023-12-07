@@ -27,8 +27,6 @@ const Email = () => {
       } else {
         console.error("Error fetching email:", error);
       }
-
-      // Additional error handling can be added here if needed
     }
   };
 
@@ -62,8 +60,6 @@ const Email = () => {
           justifyContent: "center",
         }}
       >
-        {/* <Header /> */}
-        {/* <StyledSpan>로그인</StyledSpan> */}
         <StyledInputDiv>
           <h1
             style={{
@@ -148,9 +144,6 @@ const Email = () => {
             </div>
           </div>
         </StyledInputDiv>
-        {/* <StyledButtonDiv>
-          <StyledInput onClick={onEmail()} defaultValue="아이디 찾기" />
-        </StyledButtonDiv> */}
       </div>
     </div>
   );

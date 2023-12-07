@@ -159,12 +159,7 @@ const KakaoMap = () => {
                 });
                 setMarkers((prevMarkers) => [...prevMarkers, marker]);
                 marker.setTitle(String(customer.pk));
-                // console.log(
-                //   "마커 생성:",
-                //   marker.getTitle(),
-                //   marker.getPosition()
-                // );
-                // Add click event listener
+
                 window.kakao.maps.event.addListener(
                   marker,
                   "click",
@@ -373,14 +368,7 @@ const KakaoMap = () => {
 
   const [selectedCustomerPk, setSelectedCustomerPk] = useState(null);
 
-  // const handleMarkerClick = (customerPk) => {
-  //   setSelectedCustomerPk(customerPk);
-  //   setIsDetailVisible(true);
-  //   // Additional logic if required
-  // };
-
   const Map_customer_DetailClose = () => {
-    // setSelectedCustomerPk(null);
     setIsDetailVisible(false);
   };
 
@@ -450,7 +438,7 @@ const KakaoMap = () => {
               className="Map_Search_Btn"
               style={{
                 position: "absolute",
-                bottom: "10px", // Position from bottom
+                bottom: "10px",
                 left: "50%", // Center horizontally
                 transform: "translateX(-50%)", // Adjust for the button's width to center
                 zIndex: 3, // Ensure it's above the map
@@ -461,7 +449,7 @@ const KakaoMap = () => {
               검색
             </button>
           )}
-          {/* Map Container */}
+
           <div
             id="map"
             style={{

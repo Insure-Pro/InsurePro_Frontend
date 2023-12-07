@@ -4,10 +4,9 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import Modal from "react-bootstrap/Modal";
 
 function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
-  // const [show, setShow] = useState(false);
   const dateRef = useRef("");
   const addressRef = useRef("");
   const memoRef = useRef("");
@@ -34,8 +33,6 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
   useEffect(() => {
     setUpdatedHistory(selectedHistory);
   }, [selectedHistory]);
-
-  /////////////////////////////////
 
   const [editedHistory, setEditedHistory] = useState({
     progress: "",
@@ -67,7 +64,6 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
     }
   };
 
-  ///////////////////////////////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedDateValue = dateRef.current.value.replace(/[./]/g, "-");
@@ -91,12 +87,8 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
       );
       if (response.status === 200) {
         onHide(); // 모달 닫기
-        // onHistoryUpdated(); // 상위 컴포넌트에 변경사항 알리기
-        // handleClose();
-        // onNewData();
       }
     } catch (err) {
-      // console.log(formData);
       console.error("Error while submitting data", err);
     }
   };
@@ -208,8 +200,6 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            {/* #9BA1B1
-            #98A2B3 */}
             <Modal.Footer style={{ marginRight: "-12px" }}>
               <Button
                 type="submit"
@@ -226,26 +216,4 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
   );
 }
 
-// const formatToValidDate = (inputDate) => {
-//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
-
-//   if (cleanedDate.length !== 8) {
-//     return null;
-//   }
-//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
-//     4,
-//     6
-//   )}-${cleanedDate.substring(6, 8)}`;
-// };
 export default HistoryModalH;
-// const formatToValidDate = (inputDate) => {
-//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
-
-//   if (cleanedDate.length !== 8) {
-//     return null;
-//   }
-//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
-//     4,
-//     6
-//   )}-${cleanedDate.substring(6, 8)}`;
-// };

@@ -41,8 +41,6 @@ const Dbbar = ({
   children,
   onTypeChange,
   setCustomers,
-  // formattedDate,
-  // setFormattedDate,
 }) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
@@ -56,8 +54,6 @@ const Dbbar = ({
     { key: "link-9", label: "Y" },
     { key: "link-10", label: "Z" },
   ]);
-
-  // const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
 
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
@@ -82,7 +78,6 @@ const Dbbar = ({
   ).padStart(2, "0")}월`; // formattedDate 업데이트
   const handleMonthCustomersClick = () => {
     setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
-    // fetchData(); // 데이터를 다시 불러옴
   };
   const handleAllCustomersClick = () => {
     setSelectedTab("전체");
@@ -97,11 +92,7 @@ const Dbbar = ({
       setIsModalOpen(true);
     }
   };
-  // const navigate = useNavigate();
 
-  // const handleExcelUpload = ()=>{
-  //   useNavigate()
-  // }
   // 선택한 년, 월로 formattedDate를 업데이트하는 함수
   const handleDateChange = (newYear, newMonth, fetchedData) => {
     setSelectedYear(newYear);
@@ -109,8 +100,6 @@ const Dbbar = ({
     setIsModalOpen(false); // Optionally, close the modal after changing the date
     const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}`;
     onMonthCustomersClick(formattedDate2);
-    // setFormattedDate(formattedDate2);
-    // setCustomers(fetchedData); // Assuming you have a setCustomers function to update the customer data.
   };
 
   // const moveItem = (fromIndex, toIndex) => {
@@ -152,7 +141,6 @@ const Dbbar = ({
             }}
             ContractedCustomerClcik={handleContractCompleteClick}
             AllCustomersClick={handleAllCustomersClick}
-            // setFormattedDate={setFormattedDate}
           />
           <div
             className="content"
@@ -163,6 +151,7 @@ const Dbbar = ({
             }}
           >
             <span
+              className="Excel_Customer_Add"
               style={{
                 display: "flex",
                 justifyContent: "end",
@@ -177,7 +166,6 @@ const Dbbar = ({
             >
               엑셀로 고객 추가하기
             </span>
-            {/* <h6>엑셀로 고객추가하기</h6> */}
             <h1
               className="maintitle"
               onClick={handleFormattedDateClick}
@@ -185,20 +173,14 @@ const Dbbar = ({
             >
               {" "}
               {selectedTab === "월별 고객" ? formattedDateTitle : activeType}
-              {/* {console.log(selectedTab)} */}
-              {/* {console.log(formattedDate)} */}
             </h1>
-            <Nav
-              className="DbbarItem-container"
-              variant="underline"
-              // style={{ display: "flex", justifyContent: "space-between" }}
-            >
+            <Nav className="DbbarItem-container" variant="underline">
               {items.map((item) => (
                 <Nav.Link
                   key={item.key}
                   className="DbbarItems"
                   onClick={() => handleTypeClick(item.label)}
-                  onMouseEnter={() => setHoveredItem(item.label)} // 추가
+                  onMouseEnter={() => setHoveredItem(item.label)}
                   onMouseLeave={() => setHoveredItem(null)}
                   style={{
                     fontSize: "20px",
@@ -212,10 +194,7 @@ const Dbbar = ({
                   {item.label}
                 </Nav.Link>
               ))}
-              <Search
-                setCustomers={setCustomers}
-                // style={{ marginLeft: "10px" }}
-              />
+              <Search setCustomers={setCustomers} />
             </Nav>
             <hr
               className="Dbbar_hr"
@@ -235,14 +214,12 @@ const Dbbar = ({
             initialMonth={selectedMonth}
             onDateChange={handleDateChange}
             onClose={() => setIsModalOpen(false)}
-            // setFormattedDate={setFormattedDate}
           />
         )}
         {showExcelModal && (
           <ExcelUploadModal
             show={showExcelModal}
             onHide={handleExcelModalClose}
-            // ... pass any other required props ...
           />
         )}
       </div>

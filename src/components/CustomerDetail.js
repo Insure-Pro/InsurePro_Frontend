@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import EditModalD from "./Modal/EditModalD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-// import editIcon from "../external/edit.png";
 import "../App.css";
 
 const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
@@ -14,21 +13,19 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
 
   // Step 1: Add a state to manage the visibility of the EditModal
   const [showEditModal, setShowEditModal] = useState(false);
-  const [customerData, setCustomerData] = useState(data);
   const [selectedCustomer, setSelectedCustomer] = useState(data); // initialCustomerData는 초기 고객 데이터입니다.
   // Step 2: Add an event handler that sets showEditModal to true when the edit icon is clicked
   const handleEditClick = () => {
     setShowEditModal(true);
   };
-  const handleUpdateSuccess = (updatedCustomerData) => {
-    setSelectedCustomer(updatedCustomerData);
-    // 추가적인 로직...
-  };
 
-  const handleModalClose = () => {
-    setShowEditModal(false);
-    // Optionally, refresh customer data if it has been modified in the modal
-  };
+  // const handleUpdateSuccess = (updatedCustomerData) => {
+  //   setSelectedCustomer(updatedCustomerData);
+  // };
+  // const handleModalClose = () => {
+  //   setShowEditModal(false);
+  // Optionally, refresh customer data if it has been modified in the modal
+  // };
 
   return (
     <div className="customer-detail-container">
@@ -65,7 +62,6 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             borderRightWidth: "2px",
             borderLeftWidth: "2px",
             cursor: "default",
-            // backgroundColor: "#175CD3",
           }}
           variant="success"
         >
@@ -104,7 +100,6 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
               }}
               onClick={handleEditClick}
             />
-            {/* Render the EditModal and pass the show prop and a function to close the modal */}
             <EditModalD
               show={showEditModal}
               onClose={(updatedData) => {
@@ -114,13 +109,10 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
               onHide={() => setShowEditModal(false)}
               selectedCustomer={data}
               onUpdateSuccess={onUpdateSuccess}
-
-              // selectedCustomer={data} // Pass the customer data to the EditModal
             />
           </div>
         </div>
 
-        {/* <img src="edit.png" alt="Edit Icon" className="editIcon" /> */}
         <p className="customerPhone" style={{ cursor: "default" }}>
           {data.phone}
         </p>

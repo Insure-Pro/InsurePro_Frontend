@@ -9,30 +9,6 @@ import {
   Sector,
 } from "recharts";
 
-// const data5 = (data) => {
-//   return [
-//     {
-//       name: "OD",
-//       ta개수: data.OD ?? 0,
-//     },
-//     {
-//       name: "AD",
-//       ta개수: data.AD ?? 0,
-//     },
-//     {
-//       name: "CD",
-//       ta개수: data.CD ?? 0,
-//     },
-//     {
-//       name: "CP",
-//       ta개수: data.CP ?? 0,
-//     },
-//     {
-//       name: "JD",
-//       ta개수: data.JD ?? 0,
-//     },
-//   ];
-// };
 const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
 
 const renderActiveShape = (props) => {
@@ -176,5 +152,3 @@ export default class ContractGraph extends PureComponent {
     );
   }
 }
-
-// export default ContractGraph;

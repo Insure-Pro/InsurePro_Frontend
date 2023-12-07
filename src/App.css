@@ -730,4 +730,8 @@
     height: 28px !important;
     margin-left: -24px !important;
   }
+  .Excel_Customer_Add {
+    font-size: 10px !important;
+    margin-right: -36px;
+  }
 }

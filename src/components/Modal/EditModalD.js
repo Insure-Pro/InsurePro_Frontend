@@ -1,22 +1,15 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import Modal from "react-bootstrap/Modal";
 import PropTypes from "prop-types";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 
-const EditModalD = ({
-  onClose,
-  show,
-  onHide,
-  selectedCustomer,
-  onUpdateSuccess,
-}) => {
+const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const nameRef = useRef("");
   const registerDateRef = useRef("");
   const birthRef = useRef("");
@@ -27,7 +20,6 @@ const EditModalD = ({
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const navigate = useNavigate();
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
@@ -42,7 +34,6 @@ const EditModalD = ({
   // useEffect that updates state only when selectedCustomer changes
   useEffect(() => {
     if (selectedCustomer) {
-      // console.log("EditModalD - selectedCustomer:", selectedCustomer);
       setSelectedCustomerType(selectedCustomer?.customerType || "");
       setContractYn(selectedCustomer?.contractYn || false);
     }
@@ -93,16 +84,12 @@ const EditModalD = ({
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
-    // console.log("Clicked button:", type);
-    // console.log("Selected customer type before:", selectedCustomerType);
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
     if (selectedCustomerType === type) {
       setSelectedCustomerType("");
     } else {
       setSelectedCustomerType(type);
     }
-
-    // console.log("Selected customer type after:", selectedCustomerType);
   };
 
   //만나이 계산 함수
@@ -136,7 +123,6 @@ const EditModalD = ({
   const handlePhoneInputChange = (event) => {
     const formattedNumber = formatPhoneNumber(event.target.value);
     setPhoneNumber(formattedNumber);
-    // 여기서 서버에 데이터를 보낼 수 있습니다. 예: Axios를 사용하는 API 호출 등
   };
 
   const handleSubmit = async (event) => {
@@ -170,7 +156,7 @@ const EditModalD = ({
     const metroGuDong = {
       metroName: metroName,
       guName: guName,
-      dongName: dongName, // Populate this if needed
+      dongName: dongName,
     };
 
     try {
@@ -209,9 +195,6 @@ const EditModalD = ({
             onUpdateSuccess
           );
         }
-
-        // console.log(updatedData);
-        // Handle success: close the modal, refresh data, etc.
         onHide();
       } // Close the modal
     } catch (error) {
@@ -243,7 +226,6 @@ const EditModalD = ({
               <Form.Check
                 type="checkbox"
                 label="계약 체결 여부"
-                // defaultValue={selectedCustomer?.contractYn}
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
                 style={{
@@ -266,9 +248,9 @@ const EditModalD = ({
                     borderWidth: "1px",
                     borderRadius: "5px",
                     borderStyle: "solid",
-                    borderColor: "#DEE2E5", //  테두리 색 적용
-                    backgroundColor: "transparent", // 배경을 투명하게 설정
-                    color: "#585C5E", // 글자색을 설정
+                    borderColor: "#DEE2E5",
+                    backgroundColor: "transparent",
+                    color: "#585C5E",
                   }}
                 >
                   고객유형
@@ -341,7 +323,6 @@ const EditModalD = ({
                   </Form.Select>
                 </Form.Group>
               </Col>
-
               {/* Sigugun Dropdown */}
               <Col>
                 <Form.Group className="mb-0" controlId="sigugunSelect">
@@ -362,7 +343,6 @@ const EditModalD = ({
                   </Form.Select>
                 </Form.Group>
               </Col>
-
               {/* Dong Dropdown */}
               <Col>
                 <Form.Group className="mb-0" controlId="dongSelect">
@@ -427,9 +407,6 @@ const EditModalD = ({
               />
             </Form.Group>
             <Modal.Footer style={{ marginRight: "-12px" }}>
-              {/* <Button variant="secondary" onClick={handleClose}>
-                취소
-              </Button> */}
               <Button variant="primary" type="submit">
                 변경사항 저장
               </Button>

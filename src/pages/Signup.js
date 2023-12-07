@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import LoginImg from "../external/loginImg.png";
-// import LoginImg from "../../public/loginImg.png";
 
 const Signup = () => {
   const fileRef = useRef("");
@@ -45,7 +43,6 @@ const Signup = () => {
       })
       .catch((error) => {
         console.error("Error sending code:", error);
-        // 에러 핸들링 로직을 여기에 추가할 수 있습니다.
       });
   };
 
@@ -74,10 +71,6 @@ const Signup = () => {
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
 
-  // const confirmButtonStyle = isCodeSent
-  //   ? { backgroundColor: 'blue' }
-  //   : { backgroundColor: 'grey' };
-
   const sendCodeButtonText = isCodeSent ? "재전송" : "코드전송";
 
   const handleSubmit = (event) => {
@@ -85,23 +78,6 @@ const Signup = () => {
       event.preventDefault();
     }
 
-    // const formData = new FormData();
-    const data = {
-      name: userName.current.value,
-      email: email.current.value,
-      id: usernum.current.value,
-      password: password.current.value,
-      rePassword: passwordConfirm.current.value,
-      // companyPk: 2,// 이거 pk2로 설정 해놨으면서 챰내
-      authNum: parseInt(authNumConfirm.current.value),
-    };
-
-    // formData.append("file", fileRef.current.files[0]);
-    // formData.append(
-    //   "joinData",
-    //   new Blob([JSON.stringify(data)], { type: "application/json" })
-    // );
-    // "proxy": "http://localhost:8080" package.json 아직 효과 x
     if (validate()) {
       axios
         .post(`${MAIN_URL}/employee/signin`, {
@@ -110,7 +86,6 @@ const Signup = () => {
           id: usernum.current.value,
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
-          // companyPk: 2,//
           authNum: parseInt(authNumConfirm.current.value),
         })
         .then((response) => {
@@ -142,7 +117,6 @@ const Signup = () => {
             console.error("네트워크 오류:", error.message);
             // 사용자에게 네트워크 오류를 알림
           }
-          // console.log({ data });
         });
     }
   };
@@ -151,7 +125,6 @@ const Signup = () => {
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
-  const [userNameValue, setUserNameValue] = useState(""); // 상태를 관리하기 위한 useState 훅
   const [myEmail, setMyEmail] = useState("");
   const [myAuthNum, setMyAuthNum] = useState("");
   const [myPassword, setMyPassword] = useState("");
@@ -161,13 +134,7 @@ const Signup = () => {
       email.current.focus();
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
-    }
-    // else if (myAuthNum !== authNumConfirm.current.value) {
-    //   authNumConfirm.current.focus();
-    //   document.querySelector(".error_message").innerHTML =
-    //     "인증코드가 불일치합니다.";
-    // }
-    else if (myPassword && !validPassword.test(myPassword)) {
+    } else if (myPassword && !validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호는 영소문자 숫자 특수문자 혼합 8자 이상 입력해주세요.";
@@ -175,20 +142,12 @@ const Signup = () => {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호가 일치하지 않습니다.";
-      // console.log(password.current.value);
-      // console.log(passwordConfirm.current.value);
     } else {
       document.querySelector(".error_message").innerHTML = "";
       return true;
     }
   };
-  // console.log(myEmail);
-  // console.log(email);
-  // console.log(email.current.value);
 
-  // console.log(myAuthNum);
-  // console.log(authNum);
-  // console.log(authNumConfirm.current.value);
   return (
     <div
       style={{
@@ -217,26 +176,8 @@ const Signup = () => {
         style={{
           width: "560px",
           height: "970px",
-          // marginTop: "-24px",
-          // marginLeft: "48px",
-          // marginTop: "-50px",
         }}
       >
-        {/* <StyledImgDiv>
-          <div className="image-upload">
-            <label htmlFor="file-input">
-              <img
-                src="https://velog.velcdn.com/images/danchoi/post/fac9c456-b1d5-41fd-b7e0-21a3feb2149f/image.png"
-                alt=""
-              />
-            </label>
-
-            <input id="file-input" type="file" />
-          </div>
-        </StyledImgDiv>
-
-        <input type="file" name="file" ref={fileRef} /> */}
-
         <StyledInputDiv>
           <h1
             style={{
@@ -333,10 +274,6 @@ const Signup = () => {
               <input
                 type="authNum"
                 ref={authNumConfirm}
-                // onChange={(e) => {
-                //   setMyAuthNum(e.target.value);
-                // }}
-                // autocomplete="new-password"
                 placeholder="본인 인증 코드를 입력해주세요"
               />
               <button

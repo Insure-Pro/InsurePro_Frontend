@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
+import Modal from "react-bootstrap/Modal";
 
 function HistoryModal({ customerPk, onNewData }) {
   const [show, setShow] = useState(false);
@@ -43,7 +43,6 @@ function HistoryModal({ customerPk, onNewData }) {
       progress: selectedProgressType,
       delYn: "false",
     };
-
     try {
       await axios.post(`${MAIN_URL}/schedule/${customerPk}`, formData, {
         headers: {
@@ -51,7 +50,6 @@ function HistoryModal({ customerPk, onNewData }) {
         },
       });
       handleClose();
-
       onNewData();
     } catch (err) {
       console.log(formData);
@@ -179,26 +177,4 @@ function HistoryModal({ customerPk, onNewData }) {
   );
 }
 
-// const formatToValidDate = (inputDate) => {
-//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
-
-//   if (cleanedDate.length !== 8) {
-//     return null;
-//   }
-//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
-//     4,
-//     6
-//   )}-${cleanedDate.substring(6, 8)}`;
-// };
 export default HistoryModal;
-// const formatToValidDate = (inputDate) => {
-//   let cleanedDate = inputDate.replace(/[^0-9]/g, "");
-
-//   if (cleanedDate.length !== 8) {
-//     return null;
-//   }
-//   return `${cleanedDate.substring(0, 4)}-${cleanedDate.substring(
-//     4,
-//     6
-//   )}-${cleanedDate.substring(6, 8)}`;
-// };

@@ -11,10 +11,8 @@ const Navbar = ({
   onMonthCustomersClick,
   AllCustomersClick,
   ContractedCustomerClcik,
-  setFormattedDate,
 }) => {
-  // const [showItems, setShowItems] = useState(false);
-  const [userName, setUserName] = useState("UserName"); // 초기값으로 'UserName' 설정
+  const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
   const activeType = useSelector((state) => state.customer.activeType);
 
@@ -214,8 +212,6 @@ const Navbar = ({
                 ? "bold"
                 : "500",
           }}
-
-          // onClick={handleAllCustomersClick}>
         >
           전체
         </div>
