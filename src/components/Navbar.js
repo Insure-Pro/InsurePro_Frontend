@@ -158,13 +158,13 @@ const Navbar = ({
           {userName}
         </div>
         <div
-          className="userName"
+          className="userName navbar-welcome-text"
           style={{ fontSize: "16px", marginLeft: "2px", cursor: "default" }}
         >
           님 환영합니다.
         </div>
         <img
-          className="userName"
+          className="userName navbar-icon"
           src={imageUrl}
           style={{ paddingLeft: "16px", cursor: "pointer" }}
           onClick={handleLogout}
@@ -186,6 +186,7 @@ const Navbar = ({
         }}
       >
         <img
+          className="navbar-icon"
           src={isAnalysisSelected || isMapSelected ? users_black : users_white}
           style={{
             paddingRight: "8px",
@@ -255,6 +256,7 @@ const Navbar = ({
           }}
         >
           <img
+            className="navbar-icon"
             src={!isAnalysisSelected ? graph_black : graph_white}
             style={{
               paddingRight: "8px",
@@ -271,6 +273,7 @@ const Navbar = ({
           }}
         >
           <img
+            className="navbar-icon"
             src={!isMapSelected ? map_black : map_white}
             style={{
               paddingRight: "8px",

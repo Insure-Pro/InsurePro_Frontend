@@ -71,7 +71,6 @@ function App() {
             <Route path="/password" element={<Password />} />
             <Route path="/main" element={<ProtectedMain />} />
             <Route path="/detail" element={<ProtectedDetail />} />
-
             <Route path="/map" element={<ProtectedKakaoMap />} />
             <Route path="/analysis" element={<ProtectedAnalysis />} />
           </Routes>

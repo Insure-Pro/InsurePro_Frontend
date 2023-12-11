@@ -469,7 +469,7 @@
   }
   .vertical-navbar,
   .Dbbar_hr {
-    display: none;
+    /* display: none; */
     /* flex-direction: column; */
   }
   .content {
@@ -733,5 +733,31 @@
   .Excel_Customer_Add {
     font-size: 10px !important;
     margin-right: -36px;
+  }
+
+  .vertical-navbar {
+    width: 112px !important;
+    padding: 10px;
+  }
+  .brand {
+    padding: 10px;
+    font-size: 16px;
+    margin: 24px 0px;
+  }
+  .userName {
+    font-size: 14px !important;
+    margin-bottom: 14px !important;
+  }
+  .navbar-icon,
+  .navbar-welcome-text {
+    display: none;
+  }
+  .navbar-item {
+    font-size: 12px !important;
+    padding-left: 10px !important;
+    padding-right: 2px !important;
+  }
+  .title {
+    padding-right: 2px !important;
   }
 }
