@@ -4,6 +4,7 @@ import "../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/authSlice";
+import NavbarItem from "./NavbarItem";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -23,6 +24,14 @@ const Navbar = ({
   const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
   const [isMapSelected, setIsMapSelected] = useState(false);
 
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownClicked, setDropdownClicked] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+    setDropdownClicked(!dropdownClicked);
+  };
+
   const location = useLocation();
 
   const users_black = process.env.PUBLIC_URL + "/users_black.png";
@@ -31,6 +40,8 @@ const Navbar = ({
   const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
   const map_black = process.env.PUBLIC_URL + "/map_black2.png";
   const map_white = process.env.PUBLIC_URL + "/map_white2.png";
+  const search = process.env.PUBLIC_URL + "/search.png";
+  const mypage = process.env.PUBLIC_URL + "/mypage.png";
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
@@ -136,150 +147,85 @@ const Navbar = ({
   return (
     <div className="vertical-navbar">
       <div className="brand" onClick={() => handleLogoClick()}>
-        InsurePro
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          className="userName"
-          style={{
-            fontSize: "20px",
-            color: "#175CD3",
-            fontWeight: "700",
-            justifyItems: "center",
-            cursor: "default",
-          }}
-        >
-          {userName}
-        </div>
-        <div
-          className="userName navbar-welcome-text"
-          style={{ fontSize: "16px", marginLeft: "2px", cursor: "default" }}
-        >
-          님 환영합니다.
-        </div>
-        <img
-          className="userName navbar-icon"
-          src={imageUrl}
-          style={{ paddingLeft: "16px", cursor: "pointer" }}
-          onClick={handleLogout}
-        />
+        INSUREPRO
       </div>
 
-      <div
-        className="title"
-        style={{
-          backgroundColor:
-            !isMapSelected && !isAnalysisSelected ? "#175cd3" : "transparent",
-          color: !isMapSelected && !isAnalysisSelected ? "#fff" : "#000",
-        }}
-        onClick={() => {
-          setSelectedTab("전체");
-          onAllCustomersClick();
-          handleTabClick("전체");
-          AllCustomersClick();
-        }}
-      >
-        <img
-          className="navbar-icon"
-          src={isAnalysisSelected || isMapSelected ? users_black : users_white}
-          style={{
-            paddingRight: "8px",
-          }}
-        />
-        Client
-      </div>
-      <div className="navbar-items">
-        <div
-          className="navbar-item"
-          onClick={() => {
-            setSelectedTab("전체");
-            onAllCustomersClick();
-            handleTabClick("전체");
-            AllCustomersClick();
-          }}
-          style={{
-            color:
-              selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
-                ? "#175cd3"
-                : "black",
-            fontWeight:
-              selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
-                ? "bold"
-                : "500",
-          }}
-        >
-          전체
+      <div className="navbar-container">
+        <div className="navbar-wrapper">
+          <div
+            className="client"
+            style={{
+              fontWeight:
+                !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
+            }}
+            onClick={() => {
+              setSelectedTab("전체");
+              onAllCustomersClick();
+              handleTabClick("전체");
+              AllCustomersClick();
+              toggleDropdown();
+            }}
+          >
+            고객관리
+          </div>
+          {showDropdown && (
+            <NavbarItem
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+              onAllCustomersClick={onAllCustomersClick}
+              onMonthCustomersClick={onMonthCustomersClick}
+              handleTabClick={handleTabClick}
+              AllCustomersClick={AllCustomersClick}
+              ContractedCustomerClcik={ContractedCustomerClcik}
+              onContractCompleteClick={onContractCompleteClick}
+              handleMapClick={handleMapClick}
+            />
+          )}
         </div>
         <div
-          className="navbar-item"
-          onClick={() => {
-            setSelectedTab("계약완료고객");
-            onContractCompleteClick();
-            handleTabClick("계약완료고객");
-            ContractedCustomerClcik();
-          }}
-          style={{
-            color: selectedTab === "계약완료고객" ? "#175cd3" : "black",
-            fontWeight: selectedTab === "계약완료고객" ? "bold" : "500",
-          }}
-        >
-          계약완료고객
-        </div>
-        <div
-          className="navbar-item"
-          onClick={() => {
-            setSelectedTab("월별 고객");
-            handleTabClick("월별 고객");
-            onMonthCustomersClick();
-          }}
-          style={{
-            color: selectedTab === "월별 고객" ? "#175cd3" : "black",
-            fontWeight: selectedTab === "월별 고객" ? "bold" : "500",
-          }}
-        >
-          월별 고객
-        </div>
-        <div
-          className="title analysis"
+          className=""
           onClick={handleAnalysisClick}
           style={{
             backgroundColor:
               isAnalysisSelected && !isMapSelected ? "#175cd3" : "transparent",
-            color: isAnalysisSelected && !isMapSelected ? "#fff" : "#000",
-            fontWeight: "600",
+
+            fontWeight: "normal",
           }}
         >
-          <img
-            className="navbar-icon"
-            src={!isAnalysisSelected ? graph_black : graph_white}
-            style={{
-              paddingRight: "8px",
-            }}
-          />
-          Analysis
+          성과분석
+        </div>
+
+        <div className="" onClick={handleMapClick}>
+          문의하기
         </div>
         <div
-          className="title analysis"
+          className=""
           onClick={handleMapClick}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-            color: isMapSelected ? "#fff" : "#000",
           }}
         >
-          <img
-            className="navbar-icon"
-            src={!isMapSelected ? map_black : map_white}
-            style={{
-              paddingRight: "8px",
-            }}
-          />
-          Map
+          회사소개
+        </div>
+        <div
+          className=""
+          onClick={handleMapClick}
+          style={{
+            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+          }}
+        >
+          <img src={search} />
+        </div>
+        <div
+          className=""
+          onClick={handleMapClick}
+          style={{
+            display: "flex",
+
+            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+          }}
+        >
+          <img src={mypage} />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import axios from "../axiosConfig";
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import "../MainStyles.css";
+import Navbar from "../components/Navbar";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
@@ -179,7 +180,7 @@ const Main = () => {
 
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 15;
+  const customersPerPage = 35;
 
   // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -279,10 +280,17 @@ const Main = () => {
 
   return (
     <div
-      className="Main_container"
-      style={{ width: "1400px", margin: "0 auto" }}
+      className=""
+      // style={{ width: "1400px", margin: "0 auto" }}
     >
-      <div className="Db_container">
+      <div className="">
+        <Navbar
+          onContractCompleteClick={handleContractCompleteClick}
+          onAllCustomersClick={handleAllCustomersClick}
+          onMonthCustomersClick={handleMonthCustomersClick}
+          ContractedCustomerClcik={handleContractCompleteClick}
+          AllCustomersClick={handleAllCustomersClick}
+        />
         <Dbbar
           onTypeChange={handleTypeChange}
           onContractCompleteClick={handleContractCompleteClick}
@@ -291,210 +299,211 @@ const Main = () => {
           customers={customers}
           setCustomers={setCustomers}
           setFormattedDate={setFormattedDate}
+        />
+        <div
+          className="Dbbar_hr "
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingRight: "37px",
+          }}
         >
-          <div
-            className="Dbbar_hr "
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingRight: "37px",
-            }}
-          >
-            <div className="Add_Btn">
-              <Modal1 onModalClose={handleModalClose} />
-              <ExcelDownloadButton
-                customers={customers}
-                activeType={activeType}
-              />
-            </div>
-            <DropdownButton
-              id="dropdown-basic-button"
-              className="dropdownButtonStyles"
-              size="ml"
-              title="정렬기준"
-              variant="secondary"
-            >
-              <Dropdown.Item
-                href="#/action-1"
-                className="customDropdownItemStyles1"
-                onClick={() => handleSortChange("latest")}
-              >
-                최신순
-              </Dropdown.Item>
-              <Dropdown.Item
-                href="#/action-3"
-                className="customDropdownItemStyles1"
-                onClick={() => handleAgeFilterChange("1020")}
-              >
-                10-20대
-              </Dropdown.Item>
-              <Dropdown.Item
-                href="#/action-4"
-                className="customDropdownItemStyles1"
-                onClick={() => handleAgeFilterChange("3040")}
-              >
-                30-40대
-              </Dropdown.Item>
-              <Dropdown.Item
-                href="#/action-5"
-                className="customDropdownItemStyles1"
-                onClick={() => handleAgeFilterChange("5060")}
-              >
-                50-60대
-              </Dropdown.Item>
-              <Dropdown.Item
-                href="#/action-6"
-                className="customDropdownItemStyles1"
-                onClick={() => handleAgeFilterChange("7080")}
-              >
-                70-80대
-              </Dropdown.Item>
-            </DropdownButton>
-          </div>
-          <ListGroup
-            horizontal
-            style={{
-              marginTop: "12px",
-              marginBottom: "-10px",
-              marginBottom: "4px",
-              userSelect: "none",
-            }}
-          >
-            <ListGroup.Item variant="primary" className="listItemTitleStyle1">
-              DB 분배일
-            </ListGroup.Item>
-            <ListGroup.Item variant="primary" className="listItemTitleStyle2">
-              고객유형
-            </ListGroup.Item>
-            <ListGroup.Item variant="primary" className="listItemTitleStyle3">
-              이름
-            </ListGroup.Item>
-            <ListGroup.Item variant="primary" className="listItemTitleStyle4">
-              생년월일 (나이)
-            </ListGroup.Item>
-            <ListGroup.Item variant="primary" className="listItemTitleStyle5">
-              연락처
-            </ListGroup.Item>
-            <ListGroup.Item variant="primary" className="listItemTitleStyle6">
-              거주지
-            </ListGroup.Item>
-          </ListGroup>
-
-          {/* <hr /> */}
-          {[...displayCustomers]
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
-            .map((customer) => (
-              <div
-                key={customer.pk}
-                data-id={customer.pk} // 추가한 data-id 속성
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  handleRightClick(e, customer.pk);
-                }}
-              >
-                <ListGroup
-                  horizontal
-                  key={customer.pk}
-                  onClick={() => handleCustomerClick(customer)}
-                >
-                  <ListGroup.Item
-                    className={`listItemStyle1 ${
-                      customer.contractYn
-                        ? "listItemStyle1-contract"
-                        : "listItemStyle1-noContract"
-                    }`}
-                  >
-                    {customer.registerDate}
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    className={`listItemStyle2 ${
-                      customer.contractYn
-                        ? "listItemStyle2-contract"
-                        : "listItemStyle2-noContract"
-                    }`}
-                  >
-                    {customer.customerType}
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    className={`listItemStyle3 ${
-                      customer.contractYn
-                        ? "listItemStyle3-contract"
-                        : "listItemStyle3-noContract"
-                    }`}
-                  >
-                    {customer.name}
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    className={`listItemStyle4 ${
-                      customer.contractYn
-                        ? "listItemStyle4-contract"
-                        : "listItemStyle4-noContract"
-                    }`}
-                  >
-                    {customer.birth} (만 {customer.age}세)
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    className={`listItemStyle5 ${
-                      customer.contractYn
-                        ? "listItemStyle5-contract"
-                        : "listItemStyle5-noContract"
-                    }`}
-                  >
-                    {customer.phone}
-                  </ListGroup.Item>
-                  <ListGroup.Item
-                    className={`listItemStyle6 ${
-                      customer.contractYn
-                        ? "listItemStyle6-contract"
-                        : "listItemStyle6-noContract"
-                    }`}
-                  >
-                    {customer.dongString}
-                    {customer.address}
-                  </ListGroup.Item>
-                </ListGroup>
-                {showOptions === customer.pk && (
-                  <div>
-                    <Button
-                      variant="outline-primary"
-                      onClick={() => handleEditClick(customer)}
-                      style={{
-                        fontSize: "14px",
-                        height: "36px",
-                        marginBottom: "6px",
-                        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                      }}
-                    >
-                      수정
-                    </Button>{" "}
-                    <Button
-                      variant="outline-danger"
-                      onClick={() => handleDeleteClick(customer)}
-                      style={{
-                        fontSize: "14px",
-                        height: "36px",
-                        marginBottom: "6px",
-                        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                      }}
-                    >
-                      삭제
-                    </Button>{" "}
-                  </div>
-                )}
-              </div>
-            ))}
-          {shouldPaginate && renderPagination()}
-
-          {selectedCustomer && (
-            <EditModal
-              show={showEditModal}
-              onHide={handleEditModalClose}
-              selectedCustomer={selectedCustomer}
-              onClose={handleModalClose}
+          <div className="Add_Btn">
+            <Modal1 onModalClose={handleModalClose} />
+            <ExcelDownloadButton
+              customers={customers}
+              activeType={activeType}
             />
-          )}
-        </Dbbar>
+          </div>
+          <DropdownButton
+            id="dropdown-basic-button"
+            className="dropdownButtonStyles"
+            size="ml"
+            title="정렬기준"
+            variant="secondary"
+          >
+            <Dropdown.Item
+              href="#/action-1"
+              className="customDropdownItemStyles1"
+              onClick={() => handleSortChange("latest")}
+            >
+              최신순
+            </Dropdown.Item>
+            <Dropdown.Item
+              href="#/action-3"
+              className="customDropdownItemStyles1"
+              onClick={() => handleAgeFilterChange("1020")}
+            >
+              10-20대
+            </Dropdown.Item>
+            <Dropdown.Item
+              href="#/action-4"
+              className="customDropdownItemStyles1"
+              onClick={() => handleAgeFilterChange("3040")}
+            >
+              30-40대
+            </Dropdown.Item>
+            <Dropdown.Item
+              href="#/action-5"
+              className="customDropdownItemStyles1"
+              onClick={() => handleAgeFilterChange("5060")}
+            >
+              50-60대
+            </Dropdown.Item>
+            <Dropdown.Item
+              href="#/action-6"
+              className="customDropdownItemStyles1"
+              onClick={() => handleAgeFilterChange("7080")}
+            >
+              70-80대
+            </Dropdown.Item>
+          </DropdownButton>
+        </div>
+        <ListGroup
+          horizontal
+          style={{
+            marginTop: "12px",
+            marginBottom: "-10px",
+            marginBottom: "4px",
+            userSelect: "none",
+          }}
+        >
+          <ListGroup.Item variant="primary" className="listItemTitleStyle1">
+            DB 분배일
+          </ListGroup.Item>
+          <ListGroup.Item variant="primary" className="listItemTitleStyle2">
+            고객유형
+          </ListGroup.Item>
+          <ListGroup.Item variant="primary" className="listItemTitleStyle3">
+            이름
+          </ListGroup.Item>
+          <ListGroup.Item variant="primary" className="listItemTitleStyle4">
+            생년월일 (나이)
+          </ListGroup.Item>
+          <ListGroup.Item variant="primary" className="listItemTitleStyle5">
+            연락처
+          </ListGroup.Item>
+          <ListGroup.Item variant="primary" className="listItemTitleStyle6">
+            거주지
+          </ListGroup.Item>
+        </ListGroup>
+
+        {/* <hr /> */}
+        {[...displayCustomers]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
+          .map((customer) => (
+            <div
+              key={customer.pk}
+              data-id={customer.pk} // 추가한 data-id 속성
+              onContextMenu={(e) => {
+                e.preventDefault();
+                handleRightClick(e, customer.pk);
+              }}
+            >
+              <ListGroup
+                horizontal
+                key={customer.pk}
+                onClick={() => handleCustomerClick(customer)}
+              >
+                <ListGroup.Item
+                  className={`listItemStyle1 ${
+                    customer.contractYn
+                      ? "listItemStyle1-contract"
+                      : "listItemStyle1-noContract"
+                  }`}
+                >
+                  {customer.registerDate}
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle2 ${
+                    customer.contractYn
+                      ? "listItemStyle2-contract"
+                      : "listItemStyle2-noContract"
+                  }`}
+                >
+                  {customer.customerType}
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle3 ${
+                    customer.contractYn
+                      ? "listItemStyle3-contract"
+                      : "listItemStyle3-noContract"
+                  }`}
+                >
+                  {customer.name}
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle4 ${
+                    customer.contractYn
+                      ? "listItemStyle4-contract"
+                      : "listItemStyle4-noContract"
+                  }`}
+                >
+                  {customer.birth} (만 {customer.age}세)
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle5 ${
+                    customer.contractYn
+                      ? "listItemStyle5-contract"
+                      : "listItemStyle5-noContract"
+                  }`}
+                >
+                  {customer.phone}
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle6 ${
+                    customer.contractYn
+                      ? "listItemStyle6-contract"
+                      : "listItemStyle6-noContract"
+                  }`}
+                >
+                  {customer.dongString}
+                  {customer.address}
+                </ListGroup.Item>
+              </ListGroup>
+              {showOptions === customer.pk && (
+                <div>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handleEditClick(customer)}
+                    style={{
+                      fontSize: "14px",
+                      height: "36px",
+                      marginBottom: "6px",
+                      boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                    }}
+                  >
+                    수정
+                  </Button>{" "}
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => handleDeleteClick(customer)}
+                    style={{
+                      fontSize: "14px",
+                      height: "36px",
+                      marginBottom: "6px",
+                      boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                    }}
+                  >
+                    삭제
+                  </Button>{" "}
+                </div>
+              )}
+            </div>
+          ))}
+        {shouldPaginate && renderPagination()}
+
+        {selectedCustomer && (
+          <EditModal
+            show={showEditModal}
+            onHide={handleEditModalClose}
+            selectedCustomer={selectedCustomer}
+            onClose={handleModalClose}
+          />
+        )}
+        {/* </Navbar>
+        </Dbbar> */}
       </div>
     </div>
   );

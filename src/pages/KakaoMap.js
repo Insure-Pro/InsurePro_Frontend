@@ -279,7 +279,7 @@ const KakaoMap = () => {
       marker.setDraggable(true);
     }
   };
-  // 고객 데이터 가져오기 및 좌표 저장
+  // 현 지도 검색 클릭 시 사용
   useEffect(() => {
     axios
       .get(`${MAIN_URL}/customers/latest`, {

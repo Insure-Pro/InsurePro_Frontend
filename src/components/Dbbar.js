@@ -130,23 +130,12 @@ const Dbbar = ({
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <div className="navbar-container">
-          <Navbar
-            onContractCompleteClick={onContractCompleteClick}
-            onAllCustomersClick={onAllCustomersClick}
-            onMonthCustomersClick={() => {
-              handleMonthCustomersClick();
-              // Here, we will pass the formattedDate value to the function in Main.js
-              onMonthCustomersClick(formattedDate);
-            }}
-            ContractedCustomerClcik={handleContractCompleteClick}
-            AllCustomersClick={handleAllCustomersClick}
-          />
+        <div className="Dbbar-container">
           <div
             className="content"
             style={{
               marginLeft: "42px",
-              minHeight: "100vh",
+              marginTop: "60px",
               borderRight: "2px solid #dde1e6",
             }}
           >
@@ -205,7 +194,7 @@ const Dbbar = ({
                 width: "1030px",
               }}
             />
-            {children}
+            {/* {children} */}
           </div>
         </div>
         {isModalOpen && (
