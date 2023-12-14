@@ -38,7 +38,7 @@ const Search = ({ setCustomers }) => {
       style={{
         display: "flex",
         alignItems: "center",
-        marginLeft: "316px",
+
         marginTop: "-2px",
       }}
     >

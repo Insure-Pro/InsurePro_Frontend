@@ -27,7 +27,7 @@
 .App-link {
   color: #61dafb;
 }
-
+/* - - - - -[네비게이션바 시작]- - - - - */
 .vertical-navbar {
   display: flex;
   flex-direction: row;
@@ -36,6 +36,7 @@
   color: #fff;
   padding: 24px 48px;
 }
+/* 로고 */
 .brand {
   color: red;
   font-size: 20px;
@@ -51,7 +52,6 @@
 }
 .client {
   width: 64px;
-  padding-left: 8px;
 }
 
 .navbar-item:hover,
@@ -59,28 +59,40 @@
   font-weight: bold;
 }
 
+/* 전체 */
 .navbar-client :nth-child(1) {
   margin-top: 20px;
 }
+/* 위치 기반 */
 .navbar-client :nth-child(4) {
   margin-bottom: 40px;
 }
+/* 전체~위치기반 사이 간격 */
 .navbar-client > div {
   margin-bottom: 20px;
 }
+/* 고객관리 ~ 회사소개 가로 item들 */
+.navbar-container > div {
+  width: 64px;
+}
+/* 검색 */
 .navbar-container :nth-child(5) {
   display: flex;
   align-items: flex-start;
-  margin-left: 108px;
+  width: 24px;
+  margin-left: 88px;
+  margin-top: 2px;
   margin-right: 24px !important;
 }
+/* 마이페이지 */
 .navbar-container :nth-child(6) {
-  margin-right: 0px !important;
-  margin-top: 4px;
   display: flex;
   align-items: flex-start;
+  width: 20px;
+  margin-top: 4px;
+  margin-right: 0px !important;
 }
-
+/* - - - - -[네비게이션바 끝]- - - - - */
 .title {
   padding: 10px;
   cursor: pointer;
@@ -96,9 +108,6 @@
 }
 
 .content {
-  flex: 1;
-  padding: 24px;
-  padding-left: 0px;
 }
 .maintitle {
   color: #175cd3;

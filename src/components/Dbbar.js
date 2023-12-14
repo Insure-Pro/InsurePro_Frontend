@@ -131,15 +131,8 @@ const Dbbar = ({
     <DndProvider backend={HTML5Backend}>
       <div>
         <div className="Dbbar-container">
-          <div
-            className="content"
-            style={{
-              marginLeft: "42px",
-              marginTop: "60px",
-              borderRight: "2px solid #dde1e6",
-            }}
-          >
-            <span
+          <div className="content" style={{}}>
+            {/* <span
               className="Excel_Customer_Add"
               style={{
                 display: "flex",
@@ -154,16 +147,9 @@ const Dbbar = ({
               onClick={handleExcelModalShow}
             >
               엑셀로 고객 추가하기
-            </span>
-            <h1
-              className="maintitle"
-              onClick={handleFormattedDateClick}
-              style={{ width: "300px", userSelect: "none" }}
-            >
-              {" "}
-              {selectedTab === "월별 고객" ? formattedDateTitle : activeType}
-            </h1>
-            <Nav className="DbbarItem-container" variant="underline">
+            </span> */}
+
+            <Nav className="DbbarItem-container">
               {items.map((item) => (
                 <Nav.Link
                   key={item.key}
@@ -172,26 +158,30 @@ const Dbbar = ({
                   onMouseEnter={() => setHoveredItem(item.label)}
                   onMouseLeave={() => setHoveredItem(null)}
                   style={{
-                    fontSize: "20px",
-                    marginLeft: "2px",
+                    color: "#000",
+                    fontSize: "14px",
+                    marginLeft: "18px",
+                    fontWeight:
+                      activeType === item.label || hoveredItem === item.label
+                        ? "bold"
+                        : "normal",
                     borderBottom:
                       activeType === item.label || hoveredItem === item.label
-                        ? "2px solid #175cd3"
+                        ? "2px solid #000"
                         : "none",
                   }}
                 >
                   {item.label}
                 </Nav.Link>
               ))}
-              <Search setCustomers={setCustomers} />
+              {/* <Search setCustomers={setCustomers} /> */}
             </Nav>
             <hr
               className="Dbbar_hr"
               style={{
+                width: "1024px",
+                height: "2px",
                 marginTop: "-2px",
-                marginLeft: "8px",
-                height: "15px",
-                width: "1030px",
               }}
             />
             {/* {children} */}

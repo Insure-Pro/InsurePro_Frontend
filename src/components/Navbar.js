@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/authSlice";
 import NavbarItem from "./NavbarItem";
+import Search from "./Search";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -12,6 +13,7 @@ const Navbar = ({
   onMonthCustomersClick,
   AllCustomersClick,
   ContractedCustomerClcik,
+  setCustomers,
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
@@ -209,19 +211,18 @@ const Navbar = ({
         </div>
         <div
           className=""
-          onClick={handleMapClick}
+          onClick={toggleDropdown}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}
         >
           <img src={search} />
         </div>
+        {showDropdown && <Search setCustomers={setCustomers} />}
         <div
           className=""
-          onClick={handleMapClick}
+          onClick={toggleDropdown}
           style={{
-            display: "flex",
-
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}
         >
