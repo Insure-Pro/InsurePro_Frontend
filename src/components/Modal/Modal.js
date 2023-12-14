@@ -88,6 +88,7 @@ function Modal1({ onModalClose }) {
     setPhoneNumber(formattedNumber);
   };
 
+  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
   const handleSubmit = (event) => {
@@ -184,14 +185,18 @@ function Modal1({ onModalClose }) {
   };
   return (
     <>
-      <Button
+      <button
         className="Add_Btn2"
-        variant="primary"
-        style={{ boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.30)" }}
         onClick={handleShow}
+        style={{
+          width: "20px",
+          height: "20px",
+          marginLeft: "48px",
+          marginRight: "16px",
+        }}
       >
-        + Add
-      </Button>
+        <img src={add_icon} />
+      </button>
       <Modal
         show={show}
         onHide={handleClose}

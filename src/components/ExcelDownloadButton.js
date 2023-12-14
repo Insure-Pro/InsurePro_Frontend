@@ -3,7 +3,7 @@ import * as XLSX from "xlsx";
 
 const ExcelDownloadButton = ({ customers, activeType }) => {
   // 주어진 컬럼 설정
-  const imageUrl = process.env.PUBLIC_URL + "/icons8-excel-28.png";
+  const exceldownload = process.env.PUBLIC_URL + "/Group.png";
 
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
@@ -51,17 +51,9 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
   return (
     <button
       onClick={generateExcelFile}
-      style={{
-        border: "1px solid #007F6D",
-        padding: "4px 4px",
-        paddingBottom: "2px",
-        borderRadius: "4px",
-        backgroundColor: "#FFF",
-        color: "#FFF",
-        boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.20)",
-      }}
+      style={{ width: "20px", height: "20px" }}
     >
-      <img src={imageUrl}></img>
+      <img src={exceldownload}></img>
     </button>
   );
 };
