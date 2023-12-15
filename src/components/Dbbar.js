@@ -130,7 +130,7 @@ const Dbbar = ({
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <div className="Dbbar-container">
+        <div className="Dbbar-container" style={{ backgroundColor: "#fff" }}>
           <div className="content" style={{}}>
             {/* <span
               className="Excel_Customer_Add"
@@ -182,6 +182,7 @@ const Dbbar = ({
                 width: "1024px",
                 height: "2px",
                 marginTop: "-2px",
+                marginBottom: "0px",
               }}
             />
             {/* {children} */}

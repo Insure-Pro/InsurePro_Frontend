@@ -279,34 +279,34 @@ const Main = () => {
   };
 
   return (
-    <div
-      className=""
-      // style={{ width: "1400px", margin: "0 auto" }}
-    >
-      <div className="">
-        <Navbar
-          onContractCompleteClick={handleContractCompleteClick}
-          onAllCustomersClick={handleAllCustomersClick}
-          onMonthCustomersClick={handleMonthCustomersClick}
-          ContractedCustomerClcik={handleContractCompleteClick}
-          AllCustomersClick={handleAllCustomersClick}
-        />
-        <Dbbar
-          onTypeChange={handleTypeChange}
-          onContractCompleteClick={handleContractCompleteClick}
-          onAllCustomersClick={handleAllCustomersClick}
-          onMonthCustomersClick={handleMonthCustomersClick}
-          customers={customers}
-          setCustomers={setCustomers}
-          setFormattedDate={setFormattedDate}
-        />
+    <div className="" style={{ width: "1024px" }}>
+      <Navbar
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        onMonthCustomersClick={handleMonthCustomersClick}
+        ContractedCustomerClcik={handleContractCompleteClick}
+        AllCustomersClick={handleAllCustomersClick}
+      />
+      <Dbbar
+        onTypeChange={handleTypeChange}
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        onMonthCustomersClick={handleMonthCustomersClick}
+        customers={customers}
+        setCustomers={setCustomers}
+        setFormattedDate={setFormattedDate}
+      />
+      <div className="" style={{ backgroundColor: "#F3F3F3" }}>
         <div
           className="Dbbar_hr "
           style={{
             display: "flex",
+            width: "1024px",
+            paddingTop: "16px",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingRight: "37px",
+
+            paddingRight: "68px",
           }}
         >
           <div className="Add_Btn">
@@ -317,10 +317,9 @@ const Main = () => {
             />
           </div>
           <DropdownButton
-            id="dropdown-basic-button"
-            className="dropdownButtonStyles"
-            size="ml"
+            size="sm"
             title="정렬기준"
+            style={{ backgroundColor: "#fff" }}
             variant="secondary"
           >
             <Dropdown.Item
@@ -360,34 +359,23 @@ const Main = () => {
             </Dropdown.Item>
           </DropdownButton>
         </div>
-        <ListGroup
+        <div
           horizontal
           style={{
+            display: "flex",
             marginTop: "12px",
-            marginBottom: "-10px",
+            marginLeft: "48px",
             marginBottom: "4px",
             userSelect: "none",
           }}
         >
-          <ListGroup.Item variant="primary" className="listItemTitleStyle1">
-            DB 분배일
-          </ListGroup.Item>
-          <ListGroup.Item variant="primary" className="listItemTitleStyle2">
-            고객유형
-          </ListGroup.Item>
-          <ListGroup.Item variant="primary" className="listItemTitleStyle3">
-            이름
-          </ListGroup.Item>
-          <ListGroup.Item variant="primary" className="listItemTitleStyle4">
-            생년월일 (나이)
-          </ListGroup.Item>
-          <ListGroup.Item variant="primary" className="listItemTitleStyle5">
-            연락처
-          </ListGroup.Item>
-          <ListGroup.Item variant="primary" className="listItemTitleStyle6">
-            거주지
-          </ListGroup.Item>
-        </ListGroup>
+          <div className="listItemTitleStyle1">DB 분배일</div>
+          <div className="listItemTitleStyle2">고객유형</div>
+          <div className="listItemTitleStyle3">이름</div>
+          <div className="listItemTitleStyle4">생년월일 (나이)</div>
+          <div className="listItemTitleStyle5">연락처</div>
+          <div className="listItemTitleStyle6">거주지</div>
+        </div>
 
         {/* <hr /> */}
         {[...displayCustomers]
