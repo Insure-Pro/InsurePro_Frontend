@@ -211,7 +211,6 @@ const Navbar = ({
         </div>
         <div
           className=""
-          onClick={toggleDropdown}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}
@@ -221,12 +220,11 @@ const Navbar = ({
         {showDropdown && <Search setCustomers={setCustomers} />}
         <div
           className=""
-          onClick={toggleDropdown}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}
         >
-          <img src={mypage} />
+          <img src={mypage} onClick={handleLogout} />
         </div>
       </div>
     </div>

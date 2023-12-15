@@ -76,7 +76,6 @@ const Login = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          // paddingTop: "138px",
           justifyContent: "center",
           width: "1024px",
           height: "100vh",
