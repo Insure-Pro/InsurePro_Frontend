@@ -155,7 +155,7 @@ const Navbar = ({
       <div className="navbar-container">
         <div className="navbar-wrapper">
           <div
-            className="client"
+            className="font-light cursor-pointer client"
             style={{
               fontWeight:
                 !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
@@ -185,23 +185,23 @@ const Navbar = ({
           )}
         </div>
         <div
-          className=""
+          className="cursor-pointer"
           onClick={handleAnalysisClick}
           style={{
             backgroundColor:
               isAnalysisSelected && !isMapSelected ? "#175cd3" : "transparent",
 
-            fontWeight: "normal",
+            fontWeight: isAnalysisSelected && !isMapSelected ? "700" : "300",
           }}
         >
           성과분석
         </div>
 
-        <div className="" onClick={handleMapClick}>
+        <div className="font-light cursor-pointer" onClick={handleMapClick}>
           문의하기
         </div>
         <div
-          className=""
+          className="font-light cursor-pointer"
           onClick={handleMapClick}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
@@ -210,7 +210,7 @@ const Navbar = ({
           회사소개
         </div>
         <div
-          className=""
+          className="cursor-pointer"
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}
@@ -219,7 +219,7 @@ const Navbar = ({
         </div>
         {showDropdown && <Search setCustomers={setCustomers} />}
         <div
-          className=""
+          className="cursor-pointer"
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
           }}

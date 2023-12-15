@@ -28,7 +28,7 @@ const NavbarItem = ({
           fontWeight:
             selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
               ? "bold"
-              : "normal",
+              : "300",
         }}
       >
         전체
@@ -41,7 +41,7 @@ const NavbarItem = ({
           onMonthCustomersClick();
         }}
         style={{
-          fontWeight: selectedTab === "월별 고객" ? "bold" : "normal",
+          fontWeight: selectedTab === "월별 고객" ? "bold" : "300",
         }}
       >
         월별 고객
@@ -55,7 +55,7 @@ const NavbarItem = ({
           ContractedCustomerClcik();
         }}
         style={{
-          fontWeight: selectedTab === "계약완료고객" ? "bold" : "normal",
+          fontWeight: selectedTab === "계약완료고객" ? "bold" : "300",
         }}
       >
         계약 완료
@@ -65,6 +65,7 @@ const NavbarItem = ({
         onClick={handleMapClick}
         style={{
           backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+          fontWeight: selectedTab === "위치 기반" ? "bold" : "300",
         }}
       >
         위치 기반

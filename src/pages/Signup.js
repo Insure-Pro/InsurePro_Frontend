@@ -178,11 +178,17 @@ const Signup = () => {
         }}
       >
         <div style={{ width: "780px" }}>
-          <div style={{ marginTop: "57px", marginBottom: "30px" }}>
+          <div
+            class="font-semibold cursor-default"
+            style={{ marginTop: "57px", marginBottom: "30px" }}
+          >
             {" "}
             회원가입
           </div>
-          <div style={{ textAlign: "right", fontSize: "12px" }}>
+          <div
+            class="font-light cursor-default"
+            style={{ textAlign: "right", fontSize: "12px" }}
+          >
             <span style={{ color: "#FF0000", paddingRight: "4px" }}>*</span>
             필수입력사항
           </div>
@@ -196,6 +202,7 @@ const Signup = () => {
               }}
             >
               <span
+                class="font-medium cursor-default"
                 style={{
                   marginRight: "80px",
                   fontSize: "14px",
@@ -214,6 +221,7 @@ const Signup = () => {
                   setMyEmail(e.target.value);
                 }}
                 placeholder="이메일을 입력해주세요"
+                class="font-light"
                 style={{
                   width: "360px",
                   height: "42px",
@@ -221,12 +229,12 @@ const Signup = () => {
                   fontSize: "14px",
                   marginRight: "16px",
                   borderRadius: "4px",
-
                   border: "1px solid #B8B8B8",
                 }}
               />
               <button
                 className="signin_code_button"
+                class="font-light"
                 type="button"
                 onClick={handleSendCodeClick}
                 style={baseButtonStyle}
@@ -248,6 +256,7 @@ const Signup = () => {
                 type="authNum"
                 ref={authNumConfirm}
                 placeholder="본인 인증 코드를 입력해주세요"
+                class="font-light"
                 style={{
                   width: "360px",
                   height: "42px",
@@ -261,6 +270,7 @@ const Signup = () => {
               />
               <button
                 className="signin_code_button"
+                class="font-light"
                 style={confirmButtonStyle}
                 disabled={!isCodeSent}
                 onClick={handleVerifyClick}
@@ -289,6 +299,7 @@ const Signup = () => {
             }}
           >
             <span
+              class="font-medium cursor-default"
               style={{
                 marginRight: "68px",
                 fontSize: "14px",
@@ -308,6 +319,7 @@ const Signup = () => {
               onChange={(e) => {
                 setMyPassword(e.target.value);
               }}
+              class="font-light"
               style={{
                 width: "360px",
                 height: "42px",
@@ -327,6 +339,7 @@ const Signup = () => {
             }}
           >
             <span
+              class="font-medium cursor-default"
               style={{
                 marginRight: "40px",
                 fontSize: "14px",
@@ -341,6 +354,7 @@ const Signup = () => {
               type="password"
               ref={passwordConfirm}
               placeholder="비밀번호 재입력"
+              class="font-light"
               style={{
                 width: "360px",
                 height: "42px",
@@ -369,6 +383,7 @@ const Signup = () => {
             }}
           >
             <span
+              class="font-medium cursor-default"
               style={{
                 marginRight: "92px",
                 fontSize: "14px",
@@ -383,6 +398,7 @@ const Signup = () => {
               type="name"
               ref={userName}
               placeholder="사원이름 입력하기"
+              class="font-light"
               style={{
                 width: "360px",
                 height: "42px",
@@ -402,6 +418,7 @@ const Signup = () => {
             }}
           >
             <span
+              class="font-medium cursor-default"
               style={{
                 marginRight: "68px",
                 fontSize: "14px",
@@ -416,6 +433,7 @@ const Signup = () => {
               type="text"
               ref={usernum}
               placeholder="사원번호 입력하기"
+              class="font-light"
               style={{
                 width: "360px",
                 height: "42px",
@@ -443,6 +461,7 @@ const Signup = () => {
             }}
           >
             <span
+              class="font-medium cursor-default"
               style={{
                 marginRight: "76px",
                 marginLeft: "10px",
@@ -459,7 +478,6 @@ const Signup = () => {
               <SelectOptions
                 value={selectedTeam}
                 onChange={handleChange}
-                style={{}}
                 show={showOptions}
               >
                 <Option onClick={handleOnChangeSelectValue} value="위너 이글">
@@ -509,6 +527,7 @@ const Signup = () => {
                 }
               }}
               type="submit"
+              class="font-semibold "
               style={{
                 display: "flex",
                 width: "280px",
@@ -538,6 +557,7 @@ const SelectBox = styled.div`
   position: relative;
   display: flex;
   align-item: start;
+  font-weight: 300;
   width: 360px;
   height: 42px;
   padding: 12px 20px;

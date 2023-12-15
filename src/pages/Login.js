@@ -92,6 +92,7 @@ const Login = () => {
           }}
         >
           <span
+            class="font-semibold cursor-default"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -112,6 +113,7 @@ const Login = () => {
               }}
               placeholder="이메일을 입력해주세요."
               autoFocus
+              class="font-light"
               style={{
                 width: "280px",
                 height: "42px",
@@ -124,6 +126,13 @@ const Login = () => {
           </div>
           <div>
             <input
+              type="password"
+              ref={password}
+              onChange={(e) => {
+                setMyPassword(e.target.value);
+              }}
+              placeholder="비밀번호를 입력해주세요."
+              class="font-light"
               style={{
                 width: "280px",
                 height: "42px",
@@ -133,12 +142,6 @@ const Login = () => {
                 border: "1px solid #B8B8B8",
                 borderRadius: "4px",
               }}
-              type="password"
-              ref={password}
-              onChange={(e) => {
-                setMyPassword(e.target.value);
-              }}
-              placeholder="비밀번호를 입력해주세요."
             />
             <div
               className="error_message"
@@ -154,9 +157,12 @@ const Login = () => {
               cursor: "pointer",
             }}
           >
-            <div onClick={() => navigate("/Email")}>아이디 찾기 |</div>
+            <div onClick={() => navigate("/Email")} class="font-light">
+              아이디 찾기 |
+            </div>
             <div
               onClick={() => navigate("/Password")}
+              class="font-light"
               style={{ paddingLeft: "4px" }}
             >
               {" "}
@@ -178,6 +184,7 @@ const Login = () => {
                   onLogin();
                 }
               }}
+              class="font-semibold cursor-pointer"
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -197,6 +204,7 @@ const Login = () => {
           </div>
           <div
             onClick={() => navigate("/signup")}
+            class="font-semibold cursor-pointer"
             style={{
               display: "flex",
               justifyContent: "center",
