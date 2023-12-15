@@ -93,6 +93,17 @@
   margin-right: 0px !important;
 }
 /* - - - - -[네비게이션바 끝]- - - - - */
+
+.team_selectBox {
+  &::before {
+    content: "⌵";
+    position: absolute;
+    top: 1px;
+    right: 8px;
+    color: #49c181;
+    font-size: 20px;
+  }
+}
 .title {
   padding: 10px;
   cursor: pointer;
