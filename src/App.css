@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+:root {
+  --gray-50: #9e9e9e;
+  --gray-100: #f3f3f3;
+  --gray-150: #b8b8b8;
+  --gray-200: #d9d9d9;
+  --gray-300: #cfcfcf;
+  --primary-100: #b61865;
+  --secondary-400: #ffcd5b;
+  --secondary-500: #ffc132;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -38,7 +49,7 @@
 }
 /* 로고 */
 .brand {
-  color: red;
+  color: #fff;
   font-size: 20px;
   font-weight: bold;
   margin-right: 88px;
@@ -96,6 +107,23 @@
   cursor: pointer;
 }
 /* - - - - -[네비게이션바 끝]- - - - - */
+
+/* - - - - -[회원가입 시작]- - - - - */
+.Highlighting {
+  @apply pr-1 text-[#FF0000];
+}
+.signin_input_box {
+  @apply border-gray-150 h-[42px] w-[360px] rounded border py-3 pl-5 text-sm font-light;
+}
+.signin_span {
+  @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
+}
+
+.signin_hr {
+  width: 780px;
+  height: 0px;
+  margin: 24px 0px;
+}
 
 .title {
   padding: 10px;
