@@ -38,7 +38,7 @@ const Login = () => {
             loginSuccess({
               accessToken: authorization,
               refreshToken: refresh,
-            })
+            }),
           );
 
           navigate("/main");
@@ -72,32 +72,12 @@ const Login = () => {
   return (
     <div style={{}}>
       <Navbar />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "1024px",
-          height: "100vh",
-          backgroundColor: "#F3F3F3",
-        }}
-      >
-        <div
-          style={{
-            width: "356px",
-            height: "354px",
-            padding: "24px 36px",
-            borderRadius: "6px",
-            backgroundColor: "#fff",
-          }}
-        >
+      <div class="flex h-[100vh] w-[1024px] justify-center bg-gray-100 pt-[138px]">
+        <div class="h-[354px] w-[356px] rounded-md bg-white px-9 py-6">
           <span
-            class="font-semibold cursor-default"
+            class="mb-6 flex  cursor-default justify-center font-semibold"
             style={{
-              display: "flex",
-              justifyContent: "center",
               fontSize: "17px",
-              marginBottom: "24px",
             }}
           >
             {" "}
@@ -113,15 +93,7 @@ const Login = () => {
               }}
               placeholder="이메일을 입력해주세요."
               autoFocus
-              class="font-light"
-              style={{
-                width: "280px",
-                height: "42px",
-                padding: "12px 20px",
-                fontSize: "14px",
-                border: "1px solid #B8B8B8",
-                borderRadius: "4px",
-              }}
+              className="login_input_box"
             />
           </div>
           <div>
@@ -132,39 +104,18 @@ const Login = () => {
                 setMyPassword(e.target.value);
               }}
               placeholder="비밀번호를 입력해주세요."
-              class="font-light"
-              style={{
-                width: "280px",
-                height: "42px",
-                margin: "12px 0px",
-                padding: "12px 20px",
-                fontSize: "14px",
-                border: "1px solid #B8B8B8",
-                borderRadius: "4px",
-              }}
+              className="login_input_box my-3"
             />
             <div
               className="error_message"
               style={{ marginTop: "-20px", paddingBottom: "20px" }}
             ></div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginBottom: "24px",
-              fontSize: "12px",
-              cursor: "pointer",
-            }}
-          >
+          <div class="mb-6 flex cursor-pointer justify-end text-xs">
             <div onClick={() => navigate("/Email")} class="font-light">
               아이디 찾기 |
             </div>
-            <div
-              onClick={() => navigate("/Password")}
-              class="font-light"
-              style={{ paddingLeft: "4px" }}
-            >
+            <div onClick={() => navigate("/Password")} class="pl-1 font-light">
               {" "}
               비밀번호 찾기
             </div>
@@ -184,39 +135,14 @@ const Login = () => {
                   onLogin();
                 }
               }}
-              class="font-semibold cursor-pointer"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "280px",
-                height: "42px",
-                padding: "10px 0px",
-                marginBottom: "12px",
-                border: "1px solid #B8B8B8",
-                borderRadius: "4px",
-                backgroundColor: "#B61865",
-                color: "#fff",
-              }}
+              className="login_button  border-gray-150 bg-primary-100 text-white"
             >
               로그인
             </div>
           </div>
           <div
             onClick={() => navigate("/signup")}
-            class="font-semibold cursor-pointer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "280px",
-              height: "42px",
-              padding: "10px 0px",
-              marginBottom: "12px",
-              border: "1px solid #B61865",
-              borderRadius: "4px",
-              color: "#B61865",
-            }}
+            className="signup_button  border-primary-100  text-primary-100"
           >
             회원가입
           </div>

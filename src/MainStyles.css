@@ -5,7 +5,7 @@
   box-shadow: 4px 4px 4px 0px rgba(46, 64, 97, 0.3);
 }
 .dropdown-menu .customDropdownItemStyles1 {
-  --bs-dropdown-min-width: auto;
+  /* --bs-dropdown-min-width: auto; */
   /* width: 94px !important; */
 }
 

@@ -11,8 +11,6 @@ import store from "./redux/store";
 import withAuth from "./withAuth";
 import { loginSuccess, logoutSuccess } from "./redux/authSlice";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 const Login = lazy(() => import("./pages/Login"));
 const Email = lazy(() => import("./pages/Email"));
 const Password = lazy(() => import("./pages/Password"));
@@ -45,7 +43,7 @@ function App() {
         loginSuccess({
           accessToken: accessToken,
           refreshToken: refreshToken,
-        })
+        }),
       );
     } else {
       dispatch(logoutSuccess());

@@ -113,7 +113,7 @@
   @apply pr-1 text-[#FF0000];
 }
 .signin_input_box {
-  @apply border-gray-150 h-[42px] w-[360px] rounded border py-3 pl-5 text-sm font-light;
+  @apply h-[42px] w-[360px] rounded border border-gray-150 py-3 pl-5 text-sm font-light;
 }
 .signin_span {
   @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
@@ -124,6 +124,18 @@
   height: 0px;
   margin: 24px 0px;
 }
+/* - - - - -[회원가입 끝]- - - - - */
+/* - - - - -[로그인 시작]- - - - - */
+.login_input_box {
+  @apply h-[42px] w-[280px] rounded border border-gray-150 py-3 pl-5 text-sm font-light;
+}
+
+.login_button,
+.signup_button {
+  @apply mb-3 flex h-[42px] w-[280px] cursor-pointer items-center justify-center rounded border py-2.5 font-semibold;
+}
+
+/* - - - - -[로그인 끝]- - - - - */
 
 .title {
   padding: 10px;
