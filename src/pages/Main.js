@@ -119,7 +119,7 @@ const Main = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         // 이 곳에서 추가적인 작업 (상태 업데이트, UI 변경 등)을 수행할 수 있습니다.
@@ -189,7 +189,7 @@ const Main = () => {
   // 현재 페이지에 표시될 고객 데이터 슬라이싱
   const currentCustomers = customers.slice(
     indexOfFirstCustomer,
-    indexOfLastCustomer
+    indexOfLastCustomer,
   );
 
   const handlePageClick = (pageNumber) => {
@@ -202,7 +202,7 @@ const Main = () => {
     if (currentPage < maxPage) {
       const nextPage = Math.min(
         maxPage,
-        currentPage + (5 - ((currentPage - 1) % 5))
+        currentPage + (5 - ((currentPage - 1) % 5)),
       );
       setCurrentPage(nextPage);
     }
@@ -222,7 +222,7 @@ const Main = () => {
     }
   };
   const [shouldPaginate, setShouldPaginate] = useState(
-    window.innerWidth <= 700
+    window.innerWidth <= 700,
   );
 
   useEffect(() => {
@@ -319,7 +319,17 @@ const Main = () => {
           <DropdownButton
             size="sm"
             title="정렬기준"
-            style={{ backgroundColor: "#fff" }}
+            style={{
+              backgroundColor: "#5c636a",
+              color: "#fff",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              fontSize: "12px",
+              width: "86px",
+              height: "36px",
+            }}
             variant="secondary"
           >
             <Dropdown.Item
@@ -360,9 +370,9 @@ const Main = () => {
           </DropdownButton>
         </div>
         <div
-          horizontal
           style={{
             display: "flex",
+            width: "1024px",
             marginTop: "12px",
             marginLeft: "48px",
             marginBottom: "4px",
@@ -390,7 +400,7 @@ const Main = () => {
               }}
             >
               <ListGroup
-                horizontal
+                style={{ display: "flex" }}
                 key={customer.pk}
                 onClick={() => handleCustomerClick(customer)}
               >

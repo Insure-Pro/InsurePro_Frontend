@@ -65,16 +65,16 @@ const Dbbar = ({
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1
+    currentDate.getMonth() + 1,
   );
 
   const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
     2,
-    "0"
+    "0",
   )}`; // formattedDate 업데이트
 
   const formattedDateTitle = `${selectedYear}년 ${String(
-    selectedMonth
+    selectedMonth,
   ).padStart(2, "0")}월`; // formattedDate 업데이트
   const handleMonthCustomersClick = () => {
     setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
@@ -130,8 +130,8 @@ const Dbbar = ({
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <div className="Dbbar-container" style={{ backgroundColor: "#fff" }}>
-          <div className="content" style={{}}>
+        <div>
+          <div class="ml-6 flex h-[36px] w-[1024px] bg-white">
             {/* <span
               className="Excel_Customer_Add"
               style={{
@@ -149,18 +149,15 @@ const Dbbar = ({
               엑셀로 고객 추가하기
             </span> */}
 
-            <Nav className="DbbarItem-container">
+            <Nav>
               {items.map((item) => (
                 <Nav.Link
                   key={item.key}
-                  className="DbbarItems"
+                  className="ml-6 inline-block h-[36px] w-[42px] py-2 text-center text-sm text-black"
                   onClick={() => handleTypeClick(item.label)}
                   onMouseEnter={() => setHoveredItem(item.label)}
                   onMouseLeave={() => setHoveredItem(null)}
                   style={{
-                    color: "#000",
-                    fontSize: "14px",
-                    marginLeft: "18px",
                     fontWeight:
                       activeType === item.label || hoveredItem === item.label
                         ? "bold"
@@ -176,7 +173,7 @@ const Dbbar = ({
               ))}
               {/* <Search setCustomers={setCustomers} /> */}
             </Nav>
-            <hr
+            {/* <hr
               className="Dbbar_hr"
               style={{
                 width: "1024px",
@@ -184,7 +181,7 @@ const Dbbar = ({
                 marginTop: "-2px",
                 marginBottom: "0px",
               }}
-            />
+            /> */}
             {/* {children} */}
           </div>
         </div>

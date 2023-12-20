@@ -151,8 +151,6 @@
   margin-right: 8px;
 }
 
-.content {
-}
 .maintitle {
   color: #175cd3;
   padding: 24px;
@@ -162,10 +160,6 @@
   text-align: left;
   font-size: 42px;
   font-weight: bold;
-}
-
-.nav {
-  margin-left: 8px;
 }
 
 .Db_container {
@@ -184,14 +178,6 @@
   border: none;
 }
 
-.Db_content {
-  display: flex;
-  flex-direction: row;
-  margin-left: 24px;
-  text-align: left;
-  justify-content: space-between;
-  margin-top: 16px;
-}
 .Db_content > div {
   flex: 1;
   margin-right: 10px; /* Add margin-right for spacing between divs */
