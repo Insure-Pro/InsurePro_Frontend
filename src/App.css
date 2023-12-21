@@ -13,6 +13,7 @@
   --gray-150: #b8b8b8;
   --gray-200: #d9d9d9;
   --gray-300: #cfcfcf;
+  --gray-400: #616161;
   --primary-100: #b61865;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
@@ -42,7 +43,7 @@
 .vertical-navbar {
   display: flex;
   flex-direction: row;
-  width: 1024px;
+  width: 100vw;
   background-color: #000;
   color: #fff;
   padding: 24px 48px;
@@ -136,6 +137,34 @@
 }
 
 /* - - - - -[로그인 끝]- - - - - */
+
+/* - - - - -[메인화면 시작]- - - - - */
+
+.dropdown-container {
+  position: relative; /* 상대적 위치 */
+  @apply ml-[764px] mr-10 flex h-[36px] w-[106px] flex-row items-center justify-center rounded bg-gray-100 p-2 text-xs font-normal text-gray-400;
+}
+.dropdown-item {
+  position: absolute; /* 절대적 위치 */
+  top: 100%; /* `<ul>`의 아래쪽에 위치 */
+  left: 0;
+  background-color: #fff;
+  color: var(--gray-50);
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%; /* 부모 컨테이너 너비에 맞춤 */
+}
+
+.dropdown-item > li {
+  font-size: 12px;
+  font-weight: 400;
+  height: 28px;
+  color: var(--gray-400);
+}
+.dropdown-img {
+  @apply ml-2 h-[8.75px] w-[20px];
+}
+/* - - - - -[메인화면 끝]- - - - - */
 
 .title {
   padding: 10px;

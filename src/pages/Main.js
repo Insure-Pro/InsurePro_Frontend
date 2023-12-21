@@ -24,10 +24,15 @@ const Main = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
 
+  const [dropdownview, setDropdownview] = useState(false);
+
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
+  const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
+  const dropup = process.env.PUBLIC_URL + "/dropup.png";
 
   useEffect(() => {
     if (selectedTab) {
@@ -279,7 +284,7 @@ const Main = () => {
   };
 
   return (
-    <div className="" style={{ width: "1024px" }}>
+    <div className="" style={{ width: "100vw" }}>
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -296,95 +301,46 @@ const Main = () => {
         setCustomers={setCustomers}
         setFormattedDate={setFormattedDate}
       />
-      <div className="" style={{ backgroundColor: "#F3F3F3" }}>
-        <div
-          className="Dbbar_hr "
-          style={{
-            display: "flex",
-            width: "1024px",
-            paddingTop: "16px",
-            justifyContent: "space-between",
-            alignItems: "center",
-
-            paddingRight: "68px",
-          }}
-        >
-          <div className="Add_Btn">
+      <div class=" flex flex-col  bg-gray-100">
+        <div class=" flex w-screen items-center justify-center     pt-2">
+          <div class="  flex h-[52px] items-center text-center">
             <Modal1 onModalClose={handleModalClose} />
             <ExcelDownloadButton
               customers={customers}
               activeType={activeType}
             />
           </div>
-          <DropdownButton
-            size="sm"
-            title="정렬기준"
-            style={{
-              backgroundColor: "#5c636a",
-              color: "#fff",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              fontSize: "12px",
-              width: "86px",
-              height: "36px",
+          <ul
+            className="dropdown-container"
+            onClick={() => {
+              setDropdownview(!dropdownview);
             }}
-            variant="secondary"
           >
-            <Dropdown.Item
-              href="#/action-1"
-              className="customDropdownItemStyles1"
-              onClick={() => handleSortChange("latest")}
-            >
-              최신순
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-3"
-              className="customDropdownItemStyles1"
-              onClick={() => handleAgeFilterChange("1020")}
-            >
-              10-20대
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-4"
-              className="customDropdownItemStyles1"
-              onClick={() => handleAgeFilterChange("3040")}
-            >
-              30-40대
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-5"
-              className="customDropdownItemStyles1"
-              onClick={() => handleAgeFilterChange("5060")}
-            >
-              50-60대
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-6"
-              className="customDropdownItemStyles1"
-              onClick={() => handleAgeFilterChange("7080")}
-            >
-              70-80대
-            </Dropdown.Item>
-          </DropdownButton>
+            정렬기준{" "}
+            {dropdownview ? (
+              <img className="dropdown-img" src={dropup} alt="Dropup" />
+            ) : (
+              <img className="dropdown-img" src={dropdown} alt="Dropdown" />
+            )}
+            {dropdownview && (
+              <div className="dropdown-item">
+                <li onClick={() => handleSortChange("latest")}>최신순</li>
+                <li onClick={() => handleAgeFilterChange("1020")}>10-20대</li>
+                <li onClick={() => handleAgeFilterChange("3040")}>30-40대</li>
+                <li onClick={() => handleAgeFilterChange("5060")}>50-60대</li>
+                <li onClick={() => handleAgeFilterChange("7080")}>70-80대</li>
+              </div>
+            )}
+          </ul>
         </div>
-        <div
-          style={{
-            display: "flex",
-            width: "1024px",
-            marginTop: "12px",
-            marginLeft: "48px",
-            marginBottom: "4px",
-            userSelect: "none",
-          }}
-        >
-          <div className="listItemTitleStyle1">DB 분배일</div>
-          <div className="listItemTitleStyle2">고객유형</div>
-          <div className="listItemTitleStyle3">이름</div>
-          <div className="listItemTitleStyle4">생년월일 (나이)</div>
-          <div className="listItemTitleStyle5">연락처</div>
-          <div className="listItemTitleStyle6">거주지</div>
+        <div class="mx-12 mb-1 mt-3.5 flex  select-none justify-center">
+          <div className="listItemTitleStyle listItem1">DB 분배일</div>
+          <div className="listItemTitleStyle listItem2">고객유형</div>
+          <div className="listItemTitleStyle listItem3">이름</div>
+          <div className="listItemTitleStyle listItem4">나이</div>
+          <div className="listItemTitleStyle listItem5">연락처</div>
+          <div className="listItemTitleStyle listItem6">거주지</div>
+          <div className="listItemTitleStyle listItem7">인수상태</div>
         </div>
 
         {/* <hr /> */}
@@ -400,64 +356,73 @@ const Main = () => {
               }}
             >
               <ListGroup
-                style={{ display: "flex" }}
+                className="mx-11 flex justify-center"
                 key={customer.pk}
                 onClick={() => handleCustomerClick(customer)}
               >
                 <ListGroup.Item
-                  className={`listItemStyle1 ${
+                  className={`listItemStyle listItem1 ${
                     customer.contractYn
-                      ? "listItemStyle1-contract"
-                      : "listItemStyle1-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
                   {customer.registerDate}
                 </ListGroup.Item>
                 <ListGroup.Item
-                  className={`listItemStyle2 ${
+                  className={` listItemStyle listItem2 ${
                     customer.contractYn
-                      ? "listItemStyle2-contract"
-                      : "listItemStyle2-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
                   {customer.customerType}
                 </ListGroup.Item>
                 <ListGroup.Item
-                  className={`listItemStyle3 ${
+                  className={`listItemStyle listItem3 ${
                     customer.contractYn
-                      ? "listItemStyle3-contract"
-                      : "listItemStyle3-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
                   {customer.name}
                 </ListGroup.Item>
                 <ListGroup.Item
-                  className={`listItemStyle4 ${
+                  className={`listItemStyle listItem4 ${
                     customer.contractYn
-                      ? "listItemStyle4-contract"
-                      : "listItemStyle4-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
-                  {customer.birth} (만 {customer.age}세)
+                  만 {customer.age}세
                 </ListGroup.Item>
                 <ListGroup.Item
-                  className={`listItemStyle5 ${
+                  className={`listItemStyle listItem5 ${
                     customer.contractYn
-                      ? "listItemStyle5-contract"
-                      : "listItemStyle5-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
                   {customer.phone}
                 </ListGroup.Item>
                 <ListGroup.Item
-                  className={`listItemStyle6 ${
+                  className={`listItemStyle listItem6 ${
                     customer.contractYn
-                      ? "listItemStyle6-contract"
-                      : "listItemStyle6-noContract"
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
                   }`}
                 >
                   {customer.dongString}
                   {customer.address}
+                </ListGroup.Item>
+                <ListGroup.Item
+                  className={`listItemStyle listItem7 ${
+                    customer.contractYn
+                      ? "listItemStyle-contract"
+                      : "listItemStyle-noContract"
+                  }`}
+                >
+                  {customer.memo}
                 </ListGroup.Item>
               </ListGroup>
               {showOptions === customer.pk && (
@@ -500,8 +465,6 @@ const Main = () => {
             onClose={handleModalClose}
           />
         )}
-        {/* </Navbar>
-        </Dbbar> */}
       </div>
     </div>
   );
