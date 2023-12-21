@@ -9,7 +9,7 @@ import "../App.css";
 
 const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
   const navigate = useNavigate();
-  const imageUrl = process.env.PUBLIC_URL + "/edit.png";
+  const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
 
   // Step 1: Add a state to manage the visibility of the EditModal
   const [showEditModal, setShowEditModal] = useState(false);
@@ -29,12 +29,9 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
 
   return (
     <div className="customer-detail-container">
-      <div
-        className="backpage"
-        style={{ marginTop: "30px", marginBottom: "40px" }}
-      >
+      <div className="backpage">
         <span
-          className="navigation"
+          className=""
           style={{ cursor: "pointer" }}
           onClick={() => navigate(-1)}
         >
@@ -42,62 +39,17 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             icon={faChevronLeft}
             style={{ marginRight: "16px" }}
           />
-          이전 화면으로 돌아가기
+          고객 관리 리스트로 돌아가기
         </span>
       </div>
-      <div>
-        <Button
-          className="customer_tnp"
-          style={{
-            display: "flex",
-            width: "34px",
-            height: "24px",
-            marginBottom: "10px",
-            padding: "4.84px 8.067px",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "6.454px",
-            fontWeight: "bold",
-            borderBlockWidth: "2px",
-            borderRightWidth: "2px",
-            borderLeftWidth: "2px",
-            cursor: "default",
-          }}
-          variant="success"
-        >
-          {data.customerType}
-        </Button>
-        <div
-          className="customerdetail_editmodal"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{ display: "flex", alignItems: "center", cursor: "default" }}
-          >
-            <h2 className="customerName">{data.name}</h2>
-            <h2>
-              <Form.Check
-                className="Detail_checkbox"
-                aria-label="option 1"
-                checked={data.contractYn}
-                readOnly
-                style={{ paddingTop: "8px", marginLeft: "12px" }}
-              />
-            </h2>
-          </div>
+      <div class=" flex h-[162px] w-[1024px] flex-row bg-gray-100 pt-6">
+        <div className="detailTitle ">
+          {" "}
+          기본정보{" "}
           <div>
             <img
-              className="userName"
+              className=" cursor-pointer pl-1 text-gray-400"
               src={imageUrl}
-              style={{
-                paddingTop: "8px",
-                marginLeft: "12px",
-                cursor: "pointer",
-              }}
               onClick={handleEditClick}
             />
             <EditModalD
@@ -112,10 +64,34 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
             />
           </div>
         </div>
+        <div class="" style={{}}>
+          <div class="text-secondary-100 mb-1.5 text-[17px] font-bold">
+            {data.customerType}
+          </div>
+          <div style={{ cursor: "default" }}>
+            <div class="flex text-[17px] font-bold">
+              {data.name}
+              <div class="mb-3 ml-1 text-base font-normal">
+                {" "}
+                (만 {data.age}세)
+              </div>
+            </div>
 
-        <p className="customerPhone" style={{ cursor: "default" }}>
-          {data.phone}
-        </p>
+            {/* <Form.Check
+              className="Detail_checkbox"
+              aria-label="option 1"
+              checked={data.contractYn}
+              readOnly
+            /> */}
+          </div>
+
+          <div class="mb-3 text-sm" style={{ cursor: "default" }}>
+            {data.dongString}
+          </div>
+          <div class=" text-sm" style={{ cursor: "default" }}>
+            {data.phone}
+          </div>
+        </div>
       </div>
     </div>
   );

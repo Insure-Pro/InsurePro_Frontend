@@ -16,6 +16,8 @@ function HistoryModal({ customerPk, onNewData }) {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
+
   const handleClose = () => {
     setShow(false);
     setDate("");
@@ -59,18 +61,18 @@ function HistoryModal({ customerPk, onNewData }) {
 
   return (
     <>
-      <Button
-        className="history_Add_Btn"
-        variant="primary"
+      <button
+        className="Add_Btn2"
         onClick={handleShow}
         style={{
-          alignItems: "center",
-          backgroundColor: "#175CD3",
-          boxShadow: "5px 4px 4px 0px rgba(46, 64, 97, 0.30)",
+          display: "flex",
+          width: "20px",
+          height: "20px",
         }}
       >
-        + Add
-      </Button>
+        <img src={add_icon} class="ml-1.5 mt-0.5" />
+      </button>
+
       <Modal show={show} onHide={handleClose} style={{ marginTop: "130px" }}>
         <Modal.Header closeButton style={{ marginRight: "16px" }}>
           <Modal.Title>히스토리 추가</Modal.Title>

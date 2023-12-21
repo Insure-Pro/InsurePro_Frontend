@@ -70,7 +70,7 @@ const CustomerHistory = ({ customerPk }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         fetchData(); // 수정된 데이터를 다시 불러옵니다.
@@ -103,146 +103,79 @@ const CustomerHistory = ({ customerPk }) => {
     fetchData();
   };
 
-  //진척도
-  const historyItemStyle1 = {
-    flex: "none",
-    width: "90px",
-    textAlign: "center",
-    justifyContent: "center",
-    padding: "13px",
-    marginBottom: "8px",
-    marginLeft: "8px",
-    borderRadius: "5px",
-    color: "#175CD3",
-    fontSize: "20px",
-    fontWeight: "700",
-    cursor: "default",
-  };
-  //시간,장소
-  const historyItemStyle2 = {
-    flex: "none",
-    width: "700px",
-    textAlign: "start",
-    padding: "2px",
-    marginLeft: "8px",
-    borderRightRadius: "20px",
-    borderRadius: "5px",
-    fontSize: "18px",
-    fontWeight: "700",
-    cursor: "default",
-  };
-  //메모
-  const historyItemStyle3 = {
-    flex: "none",
-    width: "700px",
-    textAlign: "start",
-    padding: "2px",
-    marginBottom: "8px",
-    marginLeft: "8px",
-    fontSize: "16px",
-    borderRadius: "5px",
-    cursor: "default",
-  };
-
   return (
-    <div className="customer-history-container">
-      <div
-        className="customer-histoy-top"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-          padding: "0px 26px",
-        }}
-      >
-        <h5 style={{ fontWeight: "700", cursor: "default" }}>고객 히스토리</h5>
-        <HistoryModal
-          customerPk={customerPk}
-          onNewData={fetchCustomerHistory}
-        />
+    <div className="flex h-4/6 bg-gray-100 pt-6">
+      <div className="detailTitle ">
+        <div class="flex flex-row" style={{ cursor: "default" }}>
+          히스토리{" "}
+          <HistoryModal
+            customerPk={customerPk}
+            onNewData={fetchCustomerHistory}
+          />
+        </div>
       </div>
-      {histories.map((history) => (
-        <div
-          className="history_item_container"
-          key={history.pk}
-          onContextMenu={(e) => {
-            e.preventDefault();
-            handleRightClick(e, history.pk);
-          }}
-          onClick={(e) => {
-            if (windowWidth <= 700) {
+      <div>
+        {histories.map((history) => (
+          <div
+            key={history.pk}
+            onContextMenu={(e) => {
               e.preventDefault();
               handleRightClick(e, history.pk);
-            }
-          }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "780px",
-            margin: "4px",
-            marginBottom: "16px",
-            marginLeft: "164px",
-            padding: "3px",
-            backgroundColor: "#FFF",
-            borderRadius: "13px",
-            boxShadow: "10px 4px 4px 0px rgba(46, 64, 97, 0.10)",
-            userSelect: "text",
-          }}
-        >
-          <div className="history_items_progress" style={historyItemStyle1}>
-            {history.progress}
+            }}
+            onClick={(e) => {
+              if (windowWidth <= 700) {
+                e.preventDefault();
+                handleRightClick(e, history.pk);
+              }
+            }}
+            className="history-container"
+          >
+            <div className="historyItemStyle1">{history.progress}</div>
+            <div>
+              <div className="historyItemStyle2">
+                {history.date} <div class="ml-6"> {history.address}</div>
+              </div>
+              <div className="historyItemStyle3">{history.memo}</div>
+            </div>
+            {showOptions === history.pk && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Button
+                  className="history_edit_Btn"
+                  variant="outline-primary"
+                  onClick={() => handleEditHClick(history)}
+                  style={{
+                    fontSize: "14px",
+                    width: "58px",
+                    height: "32px",
+                    marginBottom: "6px",
+                    paddingBottom: "10px",
+                    marginLeft: "-10px",
+                    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                  }}
+                >
+                  수정
+                </Button>{" "}
+                <Button
+                  className="history_edit_Btn"
+                  variant="outline-danger"
+                  onClick={() => handleDeleteClick(history)}
+                  style={{
+                    fontSize: "14px",
+                    width: "58px",
+                    height: "32px",
+                    marginBottom: "6px",
+                    paddingBottom: "10px",
+                    marginLeft: "-10px",
+                    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
+                  }}
+                >
+                  삭제
+                </Button>{" "}
+              </div>
+            )}
           </div>
-          <div className="history_items">
-            <div
-              className="history_items_dateaddress"
-              style={historyItemStyle2}
-            >
-              {history.date} {history.address}
-            </div>
-            <div className="history_items_memo" style={historyItemStyle3}>
-              {history.memo}
-            </div>
-          </div>
-          {showOptions === history.pk && (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Button
-                className="history_edit_Btn"
-                variant="outline-primary"
-                onClick={() => handleEditHClick(history)}
-                style={{
-                  fontSize: "14px",
-                  width: "58px",
-                  height: "32px",
-                  marginBottom: "6px",
-                  paddingBottom: "10px",
-                  marginLeft: "-10px",
-                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                }}
-              >
-                수정
-              </Button>{" "}
-              <Button
-                className="history_edit_Btn"
-                variant="outline-danger"
-                onClick={() => handleDeleteClick(history)}
-                style={{
-                  fontSize: "14px",
-                  width: "58px",
-                  height: "32px",
-                  marginBottom: "6px",
-                  paddingBottom: "10px",
-                  marginLeft: "-10px",
-                  boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                }}
-              >
-                삭제
-              </Button>{" "}
-            </div>
-          )}
-        </div>
-      ))}
-
+        ))}
+      </div>
       {/* 히스토리 항목들을 렌더링하는 코드... */}
       {selectedHistory && (
         <EditModalH

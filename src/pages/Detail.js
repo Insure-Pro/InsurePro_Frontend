@@ -23,14 +23,14 @@ const Detail = ({}) => {
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1
+    currentDate.getMonth() + 1,
   );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
     2,
-    "0"
+    "0",
   )}`; // formattedDate 업데이트
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -80,16 +80,7 @@ const Detail = ({}) => {
   };
 
   return (
-    <div
-      className="Detail_container"
-      style={{
-        display: "flex",
-        backgroundColor: "#F5FAFF",
-        width: "1400px",
-        margin: "0 auto",
-        borderRight: "2px solid #dde1e6",
-      }}
-    >
+    <div>
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -98,10 +89,8 @@ const Detail = ({}) => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        className="Detail_content"
+        class=" mx-auto h-screen w-[1024px]"
         style={{
-          marginLeft: "52px",
-          height: "110vh",
           userSelect: "none",
         }}
       >
@@ -114,23 +103,24 @@ const Detail = ({}) => {
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
             />
-            <hr
+            {/* <hr
               className="Detail_hr"
               style={{ width: "1020px", marginTop: "40px", marginLeft: "12px" }}
-            />
-            <div style={{ display: "flex" }}>
+            /> */}
+            <div>
               <CustomerInfo
                 data={selectedCustomer}
                 customer={selectedCustomer}
+                onEditClick={handleEditClick}
                 customerPk={customerPk}
                 onUpdateSuccess={handleUpdateSuccess}
               />
             </div>
 
-            <hr
+            {/* <hr
               className="Detail_hr Detail_hr2"
               style={{ width: "1020px", marginLeft: "12px" }}
-            />
+            /> */}
             <CustomerHistory data={customerSchedules} customerPk={customerPk} />
             <EditModalD
               show={showEditModalD}

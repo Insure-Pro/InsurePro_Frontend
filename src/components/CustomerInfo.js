@@ -7,38 +7,25 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(data);
 
+  const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
   return (
-    <div className="customer_info_container" style={{ margin: "-10px 0px" }}>
-      <div>
-        <div className="infoItem" style={{ cursor: "default" }}>
-          <span>생년월일</span>
-          <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {data.birth} (만 {data.age}세)
-          </span>
-        </div>
-        <div className="infoItem" style={{ cursor: "default" }}>
-          <span>주소</span>
-          <span
-            className="infoSpan infoSpanaddress"
-            style={{ marginLeft: "114px" }}
-          >
-            {data.dongString}
-            {data.address}
-          </span>
-        </div>
-      </div>
-      <div>
-        <div className="infoItem" style={{ cursor: "default" }}>
-          <span>특이사항</span>
-          <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {data.memo}
-          </span>
-        </div>
-        <div className="infoItem" style={{ cursor: "default" }}>
-          <span>인수상태</span>
-          <span className="infoSpan" style={{ marginLeft: "80px" }}>
-            {data.state}
-          </span>
+    <div class="flex  flex-row pb-3 pt-6">
+      <div className="detailTitle ">
+        세부정보{" "}
+        <div>
+          <img
+            className="userName pl-1 text-gray-400"
+            src={imageUrl}
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={handleEditClick}
+          />
           <EditModalD
             show={showEditModal}
             onClose={(updatedData) => {
@@ -49,6 +36,20 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
             selectedCustomer={data}
             onUpdateSuccess={onUpdateSuccess}
           />
+        </div>
+      </div>
+      <div>
+        <div className="infoItem">
+          <span className="infoTitle">Db 분배일</span>
+          <span className="infoSpan">{data.registerDate}</span>
+        </div>
+        <div className="infoItem">
+          <span className="infoTitle">인수상태</span>
+          <span className="infoSpan">{data.state}</span>
+        </div>
+        <div className="infoItem">
+          <span className="infoTitle">특이사항</span>
+          <span className="infoSpan">{data.memo}</span>
         </div>
       </div>
     </div>
