@@ -38,6 +38,15 @@ body {
   --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
+  --color-1: #f87171;
+  --color-2: #fb923c;
+  --color-3: #fbbf24;
+  --color-4: #4ade80;
+  --color-5: #2dd4bf;
+  --color-6: #60a5fa;
+  --color-7: #a78bfa;
+  --color-8: #e879f9;
+  --color-9: #fb7185;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -127,6 +127,19 @@ const Dbbar = ({
     onTypeChange(type); // 선택한 유형을 부모 컴포넌트로 전달
   };
 
+  const customerTypeColors = {
+    OD: "var(--color-1)",
+    AD: "var(--color-2)",
+    CP: "var(--color-3)",
+    CD: "var(--color-4)",
+    JD: "var(--color-5)",
+    H: "var(--color-6)",
+    X: "var(--color-7)",
+    Y: "var(--color-8)",
+    Z: "var(--color-9)",
+    All: "black", // 기본 색상
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
@@ -162,11 +175,28 @@ const Dbbar = ({
                       activeType === item.label || hoveredItem === item.label
                         ? "bold"
                         : "normal",
+                    color:
+                      activeType === item.label || hoveredItem === item.label
+                        ? customerTypeColors[item.label]
+                        : "black",
                     borderBottom:
                       activeType === item.label || hoveredItem === item.label
-                        ? "2px solid #000"
+                        ? `2px solid ${customerTypeColors[item.label]}`
                         : "none",
                   }}
+
+                  // 유형별로 아예 색상 변경, borderbottom 포함
+                  // style={{
+                  //   color: customerTypeColors[item.label],
+                  //   fontWeight:
+                  //     activeType === item.label || hoveredItem === item.label
+                  //       ? "bold"
+                  //       : "normal",
+                  //   borderBottom:
+                  //     activeType === item.label || hoveredItem === item.label
+                  //       ? `2px solid ${customerTypeColors[item.label]}`
+                  //       : "none",
+                  // }}
                 >
                   {item.label}
                 </Nav.Link>

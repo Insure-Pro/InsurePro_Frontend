@@ -190,6 +190,18 @@ const Main = () => {
     setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
   };
 
+  const customerTypeColors = {
+    OD: "var(--color-1)",
+    AD: "var(--color-2)",
+    CP: "var(--color-3)",
+    CD: "var(--color-4)",
+    JD: "var(--color-5)",
+    H: "var(--color-6)",
+    X: "var(--color-7)",
+    Y: "var(--color-8)",
+    Z: "var(--color-9)",
+  };
+
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
   const customersPerPage = 35;
@@ -388,6 +400,7 @@ const Main = () => {
                       ? "listItemStyle-contract"
                       : "listItemStyle-noContract"
                   }`}
+                  style={{ color: customerTypeColors[customer.customerType] }}
                 >
                   {customer.customerType}
                 </ListGroup.Item>

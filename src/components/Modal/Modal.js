@@ -68,15 +68,15 @@ function Modal1({ onModalOpen, onModalClose }) {
   const [contractYn, setContractYn] = useState(false);
 
   const customerTypeColors = {
-    OD: "#f87171",
-    AD: "#fb923c",
-    CP: "#fbbf24",
-    CD: "#4ade80",
-    JD: "#2dd4bf",
-    H: "#60a5fa",
-    X: "#a78bfa",
-    Y: "#e879f9",
-    Z: "#fb7185",
+    OD: "var(--color-1)",
+    AD: "var(--color-2)",
+    CP: "var(--color-3)",
+    CD: "var(--color-4)",
+    JD: "var(--color-5)",
+    H: "var(--color-6)",
+    X: "var(--color-7)",
+    Y: "var(--color-8)",
+    Z: "var(--color-9)",
   };
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");
