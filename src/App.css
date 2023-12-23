@@ -6,15 +6,36 @@
   height: 40vmin;
   pointer-events: none;
 }
+body {
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+.no-interaction {
+  pointer-events: none; /* Disables interactions */
+  opacity: 0.5; /* Optional: Dim the background for better user experience */
+}
+/*특정 부분 스크롤바 없애기*/
+
+/* .box{
+  -ms-overflow-style: none;
+}
+.box::-webkit-scrollbar{
+ display:none;
+} */
 
 :root {
   --gray-50: #9e9e9e;
   --gray-100: #f3f3f3;
   --gray-150: #b8b8b8;
   --gray-200: #d9d9d9;
+  --gray-250: #575757;
   --gray-300: #cfcfcf;
   --gray-400: #616161;
   --primary-100: #b61865;
+  --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
 }
@@ -172,7 +193,6 @@
 .Add_Btn > button {
   margin-top: -3px;
   margin-left: 8px;
-
   color: #fff;
   border: none;
 }
@@ -213,7 +233,39 @@
 .historyItemStyle3 {
   @apply flex cursor-default text-xs font-normal;
 }
-/* - - - - -[상세정보 시작]- - - - - */
+/* - - - - -[상세정보 끝]- - - - - */
+/* - - - - -[모달창 시작]- - - - - */
+.modal-style {
+  background-color: white;
+  width: 352px;
+  height: 600px;
+  position: fixed;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* Adjust as needed */
+}
+
+.blur-background {
+  filter: blur(5px);
+}
+.Modal_container {
+  @apply pl-7 pr-9;
+}
+
+.modal_item_container {
+  @apply flex h-10 w-[352px] items-center;
+}
+.modal_item_input {
+  @apply h-7 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
+}
+.modal_address_item {
+  @apply h-[28px] w-[60px]  rounded border;
+}
+/* - - - - -[모달창 끝]- - - - - */
 
 .customerName {
   margin: 16px 0px;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "../../App.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -9,16 +9,52 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 
-function Modal1({ onModalClose }) {
+function Modal1({ onModalOpen, onModalClose }) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => {
-    setShow(false);
+  const modalRef = useRef(); // Reference to the modal
+
+  const handleClose = (event) => {
+    // Check if the click is outside the modal content
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      resetStates(); // 상태 초기화 함수
+      onModalClose();
+      setShow(false);
+    }
   };
-  const handleShow = () => setShow(true);
+
+  const resetStates = () => {
+    // 모달을 닫을 때 입력 필드의 state 초기화
+    setNameInput("");
+    setAgeInput("");
+    setAddressInput("");
+    setBirthInput("");
+    setRegisterDateInput("");
+    setPhoneInput("");
+    setStateInput("");
+    setMemoInput("");
+    setSelectedCustomerType("");
+    setSelectedSido("");
+    setSelectedSigugun("");
+    setSelectedDong("");
+  };
+
+  const handleShow = () => {
+    onModalOpen();
+    setShow(true);
+  };
+  useEffect(() => {
+    // Add event listener to document
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      // Remove event listener on cleanup
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, []);
 
   const customerType = useRef("");
   const name = useRef("");
+  const age = useRef("");
   const birth = useRef("");
   const registerDate = useRef("");
   const address = useRef("");
@@ -38,6 +74,40 @@ function Modal1({ onModalClose }) {
   const [selectedDong, setSelectedDong] = useState("");
 
   const { sido, sigugun, dong } = hangjungdong;
+
+  // State를 추가하여 입력 필드의 값을 추적합니다.
+  const [nameInput, setNameInput] = useState("");
+  const [ageInput, setAgeInput] = useState("");
+  const [addressInput, setAddressInput] = useState("");
+  const [birthInput, setBirthInput] = useState("");
+  const [registerDateInput, setRegisterDateInput] = useState("");
+  const [phoneInput, setPhoneInput] = useState("");
+  const [stateInput, setStateInput] = useState("");
+  const [memoInput, setMemoInput] = useState("");
+
+  // 입력 필드에 대한 이벤트 핸들러를 구현합니다.
+
+  const handleNameInputChange = (e) => {
+    setNameInput(e.target.value);
+  };
+  const handleAgeInputChange = (e) => {
+    setAgeInput(e.target.value);
+  };
+  const handleAddressInputChange = (e) => {
+    setAddressInput(e.target.value);
+  };
+  const handleBirthInputChange = (e) => {
+    setBirthInput(e.target.value);
+  };
+  const handleRegisterDateInputChange = (e) => {
+    setRegisterDateInput(e.target.value);
+  };
+  const handleMemoInputChange = (e) => {
+    setMemoInput(e.target.value);
+  };
+  const handleStateInputChange = (e) => {
+    setStateInput(e.target.value);
+  };
 
   // console.log(fullAddress);
   const handleContractYnChange = () => {
@@ -86,8 +156,11 @@ function Modal1({ onModalClose }) {
   const handlePhoneInputChange = (event) => {
     const formattedNumber = formatPhoneNumber(event.target.value);
     setPhoneNumber(formattedNumber);
+    setPhoneInput(event.target.value);
   };
 
+  const close_icon = process.env.PUBLIC_URL + "/Close.png";
+  const initial_icon = process.env.PUBLIC_URL + "/initial_icon.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
@@ -106,7 +179,7 @@ function Modal1({ onModalClose }) {
       hangjungdong.sido.find((el) => el.sido === selectedSido)?.codeNm || "";
     const guName =
       hangjungdong.sigugun.find(
-        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun
+        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun,
       )?.codeNm || "";
 
     const dongName =
@@ -114,7 +187,7 @@ function Modal1({ onModalClose }) {
         (el) =>
           el.sido === selectedSido &&
           el.sigugun === selectedSigugun &&
-          el.dong === selectedDong
+          el.dong === selectedDong,
       )?.codeNm || "";
 
     const metroGuDong = {
@@ -133,7 +206,7 @@ function Modal1({ onModalClose }) {
       name: name.current.value,
       birth: birthValue,
       registerDate: registerDateValue,
-      age: ageValue,
+      age: age.current.value,
       address: address.current.value,
       phone: phoneNumber,
       contractYn: contractYn,
@@ -152,7 +225,9 @@ function Modal1({ onModalClose }) {
       .then((response) => {
         if (response.status === 201) {
           alert("신규고객 등록이 완료되었습니다.");
-          onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
+          setShow(false);
+          // onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
+          resetStates(); // 입력 상태 초기화
           handleClose(); // Modal 창 닫기
         }
       })
@@ -164,13 +239,13 @@ function Modal1({ onModalClose }) {
             .post(
               /* refreshToken을 사용하여 새 accessToken 요청 URL */ {
                 refreshToken: localStorage.getItem("refreshToken"),
-              }
+              },
             )
             .then((tokenResponse) => {
               // 새로 받은 accessToken을 저장하고 원래의 요청을 다시 시도
               localStorage.setItem(
                 "accessToken",
-                tokenResponse.data.accessToken
+                tokenResponse.data.accessToken,
               );
               handleSubmit(); // 원래의 요청을 다시 시도
             })
@@ -197,21 +272,32 @@ function Modal1({ onModalClose }) {
       >
         <img src={add_icon} />
       </button>
+
       <Modal
+        className="modal-style  "
         show={show}
         onHide={handleClose}
         onExited={onModalClose}
-        style={{ marginTop: "60px", overflow: "auto" }}
+        style={{ marginTop: "60px" }}
       >
-        <Modal.Header style={{ margin: "0px" }} closeButton>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Modal.Title>신규고객 추가 </Modal.Title>
-          </div>
-        </Modal.Header>
         <div
+          className="h-8 rounded-t-md bg-gray-300  px-7 py-[7px] text-sm font-normal"
+          style={{ margin: "0px" }}
+        >
+          <div class="text-gray-250 flex justify-between font-normal">
+            <div>신규고객 추가 </div>
+            <img
+              class="cursor-pointer"
+              onClick={handleClose}
+              src={close_icon}
+            />
+          </div>
+        </div>
+        <div
+          class="pb-2"
           style={{
             display: "flex",
-            margin: "4px 18px -16px 0px",
+            margin: "4px 18px 15px 0px",
             justifyContent: "end",
           }}
         >
@@ -223,20 +309,13 @@ function Modal1({ onModalClose }) {
             필수입력사항
           </span>
         </div>
-        <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
+        <div
+          className="Modal_container"
+          ref={modalRef}
+          style={{ margin: "-15px 0px" }}
+        >
           <Form onSubmit={handleSubmit}>
-            <Form.Group
-              className="mb-4"
-              style={{ display: "flex", marginTop: "22px" }}
-              controlId="name.ControlInput1"
-            >
-              <Form.Label>
-                {" "}
-                <img src={circle_icon} style={{ marginBottom: "12px" }} />
-              </Form.Label>
-              <Form.Control type="text" ref={name} placeholder="이름" />
-            </Form.Group>
-            <Form.Group controlId="contractYn.ControlCheckbox1">
+            {/* <Form.Group> controlId="contractYn.ControlCheckbox1">
               <Form.Check
                 type="checkbox"
                 label="계약 체결 여부"
@@ -248,113 +327,85 @@ function Modal1({ onModalClose }) {
                   marginTop: "-20px",
                 }}
               />
-            </Form.Group>
-            <Form.Group className="mb-0">
-              <img src={circle_icon} style={{ marginBottom: "20px" }} />
-              <ButtonGroup>
-                <div
-                  className="Modal_customerType"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "16px",
-                    paddingRight: "9px",
-                    paddingLeft: "9px",
-                    marginRight: "10px",
-                    borderWidth: "1px",
-                    borderRadius: "5px",
-                    borderStyle: "solid",
-                    borderColor: "#DEE2E5",
-                    backgroundColor: "transparent",
-                    color: "#585C5E",
-                  }}
-                >
-                  고객유형
+            </Form.Group> */}
+            <div className="mb-1  h-12 w-[352px] ">
+              <div class=" flex items-center">
+                <div className="w-[84px] ">
+                  {" "}
+                  <span className="Highlighting">*</span>고객유형
                 </div>
-                {customerTypes.map((type, idx) => (
-                  <ToggleButton
-                    key={idx}
-                    className="Modal_customerType_item"
-                    type="button"
-                    variant={
-                      selectedCustomerType === type
-                        ? "primary"
-                        : "outline-primary"
-                    }
-                    ref={customerType}
-                    value={selectedCustomerType}
-                    style={{ borderRadius: "0px", fontSize: "14px" }}
-                    onClick={() => handleCustomerTypeClick(type)}
-                  >
-                    {type}
-                  </ToggleButton>
-                ))}
-              </ButtonGroup>
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              style={{ display: "flex", marginTop: "22px" }}
-              controlId="example.ControlInput1"
-            >
-              <Form.Label>
-                <img src={circle_icon} style={{ marginBottom: "12px" }} />
-              </Form.Label>
-              <Form.Control
-                type="registerDate"
-                ref={registerDate}
-                placeholder="DB분배일 | 2023.00.00"
-                autoFocus
+                <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
+                  {customerTypes.map((type, idx) => (
+                    <button
+                      key={idx}
+                      className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px]"
+                      type="button"
+                      style={{
+                        color:
+                          selectedCustomerType === type
+                            ? "var(--primary-100)"
+                            : "var(--gray-300)",
+                        borderColor:
+                          selectedCustomerType === type
+                            ? "var(--primary-100)"
+                            : "var(--gray-300)",
+                      }}
+                      ref={customerType}
+                      value={selectedCustomerType}
+                      onClick={() => handleCustomerTypeClick(type)}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div class=" modal_item_container">
+              <div class="w-[84px]">
+                <span className="Highlighting">*</span>
+                이름
+              </div>
+              <input
+                class={`modal_item_input  ${
+                  nameInput ? "border-primary-100" : "border-gray-300"
+                } pl-16`}
+                type="text"
+                ref={name}
+                value={nameInput}
+                onChange={handleNameInputChange}
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              style={{ display: "flex", marginTop: "22px" }}
-              controlId="example.ControlInput1"
-            >
-              <Form.Label>
-                <img src={circle_icon} style={{ marginBottom: "12px" }} />
-              </Form.Label>
-              <Form.Control
-                type="birth"
-                ref={birth}
-                placeholder="생년월일 | 1900.00.00"
-                autoFocus
+            </div>
+            <div class=" modal_item_container">
+              <div class="w-[84px] pl-2">나이 (만)</div>
+              <input
+                class={` modal_item_input ${
+                  ageInput ? "border-primary-100" : "border-gray-300"
+                } pl-[82px]`}
+                type="number"
+                ref={age}
+                value={ageInput}
+                onChange={handleAgeInputChange}
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              style={{ display: "flex", marginTop: "22px" }}
-              controlId="exampleForm.ControlInput1"
-            >
-              <Form.Label>
-                {" "}
-                <img src={circle_icon} style={{ marginBottom: "12px" }} />
-              </Form.Label>
-              <Form.Control
-                type="phoneNumber"
-                ref={phone}
-                onChange={handlePhoneInputChange}
-                placeholder="연락처 | 010-0000-0000"
-                autoFocus
-              />
-            </Form.Group>
-            <Row>
+            </div>
+            <Row className=" flex h-[40px] items-center">
+              <div class="w-[75px] pl-2">주소</div>
               <Col>
-                <Form.Group
-                  className="mb-0"
-                  style={{ display: "flex", marginTop: "22px" }}
-                  controlId="sidoSelect"
-                >
-                  <Form.Label>
+                <div class="flex" controlId="sidoSelect">
+                  <span>
                     {" "}
-                    <img src={circle_icon} style={{ marginBottom: "12px" }} />
-                  </Form.Label>
+                    <span className="Highlighting">*</span>
+                  </span>
                   <Form.Select
+                    className={`modal_address_item ${
+                      selectedSido
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    } `}
                     value={selectedSido}
                     onChange={(e) => setSelectedSido(e.target.value)}
                   >
                     <option className="form-group required" value="">
-                      시/도 선택
+                      시/도
                     </option>
 
                     {sido.map((el) => (
@@ -363,24 +414,22 @@ function Modal1({ onModalClose }) {
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
               <Col>
-                <Form.Group
-                  className="mb-0"
-                  style={{ display: "flex", marginTop: "22px" }}
-                  controlId="sigugunSelect"
-                >
-                  <Form.Label>
-                    {" "}
-                    <img src={circle_icon} style={{ marginBottom: "12px" }} />
-                  </Form.Label>
+                <div class="flex" controlId="sigugunSelect">
+                  <span> </span>
                   <Form.Select
+                    className={`modal_address_item ml-1.5 ${
+                      selectedSigugun
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    }  `}
                     value={selectedSigugun}
                     onChange={(e) => setSelectedSigugun(e.target.value)}
                     disabled={!selectedSido}
                   >
-                    <option value="">구/군 선택</option>
+                    <option value="">구/군</option>
                     {sigugun
                       .filter((el) => el.sido === selectedSido)
                       .map((el) => (
@@ -389,26 +438,27 @@ function Modal1({ onModalClose }) {
                         </option>
                       ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
               <Col>
-                <Form.Group
-                  className="mb-0"
-                  style={{ display: "flex", marginTop: "22px" }}
-                  controlId="dongSelect"
-                >
-                  <Form.Label></Form.Label>
+                <div class="flex" controlId="dongSelect">
+                  <span></span>
                   <Form.Select
+                    className={`modal_address_item ml-1.5 ${
+                      selectedDong
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    } `}
                     value={selectedDong}
                     onChange={(e) => setSelectedDong(e.target.value)}
                     disabled={!selectedSigugun}
                   >
-                    <option value="">동 선택</option>
+                    <option value="">동</option>
                     {dong
                       .filter(
                         (el) =>
                           el.sido === selectedSido &&
-                          el.sigugun === selectedSigugun
+                          el.sigugun === selectedSigugun,
                       )
                       .map((el) => (
                         <option key={el.dong} value={el.dong}>
@@ -416,54 +466,113 @@ function Modal1({ onModalClose }) {
                         </option>
                       ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
             </Row>
-            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="address"
+            <div class="mb-2 flex items-center">
+              <input
+                className={` modal_item_input  ${
+                  addressInput ? "border-primary-100" : "border-gray-300"
+                } ml-[84px] px-3 `}
+                type="text"
                 ref={address}
-                placeholder="도로명 주소 | 지번 주소 입력하기"
-                autoFocus
+                value={addressInput}
+                onChange={handleAddressInputChange}
+                placeholder="상세 주소 입력"
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label></Form.Label>
-              <Form.Control
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px]">
+                <span className="Highlighting">*</span>
+                DB 분배일
+              </div>
+              <input
+                class={` modal_item_input  ${
+                  registerDateInput
+                    ? "border-primary-100"
+                    : "border-gray-300 text-gray-300"
+                } pl-[52px]`}
+                type="date"
+                ref={registerDate}
+                // value={registerDateInput}
+                onChange={handleRegisterDateInputChange}
+                placeholder=" 2023.00.00"
+              />
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px] pl-2">생년월일</div>
+              <input
+                class={`modal_item_input  ${
+                  birthInput
+                    ? "border-primary-100"
+                    : "border-gray-300 text-gray-300"
+                } pl-[52px] `}
+                type="date"
+                ref={birth}
+                // value={birthInput}
+                onChange={handleBirthInputChange}
+                placeholder=" 1900.00.00"
+              />
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px] ">
+                <span className="Highlighting">*</span>전화번호
+              </div>
+              <input
+                class={` modal_item_input ${
+                  phoneInput ? "border-primary-100 " : "border-gray-300 "
+                }  px-3`}
+                type="text"
+                ref={phone}
+                // value={phoneInput}
+                onChange={handlePhoneInputChange}
+                placeholder=" 010-0000-0000"
+              />
+            </div>
+            <div class="modal_item_container mb-2">
+              <div class="w-[84px] pl-2">인수상태</div>
+              <input
+                class={`modal_item_input ${
+                  stateInput ? "border-primary-100" : "border-gray-300"
+                } px-3`}
                 type="state"
                 ref={state}
-                placeholder="인수상태 | 상담중, 전산완료, 가입불가 등"
+                // value={stateInput}
+                onChange={handleStateInputChange}
+                placeholder=" 상담중, 전산완료, 가입불가 "
                 as="textarea"
                 rows={1}
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label></Form.Label>
-              <Form.Control
+            </div>
+            <div class=" flex h-20 w-[352px] ">
+              <div class="w-[84px] pl-2">특이사항</div>
+              <input
+                class={`modal_item_input  ${
+                  memoInput ? "border-primary-100" : "border-gray-300"
+                } px-3`}
                 type="memo"
                 ref={memo}
-                placeholder="특이사항 | 월 보험료 00만원/본인점검/주말상담희망 등"
+                // value={memoInput}
+                onChange={handleMemoInputChange}
+                placeholder=" 월 보험료 00만원/본인점검"
                 as="textarea"
-                rows={2}
+                rows={3}
               />
-            </Form.Group>
-            <Modal.Footer style={{ marginRight: "-12px" }}>
-              <Button variant="secondary" onClick={handleClose}>
+            </div>
+
+            <Modal.Footer>
+              {/* <Button variant="secondary" onClick={handleClose}>
                 취소
-              </Button>
-              <Button variant="primary" type="submit">
-                저장
-              </Button>
+              </Button> */}
+              <button
+                class="flex h-[40px] w-[278px] items-center justify-center border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                type="submit"
+              >
+                등록
+              </button>
             </Modal.Footer>
           </Form>
-        </Modal.Body>
+        </div>
       </Modal>
     </>
   );

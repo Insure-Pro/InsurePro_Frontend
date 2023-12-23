@@ -26,6 +26,8 @@ const Main = () => {
 
   const [dropdownview, setDropdownview] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
@@ -159,9 +161,14 @@ const Main = () => {
     setSelectedSort("");
   };
 
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
   const handleModalClose = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
     fetchData();
+    setIsModalOpen(false);
   };
 
   const handleEditClick = (customer) => {
@@ -284,7 +291,7 @@ const Main = () => {
   };
 
   return (
-    <div className="" style={{ width: "100vw" }}>
+    <div style={{ width: "100vw" }}>
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -301,10 +308,16 @@ const Main = () => {
         setCustomers={setCustomers}
         setFormattedDate={setFormattedDate}
       />
-      <div class=" flex flex-col  bg-gray-100">
+      <div
+        className={isModalOpen ? "blur-background no-interaction" : ""}
+        class=" flex flex-col  bg-gray-100"
+      >
         <div class=" flex w-screen items-center justify-center     pt-2">
           <div class="  flex h-[52px] items-center text-center">
-            <Modal1 onModalClose={handleModalClose} />
+            <Modal1
+              onModalOpen={handleModalOpen}
+              onModalClose={handleModalClose}
+            />
             <ExcelDownloadButton
               customers={customers}
               activeType={activeType}
