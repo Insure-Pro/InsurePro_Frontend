@@ -100,7 +100,7 @@ const Navbar = ({
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-          }
+          },
         );
 
         if (!response.ok) {
@@ -147,15 +147,15 @@ const Navbar = ({
   }, [location]);
 
   return (
-    <div className="vertical-navbar">
-      <div className="brand" onClick={() => handleLogoClick()}>
+    <div className="vertical-navbar w-full">
+      <div className="brand w-2/12" onClick={() => handleLogoClick()}>
         INSUREPRO
       </div>
 
-      <div className="navbar-container">
-        <div className="navbar-wrapper">
+      <div className="navbar-container w-10/12 max-w-[1000px] justify-between">
+        <div className="navbar-wrapper w-1/2">
           <div
-            className="font-light cursor-pointer client"
+            className="client  cursor-pointer font-light"
             style={{
               fontWeight:
                 !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
@@ -185,7 +185,7 @@ const Navbar = ({
           )}
         </div>
         <div
-          className="cursor-pointer"
+          className=" w-1/2 cursor-pointer"
           onClick={handleAnalysisClick}
           style={{
             backgroundColor:
@@ -197,11 +197,14 @@ const Navbar = ({
           성과분석
         </div>
 
-        <div className="font-light cursor-pointer" onClick={handleMapClick}>
+        <div
+          className=" w-1/2  cursor-pointer  font-light"
+          onClick={handleMapClick}
+        >
           문의하기
         </div>
         <div
-          className="font-light cursor-pointer"
+          className=" w-1/2 cursor-pointer  font-light"
           onClick={handleMapClick}
           style={{
             backgroundColor: isMapSelected ? "#175cd3" : "transparent",
@@ -209,22 +212,26 @@ const Navbar = ({
         >
           회사소개
         </div>
-        <div
-          className="cursor-pointer"
-          style={{
-            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-          }}
-        >
-          <img src={search} />
-        </div>
-        {showDropdown && <Search setCustomers={setCustomers} />}
-        <div
-          className="cursor-pointer"
-          style={{
-            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-          }}
-        >
-          <img src={mypage} onClick={handleLogout} />
+      </div>
+      <div class="flex w-2/12  max-w-[390px] justify-end ">
+        <div class="flex max-w-[90px] items-center  justify-between">
+          <div
+            className="cursor-pointer pr-7"
+            style={{
+              backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+            }}
+          >
+            <img src={search} />
+          </div>
+          {showDropdown && <Search setCustomers={setCustomers} />}
+          <div
+            className="cursor-pointer"
+            style={{
+              backgroundColor: isMapSelected ? "#175cd3" : "transparent",
+            }}
+          >
+            <img src={mypage} onClick={handleLogout} />
+          </div>
         </div>
       </div>
     </div>
