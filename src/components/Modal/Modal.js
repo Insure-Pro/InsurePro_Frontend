@@ -67,8 +67,17 @@ function Modal1({ onModalOpen, onModalClose }) {
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
 
-  const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
-
+  const customerTypeColors = {
+    OD: "#f87171",
+    AD: "#fb923c",
+    CP: "#fbbf24",
+    CD: "#4ade80",
+    JD: "#2dd4bf",
+    H: "#60a5fa",
+    X: "#a78bfa",
+    Y: "#e879f9",
+    Z: "#fb7185",
+  };
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");
   const [selectedDong, setSelectedDong] = useState("");
@@ -335,19 +344,19 @@ function Modal1({ onModalOpen, onModalClose }) {
                   <span className="Highlighting">*</span>고객유형
                 </div>
                 <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
-                  {customerTypes.map((type, idx) => (
+                  {Object.keys(customerTypeColors).map((type, idx) => (
                     <button
                       key={idx}
-                      className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px]"
+                      className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
                       type="button"
                       style={{
                         color:
                           selectedCustomerType === type
-                            ? "var(--primary-100)"
+                            ? customerTypeColors[type]
                             : "var(--gray-300)",
                         borderColor:
                           selectedCustomerType === type
-                            ? "var(--primary-100)"
+                            ? customerTypeColors[type]
                             : "var(--gray-300)",
                       }}
                       ref={customerType}
