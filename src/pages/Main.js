@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Dbbar from "../components/Dbbar";
 import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
+import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
@@ -174,12 +175,14 @@ const Main = () => {
   const handleEditClick = (customer) => {
     setSelectedCustomer(customer);
     setShowEditModal(true);
+    setIsModalOpen(true);
     fetchData();
   };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
     setSelectedCustomer(null);
+    setIsModalOpen(false);
     // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
     setShowOptions(null);
     fetchData();
@@ -201,6 +204,46 @@ const Main = () => {
     Y: "var(--color-8)",
     Z: "var(--color-9)",
   };
+
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    xPos: 0,
+    yPos: 0,
+    customer: null,
+  });
+
+  const handleContextMenu = (event, customer) => {
+    event.preventDefault();
+    setContextMenu({
+      visible: true,
+      xPos: event.pageX,
+      yPos: event.pageY,
+      customer: customer,
+    });
+  };
+
+  const handleEdit = (customer) => {
+    setSelectedCustomer(customer);
+    setShowEditModal(true);
+    setIsModalOpen(true);
+    // Edit logic
+    setContextMenu({ ...contextMenu, visible: false });
+  };
+
+  const handleDelete = async (customer) => {
+    await handleDeleteClick(customer);
+    setContextMenu({ ...contextMenu, visible: false });
+  };
+
+  // Close context menu when clicking elsewhere
+  useEffect(() => {
+    const handleClick = () =>
+      setContextMenu({ ...contextMenu, visible: false });
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [contextMenu]);
 
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
@@ -321,10 +364,11 @@ const Main = () => {
         setFormattedDate={setFormattedDate}
       />
       <div
-        className={isModalOpen ? "blur-background no-interaction" : ""}
-        class=" flex flex-col  bg-gray-100"
+        className={`${
+          isModalOpen ? "blur-background no-interaction" : ""
+        } flex flex-col bg-gray-100`}
       >
-        <div class=" flex w-screen items-center justify-center     pt-2">
+        <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">
             <Modal1
               onModalOpen={handleModalOpen}
@@ -375,10 +419,7 @@ const Main = () => {
             <div
               key={customer.pk}
               data-id={customer.pk} // 추가한 data-id 속성
-              onContextMenu={(e) => {
-                e.preventDefault();
-                handleRightClick(e, customer.pk);
-              }}
+              onContextMenu={(e) => handleContextMenu(e, customer)}
             >
               <ListGroup
                 className="mx-11 flex justify-center"
@@ -456,24 +497,12 @@ const Main = () => {
                   <Button
                     variant="outline-primary"
                     onClick={() => handleEditClick(customer)}
-                    style={{
-                      fontSize: "14px",
-                      height: "36px",
-                      marginBottom: "6px",
-                      boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                    }}
                   >
                     수정
                   </Button>{" "}
                   <Button
                     variant="outline-danger"
                     onClick={() => handleDeleteClick(customer)}
-                    style={{
-                      fontSize: "14px",
-                      height: "36px",
-                      marginBottom: "6px",
-                      boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                    }}
                   >
                     삭제
                   </Button>{" "}
@@ -482,9 +511,19 @@ const Main = () => {
             </div>
           ))}
         {shouldPaginate && renderPagination()}
-
+        {contextMenu.visible && (
+          <ContextMenu
+            customer={contextMenu.customer}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            xPos={contextMenu.xPos}
+            yPos={contextMenu.yPos}
+            showMenu={contextMenu.visible}
+          />
+        )}
         {selectedCustomer && (
           <EditModal
+            // className={setShowEditModal ? "blur-background no-interaction" : ""}
             show={showEditModal}
             onHide={handleEditModalClose}
             selectedCustomer={selectedCustomer}

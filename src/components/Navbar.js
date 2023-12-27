@@ -147,12 +147,12 @@ const Navbar = ({
   }, [location]);
 
   return (
-    <div className="vertical-navbar w-full">
+    <div className="vertical-navbar w-full min-w-[1024px]">
       <div className="brand w-2/12" onClick={() => handleLogoClick()}>
         INSUREPRO
       </div>
 
-      <div className="navbar-container w-10/12 max-w-[1000px] justify-between">
+      <div className="navbar-container w-10/12 max-w-[1000px] items-center justify-between">
         <div className="navbar-wrapper w-1/2">
           <div
             className="client  cursor-pointer font-light"
@@ -188,9 +188,6 @@ const Navbar = ({
           className=" w-1/2 cursor-pointer"
           onClick={handleAnalysisClick}
           style={{
-            backgroundColor:
-              isAnalysisSelected && !isMapSelected ? "#175cd3" : "transparent",
-
             fontWeight: isAnalysisSelected && !isMapSelected ? "700" : "300",
           }}
         >
@@ -206,30 +203,17 @@ const Navbar = ({
         <div
           className=" w-1/2 cursor-pointer  font-light"
           onClick={handleMapClick}
-          style={{
-            backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-          }}
         >
           회사소개
         </div>
       </div>
       <div class="flex w-2/12  max-w-[390px] justify-end ">
         <div class="flex max-w-[90px] items-center  justify-between">
-          <div
-            className="cursor-pointer pr-7"
-            style={{
-              backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-            }}
-          >
+          <div className="cursor-pointer pr-7">
             <img src={search} />
           </div>
           {showDropdown && <Search setCustomers={setCustomers} />}
-          <div
-            className="cursor-pointer"
-            style={{
-              backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-            }}
-          >
+          <div className="cursor-pointer">
             <img src={mypage} onClick={handleLogout} />
           </div>
         </div>

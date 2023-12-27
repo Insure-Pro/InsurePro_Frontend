@@ -17,9 +17,9 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
     <div class="flex  flex-row pb-3 pt-6">
       <div className="detailTitle ">
         세부정보{" "}
-        <div>
+        <div class="flex h-[20px] w-[20px] items-end">
           <img
-            className="userName pl-1 text-gray-400"
+            className="userName ml-1 pb-[1px] pl-1 text-gray-400"
             src={imageUrl}
             style={{
               cursor: "pointer",

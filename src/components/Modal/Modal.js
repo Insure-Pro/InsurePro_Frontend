@@ -287,7 +287,6 @@ function Modal1({ onModalOpen, onModalClose }) {
         show={show}
         onHide={handleClose}
         onExited={onModalClose}
-        style={{ marginTop: "60px" }}
       >
         <div
           className="h-8 rounded-t-md bg-gray-300  px-7 py-[7px] text-sm font-normal"
@@ -574,7 +573,7 @@ function Modal1({ onModalOpen, onModalClose }) {
                 취소
               </Button> */}
               <button
-                class="flex h-[40px] w-[278px] items-center justify-center border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                class="flex h-[40px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
                 type="submit"
               >
                 등록

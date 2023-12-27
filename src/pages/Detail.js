@@ -89,7 +89,7 @@ const Detail = ({}) => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        class=" mx-auto h-screen w-[1024px]"
+        class=" mx-auto h-screen w-full min-w-[1024px]"
         style={{
           userSelect: "none",
         }}

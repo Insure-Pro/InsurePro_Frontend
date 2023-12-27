@@ -112,7 +112,7 @@ const KakaoMap = () => {
     // Add the map type control to the map
     mapRef.current.addControl(
       mapTypeControl,
-      window.kakao.maps.ControlPosition.RIGHT
+      window.kakao.maps.ControlPosition.RIGHT,
     );
 
     // Create a zoom control
@@ -121,19 +121,19 @@ const KakaoMap = () => {
     // Add the zoom control to the map
     mapRef.current.addControl(
       zoomControl,
-      window.kakao.maps.ControlPosition.RIGHT
+      window.kakao.maps.ControlPosition.RIGHT,
     );
 
     const markerImageBlue = new window.kakao.maps.MarkerImage(
       marker_blue,
       new window.kakao.maps.Size(21, 28),
-      { offset: new window.kakao.maps.Point(27, 69) }
+      { offset: new window.kakao.maps.Point(27, 69) },
     );
 
     const markerImageRed = new window.kakao.maps.MarkerImage(
       marker_red,
       new window.kakao.maps.Size(21, 28),
-      { offset: new window.kakao.maps.Point(27, 69) }
+      { offset: new window.kakao.maps.Point(27, 69) },
     );
 
     // Existing Axios request to fetch markers
@@ -151,7 +151,7 @@ const KakaoMap = () => {
                 setIsLoading(false);
                 const coords = new window.kakao.maps.LatLng(
                   result[0].y,
-                  result[0].x
+                  result[0].x,
                 );
                 const marker = new window.kakao.maps.Marker({
                   position: coords,
@@ -173,7 +173,7 @@ const KakaoMap = () => {
                     // MapCustomerDetail 컴포넌트 띄우기
                     setSelectedCustomerPk(customer.pk);
                     setIsDetailVisible(true);
-                  }
+                  },
                 );
 
                 // Create a custom overlay for the tooltip
@@ -199,7 +199,7 @@ const KakaoMap = () => {
                   function () {
                     marker.setImage(markerImageRed);
                     customOverlay.setMap(mapRef.current);
-                  }
+                  },
                 );
 
                 window.kakao.maps.event.addListener(
@@ -208,7 +208,7 @@ const KakaoMap = () => {
                   function () {
                     customOverlay.setMap(null);
                     marker.setImage(markerImageBlue);
-                  }
+                  },
                 );
 
                 clusterer.addMarker(marker); // Add each marker to clusterer
@@ -219,7 +219,7 @@ const KakaoMap = () => {
                 console.log(`Address not found: ${customer.dongString}`);
               } else {
                 console.error(
-                  `Geocode was not successful for the following reason: ${status}`
+                  `Geocode was not successful for the following reason: ${status}`,
                 );
               }
             });
@@ -237,7 +237,7 @@ const KakaoMap = () => {
       (cluster) => {
         // const level = map.getLevel() - 1;
         // map.setLevel(level, { anchor: cluster.getCenter() });
-      }
+      },
     );
 
     if (locationObtained) {
@@ -262,8 +262,8 @@ const KakaoMap = () => {
           new kakao.maps.MarkerImage(
             marker_blue,
             new window.kakao.maps.Size(21, 28),
-            { offset: new window.kakao.maps.Point(27, 69) }
-          )
+            { offset: new window.kakao.maps.Point(27, 69) },
+          ),
         );
         m.setDraggable(false);
       });
@@ -273,8 +273,8 @@ const KakaoMap = () => {
         new kakao.maps.MarkerImage(
           marker_red,
           new window.kakao.maps.Size(21, 28),
-          { offset: new window.kakao.maps.Point(27, 69) }
-        )
+          { offset: new window.kakao.maps.Point(27, 69) },
+        ),
       );
       marker.setDraggable(true);
     }
@@ -354,7 +354,7 @@ const KakaoMap = () => {
           enableHighAccuracy: false,
           maximumAge: 0,
           timeout: Infinity,
-        }
+        },
       );
     }
   }, [locationObtained]);
@@ -377,12 +377,12 @@ const KakaoMap = () => {
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1
+    currentDate.getMonth() + 1,
   );
 
   const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
     2,
-    "0"
+    "0",
   )}`; // formattedDate 업데이트
 
   const handleMonthCustomersClick = () => {
@@ -398,16 +398,7 @@ const KakaoMap = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "1400px",
-        height: "100vh",
-        margin: "0 auto",
-        borderRight: "2px solid #dde1e6",
-        userSelect: "none",
-      }}
-    >
+    <div>
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -416,20 +407,14 @@ const KakaoMap = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div>
-        <h1
-          className="maintitle"
-          style={{ margin: "25px 40px -20px 32px", cursor: "default" }}
-        >
-          지도보기
-        </h1>
         {/* Main Content Container */}
         <div
           style={{
             position: "relative",
-            margin: "24px 40px 10px 42px",
+            // margin: "24px 40px 10px 42px",
             // marginTop: "24px",
-            width: "1060px",
-            height: "650px",
+            width: "100%",
+            height: "91vh",
           }}
         >
           {/* Refresh Button */}
@@ -439,14 +424,24 @@ const KakaoMap = () => {
               style={{
                 position: "absolute",
                 bottom: "10px",
+                // width: "196px",
+                paddingLeft: "50px",
+                height: "33px",
                 left: "50%", // Center horizontally
                 transform: "translateX(-50%)", // Adjust for the button's width to center
                 zIndex: 3, // Ensure it's above the map
               }}
               onClick={refreshCustomerList}
             >
-              <img src={refresh} style={{ paddingRight: "10px" }} />현 지도에서
-              검색
+              <img
+                src={refresh}
+                style={{
+                  marginLeft: "-16px",
+                  marginTop: "4px",
+                  position: "absolute",
+                }}
+              />
+              현 지도에서 검색
             </button>
           )}
 
@@ -474,9 +469,9 @@ const KakaoMap = () => {
               style={{
                 position: "absolute",
                 width: "300px",
-                height: "648px", // 높이를 "100%"로 설정
+                height: "100vh", // 높이를 "100%"로 설정
                 backgroundColor: "white",
-                opacity: "0.8",
+
                 paddingTop: "12px",
                 overflowY: "auto",
                 zIndex: 2,

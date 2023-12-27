@@ -170,6 +170,7 @@ const Dbbar = ({
                   onClick={() => handleTypeClick(item.label)}
                   onMouseEnter={() => setHoveredItem(item.label)}
                   onMouseLeave={() => setHoveredItem(null)}
+                  // 유형별로 hover click시에만 해당 색으로 변경
                   style={{
                     fontWeight:
                       activeType === item.label || hoveredItem === item.label

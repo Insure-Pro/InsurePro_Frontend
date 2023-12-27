@@ -20,7 +20,7 @@ const Analysis = () => {
   const [date, setDate] = useState(
     `${new Date().getFullYear()}-${(new Date().getMonth() + 1)
       .toString()
-      .padStart(2, "0")}-01`
+      .padStart(2, "0")}-01`,
   );
 
   const [data, setData] = useState({});
@@ -35,11 +35,11 @@ const Analysis = () => {
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1
+    currentDate.getMonth() + 1,
   );
   const formattedDate1 = `${selectedYear}-${String(selectedMonth).padStart(
     2,
-    "0"
+    "0",
   )}`; // formattedDate 업데이트
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
@@ -77,12 +77,12 @@ const Analysis = () => {
               {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem(
-                    "accessToken"
+                    "accessToken",
                   )}`,
                 },
-              }
-            ).then((response) => response.json())
-          )
+              },
+            ).then((response) => response.json()),
+          ),
         );
 
         // Map responses to an object with customerType keys
@@ -156,16 +156,7 @@ const Analysis = () => {
   };
 
   return (
-    <div
-      className="Detail_container"
-      style={{
-        display: "flex",
-        backgroundColor: "#F5FAFF",
-        width: "1400px",
-        margin: "0 auto",
-        backgroundColor: "#fff",
-      }}
-    >
+    <div className="Detail_container">
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -174,15 +165,15 @@ const Analysis = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        className="analysis_container"
+        className="analysis_container  w-full justify-center"
         style={{
           marginLeft: "38px",
-          height: "100vh",
+          // height: "100vh",
           userSelect: "none",
           borderRight: "2px solid #dde1e6",
         }}
       >
-        <div className="analysis_header maintitle">성과분석</div>
+        {/* <div className="analysis_header maintitle">성과분석</div> */}
         <div
           className="analysis_subtitle_left"
           onClick={() => setShowModal(true)}

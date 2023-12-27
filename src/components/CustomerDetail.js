@@ -29,7 +29,7 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
 
   return (
     <div className="customer-detail-container">
-      <div className="backpage">
+      <div className="backpage ">
         <span
           className=""
           style={{ cursor: "pointer" }}
@@ -42,13 +42,13 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           고객 관리 리스트로 돌아가기
         </span>
       </div>
-      <div class=" flex h-[162px] w-[1024px] flex-row bg-gray-100 pt-6">
+      <div class="flex h-[162px] min-w-[1024px] flex-row bg-gray-100 pt-6">
         <div className="detailTitle ">
           {" "}
           기본정보{" "}
-          <div>
+          <div class="flex h-[20px] w-[20px] items-end">
             <img
-              className=" cursor-pointer pl-1 text-gray-400"
+              className=" ml-1 flex cursor-pointer items-end pb-[1px] pl-1 text-gray-400"
               src={imageUrl}
               onClick={handleEditClick}
             />

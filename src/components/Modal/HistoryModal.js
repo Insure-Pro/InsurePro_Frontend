@@ -66,8 +66,10 @@ function HistoryModal({ customerPk, onNewData }) {
         onClick={handleShow}
         style={{
           display: "flex",
-          width: "20px",
-          height: "20px",
+          width: "16px",
+          height: "16px",
+          paddingTop: "2.5px",
+          marginLeft: "4px",
         }}
       >
         <img src={add_icon} class="ml-1.5 mt-0.5" />

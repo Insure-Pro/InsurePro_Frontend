@@ -6,13 +6,15 @@
   height: 40vmin;
   pointer-events: none;
 }
+
 body {
   -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
+
 .no-interaction {
   pointer-events: none; /* Disables interactions */
   opacity: 0.5; /* Optional: Dim the background for better user experience */
@@ -34,6 +36,7 @@ body {
   --gray-250: #575757;
   --gray-300: #cfcfcf;
   --gray-400: #616161;
+  /* --primary-100: #175cd3; */
   --primary-100: #b61865;
   --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
@@ -74,7 +77,8 @@ body {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  background-color: #000;
+  /* background-color: var(--gray-400); */
+  background-color: #2c2c2c;
   color: #fff;
   padding: 24px 48px;
 }
@@ -208,12 +212,12 @@ body {
 /* - - - - -[메인화면 끝]???? 확인해보고 삭제- - - - - */
 /* - - - - -[상세정보 시작]- - - - - */
 .customer-detail-container {
-  width: 1024px; /* 원하는 가로 크기 */
-  overflow: auto; /* 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
+  /* width: 1024px; */
+  /* overflow: auto; 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
   text-align: start;
 }
 .backpage {
-  @apply ml-12 h-9 bg-white py-[9px] text-sm font-normal;
+  @apply ml-12 h-9 min-w-[1024px] bg-white py-[9px] text-sm font-normal;
 }
 .detailTitle {
   @apply mr-16 flex  w-60 pl-24;
@@ -248,6 +252,8 @@ body {
   background-color: white;
   width: 352px;
   height: 600px;
+  margin-top: 60px;
+  padding-right: 0px !important;
   position: fixed;
   font-size: 14px;
   top: 50%;
@@ -255,7 +261,8 @@ body {
   border: 1px solid var(--gray-100);
   border-radius: 6px;
   transform: translate(-50%, -50%);
-  z-index: 10; /* Adjust as needed */
+  outline: none;
+  z-index: 12; /* Adjust as needed */
 }
 
 .blur-background {
@@ -275,6 +282,18 @@ body {
   @apply h-[28px] w-[60px]  rounded border;
 }
 /* - - - - -[모달창 끝]- - - - - */
+.context-menu {
+  width: 144px;
+  height: 38px;
+  position: absolute;
+  /* background-color: #f0f0f0; */
+  border: 1px solid #d4d4d4;
+  z-index: 10;
+}
+
+.context-menu-item {
+  @apply flex cursor-pointer items-start bg-black px-5 py-[9px] text-sm font-semibold text-white hover:bg-primary-100;
+}
 
 .customerName {
   margin: 16px 0px;
@@ -335,7 +354,7 @@ body {
   padding-right: 60px;
   grid-gap: 8px;
   grid-template-columns: 160px 470px 400px;
-  grid-template-rows: 118px 42px 220px 220px 220px 30px;
+  grid-template-rows: 12px 42px 220px 220px 220px 30px;
   grid-template-areas:
     "header header header"
     "subtitleleft subtitle subtitle"
@@ -481,8 +500,8 @@ body {
   height: 32px;
   padding: 4px 28px;
   color: #fff;
-  background-color: #175cd3;
-  opacity: 0.82;
+  background-color: #000;
+
   border-radius: 10px;
 }
 .inline-container-left :nth-child(1) {
@@ -532,16 +551,7 @@ body {
 }
 
 .MapCustomerDetail_item_container {
-  display: flex;
-  width: 276px;
-  height: 60px;
-  padding: 4px;
-  margin-left: 10px;
-  background-color: #fff !important;
-  opacity: 1 !important;
-  margin-bottom: 8px;
-  border-radius: 4px;
-  box-shadow: 8px 4px 4px 0px rgba(10, 10, 10, 0.1);
+  @apply flex h-[54px]  items-center text-xs odd:bg-gray-100;
 }
 .MapCustomerDetail_item_wrapper > div {
   margin-bottom: 4px;
