@@ -276,7 +276,11 @@ const KakaoMap = () => {
           { offset: new window.kakao.maps.Point(27, 69) },
         ),
       );
+      // MapCustomerDetail 컴포넌트 띄우기
       marker.setDraggable(true);
+      //
+      setSelectedCustomerPk(customer.pk);
+      setIsDetailVisible(true);
     }
   };
   // 현 지도 검색 클릭 시 사용
@@ -426,9 +430,10 @@ const KakaoMap = () => {
                 bottom: "10px",
                 // width: "196px",
                 paddingLeft: "50px",
+                // marginLeft: "300px",
                 height: "33px",
                 left: "50%", // Center horizontally
-                transform: "translateX(-50%)", // Adjust for the button's width to center
+                // transform: "translateX(-50%)", // Adjust for the button's width to center
                 zIndex: 3, // Ensure it's above the map
               }}
               onClick={refreshCustomerList}
@@ -437,6 +442,7 @@ const KakaoMap = () => {
                 src={refresh}
                 style={{
                   marginLeft: "-16px",
+
                   marginTop: "4px",
                   position: "absolute",
                 }}
@@ -464,15 +470,14 @@ const KakaoMap = () => {
                 />
               </div>
             )}
+
             <div
               className="Map_customerList_container"
               style={{
                 position: "absolute",
                 width: "300px",
-                height: "100vh", // 높이를 "100%"로 설정
-                backgroundColor: "white",
-
-                paddingTop: "12px",
+                height: "100vh",
+                backgroundColor: selectedCustomerPk ? "#999999" : "white",
                 overflowY: "auto",
                 zIndex: 2,
               }}
@@ -483,11 +488,20 @@ const KakaoMap = () => {
                     className="Map_customerList_item"
                     key={index}
                     onClick={() => handleCustomerClick(customer)}
+                    style={{
+                      backgroundColor:
+                        selectedCustomerPk === customer.pk
+                          ? "white"
+                          : "transparent",
+                      opacity: selectedCustomerPk === customer.pk ? 1 : 0.8,
+                      // zIndex: 7,
+                      paddingTop: "10px",
+                    }}
                   >
                     <div
                       style={{
                         display: "flex",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                         cursor: "pointer",
                       }}
                     >
@@ -507,25 +521,37 @@ const KakaoMap = () => {
                     <hr
                       className="Map_list_hr"
                       style={{
-                        width: "100%",
-                        borderTop: "1px solid #000",
-                        margin: "10px",
-                        marginLeft: "0px",
+                        width: "276px",
+                        margin: "0px 12px",
+                        // borderBottom: "0.5px solid #D0D0D0",
+                        borderBottom:
+                          selectedCustomerPk &&
+                          selectedCustomerPk !== customer.pk
+                            ? "0.5px solid #999999"
+                            : "0.5px solid #D0D0D0",
+                        opacity:
+                          selectedCustomerPk &&
+                          selectedCustomerPk !== customer.pk
+                            ? 0.4
+                            : 1,
                       }}
                     />
                   </div>
                 ))
               ) : (
-                <div> 현 위치에 해당하는 고객정보가 없습니다.</div>
+                <div class="flex h-[700px] items-center justify-center">
+                  {" "}
+                  현 위치에 해당하는 고객정보가 없습니다.
+                </div>
               )}
             </div>
-            {isDetailVisible && (
-              <MapCustomerDetail
-                customerPk={selectedCustomerPk}
-                onClose={Map_customer_DetailClose}
-              />
-            )}
           </div>
+          {isDetailVisible && (
+            <MapCustomerDetail
+              customerPk={selectedCustomerPk}
+              onClose={Map_customer_DetailClose}
+            />
+          )}
         </div>
       </div>
     </div>

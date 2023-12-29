@@ -299,7 +299,7 @@ const EditModal = ({
               이름
             </div>
             <input
-              class={`modal_item_input   pl-16`}
+              class={`modal_item_input   pl-[70px]`}
               type="text"
               defaultValue={selectedCustomer?.name}
               ref={nameRef}

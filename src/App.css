@@ -283,16 +283,40 @@ body {
 }
 /* - - - - -[모달창 끝]- - - - - */
 .context-menu {
-  width: 144px;
-  height: 38px;
-  position: absolute;
-  /* background-color: #f0f0f0; */
-  border: 1px solid #d4d4d4;
-  z-index: 10;
+  @apply absolute z-10 h-[38px] w-[144px]  rounded;
 }
 
 .context-menu-item {
-  @apply flex cursor-pointer items-start bg-black px-5 py-[9px] text-sm font-semibold text-white hover:bg-primary-100;
+  @apply flex cursor-pointer items-start   bg-black px-5 py-[9px] text-sm font-semibold text-white hover:bg-primary-100;
+}
+
+.context-menu :nth-child(1) {
+  border-radius: 4px 4px 0px 0px;
+}
+.context-menu :nth-child(2) {
+  border-radius: 0px 0px 4px 4px;
+}
+
+.file-selector-button,
+.btn-upload {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
+  }
+}
+
+#file {
+  display: none;
 }
 
 .customerName {

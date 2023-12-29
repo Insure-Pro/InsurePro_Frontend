@@ -135,6 +135,13 @@ const Navbar = ({
     navigate("/map", { state: { selectedTab: "Map" } });
   };
 
+  const handleInquiryClick = () => {
+    setIsMapSelected(false);
+    setIsAnalysisSelected(false);
+    setSelectedTab("Inquiry"); // 'Analysis' 탭을 선택했음을 상태에 설정
+    navigate("/inquiry", { state: { selectedTab: "Inquiry" } });
+  };
+
   useEffect(() => {
     const tab = location.state?.selectedTab;
     if (tab === "Analysis") {
@@ -152,7 +159,7 @@ const Navbar = ({
         INSUREPRO
       </div>
 
-      <div className="navbar-container w-10/12 max-w-[1000px] items-center justify-between">
+      <div className="navbar-container w-10/12 max-w-[1000px]  justify-between">
         <div className="navbar-wrapper w-1/2">
           <div
             className="client  cursor-pointer font-light"
@@ -196,7 +203,7 @@ const Navbar = ({
 
         <div
           className=" w-1/2  cursor-pointer  font-light"
-          onClick={handleMapClick}
+          onClick={handleInquiryClick}
         >
           문의하기
         </div>
