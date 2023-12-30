@@ -156,7 +156,7 @@ const Analysis = () => {
   };
 
   return (
-    <div className="Detail_container">
+    <div className="Detail_container w-screen">
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
@@ -165,14 +165,19 @@ const Analysis = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        className="analysis_container  w-full justify-center"
-        style={{
-          marginLeft: "38px",
-          // height: "100vh",
-          userSelect: "none",
-          borderRight: "2px solid #dde1e6",
-        }}
+        className={`analysis_container  w-full select-none justify-center ${
+          showModal ? "blur-background no-interaction" : ""
+        } `}
       >
+        {/* DateChangeModal component */}
+        {showModal && (
+          <DateChangeAModal
+            initialYear={year}
+            initialMonth={month}
+            onDateChange={handleDateChange}
+            onClose={() => setShowModal(false)}
+          />
+        )}
         {/* <div className="analysis_header maintitle">성과분석</div> */}
         <div
           className="analysis_subtitle_left"
@@ -373,15 +378,6 @@ const Analysis = () => {
           {updateDate()}에 마지막으로 업데이트 되었습니다.{" "}
         </div>
       </div>
-      {/* DateChangeModal component */}
-      {showModal && (
-        <DateChangeAModal
-          initialYear={year}
-          initialMonth={month}
-          onDateChange={handleDateChange}
-          onClose={() => setShowModal(false)}
-        />
-      )}
     </div>
   );
 };

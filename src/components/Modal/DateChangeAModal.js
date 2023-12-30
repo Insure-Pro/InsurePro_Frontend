@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const months = Array.from(
   { length: 12 },
-  (_, i) => (i + 1).toString().padStart(2, "0") + "월"
+  (_, i) => (i + 1).toString().padStart(2, "0") + "월",
 );
 
 const DateChangeAModal = ({
@@ -29,40 +29,32 @@ const DateChangeAModal = ({
 
   const renderMonthButtons = () =>
     months.map((m, idx) => (
-      <Button
+      <button
         key={idx}
         onClick={() => handleMonthClick(idx + 1)}
-        style={{
-          width: "150px",
-          height: "44px",
-          margin: "2px",
-          border: "none",
-          backgroundColor: "#fff",
-          color: idx + 1 === month ? "#000" : "#98A2B3",
-        }}
+        class={`h-12 w-[120px] ${
+          idx + 1 === month
+            ? "font-bold text-primary-100"
+            : "font-light text-gray-400"
+        } bg-white py-[14px] text-[15px] `}
         active={idx + 1 === month} // Highlight the button if it represents the selected month
       >
         {m}
-      </Button>
+      </button>
     ));
 
   const renderYearButtons = () =>
     Array.from({ length: 12 }, (_, i) => year - 4 + i).map((y) => (
-      <Button
+      <button
         key={y}
         onClick={() => handleYearClick(y)}
-        style={{
-          width: "150px",
-          height: "44px",
-          margin: "2px",
-          border: "none",
-          backgroundColor: "#fff",
-          color: y === year ? "#000" : "#98A2B3",
-        }}
+        class={`h-12 w-[120px] ${
+          y === year ? "font-bold text-primary-100" : "font-light text-gray-400"
+        }  bg-white py-[14px] text-[15px]  `}
         active={y === year} // Highlight the button if it represents the selected year
       >
         {y}년
-      </Button>
+      </button>
     ));
 
   const handleSaveClick = () => {
@@ -71,71 +63,37 @@ const DateChangeAModal = ({
   };
 
   return (
-    <Modal show={true} onHide={onClose} style={{ marginTop: "130px" }}>
-      <Modal.Header closeButton style={{ marginRight: "16px" }}>
-        <Modal.Title
-          style={{ justifyContent: "center", marginBottom: "-16px" }}
-        >
+    <Modal className="date-modal-style" show={true} onHide={onClose}>
+      <div class="mr-4 h-4" closeButton>
+        <div class="flex items-center">
           <img
             className="select"
+            class="mr-3 h-5 w-5 cursor-pointer"
             src={imageUrl}
-            style={{
-              width: "24px",
-              height: "24px",
-              marginLeft: "4px",
-              marginRight: "-8px",
-              cursor: "pointer",
-              padding: "0px",
-              marginBottom: "14px",
-            }}
           />
           {mode === "month" ? (
             <Button
               onClick={() => setMode("year")}
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                backgroundColor: "#fff",
-                border: "none",
-                color: "#98A2B3",
-                padding: "0px 8px",
-                paddingBottom: "16px",
-                marginLeft: "8px",
-              }}
+              class="bg-white text-sm font-bold text-gray-400"
             >
               {year}년
             </Button>
           ) : (
             <Button
               onClick={() => setMode("month")}
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                backgroundColor: "#fff",
-                border: "none",
-                color: "#98A2B3",
-                padding: "0px 8px",
-                paddingBottom: "16px",
-                marginLeft: "8px",
-              }}
+              class="bg-white text-sm font-bold text-gray-400"
             >
               {month}월
             </Button>
           )}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+        </div>
+      </div>
+      <div class="mt-6">
         {mode === "month" ? renderMonthButtons() : renderYearButtons()}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          variant="primary"
-          onClick={handleSaveClick}
-          style={{ marginRight: "16px" }}
-        >
-          저장
-        </Button>
-      </Modal.Footer>
+      </div>
+      <div class="mr-[52px] mt-3 flex justify-end">
+        <button onClick={handleSaveClick}>저장</button>
+      </div>
     </Modal>
   );
 };

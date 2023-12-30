@@ -57,7 +57,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
       className=""
       style={{
         position: "absolute",
-        left: "300px", // Adjust based on the width of the Map_customerList_container
+        // left: "300px", // Adjust based on the width of the Map_customerList_container
         top: 0,
         width: "300px",
         height: "100%",
