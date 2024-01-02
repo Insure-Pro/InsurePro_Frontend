@@ -9,8 +9,8 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 
-function Modal1({ onModalOpen, onModalClose }) {
-  const [show, setShow] = useState(false);
+function Modal1({ show, onModalOpen, onModalClose }) {
+  // const [show, setShow] = useState(false);
 
   const modalRef = useRef(); // Reference to the modal
 
@@ -19,7 +19,7 @@ function Modal1({ onModalOpen, onModalClose }) {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       resetStates(); // 상태 초기화 함수
       onModalClose();
-      setShow(false);
+      // setShow(false);
     }
   };
 
@@ -41,7 +41,7 @@ function Modal1({ onModalOpen, onModalClose }) {
 
   const handleShow = () => {
     onModalOpen();
-    setShow(true);
+    // setShow(true);
   };
   useEffect(() => {
     // Add event listener to document
@@ -234,7 +234,7 @@ function Modal1({ onModalOpen, onModalClose }) {
       .then((response) => {
         if (response.status === 201) {
           alert("신규고객 등록이 완료되었습니다.");
-          setShow(false);
+          // setShow(false);
           // onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           resetStates(); // 입력 상태 초기화
           handleClose(); // Modal 창 닫기
@@ -269,7 +269,7 @@ function Modal1({ onModalOpen, onModalClose }) {
   };
   return (
     <>
-      <button
+      {/* <button
         className="Add_Btn2"
         onClick={handleShow}
         style={{
@@ -280,7 +280,7 @@ function Modal1({ onModalOpen, onModalClose }) {
         }}
       >
         <img src={add_icon} />
-      </button>
+      </button> */}
 
       <Modal
         className="modal-style  "

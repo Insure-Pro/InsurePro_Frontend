@@ -6,6 +6,8 @@ const Search = ({ setCustomers }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
 
+  const search = process.env.PUBLIC_URL + "/search.png";
+
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleSearch = async () => {
@@ -16,7 +18,7 @@ const Search = ({ setCustomers }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         setCustomers(response.data);
@@ -38,27 +40,22 @@ const Search = ({ setCustomers }) => {
       style={{
         display: "flex",
         alignItems: "center",
-
-        marginTop: "-2px",
       }}
+      class="mb-7 flex h-8 w-[536px] items-center rounded bg-[#191919] px-4 py-1 "
     >
+      <img class="mr-7 h-6 w-6" src={search} onClick={handleSearch}></img>
       <input
         className="Search_input"
         type="name"
         placeholder="검색하려는 이름을 입력해주세요."
         style={{
           display: "flex",
-          width: "250px",
-          height: "36px",
-          padding: "13px",
+          width: "400px",
+          backgroundColor: "#191919",
           fontSize: "14px",
-          marginLeft: "8px",
+          fontWeight: "lighter",
           border: "none",
-          borderRadius: "5px",
-          marginRight: "8px",
-          border: "2px solid #98A2B3",
-          borderRadius: "8px",
-          paddingRight: "4px",
+          color: "white",
         }}
         value={inputName}
         onChange={(e) => setInputName(e.target.value)}
@@ -66,7 +63,7 @@ const Search = ({ setCustomers }) => {
         onFocus={() => setInputFocused(true)}
         onBlur={() => setInputFocused(false)}
       ></input>
-      <button
+      {/* <button
         className="Search_button"
         style={{
           width: "60px",
@@ -76,10 +73,9 @@ const Search = ({ setCustomers }) => {
           color: isInputFocused ? "#fff" : "#fff",
           border: "none",
         }}
-        onClick={handleSearch}
       >
         검색
-      </button>
+      </button> */}
     </div>
   );
 };

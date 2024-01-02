@@ -153,79 +153,94 @@ const Navbar = ({
     }
   }, [location]);
 
-  return (
-    <div className="vertical-navbar w-full min-w-[1024px]">
-      <div className="brand w-2/12" onClick={() => handleLogoClick()}>
-        INSUREPRO
-      </div>
+  const [showSearch, setShowSearch] = useState(false);
 
-      <div className="navbar-container w-10/12 max-w-[1000px]  justify-between">
-        <div className="navbar-wrapper w-1/2">
+  // const handleSearchOpen = () => {
+  //   setIsSearchOpen(true);
+  // };
+
+  return (
+    <>
+      <div className="vertical-navbar flex w-full min-w-[1024px] flex-col">
+        <div className="brand w-2/12" onClick={() => handleLogoClick()}>
+          INSUREPRO
+        </div>
+
+        <div className="navbar-container w-10/12 max-w-[1000px] justify-between pt-1">
+          <div className="navbar-wrapper w-1/2">
+            <div
+              className="client  cursor-pointer font-light"
+              style={{
+                fontWeight:
+                  !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
+              }}
+              onClick={() => {
+                setSelectedTab("전체");
+                onAllCustomersClick();
+                handleTabClick("전체");
+                AllCustomersClick();
+                toggleDropdown();
+              }}
+            >
+              고객관리
+            </div>
+            {showDropdown && (
+              <NavbarItem
+                selectedTab={selectedTab}
+                setSelectedTab={setSelectedTab}
+                onAllCustomersClick={onAllCustomersClick}
+                onMonthCustomersClick={onMonthCustomersClick}
+                handleTabClick={handleTabClick}
+                AllCustomersClick={AllCustomersClick}
+                ContractedCustomerClcik={ContractedCustomerClcik}
+                onContractCompleteClick={onContractCompleteClick}
+                handleMapClick={handleMapClick}
+              />
+            )}
+          </div>
           <div
-            className="client  cursor-pointer font-light"
+            className=" w-1/2 cursor-pointer"
+            onClick={handleAnalysisClick}
             style={{
-              fontWeight:
-                !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
-            }}
-            onClick={() => {
-              setSelectedTab("전체");
-              onAllCustomersClick();
-              handleTabClick("전체");
-              AllCustomersClick();
-              toggleDropdown();
+              fontWeight: isAnalysisSelected && !isMapSelected ? "700" : "300",
             }}
           >
-            고객관리
+            성과분석
           </div>
-          {showDropdown && (
-            <NavbarItem
-              selectedTab={selectedTab}
-              setSelectedTab={setSelectedTab}
-              onAllCustomersClick={onAllCustomersClick}
-              onMonthCustomersClick={onMonthCustomersClick}
-              handleTabClick={handleTabClick}
-              AllCustomersClick={AllCustomersClick}
-              ContractedCustomerClcik={ContractedCustomerClcik}
-              onContractCompleteClick={onContractCompleteClick}
-              handleMapClick={handleMapClick}
-            />
-          )}
-        </div>
-        <div
-          className=" w-1/2 cursor-pointer"
-          onClick={handleAnalysisClick}
-          style={{
-            fontWeight: isAnalysisSelected && !isMapSelected ? "700" : "300",
-          }}
-        >
-          성과분석
-        </div>
 
-        <div
-          className=" w-1/2  cursor-pointer  font-light"
-          onClick={handleInquiryClick}
-        >
-          문의하기
-        </div>
-        <div
-          className=" w-1/2 cursor-pointer  font-light"
-          onClick={handleMapClick}
-        >
-          회사소개
-        </div>
-      </div>
-      <div class="flex w-2/12  max-w-[390px] justify-end ">
-        <div class="flex max-w-[90px] items-center  justify-between">
-          <div className="cursor-pointer pr-7">
-            <img src={search} />
+          <div
+            className=" w-1/2  cursor-pointer  font-light"
+            onClick={handleInquiryClick}
+          >
+            문의하기
           </div>
-          {showDropdown && <Search setCustomers={setCustomers} />}
-          <div className="cursor-pointer">
-            <img src={mypage} onClick={handleLogout} />
+          <div
+            className=" w-1/2 cursor-pointer  font-light"
+            onClick={handleMapClick}
+          >
+            회사소개
           </div>
         </div>
+        <div class="flex w-2/12  max-w-[390px] justify-end ">
+          <div class="flex max-w-[90px] items-center  justify-between">
+            <div className="cursor-pointer pr-7">
+              <img
+                src={search}
+                onClick={() => setShowSearch((prev) => !prev)}
+              />
+            </div>
+            <div className="cursor-pointer">
+              <img src={mypage} onClick={handleLogout} />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      {showSearch && (
+        <div class=" flex h-[88px] w-full items-center justify-center bg-[#2c2c2c]">
+          <Search setCustomers={setCustomers} />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -279,11 +279,40 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 12; /* Adjust as needed */
+  z-index: 7; /* Adjust as needed */
 }
 
+.options-modal-style {
+  width: 216px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  z-index: 10; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.options-modal-style > button {
+  @apply border-gray-250 hover:bg-gray-350 text-gray-350 mb-5 h-10 w-[216px] rounded border bg-white font-[17px] font-semibold hover:text-white;
+}
+.add_Btn {
+  @apply ml-12 mr-4 h-5 w-5;
+}
 .blur-background {
+  /* filter: blur(5px); */
+  position: fixed; /* 전체 화면에 적용 */
+  top: 13.2%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
   filter: blur(5px);
+  z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
 .Modal_container {
   @apply pl-7 pr-9;

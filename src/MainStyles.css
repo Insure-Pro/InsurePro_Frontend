@@ -52,7 +52,7 @@
 }
 
 .listItemTitleStyle {
-  @apply mb-2 ml-1 h-[38px] cursor-default bg-gray-400 p-[9px] text-center text-sm font-normal text-white;
+  @apply bg-gray-350 mb-2 ml-1 h-[38px] cursor-default p-[9px] text-center text-sm font-normal text-white;
 }
 
 .listTitle1 {

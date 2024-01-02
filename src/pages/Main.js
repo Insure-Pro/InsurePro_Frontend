@@ -8,6 +8,7 @@ import Modal1 from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
 import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
+import ExcelUploadModal from "../components/Modal/ExcelUploadModal";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -34,6 +35,7 @@ const Main = () => {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
   const dropup = process.env.PUBLIC_URL + "/dropup.png";
 
@@ -170,6 +172,7 @@ const Main = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
     fetchData();
     setIsModalOpen(false);
+    setShowModal(false); // 모달을 숨김
   };
 
   const handleEditClick = (customer) => {
@@ -345,6 +348,23 @@ const Main = () => {
     );
   };
 
+  // const [showOptions, setShowOptions] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showExcelUploadModal, setShowExcelUploadModal] = useState(false);
+
+  const handleShowOptions = () => {
+    setShowOptions(true);
+  };
+
+  const handleAddCustomer = () => {
+    setShowOptions(false);
+    setShowModal(true);
+  };
+
+  const handleAddCustomerWithExcel = () => {
+    setShowOptions(false);
+    setShowExcelUploadModal(true);
+  };
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
@@ -363,17 +383,34 @@ const Main = () => {
         setCustomers={setCustomers}
         setFormattedDate={setFormattedDate}
       />
+      {showModal && <Modal1 show={showModal} onModalClose={handleModalClose} />}
+      {showExcelUploadModal && (
+        <ExcelUploadModal onHide={() => setShowExcelUploadModal(false)} />
+      )}
+      {showOptions && (
+        <div className="options-modal-style">
+          <button onClick={handleAddCustomer}>신규 고객 추가</button>
+          <button onClick={handleAddCustomerWithExcel}>엑셀파일로 추가</button>
+        </div>
+      )}
       <div
         className={`${
-          isModalOpen ? "blur-background no-interaction" : ""
+          showModal || showOptions ? "blur-background no-interaction" : ""
         } flex flex-col bg-gray-100`}
       >
         <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">
-            <Modal1
+            {/* <Modal1
               onModalOpen={handleModalOpen}
               onModalClose={handleModalClose}
             />
+             */}
+
+            {/* Add button to show options */}
+
+            <button className="add_Btn" onClick={handleShowOptions}>
+              <img src={add_icon} />
+            </button>
             <ExcelDownloadButton
               customers={customers}
               activeType={activeType}
