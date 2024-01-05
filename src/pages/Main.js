@@ -385,7 +385,11 @@ const Main = () => {
       />
       {showModal && <Modal1 show={showModal} onModalClose={handleModalClose} />}
       {showExcelUploadModal && (
-        <ExcelUploadModal onHide={() => setShowExcelUploadModal(false)} />
+        <ExcelUploadModal
+          show={showExcelUploadModal}
+          onModalClose={handleModalClose}
+          onHide={() => setShowExcelUploadModal(false)}
+        />
       )}
       {showOptions && (
         <div className="options-modal-style">

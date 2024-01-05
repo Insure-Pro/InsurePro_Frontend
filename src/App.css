@@ -38,7 +38,8 @@ body {
   --gray-350: #616161;
   --gray-400: #98a2b3;
   /* --primary-100: #175cd3; */
-  --primary-100: #b61865;
+  /* --primary-100: #b61865; */
+  --primary-100: #6692ff;
   --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
@@ -80,12 +81,19 @@ body {
   width: 100vw;
   /* background-color: var(--gray-400); */
   background-color: #2c2c2c;
-  color: #fff;
+  background-color: white;
+  color: #1f1f1f;
   padding: 24px 48px;
 }
 /* 로고 */
 .brand {
-  color: #fff;
+  /* background: linear-gradient(to right top, #861657, #ffa69e); */
+  background: var(
+    --Gradients-Style-52,
+    linear-gradient(107deg, #4568dc 0%, #b06ab3 97.22%)
+  );
+  color: transparent;
+  -webkit-background-clip: text;
   font-size: 20px;
   font-weight: bold;
   margin-right: 88px;
@@ -249,11 +257,24 @@ body {
 }
 /* - - - - -[상세정보 끝]- - - - - */
 /* - - - - -[모달창 시작]- - - - - */
+.excelupload-modal-style {
+  background-color: white;
+  width: 704px;
+  height: 316px;
+  position: fixed;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  outline: none;
+  z-index: 12; /* Adjust as needed */
+}
 .date-modal-style {
   background-color: white;
   width: 408px;
   height: 316px;
-
   padding: 20px;
   position: fixed;
   font-size: 14px;
@@ -610,7 +631,8 @@ body {
 .custom-overlay {
   width: 144px;
   padding: 5px;
-  background-color: var(--primary-100);
+  /* background-color: var(--primary-100); */
+  background-color: #487dff;
   color: #fff;
   font-weight: bold;
   border: none;

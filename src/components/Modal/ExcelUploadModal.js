@@ -12,6 +12,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
   const [excelData, setExcelData] = useState([]);
   const [file, setFile] = useState(null);
 
+  const close_icon = process.env.PUBLIC_URL + "/Close.png";
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
@@ -72,29 +74,37 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
   return (
     <>
-      <Modal size="lg" show={show} onHide={onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>Excel Upload Guide</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ fontSize: "12px" }}>
-          <Accordion defaultActiveKey="0">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>엑셀 파일 추가시 가이드라인</Accordion.Header>
-              <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-          <p>Please follow the guidelines...</p>
+      <Modal className="excelupload-modal-style  " show={show} onHide={onHide}>
+        <div class="mb-6 h-8 rounded-t-md bg-gray-300 px-7 py-[7px] text-sm font-normal">
+          <div class="flex justify-between ">
+            <div>엑셀파일로 고객 추가</div>
+            <img
+              class="cursor-pointer"
+              onClick={handleClose}
+              src={close_icon}
+            />
+          </div>
+        </div>
+        <div class="px-9 text-sm">
           <Form.Control type="file" onChange={handleFileChange} />
+          <div>
+            <div eventKey="0">
+              <div class=" mt-3  flex h-[42px] items-center border bg-gray-300 pl-4 text-white">
+                엑셀 파일 추가시 가이드라인
+              </div>
+              <div class="mb-2 flex h-[85px] items-center justify-center border">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            {/* <p>Please follow the guidelines...</p> */}
+            <button class=" h-10 w-[310px] rounded border text-[17px] text-gray-300 hover:bg-primary-100  hover:text-white ">
+              다음
+            </button>
+          </div>
           {/* Display Excel data in a table */}
-          <Table
+          <table
             // striped
             bordered
             hover
@@ -122,16 +132,16 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 </tr>
               ))}
             </tbody>
-          </Table>
-        </Modal.Body>
-        <Modal.Footer>
+          </table>
+        </div>
+        <div>
           <Button variant="secondary" onClick={onHide}>
             Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
-        </Modal.Footer>
+        </div>
       </Modal>
     </>
   );

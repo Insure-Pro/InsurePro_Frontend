@@ -24,7 +24,7 @@ const NavbarItem = ({
           AllCustomersClick();
         }}
         style={{
-          backgroundColor: "#000",
+          // backgroundColor: "#000",
           fontWeight:
             selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
               ? "bold"
