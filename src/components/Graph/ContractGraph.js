@@ -8,8 +8,13 @@ import {
   Cell,
   Sector,
 } from "recharts";
-
-const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
+const colors = [
+  "var(--color-1)",
+  "var(--color-2)",
+  "var(--color-3)",
+  "var(--color-4)",
+  "var(--color-5)",
+];
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -141,10 +146,11 @@ export default class ContractGraph extends PureComponent {
           <Legend
             content={CustomLegend}
             wrapperStyle={{
-              top: 220,
+              top: 180,
               left: 50, // 이 값을 조정하여 레전드의 위치를 왼쪽으로 이동시킵니다.
               position: "absolute",
               width: "80px",
+              color: "var(--LightMode-Subtext)",
             }}
           />
         </PieChart>

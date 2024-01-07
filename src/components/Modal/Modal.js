@@ -68,15 +68,15 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   const [contractYn, setContractYn] = useState(false);
 
   const customerTypeColors = {
-    OD: "var(--color-1)",
-    AD: "var(--color-2)",
-    CP: "var(--color-3)",
-    CD: "var(--color-4)",
-    JD: "var(--color-5)",
-    H: "var(--color-6)",
-    X: "var(--color-7)",
-    Y: "var(--color-8)",
-    Z: "var(--color-9)",
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
   };
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");
@@ -289,10 +289,10 @@ function Modal1({ show, onModalOpen, onModalClose }) {
         onExited={onModalClose}
       >
         <div
-          className="h-8 rounded-t-md bg-gray-300  px-7 py-[7px] text-sm font-normal"
+          className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal"
           style={{ margin: "0px" }}
         >
-          <div class="flex justify-between font-normal text-gray-250">
+          <div class="flex justify-between font-normal text-LightMode-Text">
             <div>신규고객 추가 </div>
             <img
               class="cursor-pointer"
@@ -301,21 +301,12 @@ function Modal1({ show, onModalOpen, onModalClose }) {
             />
           </div>
         </div>
-        <div
-          class="pb-2"
-          style={{
-            display: "flex",
-            margin: "4px 18px 15px 0px",
-            justifyContent: "end",
-          }}
-        >
+        <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
           <img
             src={circle_icon_middle}
             style={{ width: "12px", height: "12px", marginTop: "2px" }}
           />
-          <span style={{ fontSize: "12px", justifyContent: "" }}>
-            필수입력사항
-          </span>
+          <span class="text-[12px]">필수입력사항</span>
         </div>
         <div
           className="Modal_container"
@@ -338,7 +329,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
             </Form.Group> */}
             <div className="mb-1  h-12 w-[352px] ">
               <div class=" flex items-center">
-                <div className="w-[84px] ">
+                <div className="w-[84px] pb-4 ">
                   {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
@@ -351,12 +342,18 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                       style={{
                         color:
                           selectedCustomerType === type
+                            ? "white"
+                            : "var(--Gray-scale-100)",
+                        backgroundColor:
+                          selectedCustomerType === type
                             ? customerTypeColors[type]
-                            : "var(--gray-300)",
+                            : "transparent",
                         borderColor:
                           selectedCustomerType === type
                             ? customerTypeColors[type]
-                            : "var(--gray-300)",
+                            : "var(--Gray-scale-100)",
+                        fontWeight:
+                          selectedCustomerType === type ? "bold" : "normal",
                       }}
                       ref={customerType}
                       value={selectedCustomerType}
@@ -553,7 +550,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class=" flex h-20 w-[352px] ">
-              <div class="w-[84px] pl-2">특이사항</div>
+              <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
               <input
                 class={`modal_item_input  ${
                   memoInput ? "border-primary-100" : "border-gray-300"

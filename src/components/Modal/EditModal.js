@@ -39,15 +39,15 @@ const EditModal = ({
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
 
   const customerTypeColors = {
-    OD: "var(--color-1)",
-    AD: "var(--color-2)",
-    CP: "var(--color-3)",
-    CD: "var(--color-4)",
-    JD: "var(--color-5)",
-    H: "var(--color-6)",
-    X: "var(--color-7)",
-    Y: "var(--color-8)",
-    Z: "var(--color-9)",
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
   };
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
@@ -219,22 +219,15 @@ const EditModal = ({
       onExited={onModalClose}
     >
       <div
-        className="h-8 rounded-t-md bg-gray-300  px-7 py-[7px] text-sm font-normal"
-        style={{ margin: "0px" }}
+        className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
+        // style={{ margin: "0px" }}
       >
-        <div class="text-gray-250 flex justify-between font-normal">
+        <div class="mb-10 flex justify-between font-normal text-LightMode-Text">
           <div>고객정보 수정</div>
           <img class="cursor-pointer" onClick={handleClose} src={close_icon} />
         </div>
       </div>
-      <div
-        class="pb-2"
-        style={{
-          display: "flex",
-          margin: "4px 18px 15px 0px",
-          justifyContent: "end",
-        }}
-      >
+      <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
         <img
           src={circle_icon_middle}
           style={{ width: "12px", height: "12px", marginTop: "2px" }}
@@ -264,7 +257,7 @@ const EditModal = ({
           </Form.Group> */}
           <div className="mb-1  h-12 w-[352px] ">
             <div className=" flex items-center">
-              <div className="w-[84px] ">
+              <div className="w-[84px] pb-4 ">
                 {" "}
                 <span className="Highlighting">*</span>고객유형
               </div>
@@ -277,12 +270,18 @@ const EditModal = ({
                     style={{
                       color:
                         selectedCustomerType === type
+                          ? "white"
+                          : "var(--Gray-scale-100)",
+                      backgroundColor:
+                        selectedCustomerType === type
                           ? customerTypeColors[type]
-                          : "var(--gray-300)",
+                          : "transparent",
                       borderColor:
                         selectedCustomerType === type
                           ? customerTypeColors[type]
-                          : "var(--gray-300)",
+                          : "var(--Gray-scale-100)",
+                      fontWeight:
+                        selectedCustomerType === type ? "bold" : "normal",
                     }}
                     value={selectedCustomerType}
                     onClick={() => handleCustomerTypeClick(type)}
@@ -458,7 +457,7 @@ const EditModal = ({
             />
           </div>
           <div class=" flex h-20 w-[352px] ">
-            <div class="w-[84px] pl-2">특이사항</div>
+            <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
             <input
               class={`modal_item_input  px-3`}
               ref={memoRef}

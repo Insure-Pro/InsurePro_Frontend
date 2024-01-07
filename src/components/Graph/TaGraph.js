@@ -17,36 +17,42 @@ const data5 = (data) => {
       name: "OD",
       ta확률: data.OD ?? 0,
       ta개수: data.ODcount ?? 0,
-      fill: "#F87676",
+      fill: "var(--color-1)",
     },
     {
       name: "AD",
       ta확률: data.AD ?? 0,
       ta개수: data.ADcount ?? 0,
-      fill: "#F4A358",
+      fill: "var(--color-2)",
     },
     {
       name: "CD",
       ta확률: data.CD ?? 0,
       ta개수: data.CDcount ?? 0,
-      fill: "#53B1FD",
+      fill: "var(--color-3)",
     },
     {
       name: "CP",
       ta확률: data.CP ?? 0,
       ta개수: data.CPcount ?? 0,
-      fill: "#26CEB6",
+      fill: "var(--color-4)",
     },
     {
       name: "JD",
       ta확률: data.JD ?? 0,
       ta개수: data.JDcount ?? 0,
-      fill: "#F1BEEF",
+      fill: "var(--color-5)",
     },
   ];
 };
 
-const colors = ["#F87676", "#F4A358", "#53B1FD", "#26CEB6", "#F1BEEF"];
+const colors = [
+  "var(--color-1)",
+  "var(--color-2)",
+  "var(--color-3)",
+  "var(--color-4)",
+  "var(--color-5)",
+];
 
 const CustomTooltip = ({ active, payload, label, chartData }) => {
   if (active) {
@@ -139,8 +145,8 @@ const TaGraph = ({ data }) => {
           type="category"
           scale="point"
           fontSize={"12px"}
-          padding={{ top: 10, bottom: 10 }}
-          marginTop={"115px"}
+          padding={{ bottom: -12, top: 5 }}
+          // marginTop={"115px"}
           tickLine={false}
           display={"none"}
         />
@@ -149,7 +155,12 @@ const TaGraph = ({ data }) => {
           align="left"
           verticalAlign="top"
           content={CustomLegend}
-          wrapperStyle={{ left: 30, top: 28, fontSize: "12px" }}
+          wrapperStyle={{
+            left: 30,
+            top: 28,
+            fontSize: "12px",
+            color: "var(--LightMode-Subtext)",
+          }}
           layout="vertical"
           payload={chartData.map((entry) => ({
             color: entry.fill, // 이 부분은 해당 데이터셋의 색상에 맞게 조정해야 합니다.

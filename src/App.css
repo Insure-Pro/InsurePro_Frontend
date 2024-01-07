@@ -175,15 +175,21 @@ body {
   --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
-  --color-1: #fe5454;
-  --color-2: #fb8c54;
-  --color-3: #fccc00;
-  --color-4: #5db975;
-  --color-5: #1a8139;
-  --color-6: #1060ff;
-  --color-7: #bb5abb;
-  --color-8: #954cb3;
-  --color-9: #fb7185;
+  --colorN-1: #e70000;
+  --colorN-2: #fa7533;
+  --colorN-3: #21a549;
+  --colorN-4: #1060ff;
+  --colorN-5: #7543ff;
+  --colorN-6: #bb5abb;
+  --colorN-7: #ff8a8a;
+  --colorN-8: #e5ba00;
+  --colorN-9: #40258c;
+  --color-1: #ffb0b0;
+  --color-2: #fdcab0;
+  --color-3: #bbe8c9;
+  --color-4: #b5ceff;
+  --color-5: #d4c5ff;
+
   --LightMode-Hover: #e0edff;
   --LightMode-Text: #1f1f1f;
   --LightMode-Subtext: #7d8592;
@@ -688,20 +694,18 @@ body {
 }
 .analysis_container {
   display: grid;
-  padding-right: 60px;
   grid-gap: 8px;
-  grid-template-columns: 160px 470px 400px;
-  grid-template-rows: 12px 42px 220px 220px 220px 30px;
+  background-color: var(--LightMode-SectionBackground);
+  grid-template-columns: 607px 313px;
+  grid-template-rows: 175px 175px 175px 40px;
   grid-template-areas:
-    "header header header"
-    "subtitleleft subtitle subtitle"
-    "explain explain graph1"
-    "graph4  graph4 graph2"
-    "graph4 graph4 graph3"
-    "update update update";
+    "explain graph1"
+    "graph4 graph2"
+    "graph4 graph3"
+    " update update";
 }
 .analysis_container > div {
-  border: 1px solid #98a2b3;
+  /* border: 1px solid #98a2b3; */
 }
 .analysis_header {
   grid-area: header;
@@ -713,52 +717,67 @@ body {
   border: none !important;
 }
 .analysis_subtitle {
-  grid-area: subtitle;
+  width: 412px;
+  /* grid-area: subtitle; */
+  font-size: 16px;
   text-align: right;
-  padding-left: 8px;
-  margin-top: 10px;
+  color: var(--LightMode-Subtext);
   /* font-weight: 600; */
   border: none !important;
 }
 .analysis_subtitle > span {
-  padding-right: 34px;
+  padding-right: 24px;
 }
 .analysis_subtitle > span:last-of-type {
-  padding-right: 8px;
-  margin-left: -4px;
+  padding-right: 0px;
+  /* margin-left: -4px; */
 }
 .analysis_subtitle_left {
-  grid-area: subtitleleft;
+  width: 122px;
+  /* grid-area: subtitleleft; */
+  display: flex;
+  align-items: center;
   border: none !important;
-  margin-top: 4px;
-  margin-right: 14px;
-  font-size: 24px;
+  margin-right: 390px;
+  margin-left: 8px;
+  font-size: 17px;
   font-weight: 700;
-  color: #4f5256;
+  color: var(--LightMode-Text);
   cursor: pointer;
 }
 .analysis_explain {
   grid-area: explain;
   display: flex;
+  font-size: 14px;
+  font-weight: 400;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding-top: 10px;
+  border: 1px solid white;
+  color: var(--LightMode-Text);
+  background-color: var(--LightMode-SectionBackground);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
 }
 .analysis_explain > div {
   margin-bottom: 10px;
 }
+
 .analysis_explain_item > span {
   text-align: left;
   padding-left: 12px;
 }
-.analysis_explain_item :first-child {
+
+.analysis_explain_item :nth-child(1) {
   width: 80px;
   text-align: left;
 }
 .explain_item_title {
   width: 90px !important;
   text-align: left !important;
+}
+.analysis_explain > div:first-child {
+  @apply mt-[-20px] flex w-full justify-start pl-6 text-[16px] font-bold text-LightMode-Text;
 }
 
 .analysis_graph1 {
@@ -785,19 +804,22 @@ body {
   /* top: 0; 상단에서부터의 위치 */
   right: 0; /* 오른쪽에서부터의 위치 */
   z-index: 10; /* TaGraph 위에 오도록 z-index 설정 */
-  margin-top: 30px;
+  margin-top: 26px;
 }
 .Ta_ratio_item > span {
-  padding-bottom: 6px;
+  padding-bottom: 10px;
+  color: var(--LightMode-Subtext);
 }
 .recharts-pie-sector:focus {
   outline: none;
 }
 .updateMessage {
   grid-area: update;
-  color: #4f5256;
-  text-align: right;
+  color: var(--LightMode-Subtext);
   font-size: 14px;
+  align-items: center;
+  display: flex;
+  justify-content: end;
   border: none !important;
   opacity: 0.7;
 }
