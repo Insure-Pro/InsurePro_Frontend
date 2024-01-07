@@ -399,8 +399,10 @@ const Main = () => {
       )}
       <div
         className={`${
-          showModal || showOptions ? "blur-background no-interaction" : ""
-        } flex flex-col bg-gray-100`}
+          showModal || showOptions || showExcelUploadModal
+            ? "blur-background no-interaction"
+            : ""
+        } flex flex-col  bg-LightMode-SectionBackground`}
       >
         <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">

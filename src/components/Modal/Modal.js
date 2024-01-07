@@ -292,7 +292,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
           className="h-8 rounded-t-md bg-gray-300  px-7 py-[7px] text-sm font-normal"
           style={{ margin: "0px" }}
         >
-          <div class="text-gray-250 flex justify-between font-normal">
+          <div class="flex justify-between font-normal text-gray-250">
             <div>신규고객 추가 </div>
             <img
               class="cursor-pointer"
@@ -573,7 +573,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                 취소
               </Button> */}
               <button
-                class="flex h-[40px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                class="flex h-[40px] w-[280px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
                 type="submit"
               >
                 등록

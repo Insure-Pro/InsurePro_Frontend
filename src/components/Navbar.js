@@ -166,7 +166,7 @@ const Navbar = ({
           INSUREPRO
         </div>
 
-        <div className="navbar-container w-10/12 max-w-[1000px] justify-between pt-1">
+        <div className="navbar-container w-10/12 max-w-[1000px] justify-between pt-1 text-LightMode-Text">
           <div className="navbar-wrapper w-1/2">
             <div
               className="client  cursor-pointer font-light"

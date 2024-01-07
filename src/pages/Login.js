@@ -72,8 +72,8 @@ const Login = () => {
   return (
     <div style={{}}>
       <Navbar />
-      <div class="flex h-[100vh] w-[1024px] justify-center bg-gray-100 pt-[138px]">
-        <div class="h-[354px] w-[356px] rounded-md bg-white px-9 py-6">
+      <div class="flex h-[100vh]  justify-center  bg-LightMode-SectionBackground pt-[138px]">
+        <div class="h-[354px] w-[356px] rounded-md border border-Gray-scale-300 bg-white px-9 py-6">
           <span
             class="mb-6 flex  cursor-default justify-center font-semibold"
             style={{
@@ -142,7 +142,8 @@ const Login = () => {
           </div>
           <div
             onClick={() => navigate("/signup")}
-            className="signup_button  border-primary-100  text-primary-100"
+            // className="signup_button  border-primary-100  text-primary-100"
+            class="signup_button   border-primary-100  text-primary-100"
           >
             회원가입
           </div>

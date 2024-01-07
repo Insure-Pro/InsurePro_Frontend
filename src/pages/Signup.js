@@ -58,16 +58,24 @@ const Signup = () => {
     height: "42px",
     padding: "12px 0px",
     borderRadius: "4px",
-    border: "1px solid var(--primary-100)",
-    color: `var(--primary-100)`,
+    border: "1px solid var(--Primary-300)",
+    color: `var(--Primary-300)`,
     backgroundColor: "#fff",
     fontSize: "14px",
   };
 
   // isCodeSent가 true일 때의 배경색 스타일
   const activeButtonStyle = isCodeSent
-    ? { color: "#fff", backgroundColor: "var(--primary-100)" }
-    : { color: "var(--gray-150)", border: "1px solid var(--gray-150)" };
+    ? {
+        color: "#fff",
+        fontWeight: "700",
+        backgroundColor: "var(--Primary-300)",
+      }
+    : {
+        color: "var(--LightMode-Background)",
+        border: "1px solid #fff",
+        backgroundColor: "var(--Gray-scale-50)",
+      };
 
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
@@ -168,10 +176,9 @@ const Signup = () => {
         name="file"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        class="w-1024px flex justify-center"
+        class="flex justify-center bg-LightMode-SectionBackground"
         style={{
           height: "100vh",
-          backgroundColor: "#F3F3F3",
         }}
       >
         <div style={{ width: "780px" }}>
@@ -182,10 +189,7 @@ const Signup = () => {
             {" "}
             회원가입
           </div>
-          <div
-            class="cursor-default font-light"
-            style={{ textAlign: "right", fontSize: "12px" }}
-          >
+          <div class="mb-6 cursor-default  text-right text-xs font-light text-LightMode-Text">
             <span className="Highlighting">*</span>
             필수입력사항
           </div>
@@ -401,7 +405,7 @@ const Signup = () => {
                 }
               }}
               type="submit"
-              class="bg-primary-100 mb-3 flex h-[42px] w-[280px] items-center justify-center rounded py-[10px] font-semibold text-white "
+              class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
             >
               가입하기
             </div>

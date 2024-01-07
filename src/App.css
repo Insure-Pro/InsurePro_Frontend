@@ -1,3 +1,131 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -5,6 +133,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+input::placeholder {
+  color: var(--LightMode-Subtext);
 }
 
 body {
@@ -43,15 +175,85 @@ body {
   --secondary-100: #175cd3;
   --secondary-400: #ffcd5b;
   --secondary-500: #ffc132;
-  --color-1: #f87171;
-  --color-2: #fb923c;
-  --color-3: #fbbf24;
-  --color-4: #4ade80;
-  --color-5: #2dd4bf;
-  --color-6: #60a5fa;
-  --color-7: #a78bfa;
-  --color-8: #e879f9;
+  --color-1: #fe5454;
+  --color-2: #fb8c54;
+  --color-3: #fccc00;
+  --color-4: #5db975;
+  --color-5: #1a8139;
+  --color-6: #1060ff;
+  --color-7: #bb5abb;
+  --color-8: #954cb3;
   --color-9: #fb7185;
+  --LightMode-Hover: #e0edff;
+  --LightMode-Text: #1f1f1f;
+  --LightMode-Subtext: #7d8592;
+  --LightMode-SectionBackground: #f0f4fa;
+  --LightMode-Background: #ffffff;
+  --Primary-50: #e8efff;
+  --Primary-100: #b8ccff;
+  --Primary-200: #96b4ff;
+  --Primary-300: #6692ff;
+  --Primary-400: #487dff;
+  --Primary-500: #1a5cff;
+  --Primary-600: #1854e8;
+  --Primary-700: #1241b5;
+  --Primary-800: #0e338c;
+  --Primary-900: #0b276b;
+  --Secondary-50: #e9eaec;
+  --Secondary-100: #b9bdc5;
+  --Secondary-200: #989da9;
+  --Secondary-300: #687082;
+  --Secondary-400: #4b5469;
+  --Secondary-500: #1e2944;
+  --Secondary-600: #1b253e;
+  --Secondary-700: #151d30;
+  --Secondary-800: #111725;
+  --Secondary-900: #0d111d;
+  --Gray-scale-50: #e6e6e6;
+  --Gray-scale-100: #cccccc;
+  --Gray-scale-200: #b3b3b3;
+  --Gray-scale-300: #999999;
+  --Gray-scale-400: #808080;
+  --Gray-scale-500: #666666;
+  --Gray-scale-600: #4d4d4d;
+  --Gray-scale-700: #333333;
+  --Gray-scale-800: #1a1a1a;
+  --Gray-scale-900: #000000;
+  --Accent-Stroke: #d8e0f0;
+  --Accent-Separator: #e0e0e0;
+  --Accent-Disabled: #ebecf0;
+  --Accent-White: #ffffff;
+  --Accent-Black: #000000;
+  --Danger-50: #feeeef;
+  --Danger-100: #fcc9ce;
+  --Danger-200: #fbafb6;
+  --Danger-300: #f98a94;
+  --Danger-400: #f87480;
+  --Danger-500: #f65160;
+  --Danger-600: #e04a57;
+  --Danger-700: #af3a44;
+  --Danger-800: #872d35;
+  --Danger-900: #672228;
+  --Warning-50: #fff2e6;
+  --Warning-100: #ffd5b0;
+  --Warning-200: #ffc18a;
+  --Warning-300: #ffa554;
+  --Warning-400: #ff9433;
+  --Warning-500: #ff7900;
+  --Warning-600: #e86e00;
+  --Warning-700: #b55600;
+  --Warning-800: #8c4300;
+  --Warning-900: #6b3300;
+  --Success-50: #ebf6ee;
+  --Success-100: #c0e4ca;
+  --Success-200: #a2d7b0;
+  --Success-300: #77c58c;
+  --Success-400: #5db975;
+  --Success-500: #34a853;
+  --Success-600: #2f994c;
+  --Success-700: #25773b;
+  --Success-800: #1d5c2e;
+  --Success-900: #164723;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -157,7 +359,7 @@ body {
   @apply pr-1 text-[#FF0000];
 }
 .signin_input_box {
-  @apply h-[42px] w-[360px] rounded border border-gray-150 py-3 pl-5 text-sm font-light;
+  @apply h-[42px] w-[360px] rounded border border-Gray-scale-50 py-3 pl-5 text-sm font-light;
 }
 .signin_span {
   @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
@@ -171,7 +373,7 @@ body {
 /* - - - - -[회원가입 끝]- - - - - */
 /* - - - - -[로그인 시작]- - - - - */
 .login_input_box {
-  @apply h-[42px] w-[280px] rounded border border-gray-150 py-3 pl-5 text-sm font-light;
+  @apply h-[42px] w-[280px] rounded border  border-LightMode-Subtext py-3 pl-5 text-sm font-light;
 }
 
 .login_button,
@@ -185,7 +387,7 @@ body {
 
 .dropdown-container {
   position: relative; /* 상대적 위치 */
-  @apply ml-[764px] mr-10 flex h-[36px] w-[106px] flex-row items-center justify-center rounded   bg-gray-100 p-2 text-xs font-normal text-gray-400;
+  @apply ml-[764px] mr-10 flex h-[36px] w-[106px] flex-row items-center justify-center rounded   bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
 }
 .dropdown-item {
   position: absolute; /* 절대적 위치 */
@@ -245,7 +447,7 @@ body {
 }
 /* 진척도 */
 .historyItemStyle1 {
-  @apply text-secondary-100 mr-[57px] cursor-default text-[17px] font-bold;
+  @apply mr-[57px] cursor-default text-[17px] font-bold text-secondary-100;
 }
 /* 시간, 장소 */
 .historyItemStyle2 {
@@ -262,6 +464,7 @@ body {
   width: 704px;
   height: 316px;
   position: fixed;
+  /* padding-right: 0px !important; */
   font-size: 14px;
   top: 50%;
   left: 50%;
@@ -271,6 +474,49 @@ body {
   outline: none;
   z-index: 12; /* Adjust as needed */
 }
+.excelupload-modal-style2 {
+  background-color: white;
+  width: 704px;
+  height: 544px;
+  position: fixed;
+  padding-left: 0px !important;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  outline: none;
+  z-index: 12; /* Adjust as needed */
+}
+.Excel-Item-Title > div {
+  @apply ml-1 flex h-8 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
+}
+.td-db-date {
+  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+} /* Adjust widths as needed */
+.td-name {
+  @apply ml-1 h-8 w-12 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-customer-type {
+  @apply ml-1 h-8 w-16 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-birth {
+  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-age {
+  @apply ml-1 h-8 w-9 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-contact {
+  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-residence {
+  @apply ml-1 h-8 w-24 border border-Gray-scale-50 pt-2.5  text-center;
+}
+.td-special-note {
+  @apply ml-1 h-8 w-[100px] border border-Gray-scale-50 pt-2.5  text-center;
+}
+
 .date-modal-style {
   background-color: white;
   width: 408px;
@@ -320,7 +566,7 @@ body {
 }
 
 .options-modal-style > button {
-  @apply border-gray-250 hover:bg-gray-350 text-gray-350 mb-5 h-10 w-[216px] rounded border bg-white font-[17px] font-semibold hover:text-white;
+  @apply mb-5 h-10 w-[216px] rounded border border-gray-250 bg-white font-[17px] font-semibold text-gray-350 hover:bg-gray-350 hover:text-white;
 }
 .add_Btn {
   @apply ml-12 mr-4 h-5 w-5;
@@ -336,7 +582,7 @@ body {
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
 .Modal_container {
-  @apply pl-7 pr-9;
+  @apply px-8;
 }
 
 .modal_item_container {
@@ -354,7 +600,7 @@ body {
 }
 
 .context-menu-item {
-  @apply flex cursor-pointer items-start   bg-black px-5 py-[9px] text-sm font-semibold text-white hover:bg-primary-100;
+  @apply flex cursor-pointer items-start   bg-white px-5 py-[9px] text-sm font-semibold text-LightMode-Text hover:bg-primary-100 hover:text-white;
 }
 
 .context-menu :nth-child(1) {

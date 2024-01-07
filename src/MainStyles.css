@@ -6,7 +6,7 @@
 }
 
 .listItemStyle {
-  @apply mb-1 ml-1 h-[38px] cursor-default bg-white p-[9px] text-center text-sm font-normal;
+  @apply mb-1 ml-1 h-[38px] cursor-default bg-white p-[9px] text-center text-sm font-normal text-LightMode-Text;
 }
 
 .listItem1 {
@@ -52,7 +52,7 @@
 }
 
 .listItemTitleStyle {
-  @apply bg-gray-350 mb-2 ml-1 h-[38px] cursor-default p-[9px] text-center text-sm font-normal text-white;
+  @apply mb-2 ml-1 h-[38px] cursor-default bg-Secondary-300 p-[9px] text-center text-sm font-bold text-white;
 }
 
 .listTitle1 {
@@ -89,8 +89,9 @@
 }
 
 .listItemStyle-contract {
-  border: 2px solid #fff;
-  background-color: var(--gray-100);
+  border: 1px solid var(--Primary-300);
+  /* background-color: var(--LightMode-SectionBackground); */
+  background-color: white;
 }
 
 .listItemStyle-noContract {
