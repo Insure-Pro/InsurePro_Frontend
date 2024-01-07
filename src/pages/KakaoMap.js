@@ -20,7 +20,7 @@ const KakaoMap = () => {
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
-  const refresh = process.env.PUBLIC_URL + "/map_refresh_icon.png";
+  const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -494,8 +494,6 @@ const KakaoMap = () => {
         <div
           style={{
             position: "relative",
-            // margin: "24px 40px 10px 42px",
-            // marginTop: "24px",
             width: "100%",
             height: "91vh",
           }}
@@ -507,9 +505,7 @@ const KakaoMap = () => {
               style={{
                 position: "absolute",
                 bottom: "10px",
-                // width: "196px",
                 paddingLeft: "50px",
-                // marginLeft: "300px",
                 height: "33px",
                 left: "50%", // Center horizontally
                 transform: "translateX(-50%)", // Adjust for the button's width to center
@@ -521,7 +517,7 @@ const KakaoMap = () => {
                 src={refresh}
                 style={{
                   marginLeft: "-16px",
-                  marginTop: "4px",
+
                   position: "absolute",
                 }}
               />

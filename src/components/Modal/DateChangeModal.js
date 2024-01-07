@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const months = Array.from(
   { length: 12 },
-  (_, i) => (i + 1).toString().padStart(2, "0") + "월"
+  (_, i) => (i + 1).toString().padStart(2, "0") + "월",
 );
 
 const DateChangeModal = ({
@@ -73,9 +73,15 @@ const DateChangeModal = ({
   };
 
   return (
-    <Modal show={true} onHide={onClose} style={{ marginTop: "130px" }}>
+    <Modal
+      className="date-modal-style"
+      show={true}
+      onHide={onClose}
+      style={{ marginTop: "130px" }}
+    >
       <Modal.Header closeButton style={{ marginRight: "16px" }}>
-        <Modal.Title
+        <div
+          class="bg-red-400"
           style={{ justifyContent: "center", marginBottom: "-16px" }}
         >
           <img
@@ -124,7 +130,7 @@ const DateChangeModal = ({
               {month}월
             </Button>
           )}
-        </Modal.Title>
+        </div>
       </Modal.Header>
       <Modal.Body>
         {mode === "month" ? renderMonthButtons() : renderYearButtons()}

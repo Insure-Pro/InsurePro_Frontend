@@ -399,7 +399,7 @@ const Main = () => {
       )}
       <div
         className={`${
-          showModal || showOptions || showExcelUploadModal
+          showModal || showOptions || showExcelUploadModal || isModalOpen
             ? "blur-background no-interaction"
             : ""
         } flex flex-col  bg-LightMode-SectionBackground`}

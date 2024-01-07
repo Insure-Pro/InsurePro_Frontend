@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/authSlice";
 import NavbarItem from "./NavbarItem";
 import Search from "./Search";
+import DateChangeAModal from "./Modal/DateChangeAModal";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -42,6 +43,7 @@ const Navbar = ({
   const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
   const map_black = process.env.PUBLIC_URL + "/map_black2.png";
   const map_white = process.env.PUBLIC_URL + "/map_white2.png";
+  const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
 
@@ -154,10 +156,57 @@ const Navbar = ({
   }, [location]);
 
   const [showSearch, setShowSearch] = useState(false);
-
+  const [showDate, setShowDate] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // const handleSearchOpen = () => {
   //   setIsSearchOpen(true);
   // };
+
+  const currentDate = new Date(); // 현재 날짜를 얻습니다.
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentDate.getMonth() + 1,
+  );
+
+  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
+    2,
+    "0",
+  )}`; // formattedDate 업데이트
+
+  const formattedDateTitle = `${selectedYear}년 ${String(
+    selectedMonth,
+  ).padStart(2, "0")}월`; // formattedDate 업데이트
+  const handleMonthCustomersClick = () => {
+    setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
+  };
+  const handleAllCustomersClick = () => {
+    setSelectedTab("전체");
+  };
+
+  const handleContractCompleteClick = () => {
+    setSelectedTab("계약완료고객");
+  };
+
+  const handleFormattedDateClick = () => {
+    if (selectedTab === "월별 고객") {
+      setIsModalOpen(true);
+    }
+  };
+  const handleshowDateClick = () => {
+    setShowDate(true);
+  };
+  const handleCloseDateClick = () => {
+    setShowDate(false);
+  };
+
+  // 선택한 년, 월로 formattedDate를 업데이트하는 함수
+  const handleDateChange = (newYear, newMonth, fetchedData) => {
+    setSelectedYear(newYear);
+    setSelectedMonth(newMonth);
+    setIsModalOpen(false); // Optionally, close the modal after changing the date
+    const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}`;
+    onMonthCustomersClick(formattedDate2);
+  };
 
   return (
     <>
@@ -195,6 +244,9 @@ const Navbar = ({
                 ContractedCustomerClcik={ContractedCustomerClcik}
                 onContractCompleteClick={onContractCompleteClick}
                 handleMapClick={handleMapClick}
+                toggleDropdown={toggleDropdown}
+                handleshowDateClick={handleshowDateClick}
+                handleCloseDateClick={handleCloseDateClick}
               />
             )}
           </div>
@@ -222,22 +274,38 @@ const Navbar = ({
           </div>
         </div>
         <div class="flex w-2/12  max-w-[390px] justify-end ">
-          <div class="flex max-w-[90px] items-center  justify-between">
+          <div class="flex max-w-[90px]   justify-between">
             <div className="cursor-pointer pr-7">
               <img
                 src={search}
                 onClick={() => setShowSearch((prev) => !prev)}
               />
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer pt-1">
               <img src={mypage} onClick={handleLogout} />
             </div>
           </div>
         </div>
       </div>
       {showSearch && (
-        <div class=" flex h-[88px] w-full items-center justify-center bg-[#2c2c2c]">
+        <div class=" flex h-[88px] w-full items-center justify-center bg-white">
           <Search setCustomers={setCustomers} />
+        </div>
+      )}
+      {showDate && (
+        <div class="ml-12 w-full">
+          <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
+            <div onClick={handleFormattedDateClick}>{formattedDateTitle}</div>
+            <img class="pl-1" src={right_icon} />
+            {isModalOpen && (
+              <DateChangeAModal
+                initialYear={selectedYear}
+                initialMonth={selectedMonth}
+                onDateChange={handleDateChange}
+                onClose={() => setIsModalOpen(false)}
+              />
+            )}
+          </div>
         </div>
       )}
     </>

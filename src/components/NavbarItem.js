@@ -12,6 +12,9 @@ const NavbarItem = ({
   isAnalysisSelected,
   isMapSelected,
   handleMapClick,
+  toggleDropdown,
+  handleshowDateClick,
+  handleCloseDateClick,
 }) => {
   return (
     <div className="navbar-client">
@@ -22,6 +25,8 @@ const NavbarItem = ({
           onAllCustomersClick();
           handleTabClick("전체");
           AllCustomersClick();
+          toggleDropdown();
+          handleCloseDateClick();
         }}
         style={{
           // backgroundColor: "#000",
@@ -39,6 +44,8 @@ const NavbarItem = ({
           setSelectedTab("월별 고객");
           handleTabClick("월별 고객");
           onMonthCustomersClick();
+          toggleDropdown();
+          handleshowDateClick();
         }}
         style={{
           fontWeight: selectedTab === "월별 고객" ? "bold" : "300",
@@ -53,6 +60,8 @@ const NavbarItem = ({
           onContractCompleteClick();
           handleTabClick("계약완료고객");
           ContractedCustomerClcik();
+          toggleDropdown();
+          handleCloseDateClick();
         }}
         style={{
           fontWeight: selectedTab === "계약완료고객" ? "bold" : "300",

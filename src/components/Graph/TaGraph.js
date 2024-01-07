@@ -66,7 +66,7 @@ const CustomTooltip = ({ active, payload, label, chartData }) => {
         className="custom-tooltip"
         style={{
           fontSize: "12px",
-          height: "40px",
+          height: "32px",
           backgroundColor: "#fff",
           padding: "10px",
           border: "1px solid #ccc",
@@ -165,7 +165,7 @@ const TaGraph = ({ data }) => {
           payload={chartData.map((entry) => ({
             color: entry.fill, // 이 부분은 해당 데이터셋의 색상에 맞게 조정해야 합니다.
             value: entry.name, // 'OD', 'AD', 'CD', 'CP', 'JD' 등의 라벨로 매핑해야 합니다.
-            type: "circle", // 범례 아이콘 형태를 정사각형으로 설정합니다.
+            type: "square", // 범례 아이콘 형태를 정사각형으로 설정합니다.
           }))}
         />
 

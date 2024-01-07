@@ -21,10 +21,12 @@ const DateChangeAModal = ({
 
   const handleMonthClick = (selectedMonth) => {
     setMonth(selectedMonth);
+    handleSaveClick(selectedMonth);
   };
 
   const handleYearClick = (selectedYear) => {
     setYear(selectedYear);
+    setMode("month"); // Switch to month selection after selecting a year
   };
 
   const renderMonthButtons = () =>
@@ -57,8 +59,8 @@ const DateChangeAModal = ({
       </button>
     ));
 
-  const handleSaveClick = () => {
-    onDateChange(year, month);
+  const handleSaveClick = (newMonth) => {
+    onDateChange(year, newMonth);
     onClose();
   };
 
@@ -91,9 +93,9 @@ const DateChangeAModal = ({
       <div class="mt-6">
         {mode === "month" ? renderMonthButtons() : renderYearButtons()}
       </div>
-      <div class="mr-[52px] mt-3 flex justify-end">
+      {/* <div class="mr-[52px] mt-3 flex justify-end">
         <button onClick={handleSaveClick}>저장</button>
-      </div>
+      </div> */}
     </Modal>
   );
 };

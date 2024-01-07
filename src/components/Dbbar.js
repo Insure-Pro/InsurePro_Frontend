@@ -128,15 +128,15 @@ const Dbbar = ({
   };
 
   const customerTypeColors = {
-    OD: "var(--color-1)",
-    AD: "var(--color-2)",
-    CP: "var(--color-3)",
-    CD: "var(--color-4)",
-    JD: "var(--color-5)",
-    H: "var(--color-6)",
-    X: "var(--color-7)",
-    Y: "var(--color-8)",
-    Z: "var(--color-9)",
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
     All: "black", // 기본 색상
   };
 

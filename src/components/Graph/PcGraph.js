@@ -66,7 +66,7 @@ const CustomTooltip = ({ active, payload, label, chartData }) => {
         className="custom-tooltip"
         style={{
           fontSize: "12px",
-          height: "40px",
+          height: "32px",
           backgroundColor: "#fff",
           padding: "10px",
           border: "1px solid #ccc",
