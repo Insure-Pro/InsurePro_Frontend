@@ -897,14 +897,19 @@ body {
 }
 
 .custom-overlay {
-  width: 144px;
+  width: 105px;
+  height: 32px;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* background-color: var(--primary-100); */
   background-color: #487dff;
   color: #fff;
+  font-size: 12px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #e0f2f1 !important; /* 원하는 색으로 변경 */

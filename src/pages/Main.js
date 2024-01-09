@@ -373,6 +373,7 @@ const Main = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
+        setCustomers={setCustomers}
       />
       <Dbbar
         onTypeChange={handleTypeChange}
@@ -380,7 +381,6 @@ const Main = () => {
         onAllCustomersClick={handleAllCustomersClick}
         onMonthCustomersClick={handleMonthCustomersClick}
         customers={customers}
-        setCustomers={setCustomers}
         setFormattedDate={setFormattedDate}
       />
       {showModal && <Modal1 show={showModal} onModalClose={handleModalClose} />}

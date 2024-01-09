@@ -20,11 +20,25 @@ const KakaoMap = () => {
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
+  const search_white = process.env.PUBLIC_URL + "/search_white.png";
+  const search = process.env.PUBLIC_URL + "/search.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
   const [isDetailVisible, setIsDetailVisible] = useState(false);
+
+  const customerTypeColors = {
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
+  };
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({
@@ -183,14 +197,15 @@ const KakaoMap = () => {
                 const content = `
                     <div class="custom-overlay">
                         <span style="margin-right: 8px;">${customer.customerType}</span>
-                         <span>${customer.name} (${customer.age})</span>
-                     </div> `;
+                        <span>${customer.name}</span>
+                        </div> `;
+                // <span>${customer.name} (${customer.age})</span>
 
                 const customOverlay = new window.kakao.maps.CustomOverlay({
                   content: content,
                   position: coords,
-                  xAnchor: 0.6,
-                  yAnchor: 3.2, // Adjust this to position the tooltip above the marker
+                  xAnchor: 0.65,
+                  yAnchor: 3.4, // Adjust this to position the tooltip above the marker
                   zIndex: 3,
                 });
 
@@ -307,7 +322,6 @@ const KakaoMap = () => {
                   lng: result[0].x,
                   ...customer, // 고객 정보 포함
                 };
-
                 setAllCustomerCoords((prev) => [...prev, coords]);
               }
             });
@@ -337,7 +351,6 @@ const KakaoMap = () => {
 
       // Update the state based on whether there are visible customers
       setHasVisibleCustomers(filteredCustomers.length > 0);
-
       setVisibleCustomers(filteredCustomers);
     }
   }
@@ -403,6 +416,74 @@ const KakaoMap = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
 
+  //////////  현재위치정보 리스트에 보여주는 로직 시작  //////////
+  const [currentAddress, setCurrentAddress] = useState("");
+
+  // Function to convert coordinates to an address
+  const searchAddrFromCoords = (coords, callback) => {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+  };
+
+  const updateAddress = () => {
+    if (mapRef.current) {
+      const mapCenter = mapRef.current.getCenter();
+      searchAddrFromCoords(mapCenter, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const administrativeAddress = result.find(
+            (r) => r.region_type === "H",
+          );
+          if (administrativeAddress) {
+            setCurrentAddress(administrativeAddress.address_name);
+          }
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (mapRef.current) {
+      kakao.maps.event.addListener(mapRef.current, "idle", updateAddress);
+      updateAddress();
+
+      return () => {
+        kakao.maps.event.removeListener(mapRef.current, "idle", updateAddress);
+      };
+    }
+  }, [mapRef.current]);
+  //////////  현재위치정보 리스트에 보여주는 로직 끝  //////////
+
+  //////////  이름 검색 로직 시작  //////////
+  const [inputName, setInputName] = useState("");
+  const [isInputFocused, setInputFocused] = useState(false);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.request({
+        method: "get",
+        url: `${MAIN_URL}/customers/name`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        data: {
+          name: inputName,
+        },
+      });
+      if (response.status === 200) {
+        setVisibleCustomers(response.data);
+        setInputName("");
+      }
+    } catch (error) {
+      console.error("Error fetching customers by name:", error);
+    }
+  };
+  const handleOnKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+  //////////  이름 검색 로직 끝  //////////
   return (
     <div>
       <Navbar
@@ -419,6 +500,7 @@ const KakaoMap = () => {
             <PropagateLoader color="#84CAFF" size={20} speedMultiplier={0.8} />
           </div>
         )}
+
         <div
           className="Map_customerList_container"
           style={{
@@ -431,6 +513,27 @@ const KakaoMap = () => {
             zIndex: 2,
           }}
         >
+          {!isLoading && (
+            <>
+              <div class=" z- z-30 mx-5 my-2 flex h-8 w-[252px] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
+                <img class="mr-5 h-6 w-6" src={search}></img>
+                <input
+                  type="name"
+                  placeholder="검색하기"
+                  value={inputName}
+                  onChange={(e) => setInputName(e.target.value)}
+                  // onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                  onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
+                  class="flex items-center text-LightMode-Text outline-none"
+                ></input>
+                {/* <div class="">새로고침</div> */}
+              </div>
+              <div class="my-2 mb-6 flex w-full justify-between px-6 text-[10px] font-normal text-LightMode-Text">
+                <div class="">현 위치 : {currentAddress}</div>
+                {/* <div class="">새로고침</div> */}
+              </div>
+            </>
+          )}
           {hasVisibleCustomers ? (
             visibleCustomers.map((customer, index) => (
               <div
@@ -454,7 +557,12 @@ const KakaoMap = () => {
                   }}
                 >
                   <div className="inline-container-left">
-                    <p className="customer-info customer-type">
+                    <p
+                      className="customer-info customer-type"
+                      style={{
+                        color: customerTypeColors[customer.customerType],
+                      }}
+                    >
                       {customer.customerType}
                     </p>
                     <p className="customer-info">{customer.name}</p>
@@ -466,7 +574,7 @@ const KakaoMap = () => {
                     </p>
                   </div>
                 </div>
-                <hr
+                {/* <hr
                   className="Map_list_hr"
                   style={{
                     width: "276px",
@@ -481,7 +589,7 @@ const KakaoMap = () => {
                         ? 0.4
                         : 1,
                   }}
-                />
+                /> */}
               </div>
             ))
           ) : (
@@ -504,7 +612,7 @@ const KakaoMap = () => {
               className="Map_Search_Btn"
               style={{
                 position: "absolute",
-                bottom: "10px",
+                bottom: "20px",
                 paddingLeft: "50px",
                 height: "33px",
                 left: "50%", // Center horizontally
@@ -517,7 +625,6 @@ const KakaoMap = () => {
                 src={refresh}
                 style={{
                   marginLeft: "-16px",
-
                   position: "absolute",
                 }}
               />

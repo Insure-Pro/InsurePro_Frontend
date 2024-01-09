@@ -1,25 +1,52 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../App.css";
 
 const Search = ({ setCustomers }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
-
+  const name = useRef("");
   const search = process.env.PUBLIC_URL + "/search.png";
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+  // const handleSearch = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${MAIN_URL}/customers/name/${inputName}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         },
+  //       },
+  //     );
+  //     if (response.status === 200) {
+  //       setCustomers(response.data);
+  //       setInputName("");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching customers by name:", error);
+  //   }
+  // };
+
+  // const handleOnKeyDown = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleSearch();
+  //   }
+  // };
   const handleSearch = async () => {
     try {
-      const response = await axios.get(
-        `${MAIN_URL}/customers/name/${inputName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
+      const response = await axios.request({
+        method: "get",
+        url: `${MAIN_URL}/customers/name`,
+        data: {
+          name: inputName,
         },
-      );
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         setCustomers(response.data);
         setInputName("");
@@ -55,9 +82,10 @@ const Search = ({ setCustomers }) => {
           fontSize: "14px",
           fontWeight: "lighter",
           border: "none",
-          color: "white",
+          color: "var(--LightMode-Text)",
         }}
         value={inputName}
+        ref={name}
         onChange={(e) => setInputName(e.target.value)}
         onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
         onFocus={() => setInputFocused(true)}
@@ -73,6 +101,7 @@ const Search = ({ setCustomers }) => {
           color: isInputFocused ? "#fff" : "#fff",
           border: "none",
         }}
+        onClick={handleSearch}
       >
         검색
       </button> */}

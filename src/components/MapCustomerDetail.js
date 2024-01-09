@@ -12,6 +12,18 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
 
   const [activeTab, setActiveTab] = useState("고객 정보"); // Default to '고객 정보'
 
+  const customerTypeColors = {
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
+  };
+
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
@@ -67,7 +79,12 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
       }}
     >
       <div class="flex h-[80px] items-center bg-gray-100 px-6 py-7">
-        <div class="text-secondary-100 pr-2 text-[15px] font-bold">
+        <div
+          class="pr-2 text-[15px] font-bold text-secondary-100"
+          style={{
+            color: customerTypeColors[customerData.customerType],
+          }}
+        >
           {customerData.customerType}
         </div>
         <div class=" text-[15px] font-bold">{customerData.name}</div>
