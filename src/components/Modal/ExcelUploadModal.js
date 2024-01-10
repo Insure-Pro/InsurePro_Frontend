@@ -130,7 +130,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
             <Modal className="excelupload-modal-style2  " show={show}>
               <div class="mb-6 h-8 rounded-t-md bg-gray-300 px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
-                  <div>엑셀파일로 고객 추가</div>
+                  <div class="cursor-default">엑셀파일로 고객 추가</div>
                   <img
                     class="cursor-pointer"
                     onClick={onHide}

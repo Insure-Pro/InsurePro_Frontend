@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditModalD from "./Modal/EditModalD";
 
-const CustomerInfo = ({ onUpdateSuccess, data }) => {
-  const [showEditModal, setShowEditModal] = useState(false);
+const CustomerInfo = ({
+  onUpdateSuccess,
+  data,
+  customerPk,
+  onEditClick,
+  showEditModal,
+  onCloseModal,
+}) => {
+  // const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(data);
 
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
-
-  const handleEditClick = () => {
-    setShowEditModal(true);
-  };
 
   return (
     <div class="flex  flex-row pb-3 pt-6">
@@ -19,12 +22,12 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
         세부정보{" "}
         <div class="flex h-[20px] w-[20px] items-end">
           <img
-            className="userName ml-1 pb-[1px] pl-1 text-gray-400"
+            className="userName mb-1 ml-1 pl-1 text-gray-400"
             src={imageUrl}
             style={{
               cursor: "pointer",
             }}
-            onClick={handleEditClick}
+            onClick={onEditClick} // EditModalD를 열기 위해 클릭 이벤트 연결
           />
           <EditModalD
             show={showEditModal}
@@ -32,7 +35,7 @@ const CustomerInfo = ({ onUpdateSuccess, data }) => {
               // 업데이트된 데이터로 상태를 변경합니다.
               setSelectedCustomer(updatedData);
             }}
-            onHide={() => setShowEditModal(false)}
+            onHide={onCloseModal} // This function updates the state to close the modal
             selectedCustomer={data}
             onUpdateSuccess={onUpdateSuccess}
           />

@@ -78,7 +78,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         borderLeft: "2px solid #dde1e6",
       }}
     >
-      <div class="flex h-[80px] items-center bg-gray-100 px-6 py-7">
+      <div class="flex h-[80px] items-center bg-LightMode-SectionBackground px-6 py-7">
         <div
           class="pr-2 text-[15px] font-bold text-secondary-100"
           style={{
@@ -91,7 +91,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         <div class=" pl-1 text-[13px]">(만 {customerData.age}세)</div>
         <div
           onClick={() => handleCustomerClick(customerData)}
-          class="flex pl-[30px] text-[10px] text-gray-150"
+          class="flex items-center pl-[30px] text-[10px] text-gray-150"
         >
           상세정보 바로가기 <img src={right} class="h-4 w-4" />
         </div>
@@ -152,7 +152,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.dongString}</div>
           </div>
-          <div class="flex items-center bg-gray-100 ">
+          <div class="flex items-center bg-LightMode-SectionBackground ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               생년월일
             </div>
@@ -164,7 +164,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.registerDate}</div>
           </div>
-          <div class="flex items-center  bg-gray-100  ">
+          <div class="flex items-center  bg-LightMode-SectionBackground  ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               인수상태
             </div>

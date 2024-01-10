@@ -83,6 +83,7 @@ const Search = ({ setCustomers }) => {
           fontWeight: "lighter",
           border: "none",
           color: "var(--LightMode-Text)",
+          outline: "none",
         }}
         value={inputName}
         ref={name}

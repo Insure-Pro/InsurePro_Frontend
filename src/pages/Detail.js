@@ -89,19 +89,20 @@ const Detail = ({}) => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        class=" mx-auto h-screen w-full min-w-[1024px]"
-        style={{
-          userSelect: "none",
-        }}
+        className={`${
+          showEditModalD ? "blur-background no-interaction" : ""
+        }  mx-auto h-screen w-full min-w-[1024px] select-none`}
       >
         {selectedCustomer && (
           <>
             <CustomerDetail
               data={selectedCustomer}
               customer={selectedCustomer}
-              onEditClick={handleEditClick}
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
+              showEditModal={showEditModalD}
+              onEditClick={() => setShowEditModalD(true)} // Opens the modal
+              onCloseModal={() => setShowEditModalD(false)} // Closes the modal
             />
             {/* <hr
               className="Detail_hr"
@@ -111,9 +112,11 @@ const Detail = ({}) => {
               <CustomerInfo
                 data={selectedCustomer}
                 customer={selectedCustomer}
-                onEditClick={handleEditClick}
                 customerPk={customerPk}
                 onUpdateSuccess={handleUpdateSuccess}
+                showEditModal={showEditModalD}
+                onEditClick={() => setShowEditModalD(true)} // Opens the modal
+                onCloseModal={() => setShowEditModalD(false)} // Closes the modal
               />
             </div>
 
@@ -122,12 +125,12 @@ const Detail = ({}) => {
               style={{ width: "1020px", marginLeft: "12px" }}
             /> */}
             <CustomerHistory data={customerSchedules} customerPk={customerPk} />
-            <EditModalD
+            {/* <EditModalD
               show={showEditModalD}
               onHide={() => setShowEditModalD(false)}
               selectedCustomer={selectedCustomer}
               onUpdateSuccess={handleUpdateSuccess}
-            />
+            /> */}
           </>
         )}
       </div>

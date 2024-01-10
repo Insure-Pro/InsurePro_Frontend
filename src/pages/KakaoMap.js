@@ -515,7 +515,7 @@ const KakaoMap = () => {
         >
           {!isLoading && (
             <>
-              <div class=" z- z-30 mx-5 my-2 flex h-8 w-[252px] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
+              <div class=" z- z-30 mx-5 my-2 flex h-8  w-[89%] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
                 <img class="mr-5 h-6 w-6" src={search}></img>
                 <input
                   type="name"
@@ -529,7 +529,7 @@ const KakaoMap = () => {
                 {/* <div class="">새로고침</div> */}
               </div>
               <div class="my-2 mb-6 flex w-full justify-between px-6 text-[10px] font-normal text-LightMode-Text">
-                <div class="">현 위치 : {currentAddress}</div>
+                <div class="cursor-default">현 위치 : {currentAddress}</div>
                 {/* <div class="">새로고침</div> */}
               </div>
             </>
@@ -546,13 +546,13 @@ const KakaoMap = () => {
                       ? "white"
                       : "transparent",
                   opacity: selectedCustomerPk === customer.pk ? 1 : 0.8,
-                  paddingTop: "10px",
+                  // paddingTop: "10px",
                 }}
               >
                 <div
                   style={{
                     display: "flex",
-                    marginBottom: "10px",
+                    // marginBottom: "10px",
                     cursor: "pointer",
                   }}
                 >

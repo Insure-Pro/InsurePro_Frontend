@@ -83,7 +83,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+        },
       );
       if (response.status === 200) {
         onHide(); // 모달 닫기
@@ -95,11 +95,16 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
 
   return (
     <>
-      <Modal show={show} onHide={onHide} style={{ marginTop: "130px" }}>
-        <Modal.Header closeButton style={{ marginRight: "16px" }}>
+      <Modal
+        show={show}
+        className="history-modal-style"
+        onHide={onHide}
+        style={{ marginTop: "130px" }}
+      >
+        <div closeButton style={{ marginRight: "16px" }}>
           <Modal.Title>히스토리 수정</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="Modal_container">
+        </div>
+        <div className="Modal_container">
           <Form onSubmit={handleSubmit}>
             <ButtonGroup>
               <div
@@ -210,7 +215,7 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
               </Button>
             </Modal.Footer>
           </Form>
-        </Modal.Body>
+        </div>
       </Modal>
     </>
   );

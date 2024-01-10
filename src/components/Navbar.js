@@ -295,8 +295,14 @@ const Navbar = ({
       {showDate && (
         <div class="ml-12 w-full">
           <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
-            <div onClick={handleFormattedDateClick}>{formattedDateTitle}</div>
-            <img class="pl-1" src={right_icon} />
+            <div onClick={handleFormattedDateClick} class="cursor-pointer">
+              {formattedDateTitle}
+            </div>
+            <img
+              onClick={handleFormattedDateClick}
+              class="cursor-pointer pl-1"
+              src={right_icon}
+            />
             {isModalOpen && (
               <DateChangeAModal
                 initialYear={selectedYear}

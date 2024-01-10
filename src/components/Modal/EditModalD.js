@@ -11,6 +11,7 @@ import hangjungdong from "./hangjungdong";
 
 const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const nameRef = useRef("");
+  const ageRef = useRef("");
   const registerDateRef = useRef("");
   const birthRef = useRef("");
   const phoneRef = useRef("");
@@ -23,6 +24,18 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
+
+  const close_icon = process.env.PUBLIC_URL + "/Close.png";
+  const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
+
+  const modalRef = useRef(); // Reference to the modal
+  const handleClose = () => {
+    onHide();
+    // Check if the click is outside the modal content
+    // if (modalRef.current && !modalRef.current.contains(event.target)) {
+    //   onHide();
+    // }
+  };
 
   EditModalD.propTypes = {
     show: PropTypes.bool.isRequired,
@@ -44,20 +57,20 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
       // 이름을 식별자로 변환
       const sidoId =
         hangjungdong.sido.find(
-          (el) => el.codeNm === selectedCustomer.metroGuDong.metroName
+          (el) => el.codeNm === selectedCustomer.metroGuDong.metroName,
         )?.sido || "";
       const sigugunId =
         hangjungdong.sigugun.find(
           (el) =>
             el.codeNm === selectedCustomer.metroGuDong.guName &&
-            el.sido === sidoId
+            el.sido === sidoId,
         )?.sigugun || "";
       const dongId =
         hangjungdong.dong.find(
           (el) =>
             el.codeNm === selectedCustomer.metroGuDong.dongName &&
             el.sido === sidoId &&
-            el.sigugun === sigugunId
+            el.sigugun === sigugunId,
         )?.dong || "";
 
       // 상태 업데이트
@@ -68,6 +81,18 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   }, [selectedCustomer, hangjungdong]);
 
   const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
+
+  const customerTypeColors = {
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
+  };
 
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");
@@ -133,7 +158,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
     const birthValue = birthRef.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDateRef.current.value.replace(
       /[./]/g,
-      "-"
+      "-",
     );
     const ageValue = calculateKoreanAge(birthValue);
     const phoneSend = phoneNumber || phoneRef.current.value;
@@ -142,7 +167,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
       hangjungdong.sido.find((el) => el.sido === selectedSido)?.codeNm || "";
     const guName =
       hangjungdong.sigugun.find(
-        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun
+        (el) => el.sido === selectedSido && el.sigugun === selectedSigugun,
       )?.codeNm || "";
 
     const dongName =
@@ -150,7 +175,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         (el) =>
           el.sido === selectedSido &&
           el.sigugun === selectedSigugun &&
-          el.dong === selectedDong
+          el.dong === selectedDong,
       )?.codeNm || "";
 
     const metroGuDong = {
@@ -180,7 +205,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+        },
       );
       // Assuming response.data contains the updated customer data
       const updatedCustomer = response.data;
@@ -192,7 +217,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         } else {
           console.error(
             "onUpdateSuccess is not defined or not a function. Got:",
-            onUpdateSuccess
+            onUpdateSuccess,
           );
         }
         onHide();
@@ -207,22 +232,34 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   console.log(selectedDong);
   return (
     <>
-      <Modal show={show} onHide={onHide} style={{ marginTop: "60px" }}>
-        <Modal.Header closeButton style={{ marginRight: "16px" }}>
-          <Modal.Title>고객정보 수정</Modal.Title>
-        </Modal.Header>
+      <Modal show={show} onHide={onHide} className="modal-style">
+        <div
+          className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
+          // style={{ margin: "0px" }}
+        >
+          <div class="mb-10 flex justify-between font-normal text-LightMode-Text">
+            <div>고객정보 수정</div>
+            <img class="cursor-pointer" onClick={onHide} src={close_icon} />
+          </div>
+        </div>
+        <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
+          <img
+            src={circle_icon_middle}
+            style={{ width: "12px", height: "12px", marginTop: "2px" }}
+          />
+          <span class="text-[12px]">필수입력사항</span>
+        </div>
         <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-4" controlId="formName">
-              <Form.Label></Form.Label>
+            {/* <div className="mb-4" controlId="formName">
               <Form.Control
                 type="text"
                 placeholder="이름"
                 defaultValue={selectedCustomer?.name}
                 ref={nameRef}
               />
-            </Form.Group>
-            <Form.Group controlId="contractYn.ControlCheckbox1">
+            </div> */}
+            {/* <div controlId="contractYn.ControlCheckbox1">
               <Form.Check
                 type="checkbox"
                 label="계약 체결 여부"
@@ -234,105 +271,110 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                   marginTop: "-20px",
                 }}
               />
-            </Form.Group>
-            <Form.Group className="mb-0">
-              <ButtonGroup>
-                <div
-                  className="Modal_customerType"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: "9px",
-                    paddingLeft: "9px",
-                    marginRight: "10px",
-                    borderWidth: "1px",
-                    borderRadius: "5px",
-                    borderStyle: "solid",
-                    borderColor: "#DEE2E5",
-                    backgroundColor: "transparent",
-                    color: "#585C5E",
-                  }}
-                >
-                  고객유형
+            </div> */}
+            <div className="mb-1  h-12 w-[352px] ">
+              <div className=" flex items-center">
+                <div className="w-[84px] pb-4 ">
+                  {" "}
+                  <span className="Highlighting">*</span>고객유형
                 </div>
-                {customerTypes.map((type, idx) => (
-                  <ToggleButton
-                    key={idx}
-                    className="Modal_customerType_item"
-                    type="button"
-                    variant={
-                      selectedCustomerType === type
-                        ? "primary"
-                        : "outline-primary"
-                    }
-                    value={selectedCustomerType}
-                    style={{ borderRadius: "0px" }}
-                    onClick={() => handleCustomerTypeClick(type)}
-                  >
-                    {type}
-                  </ToggleButton>
-                ))}
-              </ButtonGroup>
-            </Form.Group>
-            <Form.Group className="mb-0" controlId="example.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="registerDate"
-                placeholder="DB분배일 | 2023.00.00"
-                defaultValue={selectedCustomer?.registerDate}
-                ref={registerDateRef}
-                autoFocus
+                <div className="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
+                  {Object.keys(customerTypeColors).map((type, idx) => (
+                    <button
+                      key={idx}
+                      className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                      type="button"
+                      style={{
+                        color:
+                          selectedCustomerType === type
+                            ? "white"
+                            : "var(--Gray-scale-100)",
+                        backgroundColor:
+                          selectedCustomerType === type
+                            ? customerTypeColors[type]
+                            : "transparent",
+                        borderColor:
+                          selectedCustomerType === type
+                            ? customerTypeColors[type]
+                            : "var(--Gray-scale-100)",
+                        fontWeight:
+                          selectedCustomerType === type ? "bold" : "normal",
+                      }}
+                      value={selectedCustomerType}
+                      onClick={() => handleCustomerTypeClick(type)}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className=" modal_item_container">
+              <div class="w-[84px]">
+                <span className="Highlighting">*</span>
+                이름
+              </div>
+              <input
+                class={`modal_item_input   pl-[70px]`}
+                type="text"
+                defaultValue={selectedCustomer?.name}
+                ref={nameRef}
+                // value={nameInput}
               />
-            </Form.Group>
-            <Form.Group className="mb-0" controlId="example.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="birth"
-                placeholder="생년월일 | 1900.00.00"
-                defaultValue={selectedCustomer?.birth}
-                ref={birthRef}
-                autoFocus
+            </div>
+            <div class=" modal_item_container">
+              <div class="w-[84px] pl-2">나이 (만)</div>
+              <input
+                class={` modal_item_input  pl-[82px]`}
+                type="number"
+                defaultValue={selectedCustomer?.age}
+                ref={ageRef}
+                // value={ageInput}
               />
-            </Form.Group>
-            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="phoneNumber"
-                placeholder="연락처 | 010-0000-0000"
-                defaultValue={selectedCustomer?.phone}
-                onChange={handlePhoneInputChange}
-                ref={phoneRef}
-                autoFocus
-              />
-            </Form.Group>
-            <Row>
-              {/* Sido Dropdown */}
+            </div>
+            <Row className=" flex h-[40px] items-center">
+              <div class="w-[75px] pl-2">주소</div>
               <Col>
-                <Form.Group className="mb-0" controlId="sidoSelect">
-                  <Form.Label></Form.Label>
+                <div class="flex" controlId="sidoSelect">
+                  <span>
+                    {" "}
+                    <span className="Highlighting">*</span>
+                  </span>
                   <Form.Select
+                    className={`modal_address_item ${
+                      selectedSido
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    } `}
                     value={selectedSido}
                     onChange={(e) => setSelectedSido(e.target.value)}
                   >
-                    <option value="">시/도 선택</option>
+                    <option className="form-group required" value="">
+                      시/도
+                    </option>
+
                     {sido.map((el) => (
                       <option key={el.sido} value={el.sido}>
                         {el.codeNm}
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
-              {/* Sigugun Dropdown */}
               <Col>
-                <Form.Group className="mb-0" controlId="sigugunSelect">
-                  <Form.Label></Form.Label>
+                <div class="flex" controlId="sigugunSelect">
+                  <span> </span>
                   <Form.Select
+                    className={`modal_address_item ml-1.5 ${
+                      selectedSigugun
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    }  `}
                     value={selectedSigugun}
                     onChange={(e) => setSelectedSigugun(e.target.value)}
                     disabled={!selectedSido}
                   >
-                    <option value="">구/군 선택</option>
+                    <option value="">구/군</option>
                     {sigugun
                       .filter((el) => el.sido === selectedSido)
                       .map((el) => (
@@ -341,23 +383,27 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                         </option>
                       ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
-              {/* Dong Dropdown */}
               <Col>
-                <Form.Group className="mb-0" controlId="dongSelect">
-                  <Form.Label></Form.Label>
+                <div class="flex" controlId="dongSelect">
+                  <span></span>
                   <Form.Select
+                    className={`modal_address_item ml-1.5 ${
+                      selectedDong
+                        ? "border-primary-100 text-black"
+                        : "border-gray-300 text-gray-300"
+                    } `}
                     value={selectedDong}
                     onChange={(e) => setSelectedDong(e.target.value)}
                     disabled={!selectedSigugun}
                   >
-                    <option value="">동 선택</option>
+                    <option value="">동</option>
                     {dong
                       .filter(
                         (el) =>
                           el.sido === selectedSido &&
-                          el.sigugun === selectedSigugun
+                          el.sigugun === selectedSigugun,
                       )
                       .map((el) => (
                         <option key={el.dong} value={el.dong}>
@@ -365,52 +411,87 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                         </option>
                       ))}
                   </Form.Select>
-                </Form.Group>
+                </div>
               </Col>
             </Row>
-            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="address"
-                placeholder="도로명 주소 | 지번 주소 입력하기"
-                defaultValue={selectedCustomer?.address}
+            <div class="mb-2 flex items-center">
+              <input
+                className={` modal_item_input  ml-[84px] px-3 `}
+                type="text"
                 ref={addressRef}
-                autoFocus
+                defaultValue={selectedCustomer?.address}
+                placeholder="상세 주소 입력"
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="stete"
-                placeholder="인수상태 | 상담중, 전산완료, 가입불가 등"
-                defaultValue={selectedCustomer?.state}
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px]">
+                <span className="Highlighting">*</span>
+                DB 분배일
+              </div>
+              <input
+                class={` modal_item_input  pl-[52px]`}
+                type="date"
+                ref={registerDateRef}
+                // value={registerDateInput}
+                defaultValue={selectedCustomer?.registerDate}
+                placeholder=" 2023.00.00"
+              />
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px] pl-2">생년월일</div>
+              <input
+                class={`modal_item_input  pl-[52px] `}
+                type="date"
+                defaultValue={selectedCustomer?.birth}
+                ref={birthRef}
+                placeholder=" 1900.00.00"
+              />
+            </div>
+            <div class="modal_item_container mb-1">
+              <div class="w-[84px] ">
+                <span className="Highlighting">*</span>전화번호
+              </div>
+              <input
+                class={` modal_item_input  px-3`}
+                type="text"
+                ref={phoneRef}
+                defaultValue={selectedCustomer?.phone}
+                onChange={handlePhoneInputChange}
+                placeholder=" 010-0000-0000"
+              />
+            </div>
+            <div class="modal_item_container mb-2">
+              <div class="w-[84px] pl-2">인수상태</div>
+              <input
+                class={`modal_item_input px-3`}
+                type="state"
+                // value={stateInput}
                 ref={stateRef}
+                defaultValue={selectedCustomer?.state}
+                placeholder=" 상담중, 전산완료, 가입불가 "
                 as="textarea"
                 rows={1}
               />
-            </Form.Group>
-            <Form.Group
-              className="mb-0"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label></Form.Label>
-              <Form.Control
-                type="memo"
-                placeholder="특이사항 | 월 보험료 00만원/본인점검/주말상담희망 등"
-                defaultValue={selectedCustomer?.memo}
+            </div>
+            <div class=" flex h-20 w-[352px] ">
+              <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
+              <input
+                class={`modal_item_input  px-3`}
                 ref={memoRef}
+                defaultValue={selectedCustomer?.memo}
+                // value={memoInput}
+
+                placeholder=" 월 보험료 00만원/본인점검"
                 as="textarea"
-                rows={2}
+                rows={3}
               />
-            </Form.Group>
-            <Modal.Footer style={{ marginRight: "-12px" }}>
+            </div>
+
+            <div style={{ marginRight: "-12px" }}>
               <Button variant="primary" type="submit">
                 변경사항 저장
               </Button>
-            </Modal.Footer>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

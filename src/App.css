@@ -306,6 +306,7 @@ body {
   font-weight: bold;
   margin-right: 88px;
   text-align: left;
+  cursor: pointer;
 }
 .navbar-container {
   display: flex;
@@ -394,24 +395,21 @@ body {
 
 .dropdown-container {
   position: relative; /* 상대적 위치 */
-  @apply ml-[764px] mr-10 flex h-[36px] w-[106px] flex-row items-center justify-center rounded   bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
+  @apply ml-[764px] mr-10 flex h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center   rounded bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
 }
 .dropdown-item {
   position: absolute; /* 절대적 위치 */
   top: 100%; /* `<ul>`의 아래쪽에 위치 */
   left: 0;
   background-color: #fff;
-  color: var(--gray-50);
+  color: var(--LightMode-Subtext);
   border-radius: 4px;
   padding: 10px;
   width: 100%; /* 부모 컨테이너 너비에 맞춤 */
 }
 
 .dropdown-item > li {
-  font-size: 12px;
-  font-weight: 400;
-  height: 28px;
-  color: var(--gray-400);
+  @apply h-7 text-xs font-normal text-LightMode-Subtext;
 }
 .dropdown-img {
   @apply ml-2 h-[8.75px] w-[20px];
@@ -438,7 +436,7 @@ body {
   @apply ml-12 h-9 min-w-[1024px] bg-white py-[9px] text-sm font-normal;
 }
 .detailTitle {
-  @apply mr-16 flex  w-60 pl-24;
+  @apply mr-16  flex w-60 pl-24;
 }
 .infoItem {
   @apply mb-3 flex cursor-default flex-row text-sm font-semibold;
@@ -450,7 +448,7 @@ body {
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mb-3 flex h-[68px] w-[622px]  select-text flex-row items-center rounded border-2 border-white px-[30px];
+  @apply mb-3 flex h-[68px] w-[622px] select-text  flex-row items-center rounded border-2 border-white  px-[30px] shadow-md;
 }
 /* 진척도 */
 .historyItemStyle1 {
@@ -524,6 +522,20 @@ body {
   @apply ml-1 h-8 w-[100px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 
+.history-modal-style {
+  background-color: white;
+  width: 352px;
+  height: 304px;
+  position: fixed;
+  font-size: 14px;
+  top: 35%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  outline: none;
+  z-index: 12; /* Adjust as needed */
+}
 .date-modal-style {
   background-color: white;
   width: 408px;
@@ -573,7 +585,7 @@ body {
 }
 
 .options-modal-style > button {
-  @apply mb-5 h-10 w-[216px] rounded border border-gray-250 bg-white font-[17px] font-semibold text-gray-350 hover:bg-gray-350 hover:text-white;
+  @apply mb-5 h-10 w-[216px] rounded border border-Primary-300 bg-white font-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-white;
 }
 .add_Btn {
   @apply ml-12 mr-4 h-5 w-5;
@@ -734,7 +746,7 @@ body {
   /* margin-left: -4px; */
 }
 .analysis_subtitle_left {
-  width: 122px;
+  width: 128px;
   /* grid-area: subtitleleft; */
   display: flex;
   align-items: center;
@@ -824,6 +836,10 @@ body {
   border: none !important;
   opacity: 0.7;
 }
+.Map_customerList_item {
+  @apply flex h-[58px] items-center;
+}
+
 .inline-container-left {
   display: flex;
   width: 37%;
@@ -916,7 +932,7 @@ body {
 }
 
 .MapCustomerDetail_item_container {
-  @apply flex h-[54px]  items-center text-xs odd:bg-gray-100;
+  @apply flex h-[54px]  items-center text-xs odd:bg-LightMode-SectionBackground;
 }
 .MapCustomerDetail_item_wrapper > div {
   margin-bottom: 4px;

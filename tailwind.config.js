@@ -98,6 +98,9 @@ module.exports = {
         "secondary-400": "#FFCD5B",
         "secondary-500": "#FFC132",
       },
+      boxShadow: {
+        // md: "0 18px 28px 0px rgba(0, 0, 0, 0.2)",
+      },
     },
   },
   plugins: [],

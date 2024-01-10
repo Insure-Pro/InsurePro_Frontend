@@ -292,7 +292,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
           className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal"
           style={{ margin: "0px" }}
         >
-          <div class="flex justify-between font-normal text-LightMode-Text">
+          <div class="flex cursor-default justify-between font-normal text-LightMode-Text">
             <div>신규고객 추가 </div>
             <img
               class="cursor-pointer"
@@ -306,7 +306,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
             src={circle_icon_middle}
             style={{ width: "12px", height: "12px", marginTop: "2px" }}
           />
-          <span class="text-[12px]">필수입력사항</span>
+          <span class="cursor-default text-[12px]">필수입력사항</span>
         </div>
         <div
           className="Modal_container"
@@ -329,7 +329,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
             </Form.Group> */}
             <div className="mb-1  h-12 w-[352px] ">
               <div class=" flex items-center">
-                <div className="w-[84px] pb-4 ">
+                <div className="w-[84px] cursor-default pb-4">
                   {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
@@ -366,7 +366,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               </div>
             </div>
             <div class=" modal_item_container">
-              <div class="w-[84px]">
+              <div class="w-[84px] cursor-default">
                 <span className="Highlighting">*</span>
                 이름
               </div>
@@ -381,7 +381,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class=" modal_item_container">
-              <div class="w-[84px] pl-2">나이 (만)</div>
+              <div class="w-[84px] cursor-default pl-2">나이 (만)</div>
               <input
                 class={` modal_item_input ${
                   ageInput ? "border-primary-100" : "border-gray-300"
@@ -393,7 +393,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <Row className=" flex h-[40px] items-center">
-              <div class="w-[75px] pl-2">주소</div>
+              <div class="w-[75px] cursor-default pl-2">주소</div>
               <Col>
                 <div class="flex" controlId="sidoSelect">
                   <span>
@@ -487,7 +487,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class="modal_item_container mb-1">
-              <div class="w-[84px]">
+              <div class="w-[84px] cursor-default">
                 <span className="Highlighting">*</span>
                 DB 분배일
               </div>
@@ -505,7 +505,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class="modal_item_container mb-1">
-              <div class="w-[84px] pl-2">생년월일</div>
+              <div class="w-[84px] cursor-default pl-2">생년월일</div>
               <input
                 class={`modal_item_input  ${
                   birthInput
@@ -520,7 +520,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class="modal_item_container mb-1">
-              <div class="w-[84px] ">
+              <div class="w-[84px] cursor-default ">
                 <span className="Highlighting">*</span>전화번호
               </div>
               <input
@@ -535,7 +535,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class="modal_item_container mb-2">
-              <div class="w-[84px] pl-2">인수상태</div>
+              <div class="w-[84px] cursor-default pl-2">인수상태</div>
               <input
                 class={`modal_item_input ${
                   stateInput ? "border-primary-100" : "border-gray-300"
@@ -550,7 +550,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
             <div class=" flex h-20 w-[352px] ">
-              <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
+              <div class="w-[84px] cursor-default pl-2 pt-1.5">특이사항</div>
               <input
                 class={`modal_item_input  ${
                   memoInput ? "border-primary-100" : "border-gray-300"

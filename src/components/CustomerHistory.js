@@ -104,7 +104,7 @@ const CustomerHistory = ({ customerPk }) => {
   };
 
   return (
-    <div className="flex h-4/6 bg-gray-100 pt-6">
+    <div className="flex h-4/6  bg-LightMode-SectionBackground pt-6">
       <div className="detailTitle ">
         <div class="flex flex-row" style={{ cursor: "default" }}>
           히스토리{" "}

@@ -21,7 +21,7 @@ const DateChangeAModal = ({
 
   const handleMonthClick = (selectedMonth) => {
     setMonth(selectedMonth);
-    handleSaveClick(selectedMonth);
+    handleSaveClick(selectedMonth); // 새로운 month로 handleSaveClick 호출
   };
 
   const handleYearClick = (selectedYear) => {
@@ -70,7 +70,7 @@ const DateChangeAModal = ({
         <div class="flex items-center">
           <img
             className="select"
-            class="mr-3 h-5 w-5 cursor-pointer"
+            class="mr-3 h-5 w-5 cursor-default"
             src={imageUrl}
           />
           {mode === "month" ? (

@@ -7,16 +7,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 
-const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
+const CustomerDetail = ({
+  onUpdateSuccess,
+  data,
+  customerPk,
+  onEditClick,
+  showEditModal,
+  onCloseModal,
+}) => {
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
 
   // Step 1: Add a state to manage the visibility of the EditModal
-  const [showEditModal, setShowEditModal] = useState(false);
+  // const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(data); // initialCustomerData는 초기 고객 데이터입니다.
   // Step 2: Add an event handler that sets showEditModal to true when the edit icon is clicked
   const handleEditClick = () => {
-    setShowEditModal(true);
+    showEditModal();
+  };
+
+  const customerTypeColors = {
+    OD: "var(--colorN-1)",
+    AD: "var(--colorN-2)",
+    CP: "var(--colorN-3)",
+    CD: "var(--colorN-4)",
+    JD: "var(--colorN-5)",
+    H: "var(--colorN-6)",
+    X: "var(--colorN-7)",
+    Y: "var(--colorN-8)",
+    Z: "var(--colorN-9)",
   };
 
   // const handleUpdateSuccess = (updatedCustomerData) => {
@@ -42,15 +61,15 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
           고객 관리 리스트로 돌아가기
         </span>
       </div>
-      <div class="flex h-[162px] min-w-[1024px] flex-row bg-gray-100 pt-6">
+      <div class="flex h-[162px] min-w-[1024px] flex-row bg-LightMode-SectionBackground pt-6">
         <div className="detailTitle ">
           {" "}
           기본정보{" "}
           <div class="flex h-[20px] w-[20px] items-end">
             <img
-              className=" ml-1 flex cursor-pointer items-end pb-[1px] pl-1 text-gray-400"
+              className=" mb-0.5 ml-1 flex cursor-pointer items-end pb-[1px] pl-1 text-gray-400"
               src={imageUrl}
-              onClick={handleEditClick}
+              onClick={onEditClick} // EditModalD를 열기 위해 클릭 이벤트 연결
             />
             <EditModalD
               show={showEditModal}
@@ -58,14 +77,23 @@ const CustomerDetail = ({ onUpdateSuccess, data, customerPk }) => {
                 // 업데이트된 데이터로 상태를 변경합니다.
                 setSelectedCustomer(updatedData);
               }}
-              onHide={() => setShowEditModal(false)}
+              onHide={onCloseModal} // This function updates the state to close the modal
               selectedCustomer={data}
               onUpdateSuccess={onUpdateSuccess}
+
+              // onHide={() => setShowEditModal(false)}
+              // selectedCustomer={data}
+              // onUpdateSuccess={onUpdateSuccess}
             />
           </div>
         </div>
         <div class="" style={{}}>
-          <div class="text-secondary-100 mb-1.5 text-[17px] font-bold">
+          <div
+            class="mb-1.5 text-[17px] font-bold "
+            style={{
+              color: customerTypeColors[data.customerType],
+            }}
+          >
             {data.customerType}
           </div>
           <div style={{ cursor: "default" }}>

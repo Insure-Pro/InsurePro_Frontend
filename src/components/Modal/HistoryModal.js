@@ -59,6 +59,13 @@ function HistoryModal({ customerPk, onNewData }) {
     }
   };
 
+  const customerTypeColors = {
+    TA: "var(--colorN-4)",
+    AP: "var(--colorN-4)",
+    PT: "var(--colorN-4)",
+    PC: "var(--colorN-4)",
+  };
+
   return (
     <>
       <button
@@ -72,35 +79,24 @@ function HistoryModal({ customerPk, onNewData }) {
           marginLeft: "4px",
         }}
       >
-        <img src={add_icon} class="ml-1.5 mt-0.5" />
+        <img src={add_icon} class="ml-1 mt-[-1.5px]" />
       </button>
 
-      <Modal show={show} onHide={handleClose} style={{ marginTop: "130px" }}>
-        <Modal.Header closeButton style={{ marginRight: "16px" }}>
-          <Modal.Title>히스토리 추가</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="Modal_container">
+      <Modal
+        className="history-modal-style"
+        show={show}
+        onHide={handleClose}
+        style={{ marginTop: "130px" }}
+      >
+        <div class=' className="h-8 font-normal"  rounded-t-md bg-LightMode-SectionBackground px-7 py-[7px] text-sm'>
+          <div style={{ marginRight: "16px" }}>
+            <div>히스토리 추가</div>
+          </div>
+        </div>
+        <div className="Modal_container">
           <Form onSubmit={handleSubmit}>
-            <ButtonGroup>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  paddingRight: "8px",
-                  paddingLeft: "8px",
-                  marginRight: "24px",
-                  borderWidth: "1px",
-                  borderRadius: "5px",
-                  borderStyle: "solid",
-                  borderColor: "#DEE2E5",
-                  backgroundColor: "transparent",
-                  color: "#585C5E",
-                  userSelect: "none",
-                }}
-              >
-                진척도
-              </div>
-              {progressTypes.map((type, idx) => (
+            <div>
+              {/* {progressTypes.map((type, idx) => (
                 <ToggleButton
                   key={idx}
                   type="button"
@@ -115,67 +111,84 @@ function HistoryModal({ customerPk, onNewData }) {
                 >
                   {type}
                 </ToggleButton>
-              ))}
-            </ButtonGroup>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                일정시간
-              </Form.Label>
-              <Form.Control
+              ))} */}
+              <div className="mb-1  mt-2 h-10 w-[352px] ">
+                <div class=" flex items-center">
+                  <div className="w-[84px] cursor-default pb-4"> 진척도</div>
+                  <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
+                    {Object.keys(customerTypeColors).map((type, idx) => (
+                      <button
+                        key={idx}
+                        className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                        type="button"
+                        style={{
+                          color:
+                            selectedProgressType === type
+                              ? "white"
+                              : "var(--Gray-scale-100)",
+                          backgroundColor:
+                            selectedProgressType === type
+                              ? customerTypeColors[type]
+                              : "transparent",
+                          borderColor:
+                            selectedProgressType === type
+                              ? customerTypeColors[type]
+                              : "var(--Gray-scale-100)",
+                          fontWeight:
+                            selectedProgressType === type ? "bold" : "normal",
+                        }}
+                        // ref={customerType}
+                        value={selectedProgressType}
+                        onClick={() => handleProgressTypeClick(type)}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex h-10 items-center">
+              <div class="mr-[38px] w-[50px]">일정시간</div>
+              <input
                 type="date"
                 placeholder="YYYY-MM-DD"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                class="h-7 w-[192px] border text-center"
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                장소
-              </Form.Label>
+            </div>
+            <div class="flex h-10 items-center">
+              <div class="mr-[38px] w-[50px]">장소</div>
               <Form.Control
                 type="text"
                 placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                class="h-7 w-[192px] border text-center"
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                메모
-              </Form.Label>
+            </div>
+            <div class="mt-[10px] flex h-[68px] ">
+              <div class="mr-[38px] w-[50px]">메모</div>
               <Form.Control
                 as="textarea"
                 rows={3}
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
+                class="h-[56px] w-[192px] border text-center"
               />
-            </Form.Group>
+            </div>
 
-            <Modal.Footer style={{ marginRight: "-12px" }}>
-              <Button variant="primary" type="submit">
-                저장
-              </Button>
-            </Modal.Footer>
+            <div>
+              <button
+                class="mt-2 flex h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
+                type="submit"
+              >
+                등록
+              </button>
+            </div>
           </Form>
-        </Modal.Body>
+        </div>
       </Modal>
     </>
   );

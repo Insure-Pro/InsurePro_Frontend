@@ -232,9 +232,7 @@ const EditModal = ({
           src={circle_icon_middle}
           style={{ width: "12px", height: "12px", marginTop: "2px" }}
         />
-        <span style={{ fontSize: "12px", justifyContent: "" }}>
-          필수입력사항
-        </span>
+        <span class="text-[12px]">필수입력사항</span>
       </div>
       <div
         className="Modal_container"
