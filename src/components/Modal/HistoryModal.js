@@ -6,7 +6,7 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-function HistoryModal({ customerPk, onNewData }) {
+function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
@@ -16,16 +16,21 @@ function HistoryModal({ customerPk, onNewData }) {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+  const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
 
   const handleClose = () => {
     setShow(false);
+    setIsHistoryModalOpen(false); // Reset state in Detail when closing the modal
     setDate("");
     setAddress("");
     setMemo("");
     setSelectedProgressType("");
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    setIsHistoryModalOpen(true); // Set state in Detail when opening the modal
+  };
 
   const handleProgressTypeClick = (type) => {
     if (selectedProgressType === type) {
@@ -77,6 +82,7 @@ function HistoryModal({ customerPk, onNewData }) {
           height: "16px",
           paddingTop: "2.5px",
           marginLeft: "4px",
+          outline: "none",
         }}
       >
         <img src={add_icon} class="ml-1 mt-[-1.5px]" />
@@ -88,9 +94,14 @@ function HistoryModal({ customerPk, onNewData }) {
         onHide={handleClose}
         style={{ marginTop: "130px" }}
       >
-        <div class=' className="h-8 font-normal"  rounded-t-md bg-LightMode-SectionBackground px-7 py-[7px] text-sm'>
-          <div style={{ marginRight: "16px" }}>
+        <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
+          <div class="flex justify-between">
             <div>히스토리 추가</div>
+            <img
+              class="cursor-pointer"
+              onClick={handleClose}
+              src={close_icon}
+            />
           </div>
         </div>
         <div className="Modal_container">
@@ -112,14 +123,17 @@ function HistoryModal({ customerPk, onNewData }) {
                   {type}
                 </ToggleButton>
               ))} */}
-              <div className="mb-1  mt-2 h-10 w-[352px] ">
+              <div className="mb-1  mt-2 flex h-10 w-[352px] items-center ">
                 <div class=" flex items-center">
-                  <div className="w-[84px] cursor-default pb-4"> 진척도</div>
-                  <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
+                  <div className="mr-[38px] w-[50px] cursor-default ">
+                    {" "}
+                    진척도
+                  </div>
+                  <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
                     {Object.keys(customerTypeColors).map((type, idx) => (
                       <button
                         key={idx}
-                        className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                        className=" flex h-7 w-12 items-center border border-Gray-scale-100 px-[14px] py-[5px] outline-none"
                         type="button"
                         style={{
                           color:
@@ -148,40 +162,40 @@ function HistoryModal({ customerPk, onNewData }) {
                 </div>
               </div>
             </div>
-            <div class="flex h-10 items-center">
-              <div class="mr-[38px] w-[50px]">일정시간</div>
+            <div class="mb-1 flex h-10 items-center">
+              <div class=" mr-[38px] w-[50px]">일정시간</div>
               <input
                 type="date"
                 placeholder="YYYY-MM-DD"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                class="h-7 w-[192px] border text-center"
+                class="h-7 w-[192px] rounded border text-center "
               />
             </div>
-            <div class="flex h-10 items-center">
+            <div class="mb-1 flex h-10 items-center">
               <div class="mr-[38px] w-[50px]">장소</div>
-              <Form.Control
+              <input
                 type="text"
-                placeholder="Address"
+                // placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                class="h-7 w-[192px] border text-center"
+                class="h-7 w-[192px] rounded border text-center"
               />
             </div>
-            <div class="mt-[10px] flex h-[68px] ">
+            <div class="flex h-[68px] pt-[6px] ">
               <div class="mr-[38px] w-[50px]">메모</div>
-              <Form.Control
+              <input
                 as="textarea"
                 rows={3}
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
-                class="h-[56px] w-[192px] border text-center"
+                class="h-[56px] w-[192px] rounded border text-center"
               />
             </div>
 
             <div>
               <button
-                class="mt-2 flex h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
+                class=" mt-2 flex  h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
                 type="submit"
               >
                 등록

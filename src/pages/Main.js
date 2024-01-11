@@ -535,7 +535,7 @@ const Main = () => {
                   {customer.memo}
                 </ListGroup.Item>
               </ListGroup>
-              {showOptions === customer.pk && (
+              {/* {showOptions === customer.pk && (
                 <div>
                   <Button
                     variant="outline-primary"
@@ -550,7 +550,7 @@ const Main = () => {
                     삭제
                   </Button>{" "}
                 </div>
-              )}
+              )} */}
             </div>
           ))}
         {shouldPaginate && renderPagination()}

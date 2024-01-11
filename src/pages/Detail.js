@@ -18,7 +18,10 @@ const Detail = ({}) => {
   const [customerSchedules, setCustomerSchedules] = useState({});
 
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+
   const [showEditModalD, setShowEditModalD] = useState(false);
+  // HistoryModal이 열려 있는지 추적하는 새로운 상태
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -90,7 +93,9 @@ const Detail = ({}) => {
       />
       <div
         className={`${
-          showEditModalD ? "blur-background no-interaction" : ""
+          showEditModalD || isHistoryModalOpen
+            ? "blur-background-detail no-interaction"
+            : ""
         }  mx-auto h-screen w-full min-w-[1024px] select-none`}
       >
         {selectedCustomer && (
@@ -124,7 +129,11 @@ const Detail = ({}) => {
               className="Detail_hr Detail_hr2"
               style={{ width: "1020px", marginLeft: "12px" }}
             /> */}
-            <CustomerHistory data={customerSchedules} customerPk={customerPk} />
+            <CustomerHistory
+              data={customerSchedules}
+              setIsHistoryModalOpen={setIsHistoryModalOpen}
+              customerPk={customerPk}
+            />
             {/* <EditModalD
               show={showEditModalD}
               onHide={() => setShowEditModalD(false)}

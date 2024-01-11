@@ -3,9 +3,9 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import EditModalH from "./Modal/EditModalH";
-import { Button } from "react-bootstrap";
+import ContextMenu from "./Modal/ContextMenu";
 
-const CustomerHistory = ({ customerPk }) => {
+const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
   const [selectedHistory, setSelectedHistory] = useState(null);
@@ -103,6 +103,44 @@ const CustomerHistory = ({ customerPk }) => {
     fetchData();
   };
 
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    xPos: 0,
+    yPos: 0,
+    history: null,
+  });
+
+  const handleContextMenu = (event, history) => {
+    event.preventDefault();
+    setContextMenu({
+      visible: true,
+      xPos: event.pageX,
+      yPos: event.pageY,
+      history: history,
+    });
+  };
+
+  const handleEdit = (history) => {
+    setSelectedHistory(history);
+    setShowEditModalH(true);
+    fetchData();
+    // Edit logic
+    setContextMenu({ ...contextMenu, visible: false });
+  };
+  const handleDelete = async (history) => {
+    await handleDeleteClick(history);
+    setContextMenu({ ...contextMenu, visible: false });
+  };
+  // Close context menu when clicking elsewhere
+  useEffect(() => {
+    const handleClick = () =>
+      setContextMenu({ ...contextMenu, visible: false });
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [contextMenu]);
+
   return (
     <div className="flex h-4/6  bg-LightMode-SectionBackground pt-6">
       <div className="detailTitle ">
@@ -111,6 +149,7 @@ const CustomerHistory = ({ customerPk }) => {
           <HistoryModal
             customerPk={customerPk}
             onNewData={fetchCustomerHistory}
+            setIsHistoryModalOpen={setIsHistoryModalOpen} // HistoryModal에 함수 전달
           />
         </div>
       </div>
@@ -120,12 +159,12 @@ const CustomerHistory = ({ customerPk }) => {
             key={history.pk}
             onContextMenu={(e) => {
               e.preventDefault();
-              handleRightClick(e, history.pk);
+              handleContextMenu(e, history);
             }}
             onClick={(e) => {
               if (windowWidth <= 700) {
                 e.preventDefault();
-                handleRightClick(e, history.pk);
+                handleContextMenu(e, history);
               }
             }}
             className="history-container"
@@ -137,9 +176,9 @@ const CustomerHistory = ({ customerPk }) => {
               </div>
               <div className="historyItemStyle3">{history.memo}</div>
             </div>
-            {showOptions === history.pk && (
+            {/* {showOptions === history.pk && (
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <Button
+                <button
                   className="history_edit_Btn"
                   variant="outline-primary"
                   onClick={() => handleEditHClick(history)}
@@ -154,8 +193,8 @@ const CustomerHistory = ({ customerPk }) => {
                   }}
                 >
                   수정
-                </Button>{" "}
-                <Button
+                </button>{" "}
+                <button
                   className="history_edit_Btn"
                   variant="outline-danger"
                   onClick={() => handleDeleteClick(history)}
@@ -170,21 +209,31 @@ const CustomerHistory = ({ customerPk }) => {
                   }}
                 >
                   삭제
-                </Button>{" "}
+                </button>{" "}
               </div>
-            )}
+            )} */}
           </div>
         ))}
+        {contextMenu.visible && (
+          <ContextMenu
+            history={contextMenu.history}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            xPos={contextMenu.xPos}
+            yPos={contextMenu.yPos}
+            showMenu={contextMenu.visible}
+          />
+        )}
+        {/* 히스토리 항목들을 렌더링하는 코드... */}
+        {selectedHistory && (
+          <EditModalH
+            show={showEditModalH}
+            onHide={() => setShowEditModalH(false)}
+            selectedHistory={selectedHistory}
+            onClose={handleModalHClose}
+          />
+        )}
       </div>
-      {/* 히스토리 항목들을 렌더링하는 코드... */}
-      {selectedHistory && (
-        <EditModalH
-          show={showEditModalH}
-          onHide={() => setShowEditModalH(false)}
-          selectedHistory={selectedHistory}
-          onClose={handleModalHClose}
-        />
-      )}
     </div>
   );
 };

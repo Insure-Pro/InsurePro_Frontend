@@ -232,7 +232,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   console.log(selectedDong);
   return (
     <>
-      <Modal show={show} onHide={onHide} className="modal-style">
+      <Modal show={show} onHide={onHide} className="modal-style-detail">
         <div
           className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
           // style={{ margin: "0px" }}
@@ -473,25 +473,25 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 rows={1}
               />
             </div>
-            <div class=" flex h-20 w-[352px] ">
+            <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
               <input
-                class={`modal_item_input  px-3`}
+                class={`modal_item_input_memo  px-3`}
                 ref={memoRef}
                 defaultValue={selectedCustomer?.memo}
                 // value={memoInput}
-
                 placeholder=" 월 보험료 00만원/본인점검"
                 as="textarea"
                 rows={3}
               />
             </div>
 
-            <div style={{ marginRight: "-12px" }}>
-              <Button variant="primary" type="submit">
-                변경사항 저장
-              </Button>
-            </div>
+            <button
+              class="flex h-[40px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+              type="submit"
+            >
+              등록
+            </button>
           </Form>
         </Modal.Body>
       </Modal>

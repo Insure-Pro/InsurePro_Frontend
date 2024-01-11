@@ -454,14 +454,13 @@ const EditModal = ({
               rows={1}
             />
           </div>
-          <div class=" flex h-20 w-[352px] ">
+          <div class=" flex h-[68px] w-[352px] ">
             <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
             <input
-              class={`modal_item_input  px-3`}
+              class={`modal_item_input_memo  px-3`}
               ref={memoRef}
               defaultValue={selectedCustomer?.memo}
               // value={memoInput}
-
               placeholder=" 월 보험료 00만원/본인점검"
               as="textarea"
               rows={3}

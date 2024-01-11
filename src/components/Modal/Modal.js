@@ -549,10 +549,10 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                 rows={1}
               />
             </div>
-            <div class=" flex h-20 w-[352px] ">
+            <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] cursor-default pl-2 pt-1.5">특이사항</div>
               <input
-                class={`modal_item_input  ${
+                class={`modal_item_input_memo  ${
                   memoInput ? "border-primary-100" : "border-gray-300"
                 } px-3`}
                 type="memo"

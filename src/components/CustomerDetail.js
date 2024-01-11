@@ -97,9 +97,9 @@ const CustomerDetail = ({
             {data.customerType}
           </div>
           <div style={{ cursor: "default" }}>
-            <div class="flex text-[17px] font-bold">
-              {data.name}
-              <div class="mb-3 ml-1 text-base font-normal">
+            <div class="flex  text-[17px] font-bold">
+              <div class="pt-0.5">{data.name}</div>
+              <div class="mb-3  ml-1 text-base font-normal">
                 {" "}
                 (만 {data.age}세)
               </div>
