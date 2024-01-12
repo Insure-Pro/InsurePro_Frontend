@@ -6,12 +6,13 @@ import customerReducer from "./customerSlice";
 import authReducer from "./authSlice";
 import navbarReducer from "./navbarSlice";
 import main from "./modules/mainSlice";
-
+import searchReducer from "./searchSlice";
 // import contractReducer from "./modules/contractSlice";
 const reducers = combineReducers({
   customer: customerReducer,
   auth: authReducer,
   navbar: navbarReducer,
+  search: searchReducer,
 });
 const persistConfig = {
   key: "root",

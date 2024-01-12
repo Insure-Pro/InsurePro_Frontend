@@ -176,10 +176,7 @@ const Signup = () => {
         name="file"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        class="flex justify-center bg-LightMode-SectionBackground"
-        style={{
-          height: "100vh",
-        }}
+        class="flex h-screen justify-center bg-LightMode-SectionBackground pt-[76px]"
       >
         <div style={{ width: "780px" }}>
           <div
@@ -193,11 +190,11 @@ const Signup = () => {
             <span className="Highlighting">*</span>
             필수입력사항
           </div>
-          <hr className="signin_hr" class="mb-7" />
+          <hr className="signin_hr1" />
           <div
             style={{
               width: "780px",
-              height: "356px",
+              height: "344px",
               marginLeft: "78px",
             }}
           >
@@ -328,7 +325,7 @@ const Signup = () => {
                 className="signin_input_box"
               />
             </div>
-            <div class="mb-3 flex">
+            <div class="flex">
               <span className="signin_span">
                 <span className="Highlighting">*</span>
                 사원번호
@@ -341,7 +338,7 @@ const Signup = () => {
               />
             </div>
           </div>
-          <hr className="signin_hr" class="mt-0" />
+          <hr className="signin_hr2" />
           <div
             class="flex items-center "
             style={{
@@ -371,7 +368,7 @@ const Signup = () => {
               </SelectOptions>
             </SelectBox>
           </div>
-          <hr className="signin_hr" class="mb-12 mt-0" />
+          <hr className="signin_hr3" class="mb-12 mt-0" />
           <div class="flex justify-center">
             <div
               onClick={() => {
@@ -451,7 +448,7 @@ const SelectOptions = styled.ul`
   left: 0;
   width: 100%;
   overflow: hidden;
-  height: 138px;
+  height: 114px;
   max-height: ${(props) => (props.show ? "none" : "0")};
   padding: 0;
   border-radius: 4px;

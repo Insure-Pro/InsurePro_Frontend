@@ -70,9 +70,9 @@ const Login = () => {
   };
 
   return (
-    <div style={{}}>
+    <div>
       <Navbar />
-      <div class="flex h-[100vh]  justify-center  bg-LightMode-SectionBackground pt-[138px]">
+      <div class="flex h-[100vh]  justify-center  bg-LightMode-SectionBackground pt-[214px]">
         <div class="h-[354px] w-[356px] rounded-md border border-Gray-scale-300 bg-white px-9 py-6">
           <span
             class="mb-6 flex  cursor-default justify-center font-semibold"

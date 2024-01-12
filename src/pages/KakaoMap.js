@@ -493,7 +493,7 @@ const KakaoMap = () => {
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
       />
-      <div class="flex flex-row">
+      <div class="flex flex-row pt-[76px]">
         {/* Main Content Container */}
         {isLoading && (
           <div className="map_spinner">

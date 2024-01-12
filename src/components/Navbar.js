@@ -7,22 +7,22 @@ import { logoutSuccess } from "../redux/authSlice";
 import NavbarItem from "./NavbarItem";
 import Search from "./Search";
 import DateChangeAModal from "./Modal/DateChangeAModal";
+import { toggleSearch } from "../redux/searchSlice";
+import { setSearchOff } from "../redux/searchSlice";
 
 const Navbar = ({
   onAllCustomersClick,
   onContractCompleteClick,
   onMonthCustomersClick,
-  AllCustomersClick,
-  ContractedCustomerClcik,
   setCustomers,
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
-  const activeType = useSelector((state) => state.customer.activeType);
+  // const activeType = useSelector((state) => state.customer.activeType);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const imageUrl = process.env.PUBLIC_URL + "/exit.png";
+  // const imageUrl = process.env.PUBLIC_URL + "/exit.png";
 
   const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
   const [isMapSelected, setIsMapSelected] = useState(false);
@@ -39,21 +39,18 @@ const Navbar = ({
 
   const users_black = process.env.PUBLIC_URL + "/users_black.png";
   const users_white = process.env.PUBLIC_URL + "/users_white.png";
-  const graph_black = process.env.PUBLIC_URL + "/bar_graph_black.png";
-  const graph_white = process.env.PUBLIC_URL + "/bar_graph_white.png";
-  const map_black = process.env.PUBLIC_URL + "/map_black2.png";
-  const map_white = process.env.PUBLIC_URL + "/map_white2.png";
+
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
+    setSelectedTab(tabName); // 탭 상태를 직접 업데이트
     setIsAnalysisSelected(tabName === "Analysis");
     setIsMapSelected(tabName === "Map");
 
     // Update selected tab state
-    setSelectedTab(tabName);
 
     // Call the appropriate handler based on the tab name
     if (tabName === "월별 고객") {
@@ -155,7 +152,15 @@ const Navbar = ({
     }
   }, [location]);
 
-  const [showSearch, setShowSearch] = useState(false);
+  // const [showSearch, setShowSearch] = useState(false);
+  // Replace local useState with global state using useSelector
+  const showSearch = useSelector((state) => state.search.showSearch);
+  // Update event handlers
+  const handleSearchToggle = () => {
+    dispatch(toggleSearch());
+    setShowDropdown(false);
+  };
+
   const [showDate, setShowDate] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const handleSearchOpen = () => {
@@ -176,16 +181,16 @@ const Navbar = ({
   const formattedDateTitle = `${selectedYear}년 ${String(
     selectedMonth,
   ).padStart(2, "0")}월`; // formattedDate 업데이트
-  const handleMonthCustomersClick = () => {
-    setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
-  };
-  const handleAllCustomersClick = () => {
-    setSelectedTab("전체");
-  };
+  // const handleMonthCustomersClick = () => {
+  //   setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
+  // };
+  // const handleAllCustomersClick = () => {
+  //   setSelectedTab("전체");
+  // };
 
-  const handleContractCompleteClick = () => {
-    setSelectedTab("계약완료고객");
-  };
+  // const handleContractCompleteClick = () => {
+  //   setSelectedTab("계약완료고객");
+  // };
 
   const handleFormattedDateClick = () => {
     if (selectedTab === "월별 고객") {
@@ -208,6 +213,13 @@ const Navbar = ({
     onMonthCustomersClick(formattedDate2);
   };
 
+  // '고객관리' 클릭 핸들러
+  const handleClientClick = () => {
+    onAllCustomersClick();
+    dispatch(setSearchOff()); // showSearch를 false로 설정
+    toggleDropdown();
+  };
+
   return (
     <>
       <div className="vertical-navbar flex w-full min-w-[1024px] flex-col">
@@ -223,32 +235,27 @@ const Navbar = ({
                 fontWeight:
                   !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
               }}
-              onClick={() => {
-                setSelectedTab("전체");
-                onAllCustomersClick();
-                handleTabClick("전체");
-                AllCustomersClick();
-                toggleDropdown();
-              }}
+              onClick={handleClientClick}
             >
               고객관리
             </div>
+
             {showDropdown && (
               <NavbarItem
                 selectedTab={selectedTab}
-                setSelectedTab={setSelectedTab}
                 onAllCustomersClick={onAllCustomersClick}
                 onMonthCustomersClick={onMonthCustomersClick}
-                handleTabClick={handleTabClick}
-                AllCustomersClick={AllCustomersClick}
-                ContractedCustomerClcik={ContractedCustomerClcik}
                 onContractCompleteClick={onContractCompleteClick}
+                handleTabClick={handleTabClick}
                 handleMapClick={handleMapClick}
                 toggleDropdown={toggleDropdown}
+                isMapSelected={isMapSelected}
+                isAnalysisSelected={isAnalysisSelected}
                 handleshowDateClick={handleshowDateClick}
                 handleCloseDateClick={handleCloseDateClick}
               />
             )}
+            {showDropdown && <div className="navbar-black-blur"></div>}
           </div>
           <div
             className=" w-1/2 cursor-pointer"
@@ -273,12 +280,17 @@ const Navbar = ({
             회사소개
           </div>
         </div>
+
         <div class="flex w-2/12  max-w-[390px] justify-end ">
           <div class="flex max-w-[90px]   justify-between">
             <div className="cursor-pointer pr-7">
               <img
                 src={search}
-                onClick={() => setShowSearch((prev) => !prev)}
+                onClick={handleSearchToggle}
+                // onClick={() => {
+                // setShowSearch((prev) => !prev);
+                // setShowDropdown(false);
+                // }}
               />
             </div>
             <div className="cursor-pointer pt-1">
@@ -288,12 +300,14 @@ const Navbar = ({
         </div>
       </div>
       {showSearch && (
-        <div class=" flex h-[88px] w-full items-center justify-center bg-white">
+        <div class=" flex h-[88px]  w-full items-center justify-center bg-white ">
           <Search setCustomers={setCustomers} />
         </div>
       )}
+      {showSearch && <div className="navbar-search-black-blur"></div>}
+
       {showDate && (
-        <div class="ml-12 w-full">
+        <div class="mb-[-76px] ml-12 w-full pt-[76px]">
           <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
             <div onClick={handleFormattedDateClick} class="cursor-pointer">
               {formattedDateTitle}

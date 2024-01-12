@@ -101,6 +101,16 @@ module.exports = {
       boxShadow: {
         // md: "0 18px 28px 0px rgba(0, 0, 0, 0.2)",
       },
+      clipPath: {
+        // Custom utility name
+        "inset-400": "inset(400px 0 0 0)", // Custom utility value
+        // Add more custom values as needed
+      },
+    },
+  },
+  variants: {
+    extend: {
+      clipPath: ["responsive"], // Add responsive variant if needed
     },
   },
   plugins: [],

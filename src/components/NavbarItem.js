@@ -2,81 +2,60 @@ import React from "react";
 
 const NavbarItem = ({
   selectedTab,
-  setSelectedTab,
   onAllCustomersClick,
   onMonthCustomersClick,
   onContractCompleteClick,
   handleTabClick,
-  AllCustomersClick,
-  ContractedCustomerClcik,
+  handleMapClick,
   isAnalysisSelected,
   isMapSelected,
-  handleMapClick,
   toggleDropdown,
   handleshowDateClick,
   handleCloseDateClick,
 }) => {
+  const getTabStyle = (tabName) => {
+    return `navbar-client-item cursor-pointer ${
+      selectedTab === tabName
+        ? "font-bold text-LightMode-text"
+        : "font-light text-LightMode-Subtext"
+    }`;
+  };
   return (
     <div className="navbar-client">
       <div
-        className="navbar-client-item"
+        className={getTabStyle("전체")}
         onClick={() => {
-          setSelectedTab("전체");
           onAllCustomersClick();
           handleTabClick("전체");
-          AllCustomersClick();
           toggleDropdown();
           handleCloseDateClick();
-        }}
-        style={{
-          // backgroundColor: "#000",
-          fontWeight:
-            selectedTab === "전체" && !isAnalysisSelected && !isMapSelected
-              ? "bold"
-              : "300",
         }}
       >
         전체
       </div>
       <div
-        className="navbar-client-item"
+        className={getTabStyle("월별 고객")}
         onClick={() => {
-          setSelectedTab("월별 고객");
           handleTabClick("월별 고객");
           onMonthCustomersClick();
           toggleDropdown();
           handleshowDateClick();
         }}
-        style={{
-          fontWeight: selectedTab === "월별 고객" ? "bold" : "300",
-        }}
       >
         월별 고객
       </div>
       <div
-        className="navbar-client-item"
+        className={getTabStyle("계약완료고객")}
         onClick={() => {
-          setSelectedTab("계약완료고객");
           onContractCompleteClick();
           handleTabClick("계약완료고객");
-          ContractedCustomerClcik();
           toggleDropdown();
           handleCloseDateClick();
-        }}
-        style={{
-          fontWeight: selectedTab === "계약완료고객" ? "bold" : "300",
         }}
       >
         계약 완료
       </div>
-      <div
-        className="navbar-client-item"
-        onClick={handleMapClick}
-        style={{
-          backgroundColor: isMapSelected ? "#175cd3" : "transparent",
-          fontWeight: selectedTab === "위치 기반" ? "bold" : "300",
-        }}
-      >
+      <div className={getTabStyle("Map")} onClick={handleMapClick}>
         위치 기반
       </div>
     </div>

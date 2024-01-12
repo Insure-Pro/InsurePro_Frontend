@@ -10,8 +10,7 @@ import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import ExcelUploadModal from "../components/Modal/ExcelUploadModal";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import { useSelector } from "react-redux";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const Main = () => {
@@ -26,6 +25,8 @@ const Main = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
 
+  // State to keep track of the current selection
+  const [currentSelection, setCurrentSelection] = useState("정렬기준");
   const [dropdownview, setDropdownview] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,6 +34,7 @@ const Main = () => {
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
+  const showSearch = useSelector((state) => state.search.showSearch);
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
@@ -70,6 +72,7 @@ const Main = () => {
   const handleSortChange = (sortType) => {
     // 선택된 정렬 기준을 저장하고, 새로고침 상태 변경
     setSelectedSort(sortType);
+    setCurrentSelection(sortType === "latest" ? "최신순" : sortType);
     // 정렬 버튼을 누를 때 'selectedAge'를 초기화합니다.
     setSelectedAge("");
     setRefresh((prevRefresh) => !prevRefresh);
@@ -77,6 +80,14 @@ const Main = () => {
 
   const handleAgeFilterChange = async (age) => {
     setSelectedAge(age); // 선택된 나이 필터 업데이트
+    // Mapping age filter to display text
+    const ageDisplayMap = {
+      1020: "10-20대",
+      3040: "30-40대",
+      5060: "50-60대",
+      7080: "70-80대",
+    };
+    setCurrentSelection(ageDisplayMap[age]);
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
   };
 
@@ -371,8 +382,6 @@ const Main = () => {
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
         onMonthCustomersClick={handleMonthCustomersClick}
-        ContractedCustomerClcik={handleContractCompleteClick}
-        AllCustomersClick={handleAllCustomersClick}
         setCustomers={setCustomers}
       />
       <Dbbar
@@ -403,6 +412,10 @@ const Main = () => {
             ? "blur-background no-interaction"
             : ""
         } flex flex-col  bg-LightMode-SectionBackground`}
+        style={{
+          clipPath: showSearch ? "inset(52px 0 0 0)" : "",
+          marginTop: showSearch ? "-52px" : "",
+        }}
       >
         <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">
@@ -428,7 +441,7 @@ const Main = () => {
               setDropdownview(!dropdownview);
             }}
           >
-            정렬기준{" "}
+            {currentSelection}{" "}
             {dropdownview ? (
               <img className="dropdown-img" src={dropup} alt="Dropup" />
             ) : (

@@ -9,6 +9,8 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { setSelectedTab } from "../redux/customerSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const ItemType = "NAV_ITEM";
 
 const DraggableNavItem = ({ item, index, moveItem }) => {
@@ -54,6 +56,8 @@ const Dbbar = ({
     { key: "link-9", label: "Y" },
     { key: "link-10", label: "Z" },
   ]);
+
+  const showSearch = useSelector((state) => state.search.showSearch);
 
   const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
@@ -142,9 +146,13 @@ const Dbbar = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div>
+      <div class="Dbbar">
         <div>
-          <div class="ml-6 flex h-[36px] w-[1024px] bg-white">
+          <div
+            class={`ml-6  ${
+              showSearch ? "z-0 mt-[-88px] hidden " : ""
+            } flex  h-[36px] w-[1024px] bg-white`}
+          >
             {/* <span
               className="Excel_Customer_Add"
               style={{
@@ -216,7 +224,7 @@ const Dbbar = ({
             {/* {children} */}
           </div>
         </div>
-        {isModalOpen && (
+        {/* {isModalOpen && (
           <DateChangeModal
             initialYear={selectedYear}
             initialMonth={selectedMonth}
@@ -229,7 +237,7 @@ const Dbbar = ({
             show={showExcelModal}
             onHide={handleExcelModalClose}
           />
-        )}
+        )} */}
       </div>
     </DndProvider>
   );

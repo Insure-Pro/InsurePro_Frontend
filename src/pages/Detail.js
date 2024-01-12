@@ -92,7 +92,7 @@ const Detail = ({}) => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        className={`${
+        className={`pt-[76px] ${
           showEditModalD || isHistoryModalOpen
             ? "blur-background-detail no-interaction"
             : ""

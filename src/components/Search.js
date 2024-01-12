@@ -67,8 +67,9 @@ const Search = ({ setCustomers }) => {
       style={{
         display: "flex",
         alignItems: "center",
+        zIndex: "7",
       }}
-      class="mb-7 flex h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1 "
+      class=" mb-7 mt-[146px] flex h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1"
     >
       <img class="mr-7 h-6 w-6" src={search} onClick={handleSearch}></img>
       <input

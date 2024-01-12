@@ -84,7 +84,7 @@ const Inquiry = ({}) => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        class=" mx-auto h-screen w-full min-w-[1024px] bg-gray-100"
+        class=" mx-auto h-screen w-full min-w-[1024px] bg-gray-100 pt-[76px]"
         style={{
           userSelect: "none",
         }}

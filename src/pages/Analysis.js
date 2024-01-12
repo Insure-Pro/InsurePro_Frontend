@@ -167,7 +167,7 @@ const Analysis = () => {
         AllCustomersClick={handleAllCustomersClick}
       />
       <div
-        className={`   select-none justify-center ${
+        className={`select-none   justify-center pt-[76px] ${
           showModal ? "blur-background no-interaction" : ""
         } `}
       >
