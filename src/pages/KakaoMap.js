@@ -295,9 +295,16 @@ const KakaoMap = () => {
       );
       //선택한 마커 중앙으로 오고 빨강색으로 변경
       marker.setDraggable(true);
-      // MapCustomerDetail 컴포넌트 띄우기
-      setSelectedCustomerPk(customer.pk);
-      setIsDetailVisible(true);
+
+      // MapCustomerDetail 컴포넌트 띄우기 & 닫기
+      // 선택된 고객이 이미 선택된 상태라면 Detail 컴포넌트를 닫습니다.
+      if (selectedCustomerPk === customer.pk) {
+        setIsDetailVisible(false);
+        setSelectedCustomerPk(null);
+      } else {
+        setSelectedCustomerPk(customer.pk);
+        setIsDetailVisible(true);
+      }
     }
   };
   // 현 지도 검색 클릭 시 사용
