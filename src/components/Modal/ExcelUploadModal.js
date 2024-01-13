@@ -18,9 +18,16 @@ const ExcelUploadModal = ({ show, onHide }) => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  const [fileName, setFileName] = useState(""); // input에 파일명 표시를 위한 변수
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFile(file);
+    if (file) {
+      setFileName(file.name); // Update the file name state
+    } else {
+      setFileName(""); // Reset file name if no file is selected
+    }
     const reader = new FileReader();
     reader.onload = (evt) => {
       const bstr = evt.target.result;
@@ -31,6 +38,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
       setExcelData(data);
     };
     reader.readAsBinaryString(file);
+    // Update the displayed file name
+    // const fileName = e.target.value.split("\\").pop();
+    const fileName = file.name; // 파일 객체에서 직접 파일 이름을 가져옵니다.
+    document.querySelector(".upload-name").value = fileName; // 업로드된 파일 이름으로 업데이트
   };
   const handleNextClick = () => {
     setIsNextClicked(true); // Set state when 'Next' is clicked
@@ -119,9 +130,22 @@ const ExcelUploadModal = ({ show, onHide }) => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do
                     </div> */}
-                    <div class="h-[46px] w-[632px] border">
-                      <input type="file" onChange={handleFileChange} />
+                    {/* <div class="h-[46px] w-[632px] border"> */}
+                    <div class="filebox flex  text-sm">
+                      <input
+                        class="upload-name"
+                        value={fileName}
+                        // placeholder="Attachment"
+                        disabled
+                      />
+                      <label for="excelFile">파일 찾기</label>
+                      <input
+                        type="file"
+                        id="excelFile"
+                        onChange={handleFileChange}
+                      />
                     </div>
+                    {/* </div> */}
                   </div>
                 </div>
                 <div class="mt-20 flex justify-end">

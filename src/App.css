@@ -549,6 +549,39 @@ body {
 .td-special-note {
   @apply ml-1 h-8 w-[100px] border border-Gray-scale-50 pt-2.5  text-center;
 }
+/* input type=file 커스텀 */
+.filebox .upload-name {
+  display: inline-block;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid var(--Gray-scale-50);
+  width: 610px;
+  color: var(--Gray-scale-50);
+  background-color: #fff; /* Add background color for visibility */
+}
+
+.filebox label {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: var(--Gray-scale-300);
+  cursor: pointer;
+  width: 102px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+/* input type=file 커스텀  끝 */
 
 .history-modal-style {
   background-color: white;
