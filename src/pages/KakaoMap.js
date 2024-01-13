@@ -458,6 +458,58 @@ const KakaoMap = () => {
   const [inputName, setInputName] = useState("");
   const [isSearchMode, setIsSearchMode] = useState(false);
 
+  const [isDongSearch, setIsDongSearch] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
+
+  // Define an array of all the terms you want to check for in the search
+  const searchTerms = [
+    "서울",
+    "부산",
+    "대구",
+    "인천",
+    "광주",
+    "대전",
+    "울산",
+    "세종",
+    "시",
+    "도",
+    "군",
+    "구",
+    "동",
+  ];
+
+  // Update the useEffect that sets isDongSearch
+  useEffect(() => {
+    // Check if the inputName includes any of the terms in the searchTerms array
+    const isLocationSearch = searchTerms.some((term) =>
+      inputName.includes(term),
+    );
+
+    setIsDongSearch(isLocationSearch);
+  }, [inputName]);
+
+  //////////  검색어 강조 표시 시작  //////////
+  // Utility function to highlight the search term
+  const highlightSearchTerm = (fullText, searchTerm) => {
+    if (!fullText || !searchTerm) return fullText; // null 체크
+
+    const parts = fullText.split(new RegExp(`(${searchTerm})`, "gi"));
+    return parts.map((part, index) =>
+      part.toLowerCase() === searchTerm.toLowerCase() ? (
+        <span
+          key={index}
+          style={{ color: "var(--Primary-300)", paddingRight: "0px" }}
+        >
+          {part}
+        </span>
+      ) : (
+        <span key={index}>{part}</span>
+      ),
+    );
+  };
+
+  //////////  검색어 강조 표시 끝  //////////
   // const handleSearch = async () => {
   //   try {
   //     const response = await axios.request({
@@ -483,7 +535,7 @@ const KakaoMap = () => {
   const handleSearch = async () => {
     try {
       let response;
-      const isDongSearch = inputName.includes("동"); // '동'을 포함하면 동 이름으로 간주
+      // const isDongSearch = inputName.includes("동"); // '동'을 포함하면 동 이름으로 간주
 
       if (isDongSearch) {
         // 동 이름으로 검색하는 경우
@@ -507,6 +559,7 @@ const KakaoMap = () => {
       if (response.status === 200) {
         setVisibleCustomers(response.data);
         setIsSearchMode(true); // 검색 모드 활성화
+        setSearchTerm(inputName); // 검색어 상태 업데이트
         setInputName("");
       }
     } catch (error) {
@@ -519,6 +572,8 @@ const KakaoMap = () => {
     }
   };
   //////////  이름 검색 로직 끝  //////////
+
+  //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 시작  //////////
   // Function to render a single customer item
   const renderCustomerItem = (customer, index) => (
     <div
@@ -548,11 +603,21 @@ const KakaoMap = () => {
           >
             {customer.customerType}
           </p>
-          <p className="customer-info">{customer.name}</p>
+          <p className="customer-info customer-type">
+            {" "}
+            {isDongSearch
+              ? customer.name
+              : highlightSearchTerm(customer.name, searchTerm)}
+          </p>
         </div>
         <div className="inline-container-right">
           <p className="customer-info font12">{customer.phone}</p>
-          <p className="customer-info font12">{customer.dongString}</p>
+          <p className="customer-info font12">
+            {" "}
+            {isDongSearch
+              ? customer.dongString
+              : highlightSearchTerm(customer.dongString, searchTerm)}
+          </p>
         </div>
       </div>
       {/* <hr
@@ -562,17 +627,18 @@ const KakaoMap = () => {
       margin: "0px 12px",
       // borderBottom: "0.5px solid #D0D0D0",
       borderBottom:
-        selectedCustomerPk && selectedCustomerPk !== customer.pk
-          ? "0.5px solid #999999"
-          : "0.5px solid #D0D0D0",
+      selectedCustomerPk && selectedCustomerPk !== customer.pk
+      ? "0.5px solid #999999"
+      : "0.5px solid #D0D0D0",
       opacity:
-        selectedCustomerPk && selectedCustomerPk !== customer.pk
-          ? 0.4
-          : 1,
+      selectedCustomerPk && selectedCustomerPk !== customer.pk
+      ? 0.4
+      : 1,
     }}
   /> */}
     </div>
   );
+  //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 끝  //////////
   return (
     <div>
       <Navbar

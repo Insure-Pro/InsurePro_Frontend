@@ -921,10 +921,10 @@ body {
   margin-bottom: 2px;
   padding-left: 10px;
   text-align: left;
+  font-weight: 400;
 }
 .customer-type {
   font-weight: bold;
-  color: #175cd3;
 }
 .font12 {
   font-size: 12px;
