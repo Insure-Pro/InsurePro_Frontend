@@ -5,7 +5,12 @@ import { useState, useEffect } from "react";
 import EditModalH from "./Modal/EditModalH";
 import ContextMenu from "./Modal/ContextMenu";
 
-const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
+const CustomerHistory = ({
+  customerPk,
+  setIsHistoryModalOpen,
+  onEditClick,
+  onCloseModal,
+}) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
   const [selectedHistory, setSelectedHistory] = useState(null);
@@ -99,6 +104,8 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   }, [refresh]);
 
   const handleModalHClose = () => {
+    setShowEditModalH(false); // EditModalH를 닫는 부분
+    setIsHistoryModalOpen(false); // 상태를 false로 설정
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
     fetchData();
   };
@@ -122,7 +129,8 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
 
   const handleEdit = (history) => {
     setSelectedHistory(history);
-    setShowEditModalH(true);
+    setShowEditModalH(true); // EditModalH를 여는 부분
+    setIsHistoryModalOpen(true); // 상태를 true로 설정
     fetchData();
     // Edit logic
     setContextMenu({ ...contextMenu, visible: false });
@@ -228,9 +236,8 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
         {selectedHistory && (
           <EditModalH
             show={showEditModalH}
-            onHide={() => setShowEditModalH(false)}
+            onHide={handleModalHClose}
             selectedHistory={selectedHistory}
-            onClose={handleModalHClose}
           />
         )}
       </div>

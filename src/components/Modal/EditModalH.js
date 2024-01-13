@@ -6,14 +6,25 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
+function HistoryModalH({ show, onHide, selectedHistory }) {
+  // const [show, setShow] = useState(false);
   const dateRef = useRef("");
   const addressRef = useRef("");
   const memoRef = useRef("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
-  const progressTypes = ["TA", "AP", "PT", "PC"];
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
+  const close_icon = process.env.PUBLIC_URL + "/Close.png";
+
+  // const handleShow = () => {
+  //   setShow(true);
+  //   setIsHistoryModalOpen(true); // Set state in Detail when opening the modal
+  // };
+  // const handleClose = () => {
+  //   setShow(false);
+  //   // setIsHistoryModalOpen(false); // Reset state in Detail when closing the modal
+  // };
 
   useEffect(() => {
     if (selectedHistory) {
@@ -34,35 +45,35 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
     setUpdatedHistory(selectedHistory);
   }, [selectedHistory]);
 
-  const [editedHistory, setEditedHistory] = useState({
-    progress: "",
-    date: "",
-    address: "",
-    memo: "",
-  });
+  // const [editedHistory, setEditedHistory] = useState({
+  //   progress: "",
+  //   date: "",
+  //   address: "",
+  //   memo: "",
+  // });
 
-  useEffect(() => {
-    setEditedHistory(selectedHistory);
-  }, [selectedHistory]);
+  // useEffect(() => {
+  //   setEditedHistory(selectedHistory);
+  // }, [selectedHistory]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedHistory((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setEditedHistory((prev) => ({ ...prev, [name]: value }));
+  // };
 
-  const handleSaveChanges = async () => {
-    try {
-      const url = `${MAIN_URL}/schedule/${selectedHistory.pk}`;
-      await axios.patch(url, editedHistory, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      onClose();
-    } catch (error) {
-      console.error("Error updating history:", error);
-    }
-  };
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     const url = `${MAIN_URL}/schedule/${selectedHistory.pk}`;
+  //     await axios.patch(url, editedHistory, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //       },
+  //     });
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("Error updating history:", error);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,128 +103,114 @@ function HistoryModalH({ show, onClose, onHide, selectedHistory }) {
       console.error("Error while submitting data", err);
     }
   };
+  const customerTypeColors = {
+    TA: "var(--colorN-4)",
+    AP: "var(--colorN-4)",
+    PT: "var(--colorN-4)",
+    PC: "var(--colorN-4)",
+  };
 
   return (
     <>
       <Modal
         show={show}
+        // onHide={onHide}
         className="history-modal-style"
-        onHide={onHide}
         style={{ marginTop: "130px" }}
       >
-        <div closeButton style={{ marginRight: "16px" }}>
-          <Modal.Title>히스토리 수정</Modal.Title>
+        <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
+          <div class="flex justify-between">
+            <div>히스토리 추가</div>
+            <img class="cursor-pointer" onClick={onHide} src={close_icon} />
+          </div>
         </div>
         <div className="Modal_container">
           <Form onSubmit={handleSubmit}>
-            <ButtonGroup>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  paddingRight: "8px",
-                  paddingLeft: "8px",
-                  marginRight: "24px",
-                  borderWidth: "1px",
-                  borderRadius: "5px",
-                  borderStyle: "solid",
-                  borderColor: "#DEE2E5",
-                  backgroundColor: "transparent",
-                  color: "#585C5E",
-                  userSelect: "none",
-                }}
-              >
-                진척도
+            <div>
+              <div className="mb-1  mt-2 flex h-10 w-[352px] items-center ">
+                <div class=" flex items-center">
+                  <div className="mr-[38px] w-[50px] cursor-default ">
+                    {" "}
+                    진척도
+                  </div>
+                  <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
+                    {Object.keys(customerTypeColors).map((type, idx) => (
+                      <button
+                        key={idx}
+                        className=" flex h-7 w-12 items-center border border-Gray-scale-100 px-[14px] py-[5px] outline-none"
+                        type="button"
+                        style={{
+                          color:
+                            selectedProgressType === type
+                              ? "white"
+                              : "var(--Gray-scale-100)",
+                          backgroundColor:
+                            selectedProgressType === type
+                              ? customerTypeColors[type]
+                              : "transparent",
+                          borderColor:
+                            selectedProgressType === type
+                              ? customerTypeColors[type]
+                              : "var(--Gray-scale-100)",
+                          fontWeight:
+                            selectedProgressType === type ? "bold" : "normal",
+                        }}
+                        // ref={customerType}
+                        value={selectedProgressType}
+                        onClick={() => handleProgressTypeClick(type)}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-              {progressTypes.map((type, idx) => (
-                <ToggleButton
-                  key={idx}
-                  type="button"
-                  variant={
-                    selectedProgressType === type
-                      ? "primary"
-                      : "outline-primary"
-                  }
-                  value={selectedProgressType}
-                  style={{ borderRadius: "0px" }}
-                  onClick={() => handleProgressTypeClick(type)}
-                >
-                  {type}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                일정시간
-              </Form.Label>
-              <Form.Control
+            </div>
+            <div class="mb-1 flex h-10 items-center">
+              <div class=" mr-[38px] w-[50px]">일정시간</div>
+              <input
                 type="date"
                 placeholder="YYYY-MM-DD"
                 defaultValue={selectedHistory?.date}
                 ref={dateRef}
-                autoFocus
-                name="date"
-                value={editedHistory.date}
-                onChange={handleInputChange}
+                // value={editedHistory.date}
+                // onChange={handleInputChange}
+                class="h-7 w-[192px] rounded border text-center "
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                장소
-              </Form.Label>
-              <Form.Control
+            </div>
+
+            <div class="mb-1 flex h-10 items-center">
+              <div class="mr-[38px] w-[50px]">장소</div>
+              <input
                 type="text"
-                placeholder="Address"
                 defaultValue={selectedHistory?.address}
                 ref={addressRef}
-                autoFocus
-                name="address"
-                value={editedHistory.address}
-                onChange={handleInputChange}
+                // value={editedHistory.address}
+                // onChange={handleInputChange}
+                class="h-7 w-[192px] rounded border text-center"
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label
-                style={{
-                  marginTop: "12px",
-                  paddingLeft: "2px",
-                  userSelect: "none",
-                }}
-              >
-                메모
-              </Form.Label>
-              <Form.Control
+            </div>
+            <div class="flex h-[68px] pt-[6px] ">
+              <div class="mr-[38px] w-[50px]">메모</div>
+              <input
                 as="textarea"
                 rows={3}
                 defaultValue={selectedHistory?.memo}
                 ref={memoRef}
-                autoFocus
-                name="memo"
-                value={editedHistory.memo}
-                onChange={handleInputChange}
+                // value={editedHistory.memo}
+                // onChange={handleInputChange}
+                class="h-[56px] w-[192px] rounded border text-center"
               />
-            </Form.Group>
-            <Modal.Footer style={{ marginRight: "-12px" }}>
-              <Button
+            </div>
+            <div>
+              <button
+                class=" mt-2 flex  h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
                 type="submit"
-                variant="primary"
-                onClick={handleSaveChanges}
+                // onClick={handleSaveChanges}
               >
                 변경사항 저장
-              </Button>
-            </Modal.Footer>
+              </button>
+            </div>
           </Form>
         </div>
       </Modal>

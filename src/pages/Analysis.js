@@ -170,6 +170,7 @@ const Analysis = () => {
         className={`select-none   justify-center pt-[76px] ${
           showModal ? "blur-background no-interaction" : ""
         } `}
+        style={{ marginTop: showModal ? "-112px" : "" }}
       >
         <div class="flex h-10 items-center justify-center px-12">
           {/* DateChangeModal component */}

@@ -227,9 +227,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
       console.error("Error updating customer:", error);
     }
   };
-  console.log(selectedSido);
-  console.log(selectedSigugun);
-  console.log(selectedDong);
+
   return (
     <>
       <Modal show={show} onHide={onHide} className="modal-style-detail">

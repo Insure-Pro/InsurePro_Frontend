@@ -20,6 +20,7 @@ const Detail = ({}) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   const [showEditModalD, setShowEditModalD] = useState(false);
+  const [showEditModalH, setShowEditModalH] = useState(false);
   // HistoryModal이 열려 있는지 추적하는 새로운 상태
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
 
@@ -58,9 +59,9 @@ const Detail = ({}) => {
     fetchCustomer();
   }, [customerPk]);
 
-  const handleEditClick = () => {
-    setShowEditModalD(true);
-  };
+  // const handleEditClick = () => {
+  //   setShowEditModalD(true);
+  // };
 
   const handleUpdateSuccess = (updatedCustomer) => {
     try {
@@ -94,9 +95,10 @@ const Detail = ({}) => {
       <div
         className={`pt-[76px] ${
           showEditModalD || isHistoryModalOpen
-            ? "blur-background-detail no-interaction"
+            ? "blur-background-detail no-interaction mt-[-76px]"
             : ""
         }  mx-auto h-screen w-full min-w-[1024px] select-none`}
+        style={{}}
       >
         {selectedCustomer && (
           <>
@@ -131,8 +133,10 @@ const Detail = ({}) => {
             /> */}
             <CustomerHistory
               data={customerSchedules}
-              setIsHistoryModalOpen={setIsHistoryModalOpen}
               customerPk={customerPk}
+              setIsHistoryModalOpen={setIsHistoryModalOpen}
+              onEditClick={() => setIsHistoryModalOpen(true)} // Opens the modal
+              onCloseModal={() => setIsHistoryModalOpen(false)} // Closes the modal
             />
             {/* <EditModalD
               show={showEditModalD}

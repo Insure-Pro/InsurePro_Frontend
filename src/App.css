@@ -526,10 +526,10 @@ body {
   @apply ml-1 flex h-8 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
 }
 .td-db-date {
-  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-8 w-[90px] border border-Gray-scale-50 pt-2.5  text-center;
 } /* Adjust widths as needed */
 .td-name {
-  @apply ml-1 h-8 w-12 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-8 w-[64px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-customer-type {
   @apply ml-1 h-8 w-16 border border-Gray-scale-50 pt-2.5  text-center;

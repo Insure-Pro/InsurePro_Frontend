@@ -80,6 +80,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
     }
   };
 
+  // 엑셀 템플릿 다운로드 버튼을 처리하는 함수
+  const handleDownloadTemplate = () => {
+    // 가정: 엑셀 파일의 URL이 "/templates/excel_template.xlsx"에 위치한다고 가정
+    window.location.href = process.env.PUBLIC_URL + "/insurepro_엑셀등록.xlsx";
+  };
+
   return (
     <>
       <div>
@@ -97,27 +103,36 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 </div>
               </div>
               <div class="px-9 text-sm">
-                <Form.Control type="file" onChange={handleFileChange} />
                 <div>
-                  <div eventKey="0">
-                    <div class=" mt-3  flex h-[42px] items-center border bg-gray-300 pl-4 text-white">
+                  <div class="flex flex-col">
+                    {/* 엑셀 템플릿 다운로드 버튼 추가 */}
+                    <button
+                      onClick={handleDownloadTemplate}
+                      className="mb-[22px] mt-3 h-10 w-[195px] border text-Primary-300"
+                    >
+                      엑셀 파일 양식 다운로드
+                    </button>
+                    {/* <div class=" mt-3  flex h-[42px] items-center border bg-gray-300 pl-4 text-white">
                       엑셀 파일 추가시 가이드라인
-                    </div>
-                    <div class="mb-2 flex h-[85px] items-center justify-center border">
+                    </div> */}
+                    {/* <div class="mb-2 flex h-[85px] items-center justify-center border">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do
+                    </div> */}
+                    <div class="h-[46px] w-[632px] border">
+                      <input type="file" onChange={handleFileChange} />
                     </div>
                   </div>
                 </div>
-                <div class="flex justify-end">
+                <div class="mt-20 flex justify-end">
                   {/* <p>Please follow the guidelines...</p> */}
                   <button
-                    class={`h-10 w-[310px] rounded border text-[17px] ${
+                    class={`h-10 w-[632px] rounded border text-[17px] ${
                       file ? "bg-primary-100 text-white" : "text-gray-300"
                     }`}
                     onClick={handleNextClick}
                   >
-                    다음
+                    불러오기
                   </button>
                 </div>
               </div>
@@ -152,53 +167,58 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 </div>
 
                 <tbody class="mx-3 w-full text-[11px]">
-                  {excelData.slice(1).map((row, index) => (
-                    <tr
-                      className="mb-1 flex items-center justify-center"
-                      key={index}
-                    >
-                      {row.map((cell, cellIndex) => {
-                        let className;
-                        switch (cellIndex) {
-                          case 0:
-                            className = "td-db-date";
-                            break;
-                          case 1:
-                            className = "td-name";
-                            break;
-                          case 2:
-                            className = "td-customer-type";
-                            break;
-                          case 3:
-                            className = "td-birth";
-                            break;
-                          case 4:
-                            className = "td-age";
-                            break;
-                          case 5:
-                            className = "td-contact";
-                            break;
-                          case 6:
-                            className = "td-residence";
-                            break;
-                          case 7:
-                            className = "td-special-note";
-                            break;
-                          // ... handle other cases similarly
-                          // case 8:
-                          //   className = "td-special-note";
-                          //   break;
-                          default:
-                            className = "";
-                        }
-                        return (
-                          <td key={cellIndex} className={className}>
-                            {cell}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
+                  {excelData.slice(1).map((row, index) => {
+                    // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
+                    const filteredRow = [...row.slice(0, 9), ...row.slice(15)];
+
+                    return (
+                      <tr
+                        className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
+                        key={index}
+                      >
+                        {filteredRow.map((cell, cellIndex) => {
+                          let className;
+                          // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
+                          switch (cellIndex) {
+                            case 0:
+                              className = "td-db-date";
+                              break;
+                            case 1:
+                              className = "td-name";
+                              break;
+                            case 2:
+                              className = "td-customer-type";
+                              break;
+                            case 3:
+                              className = "td-birth";
+                              break;
+                            case 4:
+                              className = "td-age";
+                              break;
+                            case 5:
+                              className = "td-contact";
+                              break;
+                            case 6:
+                              className = "td-residence";
+                              break;
+                            case 7:
+                              className = "td-special-note";
+                              break;
+                            // case 8:
+                            //   className = "td-special-note";
+                            //   break;
+                            default:
+                              className = "";
+                          }
+                          return (
+                            <td key={cellIndex} className={className}>
+                              {cell}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </div>
               <div class="mt-3 flex w-full flex-col text-center">
