@@ -38,7 +38,7 @@ const Search = ({ setCustomers }) => {
     try {
       const response = await axios.request({
         method: "get",
-        url: `${MAIN_URL}/customers/name`,
+        url: `${MAIN_URL}/customers/name/${inputName}`,
         data: {
           name: inputName,
         },

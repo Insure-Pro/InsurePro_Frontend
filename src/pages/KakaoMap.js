@@ -352,6 +352,7 @@ const KakaoMap = () => {
       // Update the state based on whether there are visible customers
       setHasVisibleCustomers(filteredCustomers.length > 0);
       setVisibleCustomers(filteredCustomers);
+      setIsSearchMode(false); // Reset search mode
     }
   }
 
@@ -455,27 +456,61 @@ const KakaoMap = () => {
 
   //////////  이름 검색 로직 시작  //////////
   const [inputName, setInputName] = useState("");
-  const [isInputFocused, setInputFocused] = useState(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
+  // const handleSearch = async () => {
+  //   try {
+  //     const response = await axios.request({
+  //       method: "get",
+  //       url: `${MAIN_URL}/customers/name/${inputName}`,
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       data: {
+  //         name: inputName,
+  //       },
+  //     });
+  //     if (response.status === 200) {
+  //       setVisibleCustomers(response.data);
+  //       setIsSearchMode(true); // Set search mode to true
+  //       setInputName("");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching customers by name:", error);
+  //   }
+  // };
   const handleSearch = async () => {
     try {
-      const response = await axios.request({
-        method: "get",
-        url: `${MAIN_URL}/customers/name`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-        data: {
-          name: inputName,
-        },
-      });
+      let response;
+      const isDongSearch = inputName.includes("동"); // '동'을 포함하면 동 이름으로 간주
+
+      if (isDongSearch) {
+        // 동 이름으로 검색하는 경우
+        response = await axios.get(
+          `${MAIN_URL}/customers/dongName/${inputName}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          },
+        );
+      } else {
+        // 이름으로 검색하는 경우
+        response = await axios.get(`${MAIN_URL}/customers/name/${inputName}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+      }
+
       if (response.status === 200) {
         setVisibleCustomers(response.data);
+        setIsSearchMode(true); // 검색 모드 활성화
         setInputName("");
       }
     } catch (error) {
-      console.error("Error fetching customers by name:", error);
+      console.error("Error fetching customers:", error);
     }
   };
   const handleOnKeyDown = (e) => {
@@ -484,6 +519,60 @@ const KakaoMap = () => {
     }
   };
   //////////  이름 검색 로직 끝  //////////
+  // Function to render a single customer item
+  const renderCustomerItem = (customer, index) => (
+    <div
+      className="Map_customerList_item"
+      key={index}
+      onClick={() => handleCustomerClick(customer)}
+      style={{
+        backgroundColor:
+          selectedCustomerPk === customer.pk ? "white" : "transparent",
+        opacity: selectedCustomerPk === customer.pk ? 1 : 0.8,
+        // paddingTop: "10px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          // marginBottom: "10px",
+          cursor: "pointer",
+        }}
+      >
+        <div className="inline-container-left">
+          <p
+            className="customer-info customer-type"
+            style={{
+              color: customerTypeColors[customer.customerType],
+            }}
+          >
+            {customer.customerType}
+          </p>
+          <p className="customer-info">{customer.name}</p>
+        </div>
+        <div className="inline-container-right">
+          <p className="customer-info font12">{customer.phone}</p>
+          <p className="customer-info font12">{customer.dongString}</p>
+        </div>
+      </div>
+      {/* <hr
+    className="Map_list_hr"
+    style={{
+      width: "276px",
+      margin: "0px 12px",
+      // borderBottom: "0.5px solid #D0D0D0",
+      borderBottom:
+        selectedCustomerPk && selectedCustomerPk !== customer.pk
+          ? "0.5px solid #999999"
+          : "0.5px solid #D0D0D0",
+      opacity:
+        selectedCustomerPk && selectedCustomerPk !== customer.pk
+          ? 0.4
+          : 1,
+    }}
+  /> */}
+    </div>
+  );
   return (
     <div>
       <Navbar
@@ -534,64 +623,10 @@ const KakaoMap = () => {
               </div>
             </>
           )}
-          {hasVisibleCustomers ? (
-            visibleCustomers.map((customer, index) => (
-              <div
-                className="Map_customerList_item"
-                key={index}
-                onClick={() => handleCustomerClick(customer)}
-                style={{
-                  backgroundColor:
-                    selectedCustomerPk === customer.pk
-                      ? "white"
-                      : "transparent",
-                  opacity: selectedCustomerPk === customer.pk ? 1 : 0.8,
-                  // paddingTop: "10px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    // marginBottom: "10px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <div className="inline-container-left">
-                    <p
-                      className="customer-info customer-type"
-                      style={{
-                        color: customerTypeColors[customer.customerType],
-                      }}
-                    >
-                      {customer.customerType}
-                    </p>
-                    <p className="customer-info">{customer.name}</p>
-                  </div>
-                  <div className="inline-container-right">
-                    <p className="customer-info font12">{customer.phone}</p>
-                    <p className="customer-info font12">
-                      {customer.dongString}
-                    </p>
-                  </div>
-                </div>
-                {/* <hr
-                  className="Map_list_hr"
-                  style={{
-                    width: "276px",
-                    margin: "0px 12px",
-                    // borderBottom: "0.5px solid #D0D0D0",
-                    borderBottom:
-                      selectedCustomerPk && selectedCustomerPk !== customer.pk
-                        ? "0.5px solid #999999"
-                        : "0.5px solid #D0D0D0",
-                    opacity:
-                      selectedCustomerPk && selectedCustomerPk !== customer.pk
-                        ? 0.4
-                        : 1,
-                  }}
-                /> */}
-              </div>
-            ))
+          {isSearchMode ? (
+            visibleCustomers.map(renderCustomerItem)
+          ) : hasVisibleCustomers ? (
+            visibleCustomers.map(renderCustomerItem)
           ) : (
             <div class="flex h-[700px] items-center justify-center text-sm">
               {" "}
