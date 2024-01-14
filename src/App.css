@@ -557,7 +557,7 @@ body {
   vertical-align: middle;
   border: 1px solid var(--Gray-scale-50);
   width: 610px;
-  color: var(--Gray-scale-50);
+  color: var(--Gray-scale-400);
   background-color: #fff; /* Add background color for visibility */
 }
 

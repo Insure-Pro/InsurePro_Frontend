@@ -506,7 +506,7 @@ const KakaoMap = () => {
       part.toLowerCase() === searchTerm.toLowerCase() ? (
         <span
           key={index}
-          style={{ color: "var(--Primary-300)", paddingRight: "0px" }}
+          style={{ color: "var(--Primary-500)", paddingRight: "0px" }}
         >
           {part}
         </span>

@@ -134,34 +134,49 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
                     진척도
                   </div>
                   <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
-                    {Object.keys(customerTypeColors).map((type, idx) => (
-                      <button
-                        key={idx}
-                        className=" flex h-7 w-12 items-center border border-Gray-scale-100 px-[14px] py-[5px] outline-none"
-                        type="button"
-                        style={{
-                          color:
-                            selectedProgressType === type
-                              ? "white"
-                              : "var(--Gray-scale-100)",
-                          backgroundColor:
-                            selectedProgressType === type
-                              ? customerTypeColors[type]
-                              : "transparent",
-                          borderColor:
-                            selectedProgressType === type
-                              ? customerTypeColors[type]
-                              : "var(--Gray-scale-100)",
-                          fontWeight:
-                            selectedProgressType === type ? "bold" : "normal",
-                        }}
-                        // ref={customerType}
-                        value={selectedProgressType}
-                        onClick={() => handleProgressTypeClick(type)}
-                      >
-                        {type}
-                      </button>
-                    ))}
+                    {Object.keys(customerTypeColors).map((type, idx, array) => {
+                      const isFirst = idx === 0;
+                      const isLast = idx === array.length - 1;
+                      let buttonStyle = {
+                        color:
+                          selectedProgressType === type
+                            ? "white"
+                            : "var(--Gray-scale-100)",
+                        backgroundColor:
+                          selectedProgressType === type
+                            ? customerTypeColors[type]
+                            : "transparent",
+                        borderColor:
+                          selectedProgressType === type
+                            ? customerTypeColors[type]
+                            : "var(--Gray-scale-100)",
+                        fontWeight:
+                          selectedProgressType === type ? "bold" : "normal",
+                      };
+
+                      // Apply rounded corners for the first and last button
+                      if (isFirst) {
+                        buttonStyle.borderTopLeftRadius = "4px";
+                        buttonStyle.borderBottomLeftRadius = "4px";
+                      }
+                      if (isLast) {
+                        buttonStyle.borderTopRightRadius = "4px";
+                        buttonStyle.borderBottomRightRadius = "4px";
+                      }
+
+                      return (
+                        <button
+                          key={idx}
+                          className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                          type="button"
+                          style={buttonStyle}
+                          value={selectedProgressType}
+                          onClick={() => handleProgressTypeClick(type)}
+                        >
+                          {type}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

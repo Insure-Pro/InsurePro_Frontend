@@ -173,6 +173,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
+
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
@@ -237,7 +238,8 @@ function Modal1({ show, onModalOpen, onModalClose }) {
           // setShow(false);
           // onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           resetStates(); // 입력 상태 초기화
-          handleClose(); // Modal 창 닫기
+          // handleClose(); // Modal 창 닫기
+          onModalClose();
         }
       })
 
@@ -334,34 +336,50 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                   <span className="Highlighting">*</span>고객유형
                 </div>
                 <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
-                  {Object.keys(customerTypeColors).map((type, idx) => (
-                    <button
-                      key={idx}
-                      className=" flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
-                      type="button"
-                      style={{
-                        color:
-                          selectedCustomerType === type
-                            ? "white"
-                            : "var(--Gray-scale-100)",
-                        backgroundColor:
-                          selectedCustomerType === type
-                            ? customerTypeColors[type]
-                            : "transparent",
-                        borderColor:
-                          selectedCustomerType === type
-                            ? customerTypeColors[type]
-                            : "var(--Gray-scale-100)",
-                        fontWeight:
-                          selectedCustomerType === type ? "bold" : "normal",
-                      }}
-                      ref={customerType}
-                      value={selectedCustomerType}
-                      onClick={() => handleCustomerTypeClick(type)}
-                    >
-                      {type}
-                    </button>
-                  ))}
+                  {Object.keys(customerTypeColors).map((type, idx, array) => {
+                    const isFirst = idx === 0;
+                    const isLast = idx === array.length - 1;
+                    let buttonStyle = {
+                      color:
+                        selectedCustomerType === type
+                          ? "white"
+                          : "var(--Gray-scale-100)",
+                      backgroundColor:
+                        selectedCustomerType === type
+                          ? customerTypeColors[type]
+                          : "transparent",
+                      borderColor:
+                        selectedCustomerType === type
+                          ? customerTypeColors[type]
+                          : "var(--Gray-scale-100)",
+                      fontWeight:
+                        selectedCustomerType === type ? "bold" : "normal",
+                    };
+
+                    // Apply rounded corners for the first and last button
+                    if (isFirst) {
+                      buttonStyle.borderTopLeftRadius = "4px";
+                      buttonStyle.borderBottomLeftRadius = "4px";
+                    }
+                    if (isLast) {
+                      buttonStyle.borderTopRightRadius = "4px";
+                      buttonStyle.borderBottomRightRadius = "4px";
+                    }
+
+                    return (
+                      <button
+                        key={idx}
+                        className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                        type="button"
+                        ref={customerType}
+                        style={buttonStyle}
+                        value={selectedCustomerType}
+                        onClick={() => handleCustomerTypeClick(type)}
+                      >
+                        {type}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -526,7 +544,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               <input
                 class={` modal_item_input ${
                   phoneInput ? "border-primary-100 " : "border-gray-300 "
-                }  px-3`}
+                } px-3 text-center`}
                 type="text"
                 ref={phone}
                 // value={phoneInput}
