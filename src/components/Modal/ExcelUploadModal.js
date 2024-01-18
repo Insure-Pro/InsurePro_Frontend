@@ -135,7 +135,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                       <input
                         class="upload-name"
                         value={fileName}
-                        // placeholder="Attachment"
+                        // placeholder="파일첨부하기"
                         disabled
                       />
                       <label for="excelFile">파일 찾기</label>

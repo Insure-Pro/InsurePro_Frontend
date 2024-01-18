@@ -102,10 +102,17 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
+  const [renderKey, setRenderKey] = useState(0);
+
   const handleContractYnChange = () => {
     // 체크박스 상태를 토글
     setContractYn(!contractYn);
+    setRenderKey((prevKey) => prevKey + 1); // Increment the render key to force re-render
   };
+
+  // useEffect(() => {
+  //   setContractYn(!contractYn);
+  // }, [contractYn]);
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
@@ -257,19 +264,29 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 ref={nameRef}
               />
             </div> */}
-            {/* <div controlId="contractYn.ControlCheckbox1">
-              <Form.Check
+            <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
+              <input
+                key={renderKey}
+                id="customCheckbox"
+                className="hidden-checkbox"
                 type="checkbox"
-                label="계약 체결 여부"
                 checked={contractYn} // 체크박스 상태를 반영
                 onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
-                style={{
-                  marginLeft: "2px",
-                  marginBottom: "10px",
-                  marginTop: "-20px",
-                }}
               />
-            </div> */}
+              <label
+                htmlFor="customCheckbox"
+                class={`checkbox-label_14 ml-[84px] mr-1 ${
+                  contractYn ? "text-Primary-400" : "text-Secondary-100"
+                }`}
+              ></label>
+              <span
+                class={`${
+                  contractYn ? "text-Primary-400" : "text-Secondary-100"
+                }`}
+              >
+                {contractYn ? "계약완료 고객" : "계약 미완료"}
+              </span>
+            </div>
             <div className="mb-1    h-12 w-[352px] select-none ">
               <div className=" flex items-center">
                 <div className="w-[84px] pb-4 ">

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
+import { decode as jwtDecode } from "jwt-decode";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

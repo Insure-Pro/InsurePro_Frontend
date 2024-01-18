@@ -398,6 +398,28 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                 onChange={handleNameInputChange}
               />
             </div>
+            <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
+              <input
+                type="checkbox"
+                id="customCheckbox"
+                className="hidden-checkbox"
+                checked={contractYn} // 체크박스 상태를 반영
+                onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+              />
+              <label
+                htmlFor="customCheckbox"
+                class={`checkbox-label_14 ml-[84px] mr-1 ${
+                  contractYn ? "text-Primary-400" : "text-Secondary-100"
+                }`}
+              ></label>
+              <span
+                class={`${
+                  contractYn ? "text-Primary-400" : "text-Secondary-100"
+                }`}
+              >
+                {contractYn ? "계약안료 고객" : "계약 미완료"}
+              </span>
+            </div>
             <div class=" modal_item_container">
               <div class="w-[84px] cursor-default pl-2">나이 (만)</div>
               <input

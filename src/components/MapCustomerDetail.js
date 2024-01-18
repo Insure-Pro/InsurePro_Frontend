@@ -87,8 +87,32 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         >
           {customerData.customerType}
         </div>
-        <div class=" text-[15px] font-bold">{customerData.name}</div>
-        <div class=" pl-1 text-[13px]">(만 {customerData.age}세)</div>
+        <div class="flex flex-col ">
+          {/* 체크박스 추가 */}
+          <div class="flex">
+            <input
+              type="checkbox"
+              id="customCheckbox"
+              className="hidden-checkbox"
+              checked={customerData.contractYn}
+              readOnly
+            />
+            <label htmlFor="customCheckbox" class="checkbox-label"></label>
+            <div
+              class={` mb-[7px] ml-1 text-left text-[8px] ${
+                customerData.contractYn
+                  ? "text-Primary-300"
+                  : "text-LightMode-Text"
+              }`}
+            >
+              계약완료고객
+            </div>
+          </div>
+          <div class="flex">
+            <div class=" text-[15px] font-bold">{customerData.name}</div>
+            <div class=" pl-1 text-[13px]">(만 {customerData.age}세)</div>
+          </div>
+        </div>
         <div
           onClick={() => handleCustomerClick(customerData)}
           class="flex items-center pl-[30px] text-[10px] text-gray-150"

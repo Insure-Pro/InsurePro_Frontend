@@ -1,14 +1,14 @@
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditModalD from "./Modal/EditModalD";
 
 const CustomerInfo = ({
   onUpdateSuccess,
   data,
   customerPk,
-  onEditClick,
   showEditModal,
+  onEditClick,
   onCloseModal,
 }) => {
   // const [showEditModal, setShowEditModal] = useState(false);

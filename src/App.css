@@ -706,6 +706,83 @@ body {
   @apply h-[28px] w-[60px]  rounded border;
 }
 /* - - - - -[모달창 끝]- - - - - */
+/* - - - - -[체크박스 커스텀 시작]- - - - - */
+
+/* 숨겨진 원래 체크박스 */
+/* 숨겨진 원래 체크박스 */
+.hidden-checkbox {
+  display: none;
+}
+
+/* 체크박스 레이블의 스타일링 */
+.checkbox-label {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-image: url("/public/check_off_8.png"); /* 체크되지 않은 상태의 이미지 */
+  /* background-size: cover; */
+  cursor: pointer;
+}
+
+/* 원래 체크박스가 체크되었을 때 레이블의 배경 이미지 변경 */
+.hidden-checkbox:checked + .checkbox-label {
+  background-image: url("/public/check_on_8.png");
+  /* background-size: cover; 이미지 크기 조정 */
+}
+.hidden-checkbox {
+  display: none;
+}
+
+/* 체크박스 레이블의 스타일링 */
+.checkbox-label_14 {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("/public/check_off_14.png"); /* 체크되지 않은 상태의 이미지 */
+  /* background-size: cover; */
+  cursor: pointer;
+}
+
+/* 원래 체크박스가 체크되었을 때 레이블의 배경 이미지 변경 */
+.hidden-checkbox:checked + .checkbox-label_14 {
+  background-image: url("/public/check_on_14.png");
+  /* background-size: cover; 이미지 크기 조정 */
+}
+/* .hidden-checkbox:checked + .checkbox-label { */
+/* background-image: url("/public/check_on.png"); */
+/* background-size: cover; */
+/* } */
+
+/* Hide the original checkbox */
+.hidden-checkbox {
+  display: none;
+}
+
+/* Styling for the label with a custom checkbox image */
+.checkbox-custom label::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("/public/check_off_14.png"); /* Default image */
+  /* margin-right: 8px; */
+  vertical-align: middle;
+}
+
+/* Change the image when the checkbox is checked */
+.hidden-checkbox:checked + label::before {
+  background-image: url("/public/check_on_14.png");
+}
+
+/* Styling for label text when checkbox is checked */
+.checkbox-custom label {
+  color: black; /* Default text color */
+}
+
+.hidden-checkbox:checked + label {
+  color: var(--Primary-400); /* Color for checked state */
+}
+/* - - - - -[체크박스 커스텀 끝]- - - - - */
 .context-menu {
   @apply absolute z-10 h-[38px] w-[108px]  rounded;
 }
