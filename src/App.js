@@ -55,27 +55,37 @@ function App() {
 
   // console.log("App Rendered. Current isLoggedIn status:", isLoggedIn);
 
+  // 보호된 경로에 대한 조건부 렌더링 함수
+  const renderProtected = (Component) => {
+    return isLoggedIn ? <Component /> : <Login />;
+  };
   return (
     <Suspense>
       <div className="App">
         <div>
           <Routes>
             <Route
-              exact
-              path="/"
-              element={isLoggedIn ? <ProtectedMain /> : <Login />}
+            // exact
+            // path="/"
+            // element={isLoggedIn ? <ProtectedMain /> : <Login />}
             />
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
             <Route path="/password" element={<Password />} />
             <Route path="/landingPage" element={<LandingPage />} />
-            <Route path="/main" element={<ProtectedMain />} />
-            <Route path="/detail" element={<ProtectedDetail />} />
-            <Route path="/map" element={<ProtectedKakaoMap />} />
-            <Route path="/inquiry" element={<ProtectedInquiry />} />
-            <Route path="/analysis" element={<ProtectedAnalysis />} />
+            <Route path="/main" element={renderProtected(ProtectedMain)} />
+            <Route path="/detail" element={renderProtected(ProtectedDetail)} />
+            <Route path="/map" element={renderProtected(ProtectedKakaoMap)} />
+            <Route
+              path="/inquiry"
+              element={renderProtected(ProtectedInquiry)}
+            />
+            <Route
+              path="/analysis"
+              element={renderProtected(ProtectedAnalysis)}
+            />
           </Routes>
         </div>
       </div>
