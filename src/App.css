@@ -315,6 +315,18 @@ body {
   cursor: pointer;
   padding-top: 4px;
 }
+.logo {
+  /* background: linear-gradient(to right top, #861657, #ffa69e); */
+  background: var(
+    --Gradients-Style-52,
+    linear-gradient(107deg, #4568dc 0%, #b06ab3 97.22%)
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  font-size: 25px;
+  font-weight: bold;
+  /* padding-top: 2px; */
+}
 .navbar-container {
   display: flex;
   flex-direction: row;

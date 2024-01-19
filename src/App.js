@@ -21,6 +21,7 @@ const Detail = lazy(() => import("./pages/Detail"));
 const KakaoMap = lazy(() => import("./pages/KakaoMap"));
 const Inquiry = lazy(() => import("./pages/Inquiry"));
 const Analysis = lazy(() => import("./pages/Analysis"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 
 const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
@@ -64,11 +65,12 @@ function App() {
               path="/"
               element={isLoggedIn ? <ProtectedMain /> : <Login />}
             />
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
             <Route path="/password" element={<Password />} />
+            <Route path="/landingPage" element={<LandingPage />} />
             <Route path="/main" element={<ProtectedMain />} />
             <Route path="/detail" element={<ProtectedDetail />} />
             <Route path="/map" element={<ProtectedKakaoMap />} />

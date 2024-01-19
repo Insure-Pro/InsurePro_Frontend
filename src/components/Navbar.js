@@ -140,6 +140,12 @@ const Navbar = ({
     setSelectedTab("Inquiry"); // 'Analysis' 탭을 선택했음을 상태에 설정
     navigate("/inquiry", { state: { selectedTab: "Inquiry" } });
   };
+  const handleLandingPageClick = () => {
+    setIsMapSelected(false);
+    setIsAnalysisSelected(false);
+    setSelectedTab("LandingPage"); // 'Analysis' 탭을 선택했음을 상태에 설정
+    navigate("/landingPage", { state: { selectedTab: "LandingPage" } });
+  };
 
   useEffect(() => {
     const tab = location.state?.selectedTab;
@@ -275,7 +281,7 @@ const Navbar = ({
           </div>
           <div
             className=" w-1/2 cursor-pointer  font-light"
-            onClick={handleMapClick}
+            onClick={handleLandingPageClick}
           >
             회사소개
           </div>

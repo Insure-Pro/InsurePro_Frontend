@@ -1,0 +1,247 @@
+.landing-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s,
+    transform 0.8s;
+  /* height: 100vh; */
+}
+.circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  width: 100vh;
+
+  @apply pl-[56px] pt-[52px];
+}
+
+.circle {
+  width: 8px; /* 원의 크기를 더 크게 설정 */
+  height: 8px; /* 원의 크기를 더 크게 설정 */
+  border-radius: 50%;
+  margin-bottom: 32px;
+  margin-left: 12px;
+  background-color: white;
+  transition: background-color 0.3s;
+}
+.circle.active {
+  background-color: var(--Primary-300); /* 활성화된 원의 색상 */
+}
+.landing-section1 {
+  background-image: url("/public/1Section.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 504px;
+  /* width: 100%; */
+  @apply flex  justify-center pt-[190px] text-white;
+}
+
+.landing-section2 {
+  /* background-image: url("/public/2Section.png"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: contain; */
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 646px;
+}
+.landing-section3 {
+  background-image: url("/public/3Section.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 644px;
+  @apply flex  justify-center pt-[250px] text-white;
+}
+.landing-section4 {
+  /* background-image: url("/public/3Section.png"); */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 820px;
+  @apply relative flex  pl-[56px] pt-[52px] text-white;
+}
+.landing-section5 {
+  /* background-image: url("/public/3Section.png"); */
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: transparent;
+
+  /* background-color: var(--Primary-700); */
+  height: 655px;
+  @apply relative flex  pl-[56px] pt-[52px] text-LightMode-Subtext;
+}
+.landing-section6,
+.landing-section7,
+.landing-section8 {
+  /* background-image: url("/public/3Section.png"); */
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: var(--LightMode-SectionBackground);
+  /* background-color: var(--Danger-300); */
+  height: 655px;
+  @apply relative flex   text-LightMode-Subtext;
+}
+
+.laptop-container-6 {
+  position: relative;
+  width: 455px;
+  height: 368.5px;
+  background: url("/public/6Section.png") no-repeat center center;
+  background-size: contain; /* Adjust as needed */
+}
+.laptop-container-78 {
+  position: relative;
+  width: 504px;
+  height: 346px;
+  background: url("/public/7Section.png") no-repeat center center;
+  background-size: contain; /* Adjust as needed */
+}
+
+.laptop-screen-6 {
+  position: absolute;
+  width: 416.5px;
+  height: 234.8px;
+  top: 20px;
+  left: 20px;
+  /* top: 50%; */
+  background:
+    url("/public/6Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+  /* z-index: 20; */
+  /* Adjust the background properties as needed */
+}
+.laptop-screen-7 {
+  position: absolute;
+  width: 436px;
+  height: 273px;
+  top: 20px;
+  left: 34px;
+  /* top: 50%; */
+  background:
+    url("/public/7Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+  /* z-index: 20; */
+  /* Adjust the background properties as needed */
+}
+.laptop-screen-8 {
+  position: absolute;
+  width: 436px;
+  height: 273px;
+  top: 20px;
+  left: 34px;
+  /* top: 50%; */
+  background:
+    url("/public/8Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+  /* z-index: 20; */
+  /* Adjust the background properties as needed */
+}
+.landing-section9 {
+  background-image: url("/public/9Section.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: var(--LightMode-SectionBackground);
+  /* background-color: var(--Danger-300); */
+  height: 778px;
+  @apply relative flex   text-LightMode-Subtext;
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.landing-section4 {
+  /* Your existing styles for landing-section4 */
+
+  & .section4_box {
+    opacity: 0;
+    animation-duration: 4s;
+    animation-fill-mode: both;
+  }
+
+  & .animate__animated {
+    visibility: visible !important;
+  }
+
+  & .animate__fadeInLeft {
+    animation-name: fadeInLeft;
+  }
+
+  & .animate__fadeInRight {
+    animation-name: fadeInRight;
+  }
+}
+.landing-section4 .section4_box {
+  position: absolute;
+  width: 463px;
+  opacity: 0;
+}
+.landing-section4 .section4_box:nth-child(2) {
+  top: calc(40%);
+}
+
+.landing-section4 .section4_box:nth-child(3) {
+  top: calc(55%);
+}
+
+.landing-section4 .section4_box:nth-child(4) {
+  top: calc(68%);
+}
+
+.landing-section4 .section4_box:nth-child(even) {
+  right: 70px;
+}
+
+.landing-section4 .section4_box:nth-child(odd) {
+  left: 70px;
+}
+.sections-container {
+  position: relative;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.landing-section5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 14; /* 섹션 5를 상위에 위치시킴 */
+}
+
+.landing-section {
+  flex: 0 0 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s,
+    transform 0.8s;
+}
+
+.landing-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
