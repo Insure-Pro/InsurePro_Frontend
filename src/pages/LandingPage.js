@@ -15,22 +15,37 @@ const LandingPage = () => {
   const [currentSection, setCurrentSection] = useState(6);
   const [visibleSections, setVisibleSections] = useState([6]);
 
+  const section5Ref = useRef(null); // 섹션 5에 대한 ref 생성
+
   useEffect(() => {
+    const checkSection5Visibility = () => {
+      const section = section5Ref.current;
+      if (section) {
+        const sectionBounds = section.getBoundingClientRect();
+        return (
+          sectionBounds.top >= 0 && sectionBounds.bottom <= window.innerHeight
+        );
+      }
+      return false;
+    };
+
     // 6초마다 섹션 전환
     const interval = setInterval(() => {
-      setCurrentSection((prevSection) => {
-        const nextSection = prevSection === 8 ? 6 : prevSection + 1;
-        // 섹션 5를 항상 보이도록 처리
-        if (nextSection !== 5 && visibleSections.includes(5)) {
-          setVisibleSections(
-            visibleSections.filter((section) => section !== 5),
-          );
-        }
-        if (!visibleSections.includes(nextSection)) {
-          setVisibleSections((prevVisible) => [...prevVisible, nextSection]);
-        }
-        return nextSection;
-      });
+      if (checkSection5Visibility()) {
+        setCurrentSection((prevSection) => {
+          const nextSection = prevSection === 8 ? 6 : prevSection + 1;
+          // 섹션 5를 항상 보이도록 처리
+          if (nextSection !== 5 && visibleSections.includes(5)) {
+            setVisibleSections(
+              visibleSections.filter((section) => section !== 5),
+            );
+          }
+          if (!visibleSections.includes(nextSection)) {
+            setVisibleSections((prevVisible) => [...prevVisible, nextSection]);
+          }
+          return nextSection;
+        });
+      }
     }, 5000);
 
     return () => clearInterval(interval);
@@ -70,7 +85,7 @@ const LandingPage = () => {
       <Section2 />
       <Section3 />
       <Section4 />
-      <div className="sections-container">
+      <div ref={section5Ref} className="sections-container">
         {/* 섹션 5 */}
         {renderSection(5)}
         {/* 섹션 6, 7, 8 */}

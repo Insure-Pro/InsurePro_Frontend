@@ -65,7 +65,7 @@ function App() {
               path="/"
               element={isLoggedIn ? <ProtectedMain /> : <Login />}
             />
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/email" element={<Email />} />
