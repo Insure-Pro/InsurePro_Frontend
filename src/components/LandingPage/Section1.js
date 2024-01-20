@@ -1,8 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../LandingPage.css";
 
 const Section1 = () => {
   const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false); // State to control visibility
+
+  useEffect(() => {
+    // Set a timeout to change the visibility state
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 700); // Delay of 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +31,9 @@ const Section1 = () => {
   return (
     <section
       ref={sectionRef}
-      className="landing-section landing-section1  pb-[76px]"
+      className={`landing-section landing-section1  pb-[76px] ${
+        isVisible ? "visible" : ""
+      }`}
     >
       <div class="h-[143px] text-[20px] font-extrabold">#1.</div>
       <div>

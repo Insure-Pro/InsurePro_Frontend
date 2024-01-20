@@ -12,7 +12,7 @@ const Section2 = () => {
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
-      if (sectionPosition < windowHeight * 0.9) {
+      if (sectionPosition < windowHeight * 0.6) {
         section.classList.add("visible");
       }
     };

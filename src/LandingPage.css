@@ -227,7 +227,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition:
-    opacity 0.5s,
+    opacity 2s,
     transform 0.8s;
 }
 
