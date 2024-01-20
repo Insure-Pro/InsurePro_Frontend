@@ -7,6 +7,7 @@ const Section7 = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!sectionRef.current) return; // sectionRef.current가 null인 경우 함수 실행 중지
       const section = sectionRef.current;
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
@@ -25,10 +26,10 @@ const Section7 = () => {
         <div class="flex h-[143px] text-[20px] font-extrabold">
           #4.
           <div class="ml-10 h-[86px]">
-            <div class="mb-2 flex h-[43px] w-[622px] text-[30px] font-extrabold">
+            <div className="section678-title">
               지속적인 고객관리, 신규고객창출의 부담감.
             </div>
-            <div class="flex h-[43px] w-[622px] text-[25px] font-bold">
+            <div className="section678-subtitle">
               <p className="logo">InsurePro</p>의 솔루션으로 해결할 수 있습니다.
             </div>
           </div>
@@ -38,20 +39,18 @@ const Section7 = () => {
             <div className="laptop-screen-7"></div>
           </div>
           <div class="ml-[42px] mt-[40px] flex flex-col text-left">
-            <div class="mb-3 h-[17px] text-xs font-extrabold text-Primary-300 ">
-              #맞춤정렬기능
-            </div>
+            <div className="section678-highlight">#맞춤정렬기능</div>
             <div class="mb-6 text-sm text-LightMode-Text">
               <div class="flex">
                 •
                 <div class="ml-2 flex h-[72px] flex-col">
-                  <span class="h-6 w-[316px]">
+                  <span className="section678-span">
                     본인이 구매한 고객 목록 중 어떤 유형에서
                   </span>
-                  <span class="h-6 w-[316px]">
+                  <span className="section678-span">
                     계약이 잘 체결되었는지, 진척도가 높은 지 확인
                   </span>
-                  <span class="h-6 w-[316px]">할 수 있습니다.</span>
+                  <span className="section678-span">할 수 있습니다.</span>
                 </div>
               </div>
             </div>

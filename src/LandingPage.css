@@ -1,157 +1,3 @@
-.landing-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.5s,
-    transform 0.8s;
-  /* height: 100vh; */
-}
-.circle-container {
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  width: 100vh;
-
-  @apply pl-[56px] pt-[52px];
-}
-
-.circle {
-  width: 8px; /* 원의 크기를 더 크게 설정 */
-  height: 8px; /* 원의 크기를 더 크게 설정 */
-  border-radius: 50%;
-  margin-bottom: 32px;
-  margin-left: 12px;
-  background-color: white;
-  transition: background-color 0.3s;
-}
-.circle.active {
-  background-color: var(--Primary-300); /* 활성화된 원의 색상 */
-}
-.landing-section1 {
-  background-image: url("/public/1Section.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  height: 504px;
-  /* width: 100%; */
-  @apply flex  justify-center pt-[190px] text-white;
-}
-
-.landing-section2 {
-  /* background-image: url("/public/2Section.png"); */
-  /* background-repeat: no-repeat; */
-  /* background-size: contain; */
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 646px;
-}
-.landing-section3 {
-  background-image: url("/public/3Section.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  height: 644px;
-  @apply flex  justify-center pt-[250px] text-white;
-}
-.landing-section4 {
-  /* background-image: url("/public/3Section.png"); */
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  height: 820px;
-  @apply relative flex  pl-[56px] pt-[52px] text-white;
-}
-.landing-section5 {
-  /* background-image: url("/public/3Section.png"); */
-  /* background-repeat: no-repeat; */
-  background-size: contain;
-  background-blend-mode: multiply;
-  background-color: transparent;
-
-  /* background-color: var(--Primary-700); */
-  height: 655px;
-  @apply relative flex  pl-[56px] pt-[52px] text-LightMode-Subtext;
-}
-.landing-section6,
-.landing-section7,
-.landing-section8 {
-  /* background-image: url("/public/3Section.png"); */
-  /* background-repeat: no-repeat; */
-  background-size: contain;
-  background-blend-mode: multiply;
-  background-color: var(--LightMode-SectionBackground);
-  /* background-color: var(--Danger-300); */
-  height: 655px;
-  @apply relative flex   text-LightMode-Subtext;
-}
-
-.laptop-container-6 {
-  position: relative;
-  width: 455px;
-  height: 368.5px;
-  background: url("/public/6Section.png") no-repeat center center;
-  background-size: contain; /* Adjust as needed */
-}
-.laptop-container-78 {
-  position: relative;
-  width: 504px;
-  height: 346px;
-  background: url("/public/7Section.png") no-repeat center center;
-  background-size: contain; /* Adjust as needed */
-}
-
-.laptop-screen-6 {
-  position: absolute;
-  width: 416.5px;
-  height: 234.8px;
-  top: 20px;
-  left: 20px;
-  /* top: 50%; */
-  background:
-    url("/public/6Section-1.png"),
-    lightgray 0px -28.396px / 100% 139.386% no-repeat;
-  /* z-index: 20; */
-  /* Adjust the background properties as needed */
-}
-.laptop-screen-7 {
-  position: absolute;
-  width: 436px;
-  height: 273px;
-  top: 20px;
-  left: 34px;
-  /* top: 50%; */
-  background:
-    url("/public/7Section-1.png"),
-    lightgray 0px -28.396px / 100% 139.386% no-repeat;
-  /* z-index: 20; */
-  /* Adjust the background properties as needed */
-}
-.laptop-screen-8 {
-  position: absolute;
-  width: 436px;
-  height: 273px;
-  top: 20px;
-  left: 34px;
-  /* top: 50%; */
-  background:
-    url("/public/8Section-1.png"),
-    lightgray 0px -28.396px / 100% 139.386% no-repeat;
-  /* z-index: 20; */
-  /* Adjust the background properties as needed */
-}
-.landing-section9 {
-  background-image: url("/public/9Section.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-blend-mode: multiply;
-  background-color: var(--LightMode-SectionBackground);
-  /* background-color: var(--Danger-300); */
-  height: 778px;
-  @apply relative flex   text-LightMode-Subtext;
-}
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -174,9 +20,126 @@
   }
 }
 
-.landing-section4 {
-  /* Your existing styles for landing-section4 */
+.landing-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s,
+    transform 0.8s;
+  /* height: 100vh; */
+}
 
+.landing-section1 {
+  background-image: url("/public/1Section.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 504px;
+  @apply flex  justify-center pt-[190px] text-white;
+}
+
+.landing-section2 {
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 646px;
+}
+
+.landing-section3 {
+  background-image: url("/public/3Section.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 644px;
+  @apply flex  justify-center pt-[250px] text-white;
+}
+
+.landing-section4 {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
+  height: 820px;
+  @apply relative flex  pl-[56px] pt-[52px] text-white;
+}
+
+.landing-section5 {
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: transparent;
+  height: 655px;
+  @apply relative flex  pl-[56px] pt-[52px] text-LightMode-Subtext;
+}
+
+.laptop-container-6 {
+  position: relative;
+  width: 455px;
+  height: 368.5px;
+  background: url("/public/6Section.png") no-repeat center center;
+  background-size: contain; /* Adjust as needed */
+}
+.laptop-screen-6 {
+  position: absolute;
+  width: 416.5px;
+  height: 234.8px;
+  top: 20px;
+  left: 20px;
+  background:
+    url("/public/6Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+}
+
+.laptop-container-78 {
+  position: relative;
+  width: 504px;
+  height: 346px;
+  background: url("/public/7Section.png") no-repeat center center;
+  background-size: contain; /* Adjust as needed */
+}
+
+.laptop-screen-7 {
+  position: absolute;
+  width: 436px;
+  height: 273px;
+  top: 20px;
+  left: 34px;
+  /* top: 50%; */
+  background:
+    url("/public/7Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+}
+.laptop-screen-8 {
+  position: absolute;
+  width: 436px;
+  height: 273px;
+  top: 20px;
+  left: 34px;
+  background:
+    url("/public/8Section-1.png"),
+    lightgray 0px -28.396px / 100% 139.386% no-repeat;
+}
+.landing-section6,
+.landing-section7,
+.landing-section8 {
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: var(--LightMode-SectionBackground);
+  height: 655px;
+  @apply relative flex   text-LightMode-Subtext;
+}
+
+.landing-section9 {
+  background-image: url("/public/9Section.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-blend-mode: multiply;
+  background-color: var(--LightMode-SectionBackground);
+  height: 778px;
+  @apply relative flex   text-LightMode-Subtext;
+}
+/*//////// 섹션 4 좌우 애니메이션 ////////*/
+.landing-section4 {
   & .section4_box {
     opacity: 0;
     animation-duration: 4s;
@@ -200,6 +163,10 @@
   width: 463px;
   opacity: 0;
 }
+.section4_box {
+  @apply rounded bg-Secondary-300/60 pt-6 text-[20px] font-bold;
+}
+
 .landing-section4 .section4_box:nth-child(2) {
   top: calc(40%);
 }
@@ -219,10 +186,27 @@
 .landing-section4 .section4_box:nth-child(odd) {
   left: 70px;
 }
-.sections-container {
-  position: relative;
+/*//////// 섹션 4 좌우 애니메이션 ////////*/
+/*//////// 섹션 5 활성화 동그라미 ////////*/
+.circle-container {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  justify-content: center;
+  align-items: end;
+  width: 100vh;
+  @apply pl-[56px] pt-[52px];
+}
+
+.circle {
+  width: 8px; /* 원의 크기를 더 크게 설정 */
+  height: 8px; /* 원의 크기를 더 크게 설정 */
+  border-radius: 50%;
+  margin-bottom: 32px;
+  margin-left: 12px;
+  background-color: white;
+  transition: background-color 0.3s;
+}
+.circle.active {
+  background-color: var(--Primary-300); /* 활성화된 원의 색상 */
 }
 .landing-section5 {
   position: absolute;
@@ -230,6 +214,12 @@
   left: 0;
   right: 0;
   z-index: 14; /* 섹션 5를 상위에 위치시킴 */
+}
+/*//////// 섹션 5 활성화 동그라미 ////////*/
+.sections-container {
+  position: relative;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
 .landing-section {
@@ -244,4 +234,47 @@
 .landing-section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.section1-subtitle {
+  @apply h-[43px] w-[456px] text-[30px] font-extrabold;
+}
+.section2-subtitle {
+  @apply mb-12 flex h-[88px] w-[433px] items-center rounded bg-Secondary-300/60 px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground;
+}
+.section3-subtitle {
+  @apply h-[43px] w-[622px] text-[30px] font-extrabold;
+}
+.section678-span {
+  @apply h-6 w-[316px];
+}
+.section678-title {
+  @apply mb-2 flex h-[43px] w-[622px] text-[30px] font-extrabold;
+}
+.section678-subtitle {
+  @apply flex h-[43px] w-[622px] text-[25px] font-bold;
+}
+.section678-highlight {
+  @apply mb-3 h-[17px] text-xs font-extrabold text-Primary-300;
+}
+.section9-card-title {
+  @apply text-base font-semibold text-LightMode-Subtext;
+}
+.section9-card-price {
+  @apply pb-2 pr-1 text-[40px] font-extrabold text-Primary-300;
+}
+.section9-card-btn {
+  @apply h-[38px] w-[196px] rounded border border-LightMode-Subtext bg-Primary-400 text-xs text-white;
+}
+.section9-card-container {
+  @apply mb-[25px] h-[330px] w-[220px] bg-white px-3 pb-5 pt-6 shadow-[0_12px_20px_0_rgba(0,0,0,0.20)];
+}
+.section9-card-price-wrapper {
+  @apply flex h-[35px] items-end justify-center text-sm font-semibold text-LightMode-Text;
+}
+.section9-card-rawPrice {
+  @apply ml-[20px] flex h-[14px] text-left text-[10px] font-semibold text-Gray-scale-100 line-through;
+}
+.section9-card-content-wrapper {
+  @apply flex flex-col text-xs font-bold text-LightMode-Subtext;
 }

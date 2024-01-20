@@ -5,6 +5,7 @@ const Section9 = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!sectionRef.current) return; // sectionRef.current가 null인 경우 함수 실행 중지
       const section = sectionRef.current;
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
@@ -40,62 +41,46 @@ const Section9 = () => {
         </div>
       </div>
       <div class="flex">
-        <div class="mb-[25px] ml-[42px] h-[330px] w-[220px] bg-white px-3 pb-5 pt-6 shadow-[0_12px_20px_0_rgba(0,0,0,0.20)]">
-          <div class="mb-[48px] text-base font-semibold text-LightMode-Subtext">
-            무료체험
-          </div>
-          <div class="mb-[62px] flex h-[35px] items-end justify-center text-sm font-semibold text-LightMode-Text">
-            <p class="pb-2 pr-1 text-[40px] font-extrabold text-Primary-300">
-              1
-            </p>
+        <div className=" section9-card-container ml-[42px]">
+          <div class="section9-card-title mb-[48px] ">무료체험</div>
+          <div className="section9-card-price-wrapper mb-[62px] ">
+            <p className="section9-card-price">1</p>
             개월
           </div>
-          <div class=" mb-[10px] flex h-[68px] flex-col text-xs font-bold text-LightMode-Subtext">
+          <div className=" section9-card-content-wrapper mb-[10px] h-[68px]">
             <span>
               InsurePro는<span class="bg-Primary-400/30">1 개월 무료 체험</span>{" "}
             </span>
             <span>이벤트를 지원하고 있습니다.</span>
             <span>체험 후, 사용을 고민해보세요!</span>
           </div>
-          <button class="h-[38px] w-[196px] rounded border border-LightMode-Subtext bg-Primary-400 text-xs text-white ">
+          <button className="section9-card-btn">
             회원가입하고 무료체험 사용하기
           </button>
         </div>
-        <div class="mb-[25px] ml-[20px] h-[330px] w-[220px] bg-white px-3 pb-5 pt-6 shadow-[0_12px_20px_0_rgba(0,0,0,0.20)]">
-          <div class="mb-[48px] text-base font-semibold text-LightMode-Subtext">
-            추가할인
-          </div>
-          <div class="mb-[69px] flex h-[35px] items-end justify-center text-sm font-semibold text-LightMode-Text">
-            <p class="pb-2 pr-1 text-[40px] font-extrabold text-Primary-300">
-              1
-            </p>
+        <div className="section9-card-container ml-[20px]">
+          <div class="section9-card-title mb-[48px] ">추가할인</div>
+          <div className="section9-card-price-wrapper mb-[69px] ">
+            <p className="section9-card-price">1</p>
             개월
           </div>
-          <div class="mb-[37px] flex h-[34px] flex-col text-xs font-bold text-LightMode-Subtext">
+          <div className="section9-card-content-wrapper mb-[37px] h-[34px]">
             <span>기업 제휴 시</span>
             <span>
               <span class="bg-Primary-400/30">추가할인</span>을 제공하고
               있습니다.
             </span>
           </div>
-          <button class="h-[38px] w-[196px] rounded border border-LightMode-Subtext bg-Primary-400 text-xs text-white ">
-            기업 추가할인 문의하기
-          </button>
+          <button className="section9-card-btn">기업 추가할인 문의하기</button>
         </div>
-        <div class="mb-[25px] ml-[20px] h-[330px] w-[220px] bg-white px-3 pb-5 pt-6 shadow-[0_12px_20px_0_rgba(0,0,0,0.20)]">
-          <div class="mb-[36px] text-base font-semibold text-LightMode-Subtext">
-            1개월 이용권
-          </div>
-          <span class="ml-[20px] flex h-[14px] text-left text-[10px] font-semibold text-Gray-scale-100 line-through">
-            25,000
-          </span>
-          <div class="mb-[62px] flex h-[35px] items-end justify-center text-sm  font-semibold text-LightMode-Text">
-            <p class="pb-2 pr-1 text-[40px] font-extrabold text-Primary-300">
-              15,000
-            </p>
+        <div className="section9-card-container ml-[20px]">
+          <div class="section9-card-title mb-[36px] ">1개월 이용권</div>
+          <span className="section9-card-rawPrice">25,000</span>
+          <div className="section9-card-price-wrapper mb-[62px] ">
+            <p className="section9-card-price">15,000</p>
             원/월
           </div>
-          <div class="mb-[23px] flex h-[34px] flex-col text-xs font-bold text-LightMode-Subtext">
+          <div className="section9-card-content-wrapper mb-[23px] h-[34px]">
             <span>
               <span class="bg-Primary-400/30">Open Event</span>가격으로, 1개월
               이용권을
@@ -105,24 +90,18 @@ const Section9 = () => {
               *Open Event: 2024-01-15 ~ 2024-03-15 진행
             </span>
           </div>
-          <button class="mt-[20px] h-[38px] w-[196px] rounded border border-LightMode-Subtext bg-Primary-400 text-xs text-white ">
+          <button className="section9-card-btn mt-5">
             Open Event가격으로 이용권 구독하기
           </button>
         </div>
-        <div class="mb-[25px] ml-[20px] h-[330px] w-[220px] bg-white px-3 pb-5 pt-6 shadow-[0_12px_20px_0_rgba(0,0,0,0.20)]">
-          <div class="mb-[36px] text-base font-semibold text-LightMode-Subtext">
-            6개월 이용권
-          </div>
-          <span class="ml-[20px] flex h-[14px] text-left text-[10px] font-semibold text-Gray-scale-100 line-through">
-            150,000
-          </span>
-          <div class="mb-[52px] flex h-[35px] items-end justify-center text-sm font-semibold text-LightMode-Text">
-            <p class="pb-2 pr-1 text-[40px] font-extrabold text-Primary-300">
-              99,000
-            </p>
+        <div className="section9-card-container ml-[20px]">
+          <div class="section9-card-title mb-[36px] ">6개월 이용권</div>
+          <span className="section9-card-rawPrice">150,000</span>
+          <div className="section9-card-price-wrapper mb-[52px] ">
+            <p className="section9-card-price">99,000</p>
             원/월
           </div>
-          <div class="mb-[20px] flex h-[68px] flex-col text-xs font-bold text-LightMode-Subtext">
+          <div className="section9-card-content-wrapper mb-[20px] h-[68px]">
             <span class="mb-0.5">
               <span class=" bg-Primary-400/30">Open Event</span>
             </span>
@@ -134,7 +113,7 @@ const Section9 = () => {
             <span>으로 최적의 가격으로</span>
             <span>서비스를 이용하실 수 있습니다.</span>
           </div>
-          <button class="h-[38px] w-[196px] rounded border border-LightMode-Subtext bg-Primary-400 text-xs text-white ">
+          <button className="section9-card-btn">
             최적의 가격으로 이용권 구독하기
           </button>
         </div>

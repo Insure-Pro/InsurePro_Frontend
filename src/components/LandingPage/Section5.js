@@ -7,6 +7,7 @@ const Section5 = ({ currentSection, changeSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!sectionRef.current) return; // sectionRef.current가 null인 경우 함수 실행 중지
       const section = sectionRef.current;
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;

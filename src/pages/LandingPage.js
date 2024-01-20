@@ -20,7 +20,7 @@ const LandingPage = () => {
   useEffect(() => {
     const checkSection5Visibility = () => {
       const section = section5Ref.current;
-      if (section) {
+      if (section && section instanceof HTMLElement) {
         const sectionBounds = section.getBoundingClientRect();
         return (
           sectionBounds.top >= 0 && sectionBounds.bottom <= window.innerHeight

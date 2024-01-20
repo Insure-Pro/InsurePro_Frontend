@@ -7,6 +7,7 @@ const Section2 = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!sectionRef.current) return; // sectionRef.current가 null인 경우 함수 실행 중지
       const section = sectionRef.current;
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
@@ -32,14 +33,7 @@ const Section2 = () => {
           <div class="mb-11 flex h-9 text-[25px] font-extrabold text-white">
             점점 낮아지고 있습니다.
           </div>
-          <div class="mb-12 flex h-[88px] w-[433px] items-center rounded bg-Secondary-300/60 px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground">
-            {/* <div class="flex">
-              <div class="pl-6 pr-3">•</div>
-              <div>
-                <div class="mb-2 flex">다른 지역 이동 시</div>
-                <div> 함께 방문할 고객을 찾기 어렵습니다.</div>
-              </div>
-            </div> */}
+          <div className="section2-subtitle">
             <div class="flex">
               <div class="pl-2 pr-2">•</div>
               <div>
@@ -50,7 +44,7 @@ const Section2 = () => {
               </div>
             </div>
           </div>
-          <div class="mb-12 flex h-[88px] w-[433px] items-center rounded bg-Secondary-300/60 px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground">
+          <div className="section2-subtitle">
             <div class="flex">
               <div class="pl-2 pr-2">•</div>
               <div>
@@ -61,7 +55,7 @@ const Section2 = () => {
               </div>
             </div>
           </div>
-          <div class="mb-12 flex h-[88px] w-[433px] items-center rounded bg-Secondary-300/60 px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground">
+          <div className="section2-subtitle">
             <div class="flex">
               <div class="pl-2 pr-2">•</div>
               <div>
