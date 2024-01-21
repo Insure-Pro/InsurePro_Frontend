@@ -18,14 +18,9 @@ const Navbar = ({
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
-  // const activeType = useSelector((state) => state.customer.activeType);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const imageUrl = process.env.PUBLIC_URL + "/exit.png";
-
-  const [isAnalysisSelected, setIsAnalysisSelected] = useState(false);
-  const [isMapSelected, setIsMapSelected] = useState(false);
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownClicked, setDropdownClicked] = useState(false);
@@ -37,9 +32,6 @@ const Navbar = ({
 
   const location = useLocation();
 
-  const users_black = process.env.PUBLIC_URL + "/users_black.png";
-  const users_white = process.env.PUBLIC_URL + "/users_white.png";
-
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
@@ -47,8 +39,6 @@ const Navbar = ({
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
     setSelectedTab(tabName); // 탭 상태를 직접 업데이트
-    setIsAnalysisSelected(tabName === "Analysis");
-    setIsMapSelected(tabName === "Map");
 
     // Update selected tab state
 
@@ -116,50 +106,23 @@ const Navbar = ({
     fetchEmployeeName(); // 직원 정보를 가져오는 함수 호출
   }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
 
-  const handleLogoClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
+  // Simplified the function to get the font weight based on the selected tab
+  const getFontWeight = (tabName) =>
+    selectedTab === tabName ? "Bold" : "normal";
 
-  const handleAnalysisClick = () => {
-    setIsAnalysisSelected(true);
-    setIsMapSelected(false); // Ensure 'Map' is not selected
-    setSelectedTab("Analysis"); // 'Analysis' 탭을 선택했음을 상태에 설정
-    navigate("/analysis", { state: { selectedTab: "Analysis" } });
-  };
-
-  const handleMapClick = () => {
-    setIsMapSelected(true);
-    setIsAnalysisSelected(false);
-    setSelectedTab("Map"); // 'Analysis' 탭을 선택했음을 상태에 설정
-    navigate("/map", { state: { selectedTab: "Map" } });
-  };
-
-  const handleInquiryClick = () => {
-    setIsMapSelected(false);
-    setIsAnalysisSelected(false);
-    setSelectedTab("Inquiry"); // 'Analysis' 탭을 선택했음을 상태에 설정
-    navigate("/inquiry", { state: { selectedTab: "Inquiry" } });
-  };
-  const handleLandingPageClick = () => {
-    setIsMapSelected(false);
-    setIsAnalysisSelected(false);
-    setSelectedTab("LandingPage"); // 'Analysis' 탭을 선택했음을 상태에 설정
-    navigate("/landingPage", { state: { selectedTab: "LandingPage" } });
+  //기존 Navigate로 페이지 이동 함수 하나로 합침
+  const handleTabChange = (selectedTab) => {
+    setSelectedTab(selectedTab);
+    navigate(`/${selectedTab.toLowerCase()}`, { state: { selectedTab } });
   };
 
   useEffect(() => {
     const tab = location.state?.selectedTab;
-    if (tab === "Analysis") {
-      setIsAnalysisSelected(true);
-      setIsMapSelected(false); // Ensure that map is not selected when analysis is selected
-    } else if (tab === "Map") {
-      setIsMapSelected(true);
-      setIsAnalysisSelected(false); // Ensure that analysis is not selected when map is selected
+    if (tab) {
+      setSelectedTab(tab);
     }
   }, [location]);
 
-  // const [showSearch, setShowSearch] = useState(false);
-  // Replace local useState with global state using useSelector
   const showSearch = useSelector((state) => state.search.showSearch);
   // Update event handlers
   const handleSearchToggle = () => {
@@ -169,9 +132,6 @@ const Navbar = ({
 
   const [showDate, setShowDate] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const handleSearchOpen = () => {
-  //   setIsSearchOpen(true);
-  // };
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -179,10 +139,10 @@ const Navbar = ({
     currentDate.getMonth() + 1,
   );
 
-  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
+  // const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
+  //   2,
+  //   "0",
+  // )}`; // formattedDate 업데이트
 
   const formattedDateTitle = `${selectedYear}년 ${String(
     selectedMonth,
@@ -229,7 +189,12 @@ const Navbar = ({
   return (
     <>
       <div className="vertical-navbar flex w-full min-w-[1024px] flex-col">
-        <div className="brand w-2/12" onClick={() => handleLogoClick()}>
+        <div
+          className="brand w-2/12"
+          onClick={() => {
+            handleTabChange("Main");
+          }}
+        >
           INSUREPRO
         </div>
 
@@ -237,11 +202,11 @@ const Navbar = ({
           <div className="navbar-wrapper w-1/2">
             <div
               className="client  cursor-pointer font-light"
-              style={{
-                fontWeight:
-                  !isMapSelected && !isAnalysisSelected ? "Bold" : "normal",
+              onClick={() => {
+                handleClientClick();
+                handleTabChange("Main");
               }}
-              onClick={handleClientClick}
+              style={{ fontWeight: getFontWeight("Main") }}
             >
               고객관리
             </div>
@@ -253,10 +218,10 @@ const Navbar = ({
                 onMonthCustomersClick={onMonthCustomersClick}
                 onContractCompleteClick={onContractCompleteClick}
                 handleTabClick={handleTabClick}
-                handleMapClick={handleMapClick}
+                // handleMapClick={handleMapClick}
                 toggleDropdown={toggleDropdown}
-                isMapSelected={isMapSelected}
-                isAnalysisSelected={isAnalysisSelected}
+                // isMapSelected={isMapSelected}
+                // isAnalysisSelected={isAnalysisSelected}
                 handleshowDateClick={handleshowDateClick}
                 handleCloseDateClick={handleCloseDateClick}
               />
@@ -265,23 +230,23 @@ const Navbar = ({
           </div>
           <div
             className=" w-1/2 cursor-pointer"
-            onClick={handleAnalysisClick}
-            style={{
-              fontWeight: isAnalysisSelected && !isMapSelected ? "700" : "300",
-            }}
+            onClick={() => handleTabChange("Analysis")}
+            style={{ fontWeight: getFontWeight("Analysis") }}
           >
             성과분석
           </div>
 
           <div
             className=" w-1/2  cursor-pointer  font-light"
-            onClick={handleInquiryClick}
+            onClick={() => handleTabChange("Inquiry")}
+            style={{ fontWeight: getFontWeight("Inquiry") }}
           >
             문의하기
           </div>
           <div
             className=" w-1/2 cursor-pointer  font-light"
-            onClick={handleLandingPageClick}
+            onClick={() => handleTabChange("LandingPage")}
+            style={{ fontWeight: getFontWeight("LandingPage") }}
           >
             회사소개
           </div>
@@ -290,14 +255,7 @@ const Navbar = ({
         <div class="flex w-2/12  max-w-[390px] justify-end ">
           <div class="flex max-w-[90px]   justify-between">
             <div className="cursor-pointer pr-7">
-              <img
-                src={search}
-                onClick={handleSearchToggle}
-                // onClick={() => {
-                // setShowSearch((prev) => !prev);
-                // setShowDropdown(false);
-                // }}
-              />
+              <img src={search} onClick={handleSearchToggle} />
             </div>
             <div className="cursor-pointer pt-1">
               <img src={mypage} onClick={handleLogout} />
@@ -311,7 +269,6 @@ const Navbar = ({
         </div>
       )}
       {showSearch && <div className="navbar-search-black-blur"></div>}
-
       {showDate && (
         <div class="mb-[-76px] ml-12 w-full pt-[76px]">
           <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
@@ -323,6 +280,7 @@ const Navbar = ({
               class="cursor-pointer pl-1"
               src={right_icon}
             />
+
             {isModalOpen && (
               <DateChangeAModal
                 initialYear={selectedYear}

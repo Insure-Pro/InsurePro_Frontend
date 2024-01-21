@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "../LandingPage.css"; // Add styling for your landing pagesimport '.'
 import Navbar from "../components/Navbar";
 import Section1 from "../components/LandingPage/Section1";
@@ -15,6 +16,8 @@ const LandingPage = () => {
   const [currentSection, setCurrentSection] = useState(6);
   const [visibleSections, setVisibleSections] = useState([6]);
 
+  const navigate = useNavigate();
+
   const section5Ref = useRef(null); // 섹션 5에 대한 ref 생성
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const LandingPage = () => {
       return false;
     };
 
-    // 6초마다 섹션 전환
+    // 4초마다 섹션 전환
     const interval = setInterval(() => {
       if (checkSection5Visibility()) {
         setCurrentSection((prevSection) => {
@@ -46,7 +49,7 @@ const LandingPage = () => {
           return nextSection;
         });
       }
-    }, 5000);
+    }, 3500);
 
     return () => clearInterval(interval);
   }, [visibleSections, currentSection]); // currentSection 의존성 추가
@@ -77,9 +80,25 @@ const LandingPage = () => {
     }
   };
 
+  // const handleMonthCustomersClick = () => {
+  //   navigate("/main", { state: { selectedTab: "월별 고객", formattedDate1 } });
+  // };
+
+  const handleAllCustomersClick = () => {
+    navigate("/main", { state: { selectedTab: "전체" } });
+  };
+
+  const handleContractCompleteClick = () => {
+    navigate("/main", { state: { selectedTab: "계약완료고객" } });
+  };
+
   return (
     <div class=" w-screen">
-      <Navbar />
+      <Navbar
+        onContractCompleteClick={handleContractCompleteClick}
+        onAllCustomersClick={handleAllCustomersClick}
+        // onMonthCustomersClick={handleMonthCustomersClick}
+      />
       <div class="pt-[76px]"></div>
       <Section1 />
       <Section2 />
