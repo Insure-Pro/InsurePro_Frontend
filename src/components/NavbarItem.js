@@ -6,9 +6,7 @@ const NavbarItem = ({
   onMonthCustomersClick,
   onContractCompleteClick,
   handleTabClick,
-  handleMapClick,
-  isAnalysisSelected,
-  isMapSelected,
+  handleTabChange,
   toggleDropdown,
   handleshowDateClick,
   handleCloseDateClick,
@@ -55,7 +53,10 @@ const NavbarItem = ({
       >
         계약 완료
       </div>
-      <div className={getTabStyle("Map")} onClick={handleMapClick}>
+      <div
+        className={getTabStyle("Map")}
+        onClick={() => handleTabChange("Map")}
+      >
         위치 기반
       </div>
     </div>

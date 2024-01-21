@@ -188,7 +188,7 @@ const Navbar = ({
 
   return (
     <>
-      <div className="vertical-navbar flex w-full min-w-[1024px] flex-col">
+      <div className={`vertical-navbar flex w-full min-w-[1024px] flex-col`}>
         <div
           className="brand w-2/12"
           onClick={() => {
@@ -220,8 +220,7 @@ const Navbar = ({
                 handleTabClick={handleTabClick}
                 // handleMapClick={handleMapClick}
                 toggleDropdown={toggleDropdown}
-                // isMapSelected={isMapSelected}
-                // isAnalysisSelected={isAnalysisSelected}
+                handleTabChange={handleTabChange}
                 handleshowDateClick={handleshowDateClick}
                 handleCloseDateClick={handleCloseDateClick}
               />
@@ -270,7 +269,7 @@ const Navbar = ({
       )}
       {showSearch && <div className="navbar-search-black-blur"></div>}
       {showDate && (
-        <div class="mb-[-76px] ml-12 w-full pt-[76px]">
+        <div class="mb-[-76px]  ml-12 w-full pt-[76px]">
           <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
             <div onClick={handleFormattedDateClick} class="cursor-pointer">
               {formattedDateTitle}
@@ -280,6 +279,7 @@ const Navbar = ({
               class="cursor-pointer pl-1"
               src={right_icon}
             />
+            {/* The rest of the content, blurred when modal is open */}
 
             {isModalOpen && (
               <DateChangeAModal
@@ -292,6 +292,7 @@ const Navbar = ({
           </div>
         </div>
       )}
+      {isModalOpen && <div className="blur-navbar-datechange"></div>}
     </>
   );
 };

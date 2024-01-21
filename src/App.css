@@ -687,6 +687,16 @@ body {
   filter: blur(5px);
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
+.blur-navbar-datechange {
+  position: fixed; /* 전체 화면에 적용 */
+  top: 164px; /* NavbarItem 아래에서 시작 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(5px);
+  z-index: 5; /* 버튼보다 낮은 z-index 값 */
+}
+
 .Modal_container {
   @apply px-8;
 }
