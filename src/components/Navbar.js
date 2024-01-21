@@ -32,6 +32,9 @@ const Navbar = ({
 
   const location = useLocation();
 
+  // 현재 경로가 /main인지 체크
+  const isMainRoute = location.pathname === "/main";
+
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
@@ -262,12 +265,15 @@ const Navbar = ({
           </div>
         </div>
       </div>
-      {showSearch && (
+      {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
+      {isMainRoute && showSearch && (
         <div class=" flex h-[88px]  w-full items-center justify-center bg-white ">
           <Search setCustomers={setCustomers} />
         </div>
       )}
-      {showSearch && <div className="navbar-search-black-blur"></div>}
+      {isMainRoute && showSearch && (
+        <div className="navbar-search-black-blur"></div>
+      )}
       {showDate && (
         <div class="mb-[-76px]  ml-12 w-full pt-[76px]">
           <div class="flex h-10  items-center justify-start bg-white text-[17px]  font-bold  text-LightMode-Text">
