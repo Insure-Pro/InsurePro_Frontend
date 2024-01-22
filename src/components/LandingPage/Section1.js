@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import "../../LandingPage.css";
 
 const Section1 = () => {
@@ -31,22 +32,32 @@ const Section1 = () => {
   return (
     <section
       ref={sectionRef}
-      className={`landing-section landing-section1  pb-[76px] ${
-        isVisible ? "visible" : ""
-      }`}
+      className={` landing-section1  mt-[-76px] ${isVisible ? "visible" : ""}`}
     >
-      <div class="h-[143px] text-[20px] font-extrabold">#1.</div>
-      <div>
-        <div class="mb-3 h-[45px] w-[456px] text-[30px] font-black">
-          고객관리, 고객창출.
+      <motion.div
+        initial={{ opacity: 0.2, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{
+          ease: "easeInOut",
+          duration: 1.8,
+          y: { duration: 0.8 },
+        }}
+        class="mt-[136px] flex"
+      >
+        <div class=" h-[143px] text-[20px] font-extrabold">#1.</div>
+        <div>
+          <div class="mb-3 h-[45px] w-[456px] text-[30px] font-black">
+            고객관리, 고객창출.
+          </div>
+          <div className="section1-subtitle">
+            나에게 너무 먼 얘기로만 취급한다면,
+          </div>
+          <div className="section1-subtitle">
+            고객 DB지출은 점점 커져갈 것입니다.
+          </div>
         </div>
-        <div className="section1-subtitle">
-          나에게 너무 먼 얘기로만 취급한다면,
-        </div>
-        <div className="section1-subtitle">
-          고객 DB지출은 점점 커져갈 것입니다.
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

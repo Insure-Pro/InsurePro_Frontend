@@ -97,13 +97,16 @@ const LandingPage = () => {
       <Navbar
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
+        isLandingPage={true}
         // onMonthCustomersClick={handleMonthCustomersClick}
       />
       <div class="pt-[76px]"></div>
       <Section1 />
+
       <Section2 />
       <Section3 />
       <Section4 />
+      {/* ... other sections */}
       <div ref={section5Ref} className="sections-container">
         {/* 섹션 5 */}
         {renderSection(5)}

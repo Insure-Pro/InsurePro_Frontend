@@ -15,6 +15,8 @@ const Navbar = ({
   onContractCompleteClick,
   onMonthCustomersClick,
   setCustomers,
+  isLandingPage = false,
+  currentSection,
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
@@ -191,7 +193,11 @@ const Navbar = ({
 
   return (
     <>
-      <div className={`vertical-navbar flex w-full min-w-[1024px] flex-col`}>
+      <div
+        className={`vertical-navbar flex w-full min-w-[1024px] flex-col ${
+          isLandingPage ? "landing-page-navbar" : ""
+        }`}
+      >
         <div
           className="brand w-2/12"
           onClick={() => {
@@ -201,7 +207,9 @@ const Navbar = ({
           INSUREPRO
         </div>
 
-        <div className="navbar-container w-10/12 max-w-[1000px] justify-between pt-1 text-LightMode-Text">
+        <div
+          className={`navbar-container w-10/12 max-w-[1000px] justify-between pt-1`}
+        >
           <div className="navbar-wrapper w-1/2">
             <div
               className="client  cursor-pointer font-light"

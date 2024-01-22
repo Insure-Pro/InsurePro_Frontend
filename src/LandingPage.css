@@ -35,7 +35,8 @@
   background-size: cover;
   background-blend-mode: multiply;
   background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  height: 504px;
+  /* height: 504px; */
+  height: 754px;
   @apply flex  justify-center pt-[190px] text-white;
 }
 
@@ -53,6 +54,19 @@
   background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
   height: 644px;
   @apply flex  justify-center pt-[250px] text-white;
+}
+.section3 {
+  transition: opacity 0.6s ease-in-out;
+}
+
+.section3.enabled {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section3.disabled {
+  opacity: 0;
+  transform: translateY(-60px);
 }
 
 .landing-section4 {
@@ -142,7 +156,7 @@
 .landing-section4 {
   & .section4_box {
     opacity: 0;
-    animation-duration: 4s;
+    animation-duration: 8s;
     animation-fill-mode: both;
   }
 

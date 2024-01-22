@@ -3,23 +3,41 @@ import React, { useEffect, useRef } from "react";
 const Section3 = () => {
   const sectionRef = useRef(null);
 
+  const Section3 = process.env.PUBLIC_URL + "/3Section.png";
+
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return; // sectionRef.current가 null인 경우 함수 실행 중지
-      const section = sectionRef.current;
-      const sectionPosition = section.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
+      if (!sectionRef.current) return;
 
-      if (sectionPosition < windowHeight * 0.5) {
-        section.classList.add("visible");
-      }
+      const section = sectionRef.current;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.scrollY || window.pageYOffset;
+
+      // Calculate the visible ratio of the section
+      let visibleTop = Math.max(sectionTop, scrollTop);
+      let visibleBottom = Math.min(
+        sectionTop + sectionHeight,
+        scrollTop + windowHeight,
+      );
+      let visibleHeight = visibleBottom - visibleTop;
+
+      let visibleRatio = Math.max(
+        0,
+        Math.min(1, visibleHeight / sectionHeight),
+      );
+
+      // Adjust the opacity based on the visible ratio
+      section.style.opacity = visibleRatio;
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <section ref={sectionRef} className="landing-section landing-section3">
+    <section ref={sectionRef} className="section3 landing-section3">
+      {/* <img src={Section3} class="w-full" /> */}
       <div class="h-[143px] text-[20px] font-extrabold">#2.</div>
       <div class="h-[86px]">
         <div className="section3-subtitle">계속되는 DB 구매 대신</div>

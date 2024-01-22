@@ -19,10 +19,7 @@ const Section4 = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <section
-      ref={sectionRef}
-      className="landing-section landing-section4 flex-col"
-    >
+    <section ref={sectionRef} className=" landing-section4 flex-col">
       <div class="flex flex-col text-[25px] font-extrabold">
         <div class="flex h-9">
           <div className="logo">InsurePro</div>
