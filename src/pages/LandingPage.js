@@ -20,6 +20,8 @@ const LandingPage = () => {
 
   const section5Ref = useRef(null); // 섹션 5에 대한 ref 생성
 
+  const [isFirstTransition, setIsFirstTransition] = useState(true); // 첫 번째 전환 추적을 위한 상태 변수
+
   useEffect(() => {
     const checkSection5Visibility = () => {
       const section = section5Ref.current;
@@ -33,26 +35,52 @@ const LandingPage = () => {
     };
 
     // 4초마다 섹션 전환
-    const interval = setInterval(() => {
-      if (checkSection5Visibility()) {
-        setCurrentSection((prevSection) => {
-          const nextSection = prevSection === 8 ? 6 : prevSection + 1;
-          // 섹션 5를 항상 보이도록 처리
-          if (nextSection !== 5 && visibleSections.includes(5)) {
-            setVisibleSections(
-              visibleSections.filter((section) => section !== 5),
-            );
-          }
-          if (!visibleSections.includes(nextSection)) {
-            setVisibleSections((prevVisible) => [...prevVisible, nextSection]);
-          }
-          return nextSection;
-        });
-      }
-    }, 3500);
+    const interval = setInterval(
+      () => {
+        if (checkSection5Visibility()) {
+          setCurrentSection((prevSection) => {
+            const nextSection = prevSection === 8 ? 6 : prevSection + 1;
+
+            // 첫 번째 전환 처리
+            if (isFirstTransition && prevSection === 6 && nextSection === 7) {
+              // 섹션 7을 먼저 활성화
+              if (!visibleSections.includes(nextSection)) {
+                setVisibleSections((prevVisible) => [
+                  ...prevVisible,
+                  nextSection,
+                ]);
+              }
+              setTimeout(() => {
+                setVisibleSections((prevVisible) => [
+                  ...prevVisible,
+                  nextSection,
+                ]);
+                setIsFirstTransition(false); // 첫 번째 전환 후 상태 변경
+              }, 1500); // 1.5초 후 전환
+              return nextSection;
+            }
+
+            // 섹션 5를 항상 보이도록 처리
+            if (nextSection !== 5 && visibleSections.includes(5)) {
+              setVisibleSections(
+                visibleSections.filter((section) => section !== 5),
+              );
+            }
+            if (!visibleSections.includes(nextSection)) {
+              setVisibleSections((prevVisible) => [
+                ...prevVisible,
+                nextSection,
+              ]);
+            }
+            return nextSection;
+          });
+        }
+      },
+      isFirstTransition && currentSection === 6 ? 1200 : 3200, // 첫 번째 전환 여부와 현재 섹션에 따라 지연 시간 변경
+    );
 
     return () => clearInterval(interval);
-  }, [visibleSections, currentSection]); // currentSection 의존성 추가
+  }, [visibleSections, currentSection, isFirstTransition]); // currentSection 의존성 추가
 
   const changeSection = (sectionNumber) => {
     setCurrentSection(sectionNumber);
@@ -102,7 +130,6 @@ const LandingPage = () => {
       />
       <div class="pt-[76px]"></div>
       <Section1 />
-
       <Section2 />
       <Section3 />
       <Section4 />
