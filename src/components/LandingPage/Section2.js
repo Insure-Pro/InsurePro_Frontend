@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import SvgAnimate from "./SvgAnimate";
 
 const Section2 = () => {
   const sectionRef = useRef(null);
 
+  // const section2 = process.env.PUBLIC_URL + "/2Section.png";
   const section2 = process.env.PUBLIC_URL + "/2Section.png";
 
   useEffect(() => {
@@ -37,7 +39,8 @@ const Section2 = () => {
         className="landing-section landing-section2 flex"
       >
         <div class="w-1/2">
-          <img src={section2} class="mt-[140px]" />
+          <SvgAnimate />
+          {/* <img src={section2} class="mt-[140px]" /> */}
         </div>
         <div class="w-1/2">
           <div class=" mt-[90px] h-[476px] w-[433px]">
