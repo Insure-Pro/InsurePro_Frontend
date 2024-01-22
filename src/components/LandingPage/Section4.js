@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const Section4 = () => {
   const sectionRef = useRef(null);
@@ -32,7 +33,17 @@ const Section4 = () => {
       </div>
       <div>
         <div>
-          <div class="section4_box  animate__animated animate__fadeInLeft mt-[56px] h-[184px]">
+          <motion.div
+            initial={{ opacity: 0, left: -170 }}
+            whileInView={{ opacity: 1, left: 64 }}
+            viewport={{ once: false }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1.8,
+              left: { duration: 0.8, delay: 0.2 },
+            }}
+            class="section4_box   mt-[56px] h-[184px]"
+          >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
               <div>원하는 고객 정보를 바로 보기 어렵습니다.</div>
@@ -42,8 +53,18 @@ const Section4 = () => {
               <span class="mb-2">지역별, 나이대별, 고객유형별 등</span>
               <span>원하는 고객정보만을 보기 어려워요."</span>
             </div>
-          </div>
-          <div class="section4_box animate__animated animate__fadeInRight  h-[184px]">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, right: -270 }}
+            whileInView={{ opacity: 1, right: 64 }}
+            viewport={{ once: false }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1.8,
+              right: { duration: 0.8, delay: 0.35 },
+            }}
+            class="section4_box  h-[184px]"
+          >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
               <div>고객 DB 구매에 대한 활동 분석이 어렵습니다.</div>
@@ -55,8 +76,18 @@ const Section4 = () => {
               </span>
               <span>클로징으로 많이 이어지는지 파악하기 어려워요.”</span>
             </div>
-          </div>
-          <div class="section4_box animate__animated animate__fadeInLeft h-[156px]">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, left: -170 }}
+            whileInView={{ opacity: 1, left: 64 }}
+            viewport={{ once: false }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1.8,
+              left: { duration: 0.8, delay: 0.45 },
+            }}
+            class="section4_box   h-[156px]"
+          >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
               <div>관리 고객에 대한 문서화가 어렵습니다.</div>
@@ -67,8 +98,18 @@ const Section4 = () => {
               </span>
               <span>한 곳에 일일이 옮기는 작업이 굉장히 번거로워요."</span>
             </div>
-          </div>
-          <div class="section4_box animate__animated animate__fadeInRight  h-[212px]">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, right: -170 }}
+            whileInView={{ opacity: 1, right: 64 }}
+            viewport={{ once: false }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1.8,
+              right: { duration: 0.8, delay: 0.55 },
+            }}
+            class="section4_box  h-[212px]"
+          >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
               <div>
@@ -81,7 +122,7 @@ const Section4 = () => {
               <span class="mb-2">해당 지역에 방문한 김에</span>
               <span>계약한 고객을 만나 관리하고 싶어요.”</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

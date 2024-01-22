@@ -50,7 +50,12 @@ const Section2 = () => {
             <div class="mb-11 flex h-9 text-[25px] font-extrabold text-white">
               점점 낮아지고 있습니다.
             </div>
-            <div className="section2-subtitle">
+            <motion.div
+              className="section2-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 1.1 }}
+            >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
                 <div>
@@ -60,8 +65,13 @@ const Section2 = () => {
                   <div>리스트 목록에 오를 사람들은 한정되어 있습니다.</div>
                 </div>
               </div>
-            </div>
-            <div className="section2-subtitle">
+            </motion.div>
+            <motion.div
+              className="section2-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.25, duration: 1.1 }}
+            >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
                 <div>
@@ -71,8 +81,13 @@ const Section2 = () => {
                   <div class="flex">중복고객이 많은 DB를 판배합니다.</div>
                 </div>
               </div>
-            </div>
-            <div className="section2-subtitle">
+            </motion.div>
+            <motion.div
+              className="section2-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.75, duration: 1.1 }}
+            >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
                 <div>
@@ -82,7 +97,7 @@ const Section2 = () => {
                   <div> 자연스레 DB 구입대비 계약체결율은 낮아집니다.</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
