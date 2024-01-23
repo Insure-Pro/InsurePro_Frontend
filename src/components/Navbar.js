@@ -37,9 +37,23 @@ const Navbar = ({
   // 현재 경로가 /main인지 체크
   const isMainRoute = location.pathname === "/main";
 
+  // Modify this function to handle logo click based on login status
+  const handleLogoClick = () => {
+    if (isLoggedIn) {
+      // User is logged in, navigate to /main
+      navigate("/main");
+    } else {
+      // User is not logged in, navigate to /landingPage
+      navigate("/landingPage");
+    }
+  };
+
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
+
+  // Retrieve the login status from Redux
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
@@ -201,7 +215,8 @@ const Navbar = ({
         <div
           className="brand w-2/12"
           onClick={() => {
-            handleTabChange("Main");
+            // handleTabChange("Main");/
+            handleLogoClick();
           }}
         >
           INSUREPRO
