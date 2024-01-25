@@ -883,10 +883,11 @@ body {
   background-color: #fff;
 }
 .pageNation_Btn {
-  margin-top: 4px;
+  @apply my-3 flex h-10 items-center justify-center;
 }
 .pageNation_Btn button {
   border: none;
+  margin-left: 8px;
   background-color: #fff;
   /* color: #175cd3; */
 }

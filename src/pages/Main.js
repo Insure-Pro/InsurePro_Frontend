@@ -269,7 +269,7 @@ const Main = () => {
 
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 35;
+  const customersPerPage = 20;
 
   // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -311,12 +311,12 @@ const Main = () => {
     }
   };
   const [shouldPaginate, setShouldPaginate] = useState(
-    window.innerWidth <= 700,
+    window.innerWidth <= 1700,
   );
 
   useEffect(() => {
     const handleResize = () => {
-      setShouldPaginate(window.innerWidth <= 700);
+      setShouldPaginate(window.innerWidth <= 1700);
     };
 
     // 창 크기가 변경될 때마다 handleResize 함수를 호출
