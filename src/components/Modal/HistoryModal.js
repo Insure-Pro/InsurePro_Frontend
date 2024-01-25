@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -70,6 +70,16 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
     PT: "var(--colorN-4)",
     PC: "var(--colorN-4)",
   };
+
+  //모달창 외부 클릭 시 닫힘
+  useEffect(() => {
+    // Add event listener to document
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      // Remove event listener on cleanup
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, []);
 
   return (
     <>

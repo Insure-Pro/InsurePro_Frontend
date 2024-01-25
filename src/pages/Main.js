@@ -271,7 +271,7 @@ const Main = () => {
   ////////////////////// 페이지네이션 ////////////////////////////
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 4;
+  const customersPerPage = 15;
 
   // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -327,11 +327,17 @@ const Main = () => {
     setShowExcelUploadModal(true);
   };
 
+  //로고 클릭시 모든 정렬기준 초기화 함수
   const resetFiltersAndSort = () => {
     setSelectedAge("");
     setActiveType("All");
     setSelectedSort("All");
     setSelectedContractYn(null);
+  };
+
+  // 검색 결과를 초기화하는 함수
+  const resetSearch = () => {
+    fetchData(); // 전체 고객 목록을 다시 불러옴
   };
 
   return (
@@ -342,6 +348,7 @@ const Main = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         setCustomers={setCustomers}
         resetFiltersAndSort={resetFiltersAndSort}
+        resetSearch={resetSearch}
       />
       <Dbbar
         onTypeChange={handleTypeChange}

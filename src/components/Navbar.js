@@ -18,6 +18,7 @@ const Navbar = ({
   isLandingPage = false,
   currentSection,
   resetFiltersAndSort,
+  resetSearch,
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
@@ -51,6 +52,7 @@ const Navbar = ({
       // User is not logged in, navigate to /landingPage
       navigate("/landingPage");
     }
+    resetSearch(); // 검색 결과 초기화
   };
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
@@ -191,10 +193,20 @@ const Navbar = ({
   // '고객관리' 클릭 핸들러
   const handleClientClick = () => {
     dispatch(setSearchOff()); // showSearch를 false로 설정
+    resetSearch();
     if (isLoggedIn) {
       toggleDropdown();
     }
   };
+
+  // useEffect(() => {
+  //   // Add event listener to document
+  //   document.addEventListener("mousedown", !showSearch);
+  //   return () => {
+  //     // Remove event listener on cleanup
+  //     document.removeEventListener("mousedown", !showSearch);
+  //   };
+  // }, []);
 
   return (
     <>

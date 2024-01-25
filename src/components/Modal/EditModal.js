@@ -211,6 +211,16 @@ const EditModal = ({
     }
   };
 
+  //모달창 외부 클릭 시 닫힘
+  useEffect(() => {
+    // Add event listener to document
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      // Remove event listener on cleanup
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, []);
+
   return (
     <Modal
       className="modal-style  "

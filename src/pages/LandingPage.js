@@ -127,6 +127,7 @@ const LandingPage = () => {
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
         isLandingPage={true}
+        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
       />
       <div class="pt-[76px]"></div>
       <Section1 />

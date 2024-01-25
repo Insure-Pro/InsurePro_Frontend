@@ -43,6 +43,8 @@ function Modal1({ show, onModalOpen, onModalClose }) {
     onModalOpen();
     // setShow(true);
   };
+
+  //모달창 외부 클릭 시 닫힘
   useEffect(() => {
     // Add event listener to document
     document.addEventListener("mousedown", handleClose);
@@ -335,7 +337,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                   {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
-                <div class="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
+                <div class="flex h-12 w-52 items-center overflow-x-scroll whitespace-nowrap   ">
                   {Object.keys(customerTypeColors).map((type, idx, array) => {
                     const isFirst = idx === 0;
                     const isLast = idx === array.length - 1;
@@ -369,7 +371,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                     return (
                       <button
                         key={idx}
-                        className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                        className="flex h-7 w-12 items-center  border-x-[0.5px] border-y border-gray-300 px-[14px] py-[5px] outline-none"
                         type="button"
                         ref={customerType}
                         style={buttonStyle}

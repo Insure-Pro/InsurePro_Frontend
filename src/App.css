@@ -886,10 +886,7 @@ body {
   @apply my-3 flex h-10 items-center justify-center;
 }
 .pageNation_Btn button {
-  border: none;
-  margin-left: 8px;
-  background-color: #fff;
-  /* color: #175cd3; */
+  @apply h-5 w-5 rounded bg-LightMode-SectionBackground;
 }
 .CustomerInfo_title,
 .CustomerHistory_title {

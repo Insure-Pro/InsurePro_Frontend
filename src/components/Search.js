@@ -92,6 +92,7 @@ const Search = ({ setCustomers }) => {
         onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
         onFocus={() => setInputFocused(true)}
         onBlur={() => setInputFocused(false)}
+        autoFocus
       ></input>
       {/* <button
         className="Search_button"

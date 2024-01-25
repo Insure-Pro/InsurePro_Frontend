@@ -168,7 +168,7 @@ const Analysis = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
-        // resetFiltersAndSort={handleLogoClick}
+        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
       />
       <div
         className={`select-none   justify-center pt-[76px] ${
