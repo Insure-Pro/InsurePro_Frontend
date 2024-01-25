@@ -9,6 +9,7 @@ import EditModal from "../components/Modal/EditModal";
 import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import ExcelUploadModal from "../components/Modal/ExcelUploadModal";
+import Pagination from "../components/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -267,9 +268,10 @@ const Main = () => {
     };
   }, [contextMenu]);
 
+  ////////////////////// 페이지네이션 ////////////////////////////
   // 페이지네이션을 위한 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 20;
+  const customersPerPage = 4;
 
   // 현재 페이지의 첫 번째 및 마지막 고객의 인덱스 계산
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -285,31 +287,6 @@ const Main = () => {
     setCurrentPage(pageNumber);
   };
 
-  // '다음' 버튼 클릭 핸들러
-  const handleNextClick = () => {
-    const maxPage = Math.ceil(customers.length / customersPerPage);
-    if (currentPage < maxPage) {
-      const nextPage = Math.min(
-        maxPage,
-        currentPage + (5 - ((currentPage - 1) % 5)),
-      );
-      setCurrentPage(nextPage);
-    }
-  };
-
-  // '이전' 버튼 클릭 핸들러
-  const handlePrevClick = () => {
-    if (currentPage > 1) {
-      // 현재 페이지 그룹의 첫 페이지를 계산 (5로 나눈 뒤 내림한 값에 5를 곱하고 1을 더함)
-      const currentGroupStartPage = Math.floor((currentPage - 1) / 5) * 5 + 1;
-
-      // 바로 이전 페이지 그룹의 첫 페이지를 찾기 위해 현재 그룹의 첫 페이지에서 5를 빼줌
-      const newPage = currentGroupStartPage - 5;
-
-      // 새 페이지가 1보다 작으면 1로 설정, 아니면 새 페이지 번호로 설정
-      setCurrentPage(newPage < 1 ? 1 : newPage);
-    }
-  };
   const [shouldPaginate, setShouldPaginate] = useState(
     window.innerWidth <= 1700,
   );
@@ -330,42 +307,7 @@ const Main = () => {
 
   // 화면의 가로 크기에 따라 사용할 배열 결정
   const displayCustomers = shouldPaginate ? currentCustomers : customers;
-
-  // 페이지네이션 컴포넌트 렌더링
-  const renderPagination = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(customers.length / customersPerPage); i++) {
-      pageNumbers.push(i);
-    }
-    const startPage = 1 + 5 * Math.floor((currentPage - 1) / 5);
-    const endPage = Math.min(startPage + 4, pageNumbers.length);
-
-    return (
-      <div className="pageNation_Btn">
-        <button onClick={handlePrevClick} disabled={startPage === 1}>
-          〈
-        </button>
-        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
-          <button
-            style={{
-              fontWeight: currentPage === number ? "bold" : "normal",
-              color: "#175cd3",
-            }}
-            key={number}
-            onClick={() => handlePageClick(number)}
-          >
-            {number}
-          </button>
-        ))}
-        <button
-          onClick={handleNextClick}
-          disabled={endPage === pageNumbers.length}
-        >
-          〉
-        </button>
-      </div>
-    );
-  };
+  ////////////////////// 페이지네이션 ////////////////////////////
 
   // const [showOptions, setShowOptions] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -391,6 +333,7 @@ const Main = () => {
     setSelectedSort("All");
     setSelectedContractYn(null);
   };
+
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
@@ -427,7 +370,7 @@ const Main = () => {
           showModal || showOptions || showExcelUploadModal || isModalOpen
             ? "blur-background no-interaction"
             : ""
-        } flex flex-col  bg-LightMode-SectionBackground`}
+        } flex h-screen flex-col bg-LightMode-SectionBackground`}
         style={{
           clipPath: showSearch ? "inset(52px 0 0 0)" : "",
           marginTop: showSearch ? "-52px" : "",
@@ -556,25 +499,16 @@ const Main = () => {
                   {customer.memo}
                 </ListGroup.Item>
               </ListGroup>
-              {/* {showOptions === customer.pk && (
-                <div>
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handleEditClick(customer)}
-                  >
-                    수정
-                  </Button>{" "}
-                  <Button
-                    variant="outline-danger"
-                    onClick={() => handleDeleteClick(customer)}
-                  >
-                    삭제
-                  </Button>{" "}
-                </div>
-              )} */}
             </div>
           ))}
-        {shouldPaginate && renderPagination()}
+        {shouldPaginate && (
+          <Pagination
+            currentPage={currentPage}
+            customersLength={customers.length}
+            customersPerPage={customersPerPage}
+            onPageChange={handlePageClick}
+          />
+        )}
         {contextMenu.visible && (
           <ContextMenu
             customer={contextMenu.customer}
