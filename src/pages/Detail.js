@@ -82,7 +82,9 @@ const Detail = ({}) => {
   const handleContractCompleteClick = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
-
+  // const handleLogoClick = () => {
+  //   navigate("/main", { state: { selectedTab: "로고" } });
+  // };
   return (
     <div>
       <Navbar
@@ -91,6 +93,7 @@ const Detail = ({}) => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
+        // resetFiltersAndSort={handleLogoClick}
       />
       <div
         className={`pt-[76px] ${

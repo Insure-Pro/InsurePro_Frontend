@@ -110,7 +110,7 @@ const Inquiry = ({}) => {
           </div>
           <div class="flex items-center">
             <span class="mr-[58px]">파일첨부</span>
-            {/* <input class="h-10 w-[782px]  bg-white" type="file"></input> */}
+
             <label htmlFor="file">
               <div class="btn-upload ">파일 업로드하기</div>
             </label>

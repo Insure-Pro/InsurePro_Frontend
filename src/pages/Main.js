@@ -41,6 +41,9 @@ const Main = () => {
   const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
   const dropup = process.env.PUBLIC_URL + "/dropup.png";
 
+  // Retrieve the login status from Redux
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   useEffect(() => {
     if (selectedTab) {
       switch (selectedTab) {
@@ -54,6 +57,9 @@ const Main = () => {
           if (formattedDate) {
             handleMonthCustomersClick(formattedDate);
           }
+          break;
+        case "로고":
+          resetFiltersAndSort();
           break;
         // Add cases for other tabs if necessary
         default:
@@ -159,6 +165,8 @@ const Main = () => {
     setSelectedContractYn(null);
     setSelectedAge("");
     setSelectedSort("latest");
+    setActiveType("All");
+    setSelectedSort("All");
     setFormattedDate(null);
   };
 
@@ -376,6 +384,13 @@ const Main = () => {
     setShowOptions(false);
     setShowExcelUploadModal(true);
   };
+
+  const resetFiltersAndSort = () => {
+    setSelectedAge("");
+    setActiveType("All");
+    setSelectedSort("All");
+    setSelectedContractYn(null);
+  };
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
@@ -383,6 +398,7 @@ const Main = () => {
         onAllCustomersClick={handleAllCustomersClick}
         onMonthCustomersClick={handleMonthCustomersClick}
         setCustomers={setCustomers}
+        resetFiltersAndSort={resetFiltersAndSort}
       />
       <Dbbar
         onTypeChange={handleTypeChange}
@@ -419,14 +435,6 @@ const Main = () => {
       >
         <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">
-            {/* <Modal1
-              onModalOpen={handleModalOpen}
-              onModalClose={handleModalClose}
-            />
-             */}
-
-            {/* Add button to show options */}
-
             <button className="add_Btn" onClick={handleShowOptions}>
               <img src={add_icon} />
             </button>

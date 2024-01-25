@@ -17,6 +17,7 @@ const Navbar = ({
   setCustomers,
   isLandingPage = false,
   currentSection,
+  resetFiltersAndSort,
 }) => {
   const [userName, setUserName] = useState("UserName");
   const [selectedTab, setSelectedTab] = useState("전체");
@@ -37,11 +38,15 @@ const Navbar = ({
   // 현재 경로가 /main인지 체크
   const isMainRoute = location.pathname === "/main";
 
+  // Retrieve the login status from Redux
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   // Modify this function to handle logo click based on login status
   const handleLogoClick = () => {
     if (isLoggedIn) {
-      // User is logged in, navigate to /main
-      navigate("/main");
+      // 로그인 상태일 경우
+      if (typeof resetFiltersAndSort === "function") {
+        navigate("/main", { state: { selectedTab: "로고" } });
+      }
     } else {
       // User is not logged in, navigate to /landingPage
       navigate("/landingPage");
@@ -51,9 +56,6 @@ const Navbar = ({
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
-
-  // Retrieve the login status from Redux
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const handleTabClick = (tabName) => {
     // Update the analysis selected state based on whether the 'Analysis' tab is clicked
@@ -66,11 +68,14 @@ const Navbar = ({
       onMonthCustomersClick();
       navigate("/main", { state: { selectedTab: "월별 고객" } });
     } else if (tabName === "전체") {
-      onAllCustomersClick();
       navigate("/main", { state: { selectedTab: "전체" } });
+      // onAllCustomersClick();
     } else if (tabName === "계약완료고객") {
       onContractCompleteClick();
       navigate("/main", { state: { selectedTab: "계약완료고객" } });
+    } else if (tabName === "로고") {
+      // resetFiltersAndSort();
+      navigate("/main", { state: { selectedTab: "로고" } });
     }
   };
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -158,24 +163,9 @@ const Navbar = ({
     currentDate.getMonth() + 1,
   );
 
-  // const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-  //   2,
-  //   "0",
-  // )}`; // formattedDate 업데이트
-
   const formattedDateTitle = `${selectedYear}년 ${String(
     selectedMonth,
   ).padStart(2, "0")}월`; // formattedDate 업데이트
-  // const handleMonthCustomersClick = () => {
-  //   setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
-  // };
-  // const handleAllCustomersClick = () => {
-  //   setSelectedTab("전체");
-  // };
-
-  // const handleContractCompleteClick = () => {
-  //   setSelectedTab("계약완료고객");
-  // };
 
   const handleFormattedDateClick = () => {
     if (selectedTab === "월별 고객") {
@@ -200,9 +190,10 @@ const Navbar = ({
 
   // '고객관리' 클릭 핸들러
   const handleClientClick = () => {
-    onAllCustomersClick();
     dispatch(setSearchOff()); // showSearch를 false로 설정
-    toggleDropdown();
+    if (isLoggedIn) {
+      toggleDropdown();
+    }
   };
 
   return (
@@ -215,7 +206,7 @@ const Navbar = ({
         <div
           className="brand w-2/12"
           onClick={() => {
-            // handleTabChange("Main");/
+            handleTabClick("로고");
             handleLogoClick();
           }}
         >
@@ -244,7 +235,6 @@ const Navbar = ({
                 onMonthCustomersClick={onMonthCustomersClick}
                 onContractCompleteClick={onContractCompleteClick}
                 handleTabClick={handleTabClick}
-                // handleMapClick={handleMapClick}
                 toggleDropdown={toggleDropdown}
                 handleTabChange={handleTabChange}
                 handleshowDateClick={handleshowDateClick}

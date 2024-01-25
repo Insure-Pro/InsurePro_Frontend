@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "../LandingPage.css"; // Add styling for your landing pagesimport '.'
 import Navbar from "../components/Navbar";
 import Section1 from "../components/LandingPage/Section1";
@@ -126,7 +127,6 @@ const LandingPage = () => {
         onContractCompleteClick={handleContractCompleteClick}
         onAllCustomersClick={handleAllCustomersClick}
         isLandingPage={true}
-        // onMonthCustomersClick={handleMonthCustomersClick}
       />
       <div class="pt-[76px]"></div>
       <Section1 />

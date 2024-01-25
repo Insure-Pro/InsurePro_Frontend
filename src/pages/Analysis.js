@@ -157,6 +157,9 @@ const Analysis = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
 
+  // const handleLogoClick = () => {
+  //   navigate("/main", { state: { selectedTab: "로고" } });
+  // };
   return (
     <div className="Detail_container w-screen">
       <Navbar
@@ -165,6 +168,7 @@ const Analysis = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
+        // resetFiltersAndSort={handleLogoClick}
       />
       <div
         className={`select-none   justify-center pt-[76px] ${

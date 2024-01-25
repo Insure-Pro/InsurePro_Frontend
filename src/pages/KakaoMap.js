@@ -424,6 +424,9 @@ const KakaoMap = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
 
+  // const handleLogoClick = () => {
+  //   navigate("/main", { state: { selectedTab: "로고" } });
+  // };
   //////////  현재위치정보 리스트에 보여주는 로직 시작  //////////
   const [currentAddress, setCurrentAddress] = useState("");
 
@@ -654,6 +657,7 @@ const KakaoMap = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
+        // resetFiltersAndSort={handleLogoClick}
       />
       <div class="flex flex-row pt-[76px]">
         {/* Main Content Container */}
