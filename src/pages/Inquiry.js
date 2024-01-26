@@ -8,12 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { FormCheck } from "react-bootstrap";
 
 const Inquiry = ({}) => {
+  // const content = useRef("");
+  const [content, setContent] = useState("");
   const location = useLocation();
-  const { customerPk } = location.state;
-  const [customerSchedules, setCustomerSchedules] = useState({});
-
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [showEditModalD, setShowEditModalD] = useState(false);
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -30,35 +27,36 @@ const Inquiry = ({}) => {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
-  const fetchCustomer = async () => {
+  const handleSubmit = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    console.log("Submit button clicked"); // 버튼 클릭 확인
+    // JSON 형식의 데이터를 보내기 위해 axios 요청을 수정합니다.
+    // const data = JSON.stringify({ content: content.current.value });
     try {
-      const response = await axios.get(`${MAIN_URL}/customer/${customerPk}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      const response = await axios.post(
+        `${MAIN_URL}/questions`,
+        {
+          content,
         },
-      });
+        {
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        },
+      );
 
-      if (response.data) {
-        setSelectedCustomer(response.data);
+      if (response.status === 200) {
+        alert("감사합니다");
+        setContent(""); // 폼 초기화
+        // 필요한 경우, 다른 페이지로 리다이렉트
       }
     } catch (error) {
-      console.error("Error fetching customer:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCustomer();
-  }, [customerPk]);
-
-  const handleEditClick = () => {
-    setShowEditModalD(true);
-  };
-
-  const handleUpdateSuccess = (updatedCustomer) => {
-    try {
-      setSelectedCustomer(updatedCustomer);
-    } catch (error) {
-      console.error("Error in handleUpdateSuccess:", error);
+      console.error("Inquiry submit error:", error);
+      alert("문의 접수 중 오류가 발생했습니다: " + error); // 사용자에게 오류 표시
+      // 에러 처리
     }
   };
 
@@ -85,7 +83,7 @@ const Inquiry = ({}) => {
         resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
       />
       <div
-        class=" mx-auto h-screen w-full min-w-[1024px] bg-gray-100 pt-[72px]"
+        class=" mx-auto h-screen w-full min-w-[1024px] bg-LightMode-SectionBackground pt-[72px]"
         style={{
           userSelect: "none",
         }}
@@ -99,12 +97,15 @@ const Inquiry = ({}) => {
           </div>
         </div>
 
-        <div class="flex h-[558px] flex-col items-start bg-gray-100 pl-[75px] pt-10 align-top  text-sm">
+        <div class="flex h-[558px] flex-col items-start bg-LightMode-SectionBackground pl-[75px] pt-10 align-top  text-sm">
           <div class="mb-10 ">
             <span class="mr-[82px]">내용</span>
             <input
               class=" h-[186px] w-[782px]  p-4 pb-2   align-text-top"
               type="text"
+              // ref={content}
+              value={content}
+              onChange={(e) => setContent(e.target.value)} // 입력 값 상태 업데이트
               as="textarea"
               rows={10}
             ></input>
@@ -128,9 +129,13 @@ const Inquiry = ({}) => {
             수집하며, 개인정보처리방침에 따라 3년 후 파기됩니다.
           </div>
           <div class="flex w-full justify-center">
-            <div class="flex h-[40px] w-[280px] items-center justify-center  border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white">
+            <button
+              onClick={handleSubmit}
+              // type="submit"
+              class="flex h-[40px] w-[280px] items-center justify-center  border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+            >
               접수
-            </div>
+            </button>
           </div>
         </div>
       </div>

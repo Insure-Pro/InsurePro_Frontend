@@ -516,8 +516,8 @@ body {
 /* - - - - -[모달창 시작]- - - - - */
 .excelupload-modal-style {
   background-color: white;
-  width: 704px;
-  height: 316px;
+  width: 914px;
+  height: 240px;
   position: fixed;
   /* padding-right: 0px !important; */
   font-size: 14px;
@@ -526,12 +526,13 @@ body {
   border: 1px solid var(--gray-100);
   border-radius: 6px;
   transform: translate(-50%, -50%);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
   outline: none;
   z-index: 12; /* Adjust as needed */
 }
 .excelupload-modal-style2 {
   background-color: white;
-  width: 704px;
+  width: 914px;
   height: 544px;
   position: fixed;
   padding-left: 0px !important;
@@ -541,58 +542,65 @@ body {
   border: 1px solid var(--gray-100);
   border-radius: 6px;
   transform: translate(-50%, -50%);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
   outline: none;
   z-index: 12; /* Adjust as needed */
 }
 .Excel-Item-Title > div {
-  @apply ml-1 flex h-8 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
+  @apply ml-1 flex h-7 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
 }
 .td-db-date {
-  @apply ml-1 h-8 w-[90px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[96px] border border-Gray-scale-50 pt-2.5  text-center;
 } /* Adjust widths as needed */
 .td-name {
-  @apply ml-1 h-8 w-[64px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-customer-type {
-  @apply ml-1 h-8 w-16 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-birth {
-  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-age {
-  @apply ml-1 h-8 w-9 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[50px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-contact {
-  @apply ml-1 h-8 w-20 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[122px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-residence {
-  @apply ml-1 h-8 w-24 border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[142px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-special-note {
-  @apply ml-1 h-8 w-[100px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[110px] border border-Gray-scale-50 pt-2.5  text-center;
 }
+.td-state {
+  @apply ml-1 h-7 w-[110px] border border-Gray-scale-50 pt-2.5  text-center;
+}
+
 /* input type=file 커스텀 */
 .filebox .upload-name {
   display: inline-block;
+  width: 708px;
   height: 40px;
   padding: 0 10px;
   vertical-align: middle;
   border: 1px solid var(--Gray-scale-50);
-  width: 610px;
   color: var(--Gray-scale-400);
   background-color: #fff; /* Add background color for visibility */
 }
 
 .filebox label {
   display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  vertical-align: middle;
-  background-color: var(--Gray-scale-300);
-  cursor: pointer;
-  width: 102px;
+  width: 120px;
   height: 40px;
-  margin-left: 10px;
+  padding: 10px 20px;
+  color: var(--LightMode-Text);
+  vertical-align: middle;
+  border: 1px solid var(--Gray-scale-100);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 12px;
 }
 
 .filebox input[type="file"] {

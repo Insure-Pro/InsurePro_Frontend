@@ -62,6 +62,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       phone: rowData[5],
       dongString: rowData[6],
       memo: rowData[7],
+      state: rowData[8],
     };
   };
   const handleSubmit = async () => {
@@ -103,7 +104,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
         {!isNextClicked && (
           <>
             <Modal className="excelupload-modal-style  " show={show}>
-              <div class="mb-6 h-8 rounded-t-md bg-gray-300 px-7 py-[7px] text-sm font-normal">
+              <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div>엑셀파일로 고객 추가</div>
                   <img
@@ -115,14 +116,16 @@ const ExcelUploadModal = ({ show, onHide }) => {
               </div>
               <div class="px-9 text-sm">
                 <div>
-                  <div class="flex flex-col">
+                  <div class="flex flex-col   ">
                     {/* 엑셀 템플릿 다운로드 버튼 추가 */}
-                    <button
-                      onClick={handleDownloadTemplate}
-                      className="mb-[22px] mt-3 h-10 w-[195px] border text-Primary-300"
-                    >
-                      엑셀 파일 양식 다운로드
-                    </button>
+                    <div class="flex justify-end">
+                      <button
+                        onClick={handleDownloadTemplate}
+                        className="my-4 h-10  w-[120px] border text-Primary-300"
+                      >
+                        양식 다운받기
+                      </button>
+                    </div>
                     {/* <div class=" mt-3  flex h-[42px] items-center border bg-gray-300 pl-4 text-white">
                       엑셀 파일 추가시 가이드라인
                     </div> */}
@@ -131,14 +134,14 @@ const ExcelUploadModal = ({ show, onHide }) => {
                       sed do
                     </div> */}
                     {/* <div class="h-[46px] w-[632px] border"> */}
-                    <div class="filebox flex  text-sm">
+                    <div class="filebox text-sm">
                       <input
                         class="upload-name"
                         value={fileName}
                         // placeholder="파일첨부하기"
                         disabled
                       />
-                      <label for="excelFile">파일 찾기</label>
+                      <label for="excelFile">불러오기</label>
                       <input
                         type="file"
                         id="excelFile"
@@ -148,10 +151,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
                     {/* </div> */}
                   </div>
                 </div>
-                <div class="mt-20 flex justify-end">
+                <div class="mt-10 flex justify-center">
                   {/* <p>Please follow the guidelines...</p> */}
                   <button
-                    class={`h-10 w-[632px] rounded border text-[17px] ${
+                    class={`h-10 w-[916px] rounded border text-[17px] ${
                       file ? "bg-primary-100 text-white" : "text-gray-300"
                     }`}
                     onClick={handleNextClick}
@@ -167,7 +170,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
           // Contents rendered after 'Next' button is clicked
           <>
             <Modal className="excelupload-modal-style2  " show={show}>
-              <div class="mb-6 h-8 rounded-t-md bg-gray-300 px-7 py-[7px] text-sm font-normal">
+              <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div class="cursor-default">엑셀파일로 고객 추가</div>
                   <img
@@ -177,82 +180,100 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   />
                 </div>
               </div>
+              <div class="filebox ml-3 text-sm">
+                <input
+                  class="upload-name mr-[34px]"
+                  value={fileName}
+                  // placeholder="파일첨부하기"
+                  disabled
+                />
+                <label for="excelFile">불러오기</label>
+                <input type="file" id="excelFile" onChange={handleFileChange} />
+              </div>
               {/* Display Excel data in a table */}
               <div class="mx-3 mt-6">
-                <div class="Excel-Item-Title mb-5 flex h-8 items-center  text-sm font-light text-white ">
-                  <div class="w-20  ">Db분배일</div>
-                  <div class="w-12 ">이름</div>
-                  <div class="w-16 ">고객유형</div>
-                  <div class="w-20 ">생년월일</div>
-                  <div class="w-9 ">나이</div>
-                  <div class="w-20 ">연락처</div>
-                  <div class="w-24 ">거주지</div>
-                  <div class="w-[100px] ">특이사항</div>
+                <div class="Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ">
+                  <div class="w-[96px]">Db분배일</div>
+                  <div class="w-[70px]">이름</div>
+                  <div class="w-[70px]">고객유형</div>
+                  <div class="w-[70px]">생년월일</div>
+                  <div class="w-[50px]">나이</div>
+                  <div class="w-[122px]">연락처</div>
+                  <div class="w-[142px]">거주지</div>
+                  <div class="w-[110px]">특이사항</div>
+                  <div class="w-[110px]">인수상태</div>
                 </div>
+                <div class=" h-[220px] overflow-auto">
+                  <tbody class=" w-full  text-[11px]">
+                    {excelData.slice(1).map((row, index) => {
+                      // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
+                      const filteredRow = [
+                        ...row.slice(0, 9),
+                        ...row.slice(15),
+                      ];
 
-                <tbody class="mx-3 w-full text-[11px]">
-                  {excelData.slice(1).map((row, index) => {
-                    // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
-                    const filteredRow = [...row.slice(0, 9), ...row.slice(15)];
-
-                    return (
-                      <tr
-                        className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
-                        key={index}
-                      >
-                        {filteredRow.map((cell, cellIndex) => {
-                          let className;
-                          // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
-                          switch (cellIndex) {
-                            case 0:
-                              className = "td-db-date";
-                              break;
-                            case 1:
-                              className = "td-name";
-                              break;
-                            case 2:
-                              className = "td-customer-type";
-                              break;
-                            case 3:
-                              className = "td-birth";
-                              break;
-                            case 4:
-                              className = "td-age";
-                              break;
-                            case 5:
-                              className = "td-contact";
-                              break;
-                            case 6:
-                              className = "td-residence";
-                              break;
-                            case 7:
-                              className = "td-special-note";
-                              break;
-                            // case 8:
-                            //   className = "td-special-note";
-                            //   break;
-                            default:
-                              className = "";
-                          }
-                          return (
-                            <td key={cellIndex} className={className}>
-                              {cell}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
+                      return (
+                        <tr
+                          className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
+                          key={index}
+                        >
+                          {filteredRow.map((cell, cellIndex) => {
+                            let className;
+                            // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
+                            switch (cellIndex) {
+                              case 0:
+                                className = "td-db-date";
+                                break;
+                              case 1:
+                                className = "td-name";
+                                break;
+                              case 2:
+                                className = "td-customer-type";
+                                break;
+                              case 3:
+                                className = "td-birth";
+                                break;
+                              case 4:
+                                className = "td-age";
+                                break;
+                              case 5:
+                                className = "td-contact";
+                                break;
+                              case 6:
+                                className = "td-residence";
+                                break;
+                              case 7:
+                                className = "td-special-note";
+                                break;
+                              case 8:
+                                className = "td-state";
+                                break;
+                              // case 8:
+                              //   className = "td-special-note";
+                              //   break;
+                              default:
+                                className = "";
+                            }
+                            return (
+                              <td key={cellIndex} className={className}>
+                                {cell}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </div>
               </div>
-              <div class="mt-3 flex w-full flex-col text-center">
+              <div class="mt-10 flex w-full flex-col text-center">
                 <div>파일의 내용이 알맞게 삽입되었는지 확인해보세요.</div>
                 <div>
                   엑셀 등록 이후, 잘못된 정보는 개별 삭제만 가능하오니
                   유의바랍니다.
                 </div>
               </div>
-              <div class="mt-3 flex w-full justify-center">
+              <div class="mt-10 flex w-full justify-center">
                 <button
                   class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-300 hover:text-white"
                   onClick={handleprevClick}
