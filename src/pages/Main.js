@@ -17,7 +17,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  const [activeType, setActiveType] = useState("All"); // 선택된 유형 상태 추가
+  const [activeType, setActiveType] = useState("All"); // 활성화된 고객유형 Main컴포넌트에서 관리
   const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
   const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
@@ -333,6 +333,7 @@ const Main = () => {
     setActiveType("All");
     setSelectedSort("All");
     setSelectedContractYn(null);
+    setCurrentSelection("정렬기준");
   };
 
   // 검색 결과를 초기화하는 함수
@@ -446,6 +447,7 @@ const Main = () => {
         onMonthCustomersClick={handleMonthCustomersClick}
         customers={customers}
         setFormattedDate={setFormattedDate}
+        activeType={activeType} // activeType을 props로 전달합니다.
       />
       {showModal && <Modal1 show={showModal} onModalClose={handleModalClose} />}
       {showExcelUploadModal && (

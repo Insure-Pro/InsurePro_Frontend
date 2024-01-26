@@ -43,6 +43,7 @@ const Dbbar = ({
   children,
   onTypeChange,
   setCustomers,
+  activeType, // 이제 이 prop을 사용합니다.
 }) => {
   const [items, setItems] = useState([
     { key: "link-1", label: "All" },
@@ -59,7 +60,7 @@ const Dbbar = ({
 
   const showSearch = useSelector((state) => state.search.showSearch);
 
-  const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
+  // const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
 
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -127,7 +128,7 @@ const Dbbar = ({
   };
 
   const handleTypeClick = (type) => {
-    setActiveType(type);
+    // setActiveType(type);
     onTypeChange(type); // 선택한 유형을 부모 컴포넌트로 전달
   };
 
