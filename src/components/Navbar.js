@@ -199,14 +199,10 @@ const Navbar = ({
     }
   };
 
-  // useEffect(() => {
-  //   // Add event listener to document
-  //   document.addEventListener("mousedown", !showSearch);
-  //   return () => {
-  //     // Remove event listener on cleanup
-  //     document.removeEventListener("mousedown", !showSearch);
-  //   };
-  // }, []);
+  // Handle the close action for the Search component
+  const handleCloseSearch = () => {
+    dispatch(setSearchOff()); // Dispatch setSearchOff action to hide the Search component
+  };
 
   return (
     <>
@@ -293,7 +289,7 @@ const Navbar = ({
       {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
       {isMainRoute && showSearch && (
         <div class=" flex h-[88px]  w-full items-center justify-center bg-white ">
-          <Search setCustomers={setCustomers} />
+          <Search setCustomers={setCustomers} onClose={handleCloseSearch} />
         </div>
       )}
       {isMainRoute && showSearch && (
