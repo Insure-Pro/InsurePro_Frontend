@@ -6,6 +6,8 @@ const Section1 = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false); // State to control visibility
 
+  const arrow = process.env.PUBLIC_URL + "/landing-arrow30.png";
+
   useEffect(() => {
     // Set a timeout to change the visibility state
     const timer = setTimeout(() => {
@@ -14,6 +16,25 @@ const Section1 = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const arrowVariants = {
+    animate: {
+      y: ["0px", "8px", "0px"],
+      opacity: [0, 1, 0],
+      transition: {
+        y: {
+          repeat: Infinity,
+          duration: 3,
+          ease: "easeInOut",
+        },
+        opacity: {
+          repeat: Infinity,
+          duration: 3,
+          ease: "easeInOut",
+        },
+      },
+    },
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,6 +76,13 @@ const Section1 = () => {
           </div>
           <div className="section1-subtitle">
             고객 DB지출은 점점 커져갈 것입니다.
+          </div>
+          <div class="mr-16 mt-[150px] flex justify-center bg-transparent">
+            <motion.img
+              src={arrow}
+              variants={arrowVariants}
+              animate="animate"
+            />
           </div>
         </div>
       </motion.div>
