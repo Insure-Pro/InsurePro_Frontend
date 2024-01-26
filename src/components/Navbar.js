@@ -47,12 +47,13 @@ const Navbar = ({
       // 로그인 상태일 경우
       if (typeof resetFiltersAndSort === "function") {
         navigate("/main", { state: { selectedTab: "로고" } });
+        resetSearch();
       }
     } else {
       // User is not logged in, navigate to /landingPage
       navigate("/landingPage");
     }
-    resetSearch(); // 검색 결과 초기화
+    // resetSearch(); // 검색 결과 초기화
   };
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
@@ -193,8 +194,8 @@ const Navbar = ({
   // '고객관리' 클릭 핸들러
   const handleClientClick = () => {
     dispatch(setSearchOff()); // showSearch를 false로 설정
-    resetSearch();
     if (isLoggedIn) {
+      resetSearch();
       toggleDropdown();
     }
   };
@@ -277,9 +278,13 @@ const Navbar = ({
 
         <div class="flex w-2/12  max-w-[390px] justify-end ">
           <div class="flex max-w-[90px]   justify-between">
-            <div className="cursor-pointer pr-7">
-              <img src={search} onClick={handleSearchToggle} />
-            </div>
+            {/* 검색 아이콘은 /main 경로일 때만 표시 */}
+            {isMainRoute && isLoggedIn && (
+              <div className=" h-6 cursor-pointer pr-7">
+                {/* 여기서 h-7이상 입력하면 Navbar 세로 길이 차이발생 */}
+                <img src={search} onClick={handleSearchToggle} />
+              </div>
+            )}
             <div className="cursor-pointer pt-1">
               <img src={mypage} onClick={handleLogout} />
             </div>

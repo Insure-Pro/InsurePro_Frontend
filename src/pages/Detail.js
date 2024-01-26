@@ -93,6 +93,7 @@ const Detail = ({}) => {
         onMonthCustomersClick={handleMonthCustomersClick}
         ContractedCustomerClcik={handleContractCompleteClick}
         AllCustomersClick={handleAllCustomersClick}
+        resetSearch={() => {}}
         // resetFiltersAndSort={handleLogoClick}
       />
       <div
