@@ -40,8 +40,8 @@ const Section9 = () => {
           </div>
         </div>
       </div>
-      <div class="flex">
-        <div className=" section9-card-container ml-[42px]">
+      <div class="flex md:mx-[42px] lg:mx-auto ">
+        <div className=" section9-card-container ">
           <div class="section9-card-title mb-[48px] ">무료체험</div>
           <div className="section9-card-price-wrapper mb-[62px] ">
             <p className="section9-card-price">1</p>

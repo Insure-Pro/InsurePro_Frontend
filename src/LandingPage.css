@@ -149,7 +149,7 @@
   background-size: contain;
   background-blend-mode: multiply;
   background-color: var(--LightMode-SectionBackground);
-  height: 778px;
+  height: 878px;
   @apply relative flex   text-LightMode-Subtext;
 }
 /*//////// 섹션 4 좌우 애니메이션 ////////*/
