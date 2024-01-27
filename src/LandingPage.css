@@ -178,7 +178,7 @@
   opacity: 0;
 }
 .section4_box {
-  @apply rounded bg-LightMode-Text/40 pt-6 text-[20px] font-bold;
+  @apply rounded pt-6 text-[20px] font-bold;
 }
 
 .landing-section4 .section4_box:nth-child(2) {
@@ -256,7 +256,7 @@
   @apply h-[43px] w-[456px] text-[30px] font-extrabold;
 }
 .section2-subtitle {
-  @apply mb-12 flex h-[88px] w-[433px] items-center rounded bg-LightMode-Text/40 px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground;
+  @apply mb-12 flex h-[88px] w-[433px] items-center rounded px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground;
 }
 .section3-subtitle {
   @apply h-[43px] w-[622px] text-[30px] font-extrabold;

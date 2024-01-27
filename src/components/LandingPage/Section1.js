@@ -6,7 +6,7 @@ const Section1 = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false); // State to control visibility
 
-  const arrow = process.env.PUBLIC_URL + "/landing-arrow30.png";
+  const arrow = process.env.PUBLIC_URL + "/landing-arrow56fff.png";
 
   useEffect(() => {
     // Set a timeout to change the visibility state

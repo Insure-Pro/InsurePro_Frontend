@@ -42,7 +42,7 @@ const Section4 = () => {
               duration: 1.8,
               left: { duration: 0.8, delay: 0.2 },
             }}
-            class="section4_box   mt-[56px] h-[184px]"
+            class="section4_box mt-[56px] h-[184px] bg-Secondary-300"
           >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
@@ -63,7 +63,7 @@ const Section4 = () => {
               duration: 1.8,
               right: { duration: 0.8, delay: 0.35 },
             }}
-            class="section4_box  h-[184px]"
+            class="section4_box h-[184px]  bg-Secondary-400"
           >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
@@ -86,7 +86,7 @@ const Section4 = () => {
               duration: 1.8,
               left: { duration: 0.8, delay: 0.45 },
             }}
-            class="section4_box   h-[156px]"
+            class="section4_box h-[156px] bg-Secondary-500"
           >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>
@@ -108,7 +108,7 @@ const Section4 = () => {
               duration: 1.8,
               right: { duration: 0.8, delay: 0.55 },
             }}
-            class="section4_box  h-[212px]"
+            class="section4_box h-[212px] bg-Secondary-600"
           >
             <div class="flex">
               <div class="pl-6 pr-3">•</div>

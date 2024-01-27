@@ -15,7 +15,7 @@ const Section2 = () => {
       const sectionPosition = section.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
-      if (sectionPosition < windowHeight * 0.8) {
+      if (sectionPosition < windowHeight * 0.7) {
         section.classList.add("visible");
       }
     };
@@ -51,10 +51,11 @@ const Section2 = () => {
               점점 낮아지고 있습니다.
             </div>
             <motion.div
-              className="section2-subtitle"
+              className="section2-subtitle  bg-Secondary-500"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 1.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 0.7, duration: 1.1 }}
             >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
@@ -67,10 +68,11 @@ const Section2 = () => {
               </div>
             </motion.div>
             <motion.div
-              className="section2-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.25, duration: 1.1 }}
+              className="section2-subtitle bg-Secondary-600"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 1.2, duration: 1.1 }}
             >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
@@ -78,15 +80,16 @@ const Section2 = () => {
                   <div class="mb-2.5 flex">
                     DB 생산 업체는 어느 순간부터 신규유입이 적고
                   </div>
-                  <div class="flex">중복고객이 많은 DB를 판배합니다.</div>
+                  <div class="flex">중복고객이 많은 DB를 판매합니다.</div>
                 </div>
               </div>
             </motion.div>
             <motion.div
-              className="section2-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.75, duration: 1.1 }}
+              className="section2-subtitle bg-Secondary-700"
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ delay: 1.7, duration: 1.1 }}
             >
               <div class="flex">
                 <div class="pl-2 pr-2">•</div>
