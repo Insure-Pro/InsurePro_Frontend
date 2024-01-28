@@ -61,8 +61,14 @@ const Pagination = ({
           key={number}
           onClick={() => onPageChange(number)}
           style={{
-            fontWeight: currentPage === number ? "bold" : "normal",
-            color: "#175cd3",
+            backgroundColor:
+              currentPage === number
+                ? "var(--LightMode-Subtext)"
+                : "transparent",
+            fontSize: currentPage === number ? "12px" : "10px",
+            // fontWeight: " semiBold",
+            fontWeight: "600",
+            color: currentPage === number ? "#fff" : "var(--LightMode-Subtext)",
           }}
         >
           {number}
