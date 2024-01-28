@@ -104,10 +104,10 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
     }
   };
   const customerTypeColors = {
-    TA: "var(--colorN-4)",
-    AP: "var(--colorN-4)",
-    PT: "var(--colorN-4)",
-    PC: "var(--colorN-4)",
+    TA: "var(--Success-200)",
+    AP: "var(--Success-300)",
+    PT: "var(--Success-500)",
+    PC: "var(--Success-700)",
   };
 
   //모달창 외부 클릭 시 닫힘

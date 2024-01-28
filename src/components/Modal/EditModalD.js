@@ -303,6 +303,8 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                           : "var(--Gray-scale-100)",
                       fontWeight:
                         selectedCustomerType === type ? "bold" : "normal",
+                      borderLeftWidth: isFirst ? "1px" : "1px", // 첫 번째 버튼의 왼쪽 테두리 두께
+                      borderRightWidth: isLast ? "1px" : "1px", // 마지막 버튼의 오른쪽 테두리 두께
                     };
 
                     // Apply rounded corners for the first and last button

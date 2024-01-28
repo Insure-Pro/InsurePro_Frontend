@@ -149,6 +149,27 @@ const CustomerHistory = ({
     };
   }, [contextMenu]);
 
+  const progressTypeColors = {
+    TA: "var(--Success-200)",
+    AP: "var(--Success-300)",
+    PT: "var(--Success-500)",
+    PC: "var(--Success-700)",
+  };
+
+  const progressTypeWidth = {
+    TA: "7.5px",
+    AP: "15px",
+    PT: "22.5px",
+    PC: "30px",
+  };
+
+  const progressTypeGradient = {
+    TA: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
+    AP: "linear-gradient(270deg, #77C58C 0%, #AEDCBA 100%)",
+    PT: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
+    PC: "linear-gradient(270deg, rgba(37, 119, 59, 0.80) 0.06%, rgba(52, 168, 83, 0.80) 32.96%, rgba(119, 197, 140, 0.80) 64.39%, rgba(162, 215, 176, 0.80) 98.27%) ",
+  };
+
   return (
     <div className="flex h-4/6  bg-LightMode-SectionBackground pt-6">
       <div className="detailTitle ">
@@ -177,7 +198,23 @@ const CustomerHistory = ({
             }}
             className="history-container"
           >
-            <div className="historyItemStyle1">{history.progress}</div>
+            <div>
+              <div
+                className="historyItemStyle1"
+                style={{ color: progressTypeColors[history.progress] }}
+              >
+                {history.progress}
+              </div>
+              <div class="mr-[28px] mt-1 h-[5px] w-[30px] rounded-lg bg-white">
+                <div
+                  class="h-[5px] rounded-lg"
+                  style={{
+                    background: progressTypeGradient[history.progress],
+                    width: progressTypeWidth[history.progress],
+                  }}
+                ></div>
+              </div>
+            </div>
             <div>
               <div className="historyItemStyle2">
                 {history.date} <div class="ml-6"> {history.address}</div>

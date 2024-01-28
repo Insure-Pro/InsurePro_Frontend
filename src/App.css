@@ -498,11 +498,12 @@ body {
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mb-3 flex h-[68px]  w-[622px] select-text flex-row items-center rounded border-2 border-white px-[30px] shadow-[0_18px_28px_0_rgba(0,0,0,0.20)];
+  @apply mb-3 flex h-[68px]  w-[622px] select-text flex-row items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_4px_8px_0_rgba(0,0,0,0.20)];
 }
 /* 진척도 */
 .historyItemStyle1 {
-  @apply mr-[57px] cursor-default text-[17px] font-bold text-secondary-100;
+  @apply mr-[57px] cursor-default
+  pl-[4px] text-[17px] font-bold;
 }
 /* 시간, 장소 */
 .historyItemStyle2 {
@@ -646,7 +647,7 @@ body {
 .modal-style {
   background-color: white;
   width: 352px;
-  height: 576px;
+  height: 600px;
   margin-top: 60px;
   padding-right: 0px !important;
   position: fixed;
@@ -662,7 +663,7 @@ body {
 .modal-style-detail {
   background-color: white;
   width: 352px;
-  height: 576px;
+  height: 600px;
   margin-top: 60px;
   padding-right: 0px !important;
   position: fixed;

@@ -64,11 +64,11 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
     }
   };
 
-  const customerTypeColors = {
-    TA: "var(--colorN-4)",
-    AP: "var(--colorN-4)",
-    PT: "var(--colorN-4)",
-    PC: "var(--colorN-4)",
+  const progressTypeColors = {
+    TA: "var(--Success-200)",
+    AP: "var(--Success-300)",
+    PT: "var(--Success-500)",
+    PC: "var(--Success-700)",
   };
 
   //모달창 외부 클릭 시 닫힘
@@ -140,7 +140,7 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
                     진척도
                   </div>
                   <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
-                    {Object.keys(customerTypeColors).map((type, idx, array) => {
+                    {Object.keys(progressTypeColors).map((type, idx, array) => {
                       const isFirst = idx === 0;
                       const isLast = idx === array.length - 1;
                       let buttonStyle = {
@@ -150,11 +150,11 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
                             : "var(--Gray-scale-100)",
                         backgroundColor:
                           selectedProgressType === type
-                            ? customerTypeColors[type]
+                            ? progressTypeColors[type]
                             : "transparent",
                         borderColor:
                           selectedProgressType === type
-                            ? customerTypeColors[type]
+                            ? progressTypeColors[type]
                             : "var(--Gray-scale-100)",
                         fontWeight:
                           selectedProgressType === type ? "bold" : "normal",

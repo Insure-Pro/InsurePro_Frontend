@@ -51,7 +51,7 @@ const Section2 = () => {
               점점 낮아지고 있습니다.
             </div>
             <motion.div
-              className="section2-subtitle  bg-Secondary-500"
+              className="section2-subtitle  bg-Secondary-500/80"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
@@ -68,7 +68,7 @@ const Section2 = () => {
               </div>
             </motion.div>
             <motion.div
-              className="section2-subtitle bg-Secondary-600"
+              className="section2-subtitle bg-Secondary-600/80"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
@@ -85,7 +85,7 @@ const Section2 = () => {
               </div>
             </motion.div>
             <motion.div
-              className="section2-subtitle bg-Secondary-700"
+              className="section2-subtitle bg-Secondary-700/80"
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
