@@ -584,70 +584,71 @@ const KakaoMap = () => {
   //////////  이름 검색 로직 끝  //////////
 
   //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 시작  //////////
+
   // Function to render a single customer item
-  const renderCustomerItem = (customer, index) => (
-    <div
-      className="Map_customerList_item"
-      key={index}
-      onClick={() => handleCustomerClick(customer)}
-      style={{
-        backgroundColor:
-          selectedCustomerPk === customer.pk ? "white" : "transparent",
-        opacity: selectedCustomerPk === customer.pk ? 1 : 0.8,
-        // paddingTop: "10px",
-      }}
-    >
+  const renderCustomerItem = (customer, index) => {
+    const isSelected = customer.pk === selectedCustomerPk;
+    const itemBackgroundColor = customer.contractYn
+      ? "var(--LightMode-SectionBackground)"
+      : "white";
+    // const overlayStyle = isSelected
+    //   ? {}
+    //   : { backgroundColor: "rgba(0, 0, 0, 0.4)" };
+
+    return (
       <div
+        className="Map_customerList_item"
+        key={index}
+        onClick={() => handleCustomerClick(customer)}
         style={{
-          display: "flex",
-          // marginBottom: "10px",
-          cursor: "pointer",
+          backgroundColor: itemBackgroundColor,
+          zIndex: isSelected ? 3 : 1,
+          position: "relative",
         }}
       >
-        <div className="inline-container-left">
-          <p
-            className="customer-info customer-type"
+        <div class="flex cursor-pointer">
+          <div className="inline-container-left">
+            <p
+              className="customer-info customer-type"
+              style={{
+                color: customerTypeColors[customer.customerType],
+              }}
+            >
+              {customer.customerType}
+            </p>
+            <p className="customer-info customer-type">
+              {" "}
+              {isDongSearch
+                ? customer.name
+                : highlightSearchTerm(customer.name, searchTerm)}
+            </p>
+          </div>
+          <div className="inline-container-right">
+            <p className="customer-info font12">{customer.phone}</p>
+            <p className="customer-info font12">
+              {" "}
+              {isDongSearch
+                ? customer.dongString
+                : highlightSearchTerm(customer.dongString, searchTerm)}
+            </p>
+          </div>
+        </div>
+        {!isSelected && selectedCustomerPk && (
+          <div
             style={{
-              color: customerTypeColors[customer.customerType],
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              zIndex: 2, // This ensures the overlay is on top of non-selected items
             }}
-          >
-            {customer.customerType}
-          </p>
-          <p className="customer-info customer-type">
-            {" "}
-            {isDongSearch
-              ? customer.name
-              : highlightSearchTerm(customer.name, searchTerm)}
-          </p>
-        </div>
-        <div className="inline-container-right">
-          <p className="customer-info font12">{customer.phone}</p>
-          <p className="customer-info font12">
-            {" "}
-            {isDongSearch
-              ? customer.dongString
-              : highlightSearchTerm(customer.dongString, searchTerm)}
-          </p>
-        </div>
+          ></div>
+        )}
       </div>
-      {/* <hr
-    className="Map_list_hr"
-    style={{
-      width: "276px",
-      margin: "0px 12px",
-      // borderBottom: "0.5px solid #D0D0D0",
-      borderBottom:
-      selectedCustomerPk && selectedCustomerPk !== customer.pk
-      ? "0.5px solid #999999"
-      : "0.5px solid #D0D0D0",
-      opacity:
-      selectedCustomerPk && selectedCustomerPk !== customer.pk
-      ? 0.4
-      : 1,
-    }}
-  /> */}
-    </div>
-  );
+    );
+  };
   //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 끝  //////////
   return (
     <div>
@@ -674,9 +675,8 @@ const KakaoMap = () => {
             width: "33%",
             height: "100vh",
             minWidth: "300px",
-            backgroundColor: selectedCustomerPk ? "#999999" : "white",
             overflowY: "auto",
-            zIndex: 2,
+            position: "relative",
           }}
         >
           {!isLoading && (
@@ -709,6 +709,19 @@ const KakaoMap = () => {
               {" "}
               현 위치에 해당하는 고객정보가 없습니다.
             </div>
+          )}
+          {selectedCustomerPk && (
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                zIndex: 0, // Overlay behind the selected item
+              }}
+            ></div>
           )}
         </div>
         <div
