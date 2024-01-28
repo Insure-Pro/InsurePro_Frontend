@@ -739,7 +739,7 @@ body {
   @apply h-7 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
 .modal_item_input_memo {
-  @apply h-14 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
+  @apply flex h-14 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
 
 .modal_address_item {

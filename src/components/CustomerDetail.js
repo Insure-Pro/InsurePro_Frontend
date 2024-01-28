@@ -17,6 +17,7 @@ const CustomerDetail = ({
 }) => {
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
+  const checkbox = process.env.PUBLIC_URL + "/checkbox-12.png";
 
   // Step 1: Add a state to manage the visibility of the EditModal
   // const [showEditModal, setShowEditModal] = useState(false);
@@ -88,16 +89,27 @@ const CustomerDetail = ({
           </div>
         </div>
         <div class="" style={{}}>
-          <div
-            class="mb-1.5 text-[17px] font-bold "
-            style={{
-              color: customerTypeColors[data.customerType],
-            }}
-          >
-            {data.customerType}
+          <div class="flex">
+            <div
+              class="mb-1.5 text-[17px] font-bold "
+              style={{
+                color: customerTypeColors[data.customerType],
+              }}
+            >
+              {data.customerType}
+            </div>
+            {data.contractYn && ( // 조건부 렌더링: data.contractYn이 true일 경우만 아래의 div를 렌더링
+              <div class="mb-1.5 ml-2 flex w-[70px] items-center text-[10px] text-Primary-400">
+                <img src={checkbox} class="mr-1 h-3 w-3" /> 계약완료고객
+              </div>
+            )}
           </div>
           <div style={{ cursor: "default" }}>
-            <div class="flex  text-[17px] font-bold">
+            <div
+              class={`${
+                data.contractYn ? "text-Primary-400" : "text-LightMode-Text"
+              } flex text-[17px] font-bold `}
+            >
               <div class="pt-0.5">{data.name}</div>
               <div class="mb-3  ml-1 text-base font-normal">
                 {" "}

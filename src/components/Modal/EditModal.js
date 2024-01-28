@@ -482,7 +482,7 @@ const EditModal = ({
               <span className="Highlighting">*</span>전화번호
             </div>
             <input
-              class={` modal_item_input  px-3`}
+              class={` modal_item_input pl-[52px]`}
               type="text"
               ref={phoneRef}
               defaultValue={selectedCustomer?.phone}

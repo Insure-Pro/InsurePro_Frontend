@@ -28,6 +28,9 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
 
+  const checkedIcon = process.env.PUBLIC_URL + "/activate-check14.png"; // 체크된 이미지 경로
+  const uncheckedIcon = process.env.PUBLIC_URL + "/deactivate-check14.png"; // 체크되지 않은 이미지 경로
+
   const modalRef = useRef(); // Reference to the modal
   const handleClose = () => {
     onHide();
@@ -236,14 +239,14 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   };
 
   //모달창 외부 클릭 시 닫힘
-  useEffect(() => {
-    // Add event listener to document
-    document.addEventListener("mousedown", handleClose);
-    return () => {
-      // Remove event listener on cleanup
-      document.removeEventListener("mousedown", handleClose);
-    };
-  }, []);
+  // useEffect(() => {
+  //   // Add event listener to document
+  //   document.addEventListener("mousedown", handleClose);
+  //   return () => {
+  //     // Remove event listener on cleanup
+  //     document.removeEventListener("mousedown", handleClose);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -274,29 +277,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 ref={nameRef}
               />
             </div> */}
-            <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
-              <input
-                key={renderKey}
-                id="customCheckbox"
-                className="hidden-checkbox"
-                type="checkbox"
-                checked={contractYn} // 체크박스 상태를 반영
-                onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
-              />
-              <label
-                htmlFor="customCheckbox"
-                class={`checkbox-label_14 ml-[84px] mr-1 ${
-                  contractYn ? "text-Primary-400" : "text-Secondary-100"
-                }`}
-              ></label>
-              <span
-                class={`${
-                  contractYn ? "text-Primary-400" : "text-Secondary-100"
-                }`}
-              >
-                {contractYn ? "계약완료 고객" : "계약 미완료"}
-              </span>
-            </div>
+
             <div className="mb-1    h-12 w-[352px] select-none ">
               <div className=" flex items-center">
                 <div className="w-[84px] pb-4 ">
@@ -362,6 +343,21 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 ref={nameRef}
                 // value={nameInput}
               />
+            </div>
+            <div class="my-1 ml-[86px] flex items-center">
+              <img
+                src={contractYn ? checkedIcon : uncheckedIcon} // 체크 상태에 따라 이미지 변경
+                onClick={handleContractYnChange} // 이미지 클릭시 체크박스 상태 변경
+                alt="Checkbox"
+                class="mr-1 h-[14px] w-[14px] cursor-pointer "
+              />
+              <span
+                class={`text-xs ${
+                  contractYn ? "text-Primary-400" : "text-Secondary-100"
+                }  `}
+              >
+                {contractYn ? "계약완료 고객" : "계약 미완료"}
+              </span>{" "}
             </div>
             <div class=" modal_item_container">
               <div class="w-[84px] pl-2">나이 (만)</div>
