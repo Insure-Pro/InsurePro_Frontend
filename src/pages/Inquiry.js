@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FormCheck } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const Inquiry = ({}) => {
   // const content = useRef("");
@@ -48,15 +49,37 @@ const Inquiry = ({}) => {
         },
       );
 
-      if (response.status === 200) {
-        alert("감사합니다");
+      if (response.status === 201) {
+        // alert(
+        //   "감사합니다.\n" +
+        //     "고객님의 의견을 INSURPRO CS TEAM 담당자에게 전달하였습니다.\n" +
+        //     "빠른 시일 내로 해당 부분을 검토 후, 시스템에 적용하겠습니다.\n" +
+        //     "항상 INSUREPRO를 이용해주시는 고객님께 감사의 인사 전합니다.",
+        // );
+        Swal.fire({
+          html:
+            "<div style='text-align: left; font-size:16px;'>" +
+            "감사합니다.<br><br>" +
+            "고객님의 의견을 INSURPRO CS TEAM 담당자에게 전달하였습니다.<br><br><br>" +
+            "빠른 시일 내로 해당 부분을 검토 후,<br>" +
+            "시스템에 적용하겠습니다.<br><br><br>" +
+            "항상 INSUREPRO를 이용해주시는 고객님께 감사의 인사 전합니다." +
+            "</div>",
+          // width: "700px",
+          timer: 4000,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
         setContent(""); // 폼 초기화
-        // 필요한 경우, 다른 페이지로 리다이렉트
       }
     } catch (error) {
       console.error("Inquiry submit error:", error);
-      alert("문의 접수 중 오류가 발생했습니다: " + error); // 사용자에게 오류 표시
-      // 에러 처리
+      Swal.fire({
+        text: "문의 접수 중 오류가 발생했습니다: " + error,
+        timer: 4000,
+        showConfirmButton: false,
+        timerProgressBar: true,
+      });
     }
   };
 

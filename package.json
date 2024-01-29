@@ -36,6 +36,8 @@
     "recharts": "^2.9.2",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.10.4",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
