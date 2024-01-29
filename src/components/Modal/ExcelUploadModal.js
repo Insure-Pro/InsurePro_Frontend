@@ -148,11 +148,9 @@ const ExcelUploadModal = ({ show, onHide }) => {
                         onChange={handleFileChange}
                       />
                     </div>
-                    {/* </div> */}
                   </div>
                 </div>
                 <div class="mt-10 flex justify-center">
-                  {/* <p>Please follow the guidelines...</p> */}
                   <button
                     class={`h-10 w-[916px] rounded border text-[17px] ${
                       file ? "bg-primary-100 text-white" : "text-gray-300"
@@ -167,7 +165,6 @@ const ExcelUploadModal = ({ show, onHide }) => {
           </>
         )}
         {isNextClicked && (
-          // Contents rendered after 'Next' button is clicked
           <>
             <Modal className="excelupload-modal-style2  " show={show}>
               <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
@@ -184,13 +181,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 <input
                   class="upload-name mr-[34px]"
                   value={fileName}
-                  // placeholder="파일첨부하기"
                   disabled
                 />
                 <label for="excelFile">불러오기</label>
                 <input type="file" id="excelFile" onChange={handleFileChange} />
               </div>
-              {/* Display Excel data in a table */}
               <div class="mx-3 mt-6">
                 <div class="Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ">
                   <div class="w-[96px]">Db분배일</div>
@@ -248,9 +243,6 @@ const ExcelUploadModal = ({ show, onHide }) => {
                               case 8:
                                 className = "td-state";
                                 break;
-                              // case 8:
-                              //   className = "td-special-note";
-                              //   break;
                               default:
                                 className = "";
                             }

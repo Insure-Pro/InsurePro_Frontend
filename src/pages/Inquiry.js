@@ -165,5 +165,4 @@ const Inquiry = ({}) => {
     </div>
   );
 };
-
 export default Inquiry;

@@ -23,6 +23,8 @@ const KakaoMap = () => {
   const search_white = process.env.PUBLIC_URL + "/search_white.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
+  const check_on = process.env.PUBLIC_URL + "/check_on_8.png";
+  const check_off = process.env.PUBLIC_URL + "/check_off_8.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -609,23 +611,27 @@ const KakaoMap = () => {
         <div class="flex cursor-pointer">
           <div className="inline-container-left">
             <p
-              className="customer-info customer-type"
+              className="customer-info customer-type text-center"
               style={{
                 color: customerTypeColors[customer.customerType],
               }}
             >
               {customer.customerType}
             </p>
-            <p className="customer-info customer-type">
+            <p className="customer-info customer-type text-center">
               {" "}
               {isDongSearch
                 ? customer.name
                 : highlightSearchTerm(customer.name, searchTerm)}
             </p>
+            <img
+              src={customer.contractYn ? check_on : check_off}
+              class="pb-0.5"
+            />
           </div>
           <div className="inline-container-right">
-            <p className="customer-info font12">{customer.phone}</p>
-            <p className="customer-info font12">
+            <p className="customer-info font12 text-left">{customer.phone}</p>
+            <p className="customer-info font12 text-left">
               {" "}
               {isDongSearch
                 ? customer.dongString

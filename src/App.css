@@ -649,7 +649,7 @@ body {
   width: 352px;
   height: 600px;
   margin-top: 60px;
-  padding-right: 0px !important;
+  padding-left: 0px !important;
   position: fixed;
   font-size: 14px;
   top: 50%;
@@ -684,7 +684,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid var(--gray-100);
   border-radius: 6px;
   z-index: 10; /* Adjust as needed */
   display: flex;
@@ -943,7 +942,6 @@ body {
   font-size: 16px;
   text-align: right;
   color: var(--LightMode-Subtext);
-  /* font-weight: 600; */
   border: none !important;
 }
 .analysis_subtitle > span {
@@ -1062,14 +1060,14 @@ body {
   width: 63%;
   color: #000;
   font-weight: 600;
-  padding-left: 16px;
+  padding-left: 34px;
 
   /* opacity: 0.9; */
 }
 .customer-info {
   margin-bottom: 2px;
   padding-left: 10px;
-  text-align: left;
+  /* text-align: center; */
   font-weight: 400;
 }
 .customer-type {
