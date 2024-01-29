@@ -20,16 +20,16 @@ const Section1 = () => {
   const arrowVariants = {
     animate: {
       y: ["0px", "8px", "0px"],
-      opacity: [0, 1, 0],
+      opacity: [0, 0.8, 0],
       transition: {
         y: {
           repeat: Infinity,
-          duration: 3,
+          duration: 2.2,
           ease: "easeInOut",
         },
         opacity: {
           repeat: Infinity,
-          duration: 3,
+          duration: 2.2,
           ease: "easeInOut",
         },
       },
