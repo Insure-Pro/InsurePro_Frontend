@@ -521,29 +521,6 @@ const KakaoMap = () => {
     );
   };
 
-  //////////  검색어 강조 표시 끝  //////////
-  // const handleSearch = async () => {
-  //   try {
-  //     const response = await axios.request({
-  //       method: "get",
-  //       url: `${MAIN_URL}/customers/name/${inputName}`,
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       data: {
-  //         name: inputName,
-  //       },
-  //     });
-  //     if (response.status === 200) {
-  //       setVisibleCustomers(response.data);
-  //       setIsSearchMode(true); // Set search mode to true
-  //       setInputName("");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customers by name:", error);
-  //   }
-  // };
   const handleSearch = async () => {
     try {
       let response;

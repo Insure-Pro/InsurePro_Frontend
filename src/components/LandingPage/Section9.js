@@ -35,9 +35,9 @@ const Section9 = () => {
           <div class="mb-3 h-[45px] w-[456px] text-[30px] font-black">
             합리적인 요금제.
           </div>
-          <div class="h-[43px] w-[456px] text-[30px] font-extrabold">
+          {/* <div class="h-[43px] w-[456px] text-[30px] font-extrabold">
             응앵애응애 좋아
-          </div>
+          </div> */}
         </div>
       </div>
       <div class="flex md:mx-[42px] lg:mx-auto ">
