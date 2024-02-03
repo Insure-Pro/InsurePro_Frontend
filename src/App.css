@@ -1105,6 +1105,7 @@ body {
 .Map_list_hr {
   display: block !important;
 }
+
 .map_spinner {
   position: absolute;
   top: 0;
@@ -1120,6 +1121,7 @@ body {
 
 .custom-overlay {
   width: 105px;
+  /* width: 200px; */
   height: 32px;
   padding: 5px;
   display: flex;

@@ -153,6 +153,18 @@ const KakaoMap = () => {
       { offset: new window.kakao.maps.Point(27, 69) },
     );
 
+    const groupCustomersByLocation = (customers) => {
+      const grouped = {};
+      customers.forEach((customer) => {
+        const key = customer.dongString; // Use dongString for grouping
+        if (!grouped[key]) {
+          grouped[key] = [];
+        }
+        grouped[key].push(customer);
+      });
+      return grouped;
+    };
+
     // Existing Axios request to fetch markers
     axios
       .get(`${MAIN_URL}/customers/latest`, {
@@ -161,93 +173,123 @@ const KakaoMap = () => {
         },
       })
       .then((response) => {
-        response.data.forEach((customer) => {
-          if (customer.dongString && customer.dongString.trim() !== "") {
-            geocoder.addressSearch(customer.dongString, (result, status) => {
-              if (status === window.kakao.maps.services.Status.OK) {
-                setIsLoading(false);
-                const coords = new window.kakao.maps.LatLng(
-                  result[0].y,
-                  result[0].x,
-                );
-                const marker = new window.kakao.maps.Marker({
-                  position: coords,
-                  image: markerImageBlue,
-                });
-                setMarkers((prevMarkers) => [...prevMarkers, marker]);
-                marker.setTitle(String(customer.pk));
+        // 고객 정보를 위치별로 그룹화
+        const groupedCustomers = groupCustomersByLocation(response.data);
 
-                window.kakao.maps.event.addListener(
-                  marker,
-                  "click",
-                  function () {
-                    // 모든 마커의 이미지를 초기화
-                    markers.forEach((m) => m.setImage(markerImageBlue));
+        Object.entries(groupedCustomers).forEach(
+          ([dongString, customersGroup]) => {
+            if (dongString && dongString.trim() !== "") {
+              geocoder.addressSearch(dongString, (result, status) => {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  setIsLoading(false);
+                  const coords = new window.kakao.maps.LatLng(
+                    result[0].y,
+                    result[0].x,
+                  );
 
-                    // 현재 클릭된 마커의 이미지 변경
-                    marker.setImage(markerImageRed);
+                  // 여러 고객 정보를 포함하는 오버레이 내용 생성
+                  let content = '<div class="custom-overlay">';
+                  customersGroup.forEach((customer) => {
+                    content += `<span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span><br/>`;
+                  });
+                  content += "</div>";
 
-                    // 선택된 마커 업데이트
-                    setSelectedMarker(marker);
-                    // MapCustomerDetail 컴포넌트 띄우기
-                    setSelectedCustomerPk(customer.pk);
-                    setIsDetailVisible(true);
-                  },
-                );
+                  // 위치에 해당하는 마커 생성
+                  const marker = new window.kakao.maps.Marker({
+                    position: coords,
+                    image: markerImageBlue, // 기본 마커 이미지 설정
+                  });
+                  // 생성된 마커를 지도에 추가
+                  marker.setMap(mapRef.current);
 
-                // Create a custom overlay for the tooltip
-                const content = `
-                    <div class="custom-overlay">
-                        <span style="margin-right: 8px;">${customer.customerType}</span>
-                        <span>${customer.name}</span>
-                        </div> `;
-                // <span>${customer.name} (${customer.age})</span>
+                  // This approach stores the entire customer group in the marker for later use
+                  marker.customersGroup = customersGroup; // Attach the customers data to the marker
 
-                const customOverlay = new window.kakao.maps.CustomOverlay({
-                  content: content,
-                  position: coords,
-                  xAnchor: 0.65,
-                  yAnchor: 3.4, // Adjust this to position the tooltip above the marker
-                  zIndex: 3,
-                });
+                  setMarkers((prevMarkers) => [...prevMarkers, marker]);
+                  marker.setTitle(String(customersGroup.pk));
 
-                // Add event listeners to show/hide the tooltip
-                window.kakao.maps.event.addListener(
-                  marker,
-                  "mouseover",
-                  function () {
-                    marker.setImage(markerImageRed);
-                    customOverlay.setMap(mapRef.current);
-                  },
-                );
+                  window.kakao.maps.event.addListener(
+                    marker,
+                    "click",
+                    function () {
+                      // 모든 마커의 이미지를 초기화
+                      markers.forEach((m) => m.setImage(markerImageBlue));
 
-                window.kakao.maps.event.addListener(
-                  marker,
-                  "mouseout",
-                  function () {
-                    customOverlay.setMap(null);
-                    marker.setImage(markerImageBlue);
-                  },
-                );
+                      // Logic to display MapCustomerDetail based on the selected marker
+                      // For simplicity, just showing the first customer's PK as an example
+                      if (marker.customersGroup.length > 0) {
+                        setSelectedCustomerPk(marker.customersGroup[0].pk); // Example: Use the first customer's PK
+                        setIsDetailVisible(true);
+                      }
+                      // 현재 클릭된 마커의 이미지 변경
+                      customOverlay.setMap(mapRef.current);
+                      // 선택된 마커 업데이트
+                      setSelectedMarker(marker);
+                      // MapCustomerDetail 컴포넌트 띄우기
+                      // setSelectedCustomerPk(customers.pk);
+                      // setIsDetailVisible(true);
+                      marker.setImage(markerImageRed);
+                    },
+                  );
 
-                clusterer.addMarker(marker); // Add each marker to clusterer
-              } else if (
-                status === window.kakao.maps.services.Status.ZERO_RESULT
-              ) {
-                // Log the dongString that could not be found
-                console.log(`Address not found: ${customer.dongString}`);
-              } else {
-                console.error(
-                  `Geocode was not successful for the following reason: ${status}`,
-                );
-              }
-            });
-          }
-        });
+                  // Create a custom overlay for the tooltip
+                  // const content = `
+                  //     <div class="custom-overlay">
+                  //         <span style="margin-right: 8px;">${customer.customerType}</span>
+                  //         <span>${customer.name}</span>
+                  //         </div> `;
+                  // <span>${customer.name} (${customer.age})</span>
+
+                  const customOverlay = new window.kakao.maps.CustomOverlay({
+                    content: content,
+                    position: coords,
+                    xAnchor: 0.65,
+                    yAnchor: 3.4, // Adjust this to position the tooltip above the marker
+                    zIndex: 3,
+                  });
+
+                  // Add event listeners to show/hide the tooltip
+                  // window.kakao.maps.event.addListener(
+                  //   marker,
+                  //   "mouseover",
+                  //   function () {
+                  //     marker.setImage(markerImageRed);
+                  //     customOverlay.setMap(mapRef.current);
+                  //   },
+                  // );
+
+                  // window.kakao.maps.event.addListener(
+                  //   marker,
+                  //   "mouseout",
+                  //   function () {
+                  //     customOverlay.setMap(null);
+                  //     marker.setImage(markerImageBlue);
+                  //   },
+                  // );
+
+                  clusterer.addMarker(marker); // Add each marker to clusterer
+                } else if (
+                  status === window.kakao.maps.services.Status.ZERO_RESULT
+                ) {
+                  // Log the dongString that could not be found
+                  console.log(
+                    `Address not found: ${customersGroup.dongString}`,
+                  );
+                } else {
+                  console.error(
+                    `Geocode was not successful for the following reason: ${status}`,
+                  );
+                }
+              });
+            }
+          },
+        );
         // After markers are added, call refreshCustomerList to populate the list
         refreshCustomerList();
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
+    setIsLoading(false);
 
     // New: Add event listener for cluster click
     window.kakao.maps.event.addListener(
@@ -268,7 +310,10 @@ const KakaoMap = () => {
   const [allCustomerCoords, setAllCustomerCoords] = useState([]);
 
   const handleCustomerClick = (customer) => {
-    const marker = markers.find((m) => m.getTitle() === String(customer.pk));
+    const marker = markers.find(
+      (m) =>
+        m.customersGroup && m.customersGroup.some((c) => c.pk === customer.pk),
+    );
     console.log(marker);
     if (marker) {
       mapRef.current.panTo(marker.getPosition());
@@ -309,6 +354,7 @@ const KakaoMap = () => {
       }
     }
   };
+
   // 현 지도 검색 클릭 시 사용
   useEffect(() => {
     axios
