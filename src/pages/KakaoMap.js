@@ -199,7 +199,7 @@ const KakaoMap = () => {
                   // 여러 고객 정보를 포함하는 오버레이 내용 생성
                   let content = `<div class="custom-overlay" style="margin-top: -${marginBottomValue}px;"  >`; // Apply dynamic marginBottom
                   customersGroup.forEach((customer) => {
-                    content += `<div class='custom-overlay-items'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
+                    content += `<div class='custom-overlay-items' data-pk='${customer.pk}'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
                   });
                   content += `</div>`;
 
@@ -267,6 +267,40 @@ const KakaoMap = () => {
                     yAnchor: 3.4, // Adjust this to position the tooltip above the marker
                     zIndex: 3,
                   });
+
+                  // Adding an event listener to the map container for delegation
+                  document.getElementById("map").addEventListener(
+                    "click",
+                    function (e) {
+                      let targetElement = e.target.closest(
+                        ".custom-overlay-items",
+                      );
+
+                      if (targetElement) {
+                        const pk = targetElement.getAttribute("data-pk");
+                        if (pk) {
+                          setSelectedCustomerPk(pk); // Set the selected customer's PK
+                          setIsDetailVisible(true); // Show the detail component for the selected customer
+
+                          // Clear styles for all items
+                          document
+                            .querySelectorAll(".custom-overlay-items")
+                            .forEach((item) => {
+                              item.style.backgroundColor =
+                                "var(--LightMode-SectionBackground)"; // Reset to default
+                              item.style.color = "var(--LightMode-Subtext)"; // Reset to default
+                            });
+
+                          // Apply specific styles to the clicked item
+                          targetElement.style.backgroundColor =
+                            "var(--Primary-400)";
+                          targetElement.style.color =
+                            "var(--LightMode-Background)";
+                        }
+                      }
+                    },
+                    true,
+                  ); // Using capture phase for this example
 
                   // Add event listeners to show/hide the tooltip
                   // window.kakao.maps.event.addListener(
