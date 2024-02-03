@@ -64,6 +64,27 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
 
   if (!customerPk) return null;
 
+  const progressTypeColors = {
+    TA: "var(--Success-200)",
+    AP: "var(--Success-300)",
+    PT: "var(--Success-500)",
+    PC: "var(--Success-700)",
+  };
+
+  const progressTypeWidth = {
+    TA: "6px",
+    AP: "12px",
+    PT: "18px",
+    PC: "24px",
+  };
+
+  const progressTypeGradient = {
+    TA: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
+    AP: "linear-gradient(270deg, #77C58C 0%, #AEDCBA 100%)",
+    PT: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
+    PC: "linear-gradient(270deg, rgba(37, 119, 59, 0.80) 0.06%, rgba(52, 168, 83, 0.80) 32.96%, rgba(119, 197, 140, 0.80) 64.39%, rgba(162, 215, 176, 0.80) 98.27%) ",
+  };
+
   return (
     <div
       className=""
@@ -176,25 +197,31 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.dongString}</div>
           </div>
-          <div class="flex items-center bg-LightMode-SectionBackground ">
+          <div class="flex items-center  bg-LightMode-SectionBackground ">
+            <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
+              전화번호
+            </div>
+            <div>{customerData.phone}</div>
+          </div>
+          <div class="flex items-center ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               생년월일
             </div>
             <div>{customerData.birth}</div>
           </div>
-          <div class="flex items-center ">
+          <div class="flex items-center  bg-LightMode-SectionBackground ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               DB 분배일
             </div>
             <div>{customerData.registerDate}</div>
           </div>
-          <div class="flex items-center  bg-LightMode-SectionBackground  ">
+          <div class="flex items-center ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               인수상태
             </div>
             <div>{customerData.state}</div>
           </div>
-          <div class="flex items-center ">
+          <div class="flex items-center  bg-LightMode-SectionBackground  ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               특이사항
             </div>
@@ -207,7 +234,26 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         scheduleData &&
         scheduleData.map((schedule, index) => (
           <div className="MapCustomerDetail_item_container" key={index}>
-            <div class="w-[88px]">{schedule.progress}</div>
+            {/* <div class="w-[88px]">{schedule.progress}</div> */}
+            <div class="flex flex-col items-center ">
+              <div
+                style={{
+                  color: progressTypeColors[schedule.progress],
+                }}
+                class="w-[88px] text-sm font-semibold"
+              >
+                {schedule.progress}
+              </div>
+              <div class="mt-1 h-[5px] w-[24px] rounded-lg bg-white">
+                <div
+                  class="h-[5px] rounded-lg"
+                  style={{
+                    background: progressTypeGradient[schedule.progress],
+                    width: progressTypeWidth[schedule.progress],
+                  }}
+                ></div>
+              </div>
+            </div>
             <div class=" text-left">
               <div class="flex w-[212px]">
                 <div class="mb-1 w-[72px] font-semibold ">{schedule.date}</div>
