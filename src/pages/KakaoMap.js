@@ -165,6 +165,8 @@ const KakaoMap = () => {
       return grouped;
     };
 
+    let currentOpenOverlay = null; // This variable will track the currently open overlay
+    let currentSelectedMarker = null; // Tracks the currently selected marker
     // Existing Axios request to fetch markers
     axios
       .get(`${MAIN_URL}/customers/latest`, {
@@ -213,32 +215,43 @@ const KakaoMap = () => {
                     "click",
                     function () {
                       // 모든 마커의 이미지를 초기화
-                      markers.forEach((m) => m.setImage(markerImageBlue));
-
-                      // Logic to display MapCustomerDetail based on the selected marker
-                      // For simplicity, just showing the first customer's PK as an example
+                      // markers.forEach((m) => m.setImage(markerImageBlue));
+                      //마커 클릭 시 MapCustomerDetail 컴포넌트 보이도록
                       if (marker.customersGroup.length > 0) {
                         setSelectedCustomerPk(marker.customersGroup[0].pk); // Example: Use the first customer's PK
                         setIsDetailVisible(true);
                       }
-                      // 현재 클릭된 마커의 이미지 변경
-                      customOverlay.setMap(mapRef.current);
-                      // 선택된 마커 업데이트
-                      setSelectedMarker(marker);
-                      // MapCustomerDetail 컴포넌트 띄우기
-                      // setSelectedCustomerPk(customers.pk);
-                      // setIsDetailVisible(true);
-                      marker.setImage(markerImageRed);
+                      // Logic to display MapCustomerDetail based on the selected marker
+                      // For simplicity, just showing the first customer's PK as an example
+
+                      if (currentSelectedMarker === marker) {
+                        // Toggle marker and overlay for the same marker
+                        if (currentOpenOverlay) {
+                          currentOpenOverlay.setMap(null);
+                          currentOpenOverlay = null;
+                          marker.setImage(markerImageBlue);
+                          currentSelectedMarker = null;
+                        } else {
+                          customOverlay.setMap(mapRef.current);
+                          currentOpenOverlay = customOverlay;
+                          marker.setImage(markerImageRed);
+                          currentSelectedMarker = marker;
+                        }
+                      } else {
+                        // Change to a new marker
+                        if (currentOpenOverlay) {
+                          currentOpenOverlay.setMap(null);
+                        }
+                        if (currentSelectedMarker) {
+                          currentSelectedMarker.setImage(markerImageBlue);
+                        }
+                        customOverlay.setMap(mapRef.current);
+                        currentOpenOverlay = customOverlay;
+                        marker.setImage(markerImageRed);
+                        currentSelectedMarker = marker;
+                      }
                     },
                   );
-
-                  // Create a custom overlay for the tooltip
-                  // const content = `
-                  //     <div class="custom-overlay">
-                  //         <span style="margin-right: 8px;">${customer.customerType}</span>
-                  //         <span>${customer.name}</span>
-                  //         </div> `;
-                  // <span>${customer.name} (${customer.age})</span>
 
                   const customOverlay = new window.kakao.maps.CustomOverlay({
                     content: content,
@@ -263,7 +276,7 @@ const KakaoMap = () => {
                   //   "mouseout",
                   //   function () {
                   //     customOverlay.setMap(null);
-                  //     marker.setImage(markerImageBlue);
+                  // marker.setImage(markerImageBlue);
                   //   },
                   // );
 
@@ -472,9 +485,6 @@ const KakaoMap = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
   };
 
-  // const handleLogoClick = () => {
-  //   navigate("/main", { state: { selectedTab: "로고" } });
-  // };
   //////////  현재위치정보 리스트에 보여주는 로직 시작  //////////
   const [currentAddress, setCurrentAddress] = useState("");
 
