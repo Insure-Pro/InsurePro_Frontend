@@ -189,12 +189,19 @@ const KakaoMap = () => {
                     result[0].x,
                   );
 
+                  // Create overlay content containing multiple customer information
+                  let numberOfCustomers = customersGroup.length; // Determine the number of customers
+                  let marginBottomValue =
+                    numberOfCustomers > 1
+                      ? (numberOfCustomers - 1) * 32 + 110
+                      : 110; // Calculate marginBottom based on number of customers
+                  //62 3개짜리 112 2개짜리 110 1개짜리
                   // 여러 고객 정보를 포함하는 오버레이 내용 생성
-                  let content = '<div class="custom-overlay">';
+                  let content = `<div class="custom-overlay" style="margin-top: -${marginBottomValue}px;"  >`; // Apply dynamic marginBottom
                   customersGroup.forEach((customer) => {
-                    content += `<span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span><br/>`;
+                    content += `<div class='custom-overlay-items'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
                   });
-                  content += "</div>";
+                  content += `</div>`;
 
                   // 위치에 해당하는 마커 생성
                   const marker = new window.kakao.maps.Marker({
