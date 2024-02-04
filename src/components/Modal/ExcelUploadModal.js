@@ -120,6 +120,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
     const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
     return cleanString.length === 8;
   };
+  // 컬럼 4: '나이'에 대한 전처리 및 유효성 검사 (숫자만 허용 0~130)
+  const isValidAge = (age) => {
+    return !isNaN(age) && age >= 0 && age <= 130;
+  };
 
   // 컬럼 5: '연락처'에 대한 전처리 및 유효성 검사
   const formatAndValidateContact = (contact) => {
@@ -156,6 +160,37 @@ const ExcelUploadModal = ({ show, onHide }) => {
       formattedContact: isValid ? formattedContact : contactStr,
       isValid,
     };
+  };
+
+  // 컬럼 6: '주소'에 대한 전처리 및 유효성 검사 (특정 도시명 시군구동읍면리 허용 )
+  const isValidResidence = (residence) => {
+    // residence 값을 문자열로 강제 변환
+    const residenceStr = String(residence);
+
+    const validCities = [
+      "서울",
+      "부산",
+      "대구",
+      "인천",
+      "광주",
+      "대전",
+      "울산",
+      "세종",
+    ];
+    const validEndings = ["시", "도", "군", "구", "동", "읍", "면", "리"];
+
+    // 도시 이름을 포함하는지 검사
+    const containsValidCity = validCities.some((city) =>
+      residenceStr.includes(city),
+    );
+
+    // "Province", "County", "Gu", "Dong"으로 끝나는 단어를 포함하는지 검사
+    const containsValidEnding = validEndings.some((ending) => {
+      const regex = new RegExp(`${ending}\\b`, "g"); // 단어의 끝을 나타내는 정규 표현식
+      return regex.test(residenceStr);
+    });
+
+    return containsValidCity || containsValidEnding;
   };
 
   return (
@@ -308,6 +343,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 baseClassName = "td-birth";
                                 break;
                               case 4:
+                                isValid = isValidAge(cellData);
                                 baseClassName = "td-age";
                                 break;
                               case 5:
@@ -320,6 +356,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 baseClassName = "td-contact";
                                 break;
                               case 6:
+                                isValid = isValidResidence(cellData);
                                 baseClassName = "td-residence";
                                 break;
                               case 7:
