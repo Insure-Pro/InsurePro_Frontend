@@ -87,6 +87,23 @@ const Signup = () => {
       event.preventDefault();
     }
 
+    // selectedTeam 값에 따라 teamPk 값을 설정
+    let teamPk;
+    switch (currentValue) {
+      case "위너 이글":
+        teamPk = 1;
+        break;
+      case "드림 이글":
+        teamPk = 2;
+        break;
+      case "레드 이글":
+        teamPk = 3;
+        break;
+      default:
+        console.error("팀을 선택해주세요.");
+        return; // 팀이 선택되지 않았다면 함수 실행을 중단
+    }
+
     if (validate()) {
       axios
         .post(`${MAIN_URL}/employee/signin`, {
@@ -96,6 +113,7 @@ const Signup = () => {
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
           authNum: parseInt(authNumConfirm.current.value),
+          teamPk: teamPk, // 서버로 전송할 요청 본문에 teamPk 추가
         })
         .then((response) => {
           // console.log(response);
