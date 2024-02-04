@@ -30,6 +30,8 @@ const KakaoMap = () => {
 
   const [isDetailVisible, setIsDetailVisible] = useState(false);
 
+  const [viewState, setViewState] = useState("list"); // 'list', 'detail', 'mapDetail' 중 하나의 상태를 갖습니다.
+
   const customerTypeColors = {
     OD: "var(--colorN-1)",
     AD: "var(--colorN-2)",
@@ -227,6 +229,7 @@ const KakaoMap = () => {
                       if (marker.customersGroup.length > 0) {
                         setSelectedCustomerPk(marker.customersGroup[0].pk); // Example: Use the first customer's PK
                         setIsDetailVisible(true);
+                        setViewState("mapDetail"); // 마커 클릭 시 viewState를 mapDetail로 설정
                       }
                       // Logic to display MapCustomerDetail based on the selected marker
                       // For simplicity, just showing the first customer's PK as an example
@@ -407,6 +410,7 @@ const KakaoMap = () => {
         setIsDetailVisible(true);
       }
     }
+    // setViewState("mapDetail"); // 고객 목록에서 고객 클릭 시 viewState를 detail로 설정
   };
 
   // 현 지도 검색 클릭 시 사용
@@ -463,6 +467,7 @@ const KakaoMap = () => {
       setVisibleCustomers(filteredCustomers);
       setIsSearchMode(false); // Reset search mode
     }
+    setViewState("list"); // 현 지도에서 검색 시 viewState를 list로 설정
   }
 
   useEffect(() => {
@@ -759,7 +764,7 @@ const KakaoMap = () => {
             position: "relative",
           }}
         >
-          {!isLoading && (
+          {!isLoading && viewState === "list" ? (
             <>
               <div class=" z- z-30 mx-5 my-2 flex h-8  w-[89%] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
                 <img class="mr-5 h-6 w-6" src={search}></img>
@@ -779,6 +784,11 @@ const KakaoMap = () => {
                 {/* <div class="">새로고침</div> */}
               </div>
             </>
+          ) : (
+            <MapCustomerDetail
+              customerPk={selectedCustomerPk}
+              onClose={Map_customer_DetailClose}
+            />
           )}
           {isSearchMode ? (
             visibleCustomers.map(renderCustomerItem)
@@ -847,11 +857,13 @@ const KakaoMap = () => {
               // border: "1px solid #C9CAC9",
             }}
           ></div>
-          {isDetailVisible && (
+          {isDetailVisible && viewState === "list" ? (
             <MapCustomerDetail
               customerPk={selectedCustomerPk}
               onClose={Map_customer_DetailClose}
             />
+          ) : (
+            ""
           )}
         </div>
       </div>

@@ -95,7 +95,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         width: "300px",
         height: "100%",
         backgroundColor: "#fff",
-        zIndex: 2, // Ensure it's above other elements
+        zIndex: 5, // Ensure it's above other elements
         borderLeft: "2px solid #dde1e6",
       }}
     >
