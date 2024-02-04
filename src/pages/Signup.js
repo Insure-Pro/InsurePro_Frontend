@@ -170,7 +170,7 @@ const Signup = () => {
   };
 
   return (
-    <div style={{}}>
+    <div>
       <Navbar />
       <form
         name="file"
@@ -265,12 +265,7 @@ const Signup = () => {
                 </div>
               )}
             </div>
-            <div
-              class="mb-3 flex"
-              // style={{
-              //   marginBottom: "16px",
-              // }}
-            >
+            <div class="mb-3 flex">
               <span className="signin_span">
                 <span className="Highlighting">*</span>
                 비밀번호
@@ -287,12 +282,7 @@ const Signup = () => {
                 className="signin_input_box"
               />
             </div>
-            <div
-              class="mb-3 flex"
-              // style={{
-              //   marginBottom: "16px",
-              // }}
-            >
+            <div class="mb-3 flex">
               <span className="signin_span">
                 <span className="Highlighting">*</span>
                 비밀번호 확인
@@ -303,15 +293,6 @@ const Signup = () => {
                 placeholder="비밀번호 재입력"
                 className="signin_input_box"
               />
-
-              <div
-                className="error_message"
-                style={{
-                  fontSize: "16px",
-                  paddingTop: "20px",
-                  marginBottom: "-20px",
-                }}
-              ></div>
             </div>
             <div class="mb-3 flex ">
               <span className="signin_span">
@@ -369,8 +350,9 @@ const Signup = () => {
             </SelectBox>
           </div>
           <hr className="signin_hr3" class="mb-12 mt-0" />
-          <div class="flex justify-center">
-            <div
+          <div class="flex flex-col items-center justify-center">
+            <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
+            <button
               onClick={() => {
                 if (email.current.value === "") {
                   email.current.focus();
@@ -405,7 +387,7 @@ const Signup = () => {
               class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
             >
               가입하기
-            </div>
+            </button>
           </div>
         </div>
       </form>
