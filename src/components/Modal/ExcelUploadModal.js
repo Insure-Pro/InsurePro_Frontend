@@ -206,7 +206,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 </div>
                 <div class=" h-[220px] overflow-auto">
                   <tbody class=" w-full  text-[11px]">
-                    {excelData.slice(1).map((row, index) => {
+                    {/* {excelData.slice(1).map((row, index) => {
                       // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
                       const filteredRow = [
                         ...row.slice(0, 9),
@@ -214,14 +214,20 @@ const ExcelUploadModal = ({ show, onHide }) => {
                       ];
 
                       // Check if the first column's data is valid
-                      const isFirstColumnValid = isValidDate(row[0]);
-
+                      const isFirstColumnValid = isValidDate(row[0]); */}
+                    {excelData.slice(1).map((row, rowIndex) => {
                       return (
                         <tr
                           className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
-                          key={index}
+                          key={rowIndex}
                         >
-                          {filteredRow.map((cell, cellIndex) => {
+                          {Array.from({ length: 9 }).map((_, cellIndex) => {
+                            // Ensure 9 columns for each row
+                            // Check if data exists for this column, else render empty
+                            const cellData =
+                              row[cellIndex] !== undefined
+                                ? row[cellIndex]
+                                : "";
                             let className;
                             // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
                             switch (cellIndex) {
@@ -255,13 +261,16 @@ const ExcelUploadModal = ({ show, onHide }) => {
                               default:
                                 className = "";
                             }
-                            // Apply invalid styles if the first column is invalid
-                            if (cellIndex === 0 && !isFirstColumnValid) {
-                              className += " cell-invalid"; // Add invalid cell class
+
+                            // Apply additional logic if needed, e.g., validation
+                            const isValid =
+                              cellIndex === 0 ? isValidDate(cellData) : true; // Example validation for column 0
+                            if (!isValid) {
+                              className += " cell-invalid"; // Add invalid cell class for styling
                             }
                             return (
                               <td key={cellIndex} className={className}>
-                                {cell}
+                                {cellData}
                               </td>
                             );
                           })}
