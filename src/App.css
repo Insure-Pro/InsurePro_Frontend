@@ -579,7 +579,7 @@ body {
 }
 
 .cell-invalid {
-  @apply bg-Danger-300 opacity-50; /* Example using Tailwind CSS for red background with 50% opacity */
+  @apply bg-Danger-300 font-semibold text-white opacity-50; /* Example using Tailwind CSS for red background with 50% opacity */
 }
 /* input type=file 커스텀 */
 .filebox .upload-name {

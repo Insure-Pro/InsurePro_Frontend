@@ -322,28 +322,30 @@ const ExcelUploadModal = ({ show, onHide }) => {
                             let baseClassName;
 
                             let isValid = true;
+                            let isEmpty = cellData === "";
                             // let displayData = cellData;
                             // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
                             switch (cellIndex) {
                               case 0:
-                                isValid = isValidDbDate(cellData);
+                                isValid = isEmpty || isValidDbDate(cellData);
                                 baseClassName = "td-db-date";
                                 break;
                               case 1:
-                                isValid = isValidName(cellData);
+                                isValid = isEmpty || isValidName(cellData);
 
                                 baseClassName = "td-name";
                                 break;
                               case 2:
-                                isValid = isValidCustomerType(cellData);
+                                isValid =
+                                  isEmpty || isValidCustomerType(cellData);
                                 baseClassName = "td-customer-type";
                                 break;
                               case 3:
-                                isValid = isValidBirthDate(cellData);
+                                isValid = isEmpty || isValidBirthDate(cellData);
                                 baseClassName = "td-birth";
                                 break;
                               case 4:
-                                isValid = isValidAge(cellData);
+                                isValid = isEmpty || isValidAge(cellData);
                                 baseClassName = "td-age";
                                 break;
                               case 5:
@@ -352,11 +354,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                   isValid: isContactValid,
                                 } = formatAndValidateContact(cellData);
                                 cellData = formattedContact; // Use the possibly formatted number
-                                isValid = isContactValid; // Use the validation result
+                                isValid = isEmpty || isContactValid; // Use the validation result
                                 baseClassName = "td-contact";
                                 break;
                               case 6:
-                                isValid = isValidResidence(cellData);
+                                isValid = isEmpty || isValidResidence(cellData);
                                 baseClassName = "td-residence";
                                 break;
                               case 7:
@@ -369,9 +371,9 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 baseClassName = "";
                             }
                             // Append 'cell-invalid' class if data is invalid
-                            const className = `${baseClassName} ${
-                              !isValid ? "cell-invalid" : ""
-                            }`;
+                            let className = `${baseClassName} ${
+                              isEmpty ? "bg-Gray-scale-200/20" : ""
+                            } ${!isValid && !isEmpty ? "cell-invalid" : ""}`;
 
                             return (
                               <td key={cellIndex} className={className.trim()}>
