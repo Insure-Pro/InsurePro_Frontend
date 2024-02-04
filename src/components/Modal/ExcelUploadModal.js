@@ -53,16 +53,17 @@ const ExcelUploadModal = ({ show, onHide }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
   const formatCustomerData = (rowData) => {
     // Mapping Excel data to API format
+    // 각 필드에 대해 값이 undefined, null, 또는 빈 문자열인 경우 ""로 대체
     return {
-      name: rowData[1],
-      customerType: rowData[2],
-      registerDate: rowData[0],
-      birth: rowData[3],
-      age: rowData[4],
-      phone: rowData[5],
-      dongString: rowData[6],
-      memo: rowData[7],
-      state: rowData[8],
+      registerDate: rowData[0] || "",
+      name: rowData[1] || "",
+      customerType: rowData[2] || "",
+      birth: rowData[3] || "",
+      age: rowData[4] || "",
+      phone: rowData[5] || "",
+      dongString: rowData[6] || "", // 이미 잘 처리되고 있는 것으로 가정
+      memo: rowData[7] || "",
+      state: rowData[8] || "",
     };
   };
   const handleSubmit = async () => {
