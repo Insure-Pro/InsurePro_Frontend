@@ -99,6 +99,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
     window.location.href = process.env.PUBLIC_URL + "/insurepro_엑셀등록.xlsx";
   };
 
+  const isValidDate = (dateString) => {
+    const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
+    return cleanString.startsWith("202") && cleanString.length === 8;
+  };
+
   return (
     <>
       <div>
@@ -208,6 +213,9 @@ const ExcelUploadModal = ({ show, onHide }) => {
                         ...row.slice(15),
                       ];
 
+                      // Check if the first column's data is valid
+                      const isFirstColumnValid = isValidDate(row[0]);
+
                       return (
                         <tr
                           className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
@@ -246,6 +254,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 break;
                               default:
                                 className = "";
+                            }
+                            // Apply invalid styles if the first column is invalid
+                            if (cellIndex === 0 && !isFirstColumnValid) {
+                              className += " cell-invalid"; // Add invalid cell class
                             }
                             return (
                               <td key={cellIndex} className={className}>

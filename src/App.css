@@ -578,6 +578,9 @@ body {
   @apply ml-1 h-7 w-[110px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 
+.cell-invalid {
+  @apply bg-Danger-300 opacity-50; /* Example using Tailwind CSS for red background with 50% opacity */
+}
 /* input type=file 커스텀 */
 .filebox .upload-name {
   display: inline-block;
