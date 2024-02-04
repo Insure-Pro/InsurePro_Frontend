@@ -430,7 +430,7 @@ body {
   @apply mb-7  w-[780px] border-[1px] border-white;
 }
 .signin_hr3 {
-  @apply mb-12 w-[780px] border-[1px] border-white;
+  @apply mb-24 mt-0 w-[780px] border-[1px] border-white;
 }
 
 /* - - - - -[회원가입 끝]- - - - - */

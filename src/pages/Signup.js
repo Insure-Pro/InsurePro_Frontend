@@ -40,7 +40,7 @@ const Signup = () => {
     backgroundColor: "var(--Gray-scale-50)", // 비활성화된 버튼의 배경색 변경
     color: "white", // 텍스트 색상을 회색으로 변경하여 비활성화 효과 적용
     cursor: "not-allowed", // 마우스 커서를 not-allowed로 변경
-    border: "1px solid var(--Gray-scale-50)",
+    border: "1px solid var(--LightMode-Background)",
   };
 
   const handleSendCodeClick = () => {
@@ -388,7 +388,7 @@ const Signup = () => {
               </SelectOptions>
             </SelectBox>
           </div>
-          <hr className="signin_hr3" class="mb-12 mt-0" />
+          <hr className="signin_hr3" />
           <div class="flex flex-col items-center justify-center">
             <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
             <button
