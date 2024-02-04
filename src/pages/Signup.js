@@ -35,6 +35,14 @@ const Signup = () => {
     }
   };
 
+  // 버튼 스타일에 대한 변경 로직
+  const disabledButtonStyle = {
+    backgroundColor: "var(--Gray-scale-50)", // 비활성화된 버튼의 배경색 변경
+    color: "white", // 텍스트 색상을 회색으로 변경하여 비활성화 효과 적용
+    cursor: "not-allowed", // 마우스 커서를 not-allowed로 변경
+    border: "1px solid var(--Gray-scale-50)",
+  };
+
   const handleSendCodeClick = () => {
     axios
       .post(`${MAIN_URL}/email`, {
@@ -230,6 +238,7 @@ const Signup = () => {
                     setMyEmail(e.target.value);
                   }}
                   placeholder="이메일을 입력해주세요"
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
                   className="signin_input_box mr-4"
                 />
                 <button
@@ -237,7 +246,12 @@ const Signup = () => {
                   class="font-light"
                   type="button"
                   onClick={handleSendCodeClick}
-                  style={baseButtonStyle}
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                  style={
+                    isVerified
+                      ? { ...baseButtonStyle, ...disabledButtonStyle }
+                      : baseButtonStyle
+                  }
                 >
                   {sendCodeButtonText}
                 </button>
@@ -259,18 +273,25 @@ const Signup = () => {
                   style={{
                     marginLeft: "127px",
                   }}
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
                 />
                 <button
                   className="signin_code_button"
                   class="font-light"
-                  style={confirmButtonStyle}
-                  disabled={!isCodeSent}
+                  // style={confirmButtonStyle}
+                  // disabled={!isCodeSent}
+                  disabled={isVerified && !isCodeSent} // 본인 인증이 완료되면 비활성화
+                  style={
+                    isVerified
+                      ? { ...confirmButtonStyle, ...disabledButtonStyle }
+                      : confirmButtonStyle
+                  }
                   onClick={handleVerifyClick}
                 >
                   확인
                 </button>
               </div>
-              {verificationMessage && (
+              {/* {verificationMessage && (
                 <div
                   style={{
                     color: isVerified ? "blue" : "red",
@@ -281,7 +302,7 @@ const Signup = () => {
                 >
                   {verificationMessage}
                 </div>
-              )}
+              )} */}
             </div>
             <div class="mb-3 flex">
               <span className="signin_span">
