@@ -257,7 +257,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             <div class=" text-left">
               <div class="flex w-[212px]">
                 <div class="mb-1 w-[72px] font-semibold ">{schedule.date}</div>
-                <div class="text-overflow-ellipsis   w-[140px]   overflow-hidden   overflow-ellipsis whitespace-nowrap ">
+                <div class=" w-[140px] overflow-hidden overflow-ellipsis whitespace-nowrap ">
                   {schedule.address}
                 </div>
               </div>

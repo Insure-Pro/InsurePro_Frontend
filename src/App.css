@@ -569,13 +569,13 @@ body {
   @apply ml-1 h-7 w-[122px] border border-Gray-scale-50 pt-2.5  text-center;
 }
 .td-residence {
-  @apply ml-1 h-7 w-[142px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[142px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
 }
 .td-special-note {
-  @apply ml-1 h-7 w-[110px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[110px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
 }
 .td-state {
-  @apply ml-1 h-7 w-[110px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 h-7 w-[110px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
 }
 
 .cell-invalid {
