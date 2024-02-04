@@ -99,9 +99,63 @@ const ExcelUploadModal = ({ show, onHide }) => {
     window.location.href = process.env.PUBLIC_URL + "/insurepro_엑셀등록.xlsx";
   };
 
-  const isValidDate = (dateString) => {
+  // 컬럼 0: 'Db분배일'에 대한 유효성 검사 (날짜 검증)
+  const isValidDbDate = (dateString) => {
     const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
     return cleanString.startsWith("202") && cleanString.length === 8;
+  };
+
+  // 컬럼 1: '이름'에 대한 유효성 검사 (한글만 허용)
+  const isValidName = (name) => {
+    return /^[가-힣]+$/.test(name);
+  };
+
+  // 컬럼 2: '고객유형'에 대한 유효성 검사 (영어만 허용)
+  const isValidCustomerType = (type) => {
+    return /^[A-Za-z]+$/.test(type);
+  };
+
+  // 컬럼 3: '생년월일'에 대한 유효성 검사 (날짜 검증, "202"로 시작하는 조건 제외)
+  const isValidBirthDate = (dateString) => {
+    const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
+    return cleanString.length === 8;
+  };
+
+  // 컬럼 5: '연락처'에 대한 전처리 및 유효성 검사
+  const formatAndValidateContact = (contact) => {
+    // 문자열로 변환하여 trim()과 같은 문자열 메소드를 안전하게 사용
+    let contactStr = String(contact);
+
+    // 빈 문자열일 경우 즉시 유효하다고 간주하고 변경하지 않음
+    if (contactStr.trim() === "") {
+      return { formattedContact: "", isValid: true };
+    }
+
+    // 일반적인 구분자와 공백을 제거하여 입력을 정규화
+    let normalizedContact = contactStr.replace(/[\.\-\/\s]/g, "");
+
+    // '10'으로 시작하지만 '010'으로 시작하지 않는 번호를 정규화하기 위해 '0'을 앞에 추가
+    if (
+      normalizedContact.startsWith("10") &&
+      !normalizedContact.startsWith("010")
+    ) {
+      normalizedContact = "0" + normalizedContact;
+    }
+
+    // 정규화된 패턴에 일치하는 경우 번호를 포맷
+    const formattedContact = normalizedContact.replace(
+      /^(010)([0-9]{4})([0-9]{4})$/,
+      "$1-$2-$3",
+    );
+
+    // 포맷된 번호의 유효성을 검증
+    const isValid = /^010-\d{4}-\d{4}$/.test(formattedContact);
+
+    // 포맷된 번호(또는 포맷되지 않은 원본 입력)와 유효성을 모두 반환
+    return {
+      formattedContact: isValid ? formattedContact : contactStr,
+      isValid,
+    };
   };
 
   return (
@@ -224,52 +278,66 @@ const ExcelUploadModal = ({ show, onHide }) => {
                           {Array.from({ length: 9 }).map((_, cellIndex) => {
                             // Ensure 9 columns for each row
                             // Check if data exists for this column, else render empty
-                            const cellData =
+                            let cellData =
                               row[cellIndex] !== undefined
                                 ? row[cellIndex]
                                 : "";
-                            let className;
+
+                            // Initial class name based on column index
+                            let baseClassName;
+
+                            let isValid = true;
+                            // let displayData = cellData;
                             // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
                             switch (cellIndex) {
                               case 0:
-                                className = "td-db-date";
+                                isValid = isValidDbDate(cellData);
+                                baseClassName = "td-db-date";
                                 break;
                               case 1:
-                                className = "td-name";
+                                isValid = isValidName(cellData);
+
+                                baseClassName = "td-name";
                                 break;
                               case 2:
-                                className = "td-customer-type";
+                                isValid = isValidCustomerType(cellData);
+                                baseClassName = "td-customer-type";
                                 break;
                               case 3:
-                                className = "td-birth";
+                                isValid = isValidBirthDate(cellData);
+                                baseClassName = "td-birth";
                                 break;
                               case 4:
-                                className = "td-age";
+                                baseClassName = "td-age";
                                 break;
                               case 5:
-                                className = "td-contact";
+                                const {
+                                  formattedContact,
+                                  isValid: isContactValid,
+                                } = formatAndValidateContact(cellData);
+                                cellData = formattedContact; // Use the possibly formatted number
+                                isValid = isContactValid; // Use the validation result
+                                baseClassName = "td-contact";
                                 break;
                               case 6:
-                                className = "td-residence";
+                                baseClassName = "td-residence";
                                 break;
                               case 7:
-                                className = "td-special-note";
+                                baseClassName = "td-special-note";
                                 break;
                               case 8:
-                                className = "td-state";
+                                baseClassName = "td-state";
                                 break;
                               default:
-                                className = "";
+                                baseClassName = "";
                             }
+                            // Append 'cell-invalid' class if data is invalid
+                            const className = `${baseClassName} ${
+                              !isValid ? "cell-invalid" : ""
+                            }`;
 
-                            // Apply additional logic if needed, e.g., validation
-                            const isValid =
-                              cellIndex === 0 ? isValidDate(cellData) : true; // Example validation for column 0
-                            if (!isValid) {
-                              className += " cell-invalid"; // Add invalid cell class for styling
-                            }
                             return (
-                              <td key={cellIndex} className={className}>
+                              <td key={cellIndex} className={className.trim()}>
                                 {cellData}
                               </td>
                             );
