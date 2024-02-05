@@ -517,7 +517,7 @@ body {
 /* - - - - -[모달창 시작]- - - - - */
 .excelupload-modal-style {
   background-color: white;
-  width: 914px;
+  width: 986px;
   height: 240px;
   position: fixed;
   /* padding-right: 0px !important; */
@@ -533,7 +533,7 @@ body {
 }
 .excelupload-modal-style2 {
   background-color: white;
-  width: 914px;
+  width: 986px;
   height: 544px;
   position: fixed;
   padding-left: 0px !important;
@@ -551,31 +551,31 @@ body {
   @apply ml-1 flex h-7 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
 }
 .td-db-date {
-  @apply ml-1.5 h-7 w-[96px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[96px] items-center justify-center border border-Gray-scale-50;
 } /* Adjust widths as needed */
 .td-name {
-  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
 }
 .td-customer-type {
-  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
 }
 .td-birth {
-  @apply ml-1 h-7 w-[70px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
 }
 .td-age {
-  @apply ml-1 h-7 w-[50px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[50px] items-center justify-center border border-Gray-scale-50;
 }
 .td-contact {
-  @apply ml-1 h-7 w-[122px] border border-Gray-scale-50 pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[122px] items-center justify-center border border-Gray-scale-50;
 }
 .td-residence {
-  @apply ml-1 h-7 w-[142px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
 .td-special-note {
-  @apply ml-1 h-7 w-[110px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
 .td-state {
-  @apply ml-1 h-7 w-[110px] overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px] pt-2.5  text-center;
+  @apply ml-1 flex h-7 w-[110px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
 
 .cell-invalid {
@@ -594,10 +594,13 @@ body {
 }
 
 .filebox label {
-  display: inline-block;
-  width: 120px;
+  display: flex;
+  width: 110px;
   height: 40px;
-  padding: 10px 20px;
+  /* padding: 11px 22px; */
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
   color: var(--LightMode-Text);
   vertical-align: middle;
   border: 1px solid var(--Gray-scale-100);

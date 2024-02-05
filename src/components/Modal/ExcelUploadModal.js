@@ -14,6 +14,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
   const [isNextClicked, setIsNextClicked] = useState(false); // New state for tracking 'Next' button click
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
+  const add_icon = process.env.PUBLIC_URL + "/folder-add.png";
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -217,7 +218,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                     <div class="flex justify-end">
                       <button
                         onClick={handleDownloadTemplate}
-                        className="my-4 h-10  w-[120px] rounded border border-Primary-200 text-Primary-300 hover:bg-Primary-300 hover:text-white"
+                        className="my-4 mr-2 h-10 w-[110px] rounded border border-Primary-200 text-Primary-300 hover:bg-Primary-300 hover:text-white"
                       >
                         양식 다운받기
                       </button>
@@ -230,7 +231,49 @@ const ExcelUploadModal = ({ show, onHide }) => {
                       sed do
                     </div> */}
                     {/* <div class="h-[46px] w-[632px] border"> */}
-                    <div class="filebox text-sm">
+                    <div class="flex">
+                      <div
+                        // className="file-upload-wrapper"
+                        class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2"
+                      >
+                        <label
+                          htmlFor="file-upload"
+                          // className="file-add-icon"
+                          style={{ float: "right", cursor: "pointer" }}
+                        >
+                          <img src={add_icon} />
+                        </label>
+                        <input
+                          type="file"
+                          id="file-upload"
+                          onChange={handleFileChange}
+                          style={{ display: "none" }}
+                        />
+                        <input
+                          class="upload-name"
+                          value={fileName}
+                          style={{ backgroundColor: "white", width: "500px" }}
+                          // placeholder="파일첨부하기"
+                          disabled
+                        />
+                      </div>
+                      <div class="filebox text-sm">
+                        <label for="excelFile">불러오기</label>
+                        <input
+                          type="file"
+                          id="excelFile"
+                          onChange={handleFileChange}
+                        />
+                      </div>
+                    </div>
+                    {/* <div class="filebox text-sm">
+                      <label
+                        htmlFor="file-upload"
+                        className="file-add-icon"
+                        style={{ float: "right", cursor: "pointer" }}
+                      >
+                        <img src={add_icon} />
+                      </label>
                       <input
                         class="upload-name"
                         value={fileName}
@@ -243,7 +286,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                         id="excelFile"
                         onChange={handleFileChange}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div class="mt-10 flex justify-center">
@@ -273,16 +316,42 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   />
                 </div>
               </div>
-              <div class="filebox ml-3 text-sm">
-                <input
-                  class="upload-name mr-[34px]"
-                  value={fileName}
-                  disabled
-                />
-                <label for="excelFile">불러오기</label>
-                <input type="file" id="excelFile" onChange={handleFileChange} />
+              <div class="flex pl-10 pr-9">
+                <div
+                  // className="file-upload-wrapper"
+                  class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2"
+                >
+                  <label
+                    htmlFor="file-upload"
+                    // className="file-add-icon"
+                    style={{ float: "right", cursor: "pointer" }}
+                  >
+                    <img src={add_icon} />
+                  </label>
+                  <input
+                    type="file"
+                    id="file-upload"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <input
+                    class="upload-name"
+                    value={fileName}
+                    style={{ backgroundColor: "white", width: "500px" }}
+                    // placeholder="파일첨부하기"
+                    disabled
+                  />
+                </div>
+                <div class="filebox text-sm">
+                  <label for="excelFile">불러오기</label>
+                  <input
+                    type="file"
+                    id="excelFile"
+                    onChange={handleFileChange}
+                  />
+                </div>
               </div>
-              <div class="mx-3 mt-6">
+              <div class="mx-9 mt-6">
                 <div class="Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ">
                   <div class="w-[96px]">Db분배일</div>
                   <div class="w-[70px]">이름</div>
@@ -291,7 +360,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   <div class="w-[50px]">나이</div>
                   <div class="w-[122px]">연락처</div>
                   <div class="w-[142px]">거주지</div>
-                  <div class="w-[110px]">특이사항</div>
+                  <div class="w-[142px]">특이사항</div>
                   <div class="w-[110px]">인수상태</div>
                 </div>
                 <div class=" h-[220px] overflow-x-hidden overflow-y-scroll">
