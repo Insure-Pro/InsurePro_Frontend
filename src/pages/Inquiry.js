@@ -33,29 +33,28 @@ const Inquiry = ({}) => {
       event.preventDefault();
     }
     console.log("Submit button clicked"); // 버튼 클릭 확인
+
+    // FormData 인스턴스 생성
+    const formData = new FormData();
+    // 'content' 키에 텍스트 내용 추가
+    formData.append("content", content);
+    // 선택적으로 파일 추가 ('file'은 input 태그의 id와 동일해야 함)
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput.files[0]) {
+      formData.append("image", fileInput.files[0]);
+    }
+
     // JSON 형식의 데이터를 보내기 위해 axios 요청을 수정합니다.
     // const data = JSON.stringify({ content: content.current.value });
     try {
-      const response = await axios.post(
-        `${MAIN_URL}/questions`,
-        {
-          content,
+      const response = await axios.post(`${MAIN_URL}/questions`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        },
-      );
+      });
 
       if (response.status === 201) {
-        // alert(
-        //   "감사합니다.\n" +
-        //     "고객님의 의견을 INSURPRO CS TEAM 담당자에게 전달하였습니다.\n" +
-        //     "빠른 시일 내로 해당 부분을 검토 후, 시스템에 적용하겠습니다.\n" +
-        //     "항상 INSUREPRO를 이용해주시는 고객님께 감사의 인사 전합니다.",
-        // );
         Swal.fire({
           html:
             "<div style='text-align: left; font-size:16px;'>" +
@@ -111,9 +110,9 @@ const Inquiry = ({}) => {
           userSelect: "none",
         }}
       >
-        <div class="h-[86px] bg-white px-12  py-4 text-start font-normal">
+        <div class="h-[86px] bg-white px-12  py-4 text-start text-sm font-normal">
           {" "}
-          <div class="mb-2">안녕하세요 INSUREPRO CS TEAM입니다.</div>
+          <div class="mb-2.5">안녕하세요 INSUREPRO CS TEAM입니다.</div>
           <div>
             보다 나은 서비스를 제공하기 위해 여러분들의 불편사항 및 문의 사항을
             접수 받고 있습니다.
@@ -121,10 +120,13 @@ const Inquiry = ({}) => {
         </div>
 
         <div class="flex h-[558px] flex-col items-start bg-LightMode-SectionBackground pl-[75px] pt-10 align-top  text-sm">
-          <div class="mb-10 ">
-            <span class="mr-[82px]">내용</span>
+          <div class="mb-10 flex">
+            <div class="flex flex-col">
+              <span class="mr-[82px]">내용</span>
+              <span class="mr-[82px]">(필수)</span>
+            </div>
             <input
-              class=" h-[186px] w-[782px]  p-4 pb-2   align-text-top"
+              class=" h-[186px] w-[782px] border border-Gray-scale-100 p-4 pb-2 align-text-top"
               type="text"
               // ref={content}
               value={content}
