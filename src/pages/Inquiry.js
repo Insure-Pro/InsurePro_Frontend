@@ -11,7 +11,11 @@ import Swal from "sweetalert2";
 const Inquiry = ({}) => {
   // const content = useRef("");
   const [content, setContent] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+
   const location = useLocation();
+
+  const add_icon = process.env.PUBLIC_URL + "/folder-add.png";
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -39,10 +43,7 @@ const Inquiry = ({}) => {
     // 'content' 키에 텍스트 내용 추가
     formData.append("content", content);
     // 선택적으로 파일 추가 ('file'은 input 태그의 id와 동일해야 함)
-    const fileInput = document.querySelector('input[type="file"]');
-    if (fileInput.files[0]) {
-      formData.append("image", fileInput.files[0]);
-    }
+    if (selectedFile) formData.append("image", selectedFile);
 
     // JSON 형식의 데이터를 보내기 위해 axios 요청을 수정합니다.
     // const data = JSON.stringify({ content: content.current.value });
@@ -70,6 +71,7 @@ const Inquiry = ({}) => {
           timerProgressBar: true,
         });
         setContent(""); // 폼 초기화
+        setSelectedFile(""); // 파일선택 초기화
       }
     } catch (error) {
       console.error("Inquiry submit error:", error);
@@ -92,6 +94,13 @@ const Inquiry = ({}) => {
 
   const handleContractCompleteClick = () => {
     navigate("/main", { state: { selectedTab: "계약완료고객" } });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+    }
   };
 
   return (
@@ -121,12 +130,12 @@ const Inquiry = ({}) => {
 
         <div class="flex h-[558px] flex-col items-start bg-LightMode-SectionBackground pl-[75px] pt-10 align-top  text-sm">
           <div class="mb-10 flex">
-            <div class="flex flex-col">
-              <span class="mr-[82px]">내용</span>
-              <span class="mr-[82px]">(필수)</span>
+            <div class="flex  flex-col">
+              <span class="mr-[47px] w-[60px] pl-1.5 text-left">내용</span>
+              <span class=" mr-[47px] w-[60px] pl-0.5 text-left">(필수)</span>
             </div>
             <input
-              class=" h-[186px] w-[782px] border border-Gray-scale-100 p-4 pb-2 align-text-top"
+              class=" h-[186px] w-[782px]  justify-start rounded border border-Gray-scale-100 p-4 pb-2 align-top "
               type="text"
               // ref={content}
               value={content}
@@ -136,12 +145,28 @@ const Inquiry = ({}) => {
             ></input>
           </div>
           <div class="flex items-center">
-            <span class="mr-[58px]">파일첨부</span>
-
-            <label htmlFor="file">
-              <div class="btn-upload ">파일 업로드하기</div>
-            </label>
-            <input type="file" name="file" id="file"></input>
+            <span class="mr-[47px] w-[60px]">파일첨부</span>
+            <div
+              className="file-upload-wrapper"
+              class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2"
+            >
+              <label
+                htmlFor="file-upload"
+                className="file-add-icon"
+                style={{ float: "right", cursor: "pointer" }}
+              >
+                <img src={add_icon} />
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+              />
+              <span className="file-name" style={{ float: "left" }}>
+                {selectedFile ? selectedFile.name : ""}
+              </span>
+            </div>
           </div>
           <div class="mb-1 mt-[88px] flex">
             <FormCheck />
