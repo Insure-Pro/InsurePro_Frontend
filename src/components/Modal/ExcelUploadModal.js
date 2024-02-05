@@ -43,6 +43,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
     const fileName = file.name; // 파일 객체에서 직접 파일 이름을 가져옵니다.
     document.querySelector(".upload-name").value = fileName; // 업로드된 파일 이름으로 업데이트
   };
+
   const handleNextClick = () => {
     setIsNextClicked(true); // Set state when 'Next' is clicked
   };
@@ -293,7 +294,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   <div class="w-[110px]">특이사항</div>
                   <div class="w-[110px]">인수상태</div>
                 </div>
-                <div class=" h-[220px] overflow-auto">
+                <div class=" h-[220px] overflow-x-hidden overflow-y-scroll">
                   <tbody class=" w-full  text-[11px]">
                     {/* {excelData.slice(1).map((row, index) => {
                       // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
