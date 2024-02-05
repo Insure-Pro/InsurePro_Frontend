@@ -486,7 +486,7 @@ body {
   @apply ml-12 h-9 min-w-[1024px] bg-white py-[9px] text-sm font-normal;
 }
 .detailTitle {
-  @apply mr-16  flex w-60 pl-24;
+  @apply mr-16  flex w-60 pl-24 text-sm;
 }
 .infoItem {
   @apply mb-3 flex cursor-default flex-row text-sm font-semibold;
@@ -498,7 +498,7 @@ body {
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mb-3 flex h-[68px]  w-[622px] select-text flex-row items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_4px_8px_0_rgba(0,0,0,0.20)];
+  @apply mb-3 flex h-[68px]  w-[622px] select-text flex-row items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
 }
 /* 진척도 */
 .historyItemStyle1 {
@@ -579,7 +579,7 @@ body {
 }
 
 .cell-invalid {
-  @apply bg-Danger-300 font-semibold text-white opacity-50; /* Example using Tailwind CSS for red background with 50% opacity */
+  @apply border-Danger-600 bg-Danger-50 font-semibold text-Danger-600; /* Example using Tailwind CSS for red background with 50% opacity */
 }
 /* input type=file 커스텀 */
 .filebox .upload-name {

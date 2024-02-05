@@ -216,7 +216,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                     <div class="flex justify-end">
                       <button
                         onClick={handleDownloadTemplate}
-                        className="my-4 h-10  w-[120px] border text-Primary-300"
+                        className="my-4 h-10  w-[120px] rounded border border-Primary-200 text-Primary-300 hover:bg-Primary-300 hover:text-white"
                       >
                         양식 다운받기
                       </button>
@@ -372,7 +372,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                             }
                             // Append 'cell-invalid' class if data is invalid
                             let className = `${baseClassName} ${
-                              isEmpty ? "bg-Gray-scale-200/20" : ""
+                              isEmpty ? "bg-Secondary-50/80" : ""
                             } ${!isValid && !isEmpty ? "cell-invalid" : ""}`;
 
                             return (
