@@ -209,12 +209,11 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
             </div>
             <div class="flex h-[68px] pt-[6px] ">
               <div class="mr-[38px] w-[50px]">메모</div>
-              <input
-                as="textarea"
+              <textarea
                 rows={3}
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
-                class="h-[56px] w-[192px] rounded border text-center"
+                class="h-[56px] w-[192px] rounded border px-3 pt-2"
               />
             </div>
 

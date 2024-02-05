@@ -593,16 +593,14 @@ function Modal1({ show, onModalOpen, onModalClose }) {
             </div>
             <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] cursor-default pl-2 pt-1.5">특이사항</div>
-              <input
+              <textarea
                 class={`modal_item_input_memo  ${
                   memoInput ? "border-primary-100" : "border-gray-300"
-                } px-3`}
-                type="memo"
+                } px-3 pt-2`}
                 ref={memo}
                 // value={memoInput}
                 onChange={handleMemoInputChange}
                 placeholder=" 월 보험료 00만원/본인점검"
-                as="textarea"
                 rows={3}
               />
             </div>

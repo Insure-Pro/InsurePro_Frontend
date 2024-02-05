@@ -423,7 +423,7 @@ const Main = () => {
                   : "listItemStyle-noContract"
               }`}
             >
-              {customer.memo}
+              {customer.state}
             </ListGroup.Item>
           </ListGroup>
         </div>

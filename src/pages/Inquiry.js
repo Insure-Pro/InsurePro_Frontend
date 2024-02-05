@@ -134,15 +134,12 @@ const Inquiry = ({}) => {
               <span class="mr-[47px] w-[60px] pl-1.5 text-left">내용</span>
               <span class=" mr-[47px] w-[60px] pl-0.5 text-left">(필수)</span>
             </div>
-            <input
+            <textarea
               class=" h-[186px] w-[782px]  justify-start rounded border border-Gray-scale-100 p-4 pb-2 align-top "
-              type="text"
-              // ref={content}
               value={content}
               onChange={(e) => setContent(e.target.value)} // 입력 값 상태 업데이트
-              as="textarea"
               rows={10}
-            ></input>
+            ></textarea>
           </div>
           <div class="flex items-center">
             <span class="mr-[47px] w-[60px]">파일첨부</span>
