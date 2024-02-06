@@ -199,9 +199,11 @@ const KakaoMap = () => {
                       : 110; // Calculate marginBottom based on number of customers
                   //62 3개짜리 112 2개짜리 110 1개짜리
                   // 여러 고객 정보를 포함하는 오버레이 내용 생성
-                  let content = `<div class="custom-overlay" style="margin-top: -${marginBottomValue}px;"  >`; // Apply dynamic marginBottom
-                  customersGroup.forEach((customer) => {
-                    content += `<div class='custom-overlay-items' data-pk='${customer.pk}'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
+                  let content = `<div class="custom-overlay" style="margin-top: -${marginBottomValue}px;"  >`;
+                  customersGroup.forEach((customer, index) => {
+                    // 첫 번째 아이템에만 'active' 클래스 추가, 나머지는 'inactive'
+                    const itemClass = index === 0 ? "active" : "inactive";
+                    content += `<div class='custom-overlay-items ${itemClass}' data-pk='${customer.pk}'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
                   });
                   content += `</div>`;
 
@@ -234,6 +236,19 @@ const KakaoMap = () => {
                       // Logic to display MapCustomerDetail based on the selected marker
                       // For simplicity, just showing the first customer's PK as an example
 
+                      const overlayItems = document.querySelectorAll(
+                        ".custom-overlay-items",
+                      );
+                      overlayItems.forEach((item) => {
+                        item.classList.add("inactive");
+                        item.classList.remove("active");
+                      });
+
+                      // 첫 번째 오버레이 아이템만 활성화
+                      if (overlayItems.length > 0) {
+                        overlayItems[0].classList.add("active");
+                        overlayItems[0].classList.remove("inactive");
+                      }
                       if (currentSelectedMarker === marker) {
                         // Toggle marker and overlay for the same marker
                         if (currentOpenOverlay) {
@@ -289,16 +304,13 @@ const KakaoMap = () => {
                           document
                             .querySelectorAll(".custom-overlay-items")
                             .forEach((item) => {
-                              item.style.backgroundColor =
-                                "var(--LightMode-SectionBackground)"; // Reset to default
-                              item.style.color = "var(--LightMode-Subtext)"; // Reset to default
+                              item.classList.add("inactive");
+                              item.classList.remove("active");
                             });
 
-                          // Apply specific styles to the clicked item
-                          targetElement.style.backgroundColor =
-                            "var(--Primary-400)";
-                          targetElement.style.color =
-                            "var(--LightMode-Background)";
+                          // 클릭된 항목만 활성화
+                          targetElement.classList.add("active");
+                          targetElement.classList.remove("inactive");
                         }
                       }
                     },

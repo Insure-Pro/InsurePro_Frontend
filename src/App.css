@@ -1141,12 +1141,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--Primary-400);
-  color: #fff;
+  /* background-color: var(--Primary-400); */
+  /* color: #fff; */
   font-size: 12px;
   font-weight: bold;
   border: none;
   border-radius: 4px;
+}
+.custom-overlay-items.active {
+  background-color: var(--Primary-400); /* 활성화 배경색 */
+  color: var(--LightMode-Background); /* 활성화 글자색 */
+}
+
+.custom-overlay-items.inactive {
+  background-color: var(--LightMode-SectionBackground); /* 비활성화 배경색 */
+  color: var(--LightMode-Subtext); /* 비활성화 글자색 */
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #e0f2f1 !important; /* 원하는 색으로 변경 */
