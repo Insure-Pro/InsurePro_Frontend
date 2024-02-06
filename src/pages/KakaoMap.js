@@ -18,6 +18,8 @@ const KakaoMap = () => {
   const [markers, setMarkers] = useState([]); // New state for storing marker objects
   const [selectedMarker, setSelectedMarker] = useState(null); // 클릭한 마커 색 변경 관리
 
+  const [currentOpenOverlay, setCurrentOpenOverlay] = useState(null); //현 지도 검색 시 커스텀 오버레이 상태관리
+
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
   const search_white = process.env.PUBLIC_URL + "/search_white.png";
@@ -232,6 +234,7 @@ const KakaoMap = () => {
                         setSelectedCustomerPk(marker.customersGroup[0].pk); // Example: Use the first customer's PK
                         setIsDetailVisible(true);
                         setViewState("mapDetail"); // 마커 클릭 시 viewState를 mapDetail로 설정
+                        setCurrentOpenOverlay(customOverlay); //현 지도 검색 클릭 시 커스텀 오버레이 닫기 위함
                       }
                       // Logic to display MapCustomerDetail based on the selected marker
                       // For simplicity, just showing the first customer's PK as an example
@@ -474,10 +477,18 @@ const KakaoMap = () => {
         );
       });
 
+      //커스텀 오버레이 초기화
+      if (currentOpenOverlay) {
+        currentOpenOverlay.setMap(null);
+        setCurrentOpenOverlay(null); // 오버레이 상태를 null로 초기화
+      }
+
       // Update the state based on whether there are visible customers
       setHasVisibleCustomers(filteredCustomers.length > 0);
       setVisibleCustomers(filteredCustomers);
-      setIsSearchMode(false); // Reset search mode
+      setIsSearchMode(false); // 검색모드 초기화
+      setIsDetailVisible(false); //상세정보 보기 초기화
+      setSelectedCustomerPk(null); // 고객 선택된 상태 초기화
     }
     setViewState("list"); // 현 지도에서 검색 시 viewState를 list로 설정
   }
