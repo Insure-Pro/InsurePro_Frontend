@@ -483,6 +483,17 @@ const KakaoMap = () => {
         );
       });
 
+      // Initialize all markers to a blue marker
+      markers.forEach((marker) => {
+        marker.setImage(
+          new window.kakao.maps.MarkerImage(
+            marker_blue, // Make sure marker_blue is the correct variable for your blue marker image
+            new window.kakao.maps.Size(21, 28),
+            { offset: new window.kakao.maps.Point(27, 69) },
+          ),
+        );
+      });
+
       //커스텀 오버레이 초기화
       if (currentOpenOverlay) {
         currentOpenOverlay.setMap(null);
