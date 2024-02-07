@@ -387,45 +387,51 @@ const KakaoMap = () => {
         m.customersGroup && m.customersGroup.some((c) => c.pk === customer.pk),
     );
     console.log(marker);
+
     if (marker) {
       mapRef.current.panTo(marker.getPosition());
 
-      // 마커의 현재 상태를 확인하는 로직 수정
-      // getDraggable() 함수를 사용하여 현재 마커의 상태를 추적 (예시)
-      // Set all markers to blue first
-      markers.forEach((m) => {
-        m.setImage(
-          new kakao.maps.MarkerImage(
-            marker_blue,
+      // Deselect if the same customer is clicked again
+      if (selectedCustomerPk === customer.pk) {
+        // Toggle off, set all markers to blue
+        marker.setImage(
+          new window.kakao.maps.MarkerImage(
+            marker_blue, // Assuming marker_blue is the URL or path to the blue marker image
             new window.kakao.maps.Size(21, 28),
             { offset: new window.kakao.maps.Point(27, 69) },
           ),
         );
-        m.setDraggable(false);
-      });
-
-      // Then set the clicked marker to red
-      marker.setImage(
-        new kakao.maps.MarkerImage(
-          marker_red,
-          new window.kakao.maps.Size(21, 28),
-          { offset: new window.kakao.maps.Point(27, 69) },
-        ),
-      );
-      //선택한 마커 중앙으로 오고 빨강색으로 변경
-      marker.setDraggable(true);
-
-      // MapCustomerDetail 컴포넌트 띄우기 & 닫기
-      // 선택된 고객이 이미 선택된 상태라면 Detail 컴포넌트를 닫습니다.
-      if (selectedCustomerPk === customer.pk) {
-        setIsDetailVisible(false);
-        setSelectedCustomerPk(null);
+        setSelectedCustomerPk(null); // Deselect
+        setIsDetailVisible(false); // Optionally close detail view
       } else {
-        setSelectedCustomerPk(customer.pk);
-        setIsDetailVisible(true);
+        // Set previously selected marker back to blue
+        const previousMarker = markers.find(
+          (m) =>
+            m.customersGroup &&
+            m.customersGroup.some((c) => c.pk === selectedCustomerPk),
+        );
+        if (previousMarker) {
+          previousMarker.setImage(
+            new window.kakao.maps.MarkerImage(
+              marker_blue,
+              new window.kakao.maps.Size(21, 28),
+              { offset: new window.kakao.maps.Point(27, 69) },
+            ),
+          );
+        }
+
+        // Select new marker, set to red
+        marker.setImage(
+          new window.kakao.maps.MarkerImage(
+            marker_red, // Assuming marker_red is the URL or path to the red marker image
+            new window.kakao.maps.Size(21, 28),
+            { offset: new window.kakao.maps.Point(27, 69) },
+          ),
+        );
+        setSelectedCustomerPk(customer.pk); // Select new
+        setIsDetailVisible(true); // Optionally open detail view
       }
     }
-    // setViewState("mapDetail"); // 고객 목록에서 고객 클릭 시 viewState를 detail로 설정
   };
 
   // 현 지도 검색 클릭 시 사용
