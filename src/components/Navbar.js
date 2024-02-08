@@ -84,23 +84,27 @@ const Navbar = ({
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
-    try {
-      const response = await axios.post(`${MAIN_URL}/logout`, null, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await axios.post(`${MAIN_URL}/logout`, null, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
 
-      if (response.status === 200) {
-        localStorage.removeItem("accessToken"); // Remove access token
-        localStorage.removeItem("refreshToken"); // Remove refresh token
-        dispatch(logoutSuccess()); // Dispatch logoutSuccess action
-        navigate("/login"); // Redirect to login page
-      }
-    } catch (error) {
-      console.error("Logout failed", error);
-      if (error.response && error.response.data) {
-        console.error("Error message:", error.response.data.message);
+        if (response.status === 200) {
+          localStorage.removeItem("accessToken"); // Remove access token
+          localStorage.removeItem("refreshToken"); // Remove refresh token
+          dispatch(logoutSuccess()); // Dispatch logoutSuccess action
+          navigate("/login"); // Redirect to login page
+        }
+      } catch (error) {
+        console.error("Logout failed", error);
+        if (error.response && error.response.data) {
+          console.error("Error message:", error.response.data.message);
+        }
       }
     }
   };
