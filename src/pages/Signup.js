@@ -444,37 +444,37 @@ const SelectBox = styled.div`
   width: 360px;
   height: 42px;
   padding: 12px 20px;
-  border: 1px solid #b8b8b8;
+  border: 1px solid var(--Gray-scale-50);
   border-radius: 4px;
   background-color: #ffffff;
   cursor: pointer;
   &::before {
     content: "⌵";
     position: absolute;
-    top: 1px;
+    top: 6px;
     right: 20px;
-    color: #49c181;
+    color: var(--LightMode-Subtext);
     font-size: 20px;
   }
 `;
 const Label = styled.label`
   font-size: 14px;
   text-align: center;
-  color: #a0a7b2;
+  color: var(--LightMode-Subtext);
 `;
 const SelectOptions = styled.ul`
   position: absolute;
-  list-style: none;
-  top: 42px;
+  overflow: hidden;
+  top: 40px;
   left: 0;
   width: 100%;
-  overflow: hidden;
   height: 114px;
+  font-weight: 300;
   max-height: ${(props) => (props.show ? "none" : "0")};
-  padding: 0;
   border-radius: 4px;
-  background-color: #222222;
-  color: #fefefe;
+  background-color: #fff;
+  border: 1px solid var(--Gray-scale-50);
+  color: var(--LightMode-Subtext);
 `;
 const Option = styled.li`
   font-size: 14px;
@@ -483,6 +483,8 @@ const Option = styled.li`
   padding: 12px 20px;
   transition: background-color 0.2s ease-in;
   &:hover {
-    background-color: #595959;
+    font-weight: 600;
+    background-color: var(--LightMode-Hover);
+    color: var(--LightMode-Text);
   }
 `;
