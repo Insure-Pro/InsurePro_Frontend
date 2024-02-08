@@ -216,7 +216,9 @@ const Signup = () => {
             <span className="Highlighting">*</span>
             필수입력사항
           </div>
-          <hr className="signin_hr1" />
+          <div class="flex w-full items-center justify-center">
+            <hr className="signin_hr1 " />
+          </div>
           <div
             style={{
               width: "780px",
