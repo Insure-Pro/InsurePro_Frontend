@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import LoginImg from "../external/loginImg.png";
-// import LoginImg from "../../public/loginImg.png";
+import Navbar from "../components/Navbar";
 
 const Password = () => {
   const email = useRef("");
@@ -18,7 +17,6 @@ const Password = () => {
 
   const [isCodeSent, setIsCodeSent] = useState(false);
 
-  const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleVerifyClick = () => {
@@ -46,32 +44,46 @@ const Password = () => {
       });
   };
 
+  // 버튼 스타일에 대한 변경 로직
+  const disabledButtonStyle = {
+    backgroundColor: "var(--Gray-scale-50)", // 비활성화된 버튼의 배경색 변경
+    color: "white", // 텍스트 색상을 회색으로 변경하여 비활성화 효과 적용
+    cursor: "not-allowed", // 마우스 커서를 not-allowed로 변경
+    border: "1px solid var(--LightMode-Background)",
+  };
+
   // 기존 스타일
   const baseButtonStyle = {
-    position: "absolute",
-    width: "78px",
-    height: "28px",
-    fontWeight: "bold",
-    // textAlign: "center",
-    paddingTop: "3px",
-    fontSize: "16px",
-    right: "5px",
-    margin: "8px 5px",
-    marginBottom: "30px",
-    marginRight: "35px",
-    borderRadius: "3px",
-    border: "none",
-    color: "#FFF",
-    backgroundColor: "#98A2B3",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "120px",
+    height: "42px",
+    padding: "12px 0px",
+    borderRadius: "4px",
+    border: "1px solid var(--Primary-300)",
+    color: `var(--Primary-300)`,
+    backgroundColor: "#fff",
+    fontSize: "14px",
   };
 
   // isCodeSent가 true일 때의 배경색 스타일
-  const activeButtonStyle = isCodeSent ? { backgroundColor: "#175CD3" } : {};
+  const activeButtonStyle = isCodeSent
+    ? {
+        color: "#fff",
+        fontWeight: "700",
+        backgroundColor: "var(--Primary-300)",
+      }
+    : {
+        color: "var(--LightMode-Background)",
+        border: "1px solid #fff",
+        backgroundColor: "var(--Gray-scale-50)",
+      };
 
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
 
-  const sendCodeButtonText = isCodeSent ? "재전송" : "코드전송";
+  const sendCodeButtonText = isCodeSent ? "재전송" : "인증번호 받기";
 
   const handleSubmit = (event) => {
     if (event) {
@@ -120,7 +132,7 @@ const Password = () => {
   };
 
   const validEmail = new RegExp(
-    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$",
   );
   const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
 
@@ -148,187 +160,169 @@ const Password = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "1360px",
-        margin: "0 auto",
-        height: "970px",
-        borderRight: "2px solid #dde1e6",
-      }}
-    >
-      <div>
-        <img
-          src={imageUrl}
-          style={{
-            width: "800px",
-            height: "970px",
-          }}
-        />
-      </div>
+    <div>
+      <Navbar />
       <form
         name="file"
         encType="multipart/form-data"
+        class="flex h-screen justify-center bg-LightMode-SectionBackground pt-[76px]"
         onSubmit={handleSubmit}
-        style={{
-          width: "560px",
-          height: "970px",
-        }}
       >
-        <StyledInputDiv>
-          <h1
-            style={{
-              display: "flex",
-              color: "#000000",
-              marginLeft: "30px",
-              fontWeight: "bold",
-              fontSize: "34px",
-              marginTop: "150px",
-              marginBottom: "52px",
-              cursor: "default",
-            }}
-          >
-            {" "}
+        <div style={{ width: "780px" }}>
+          {" "}
+          <div class="mb-[68px] mt-[57px] flex justify-center text-[17px] font-semibold text-LightMode-Text">
             비밀번호 찾기
-          </h1>
-
-          <span
-            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
-          >
-            Email
-          </span>
-          <div>
-            <div style={{ position: "relative", fontSize: "20px" }}>
-              <input
-                type="email"
-                ref={email}
-                value={myEmail}
-                onChange={(e) => {
-                  setMyEmail(e.target.value);
-                }}
-                placeholder="이메일 입력하기"
-              />
-              <button
-                className="signin_code_button"
-                type="button"
-                onClick={handleSendCodeClick}
-                style={baseButtonStyle}
-              >
-                {sendCodeButtonText}
-              </button>
-            </div>
           </div>
-          <span
-            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
-          >
-            본인 인증하기
-          </span>
-          <div style={{ position: "relative", fontSize: "20px" }}>
-            <div>
-              <input
-                type="authNum"
-                ref={authNumConfirm}
-                placeholder="본인 인증 코드를 입력해주세요"
-              />
-              <button
-                className="signin_code_button"
-                style={confirmButtonStyle}
-                disabled={!isCodeSent}
-                onClick={handleVerifyClick}
-              >
-                확인
-              </button>
-            </div>
-            {verificationMessage && (
-              <div
-                style={{
-                  color: isVerified ? "blue" : "red",
-                  fontSize: "16px",
-                  marginTop: "-12px",
-                  textAlign: "center",
-                }}
-              >
-                {verificationMessage}
-              </div>
-            )}
+          <div class="flex w-full items-center justify-center">
+            <hr className="signin_hr0 " />
           </div>
-          <span
-            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
-          >
-            Password
-          </span>
-          <div>
-            <input
-              type="password"
-              ref={password}
-              placeholder="새로운 비밀번호를 입력해주세요"
-              value={myPassword}
-              autocomplete="new-password"
-              onChange={(e) => {
-                setMyPassword(e.target.value);
-              }}
-            />
-          </div>
-          <span
-            style={{ display: "flex", fontSize: "20px", cursor: "default" }}
-          >
-            비밀번호 확인하기
-          </span>
-          <div>
-            <input
-              type="password"
-              ref={passwordConfirm}
-              placeholder="비밀번호 재입력"
-            />
-
-            <div
-              className="error_message"
-              style={{
-                fontSize: "16px",
-                paddingTop: "20px",
-                marginBottom: "-20px",
-              }}
-            ></div>
-          </div>
-        </StyledInputDiv>
-        <StyledButtonDiv>
-          <StyledInput
-            onClick={() => {
-              if (email.current.value === "") {
-                email.current.focus();
-                document.querySelector(".error_message").innerHTML =
-                  "이메일을 입력해주세요.";
-                return;
-              } else if (authNumConfirm.current.value === "") {
-                authNum.current.focus();
-                document.querySelector(".error_message").innerHTML =
-                  "인증 코드를 입력해주세요.";
-                return;
-              } else if (password.current.value === "") {
-                password.current.focus();
-                document.querySelector(".error_message").innerHTML =
-                  "비밀번호를 입력해주세요.";
-                return;
-              } else if (passwordConfirm.current.value === "") {
-                password.current.focus();
-                document.querySelector(".error_message").innerHTML =
-                  "비밀번호 확인을 입력해주세요.";
-                return;
-              } else {
-                document.querySelector(".error_message").innerHTML = "";
-              }
+          <div
+            style={{
+              width: "780px",
+              height: "344px",
+              marginLeft: "78px",
             }}
-            type="submit"
-            value="로그인 하러 가기"
-          />
-        </StyledButtonDiv>
+          >
+            <div>
+              <div class="mb-4 mt-7 flex">
+                <span className="signin_span">
+                  <span className="Highlighting">*</span>
+                  이메일
+                </span>
+                <input
+                  type="email"
+                  ref={email}
+                  value={myEmail}
+                  onChange={(e) => {
+                    setMyEmail(e.target.value);
+                  }}
+                  placeholder="이메일을 입력해주세요"
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                  className="signin_input_box mr-4"
+                />
+                <button
+                  className="signin_code_button"
+                  class="font-light"
+                  type="button"
+                  onClick={handleSendCodeClick}
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                  style={
+                    isVerified
+                      ? { ...baseButtonStyle, ...disabledButtonStyle }
+                      : baseButtonStyle
+                  }
+                >
+                  {sendCodeButtonText}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div
+                class="mb-4 flex"
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <input
+                  type="authNum"
+                  ref={authNumConfirm}
+                  placeholder="본인 인증 코드를 입력해주세요"
+                  className="signin_input_box mr-4"
+                  style={{
+                    marginLeft: "127px",
+                  }}
+                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                />
+                <button
+                  className="signin_code_button"
+                  class="font-light"
+                  // style={confirmButtonStyle}
+                  // disabled={!isCodeSent}
+                  disabled={isVerified && !isCodeSent} // 본인 인증이 완료되면 비활성화
+                  style={
+                    isVerified
+                      ? { ...confirmButtonStyle, ...disabledButtonStyle }
+                      : confirmButtonStyle
+                  }
+                  onClick={handleVerifyClick}
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+            <div class="mb-4 flex">
+              <span className="signin_span">
+                <span className="Highlighting">*</span>
+                비밀번호
+              </span>
+              <input
+                type="password"
+                ref={password}
+                placeholder="새로운 비밀번호를 입력해주세요"
+                value={myPassword}
+                autocomplete="new-password"
+                onChange={(e) => {
+                  setMyPassword(e.target.value);
+                }}
+                className="signin_input_box"
+              />
+            </div>
+            <div class="mb-9 flex">
+              <span className="signin_span">
+                <span className="Highlighting">*</span>
+                비밀번호 확인
+              </span>
+              <input
+                type="password"
+                ref={passwordConfirm}
+                placeholder="비밀번호를 한번 더 입력해주세요"
+                className="signin_input_box"
+              />
+            </div>
+            <div class="ml-[-78px]  flex w-full flex-col items-center justify-center">
+              <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
+              <button
+                onClick={() => {
+                  if (email.current.value === "") {
+                    email.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "이메일을 입력해주세요.";
+                    return;
+                  } else if (authNumConfirm.current.value === "") {
+                    authNum.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "인증 코드를 입력해주세요.";
+                    return;
+                  } else if (password.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호를 입력해주세요.";
+                    return;
+                  } else if (passwordConfirm.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호 확인을 입력해주세요.";
+                    return;
+                  } else {
+                    document.querySelector(".error_message").innerHTML = "";
+                  }
+                }}
+                type="submit"
+                value="로그인 하러 가기"
+                class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
+              >
+                변경하기
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );
 };
 
-const StyledInputDiv = styled.div`
+const div = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   color: #aaa;
   margin: 5vh auto 20px;
