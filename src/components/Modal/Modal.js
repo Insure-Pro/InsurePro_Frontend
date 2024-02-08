@@ -165,9 +165,24 @@ function Modal1({ show, onModalOpen, onModalClose }) {
 
   // 사용자 입력을 처리하는 함수
   const handlePhoneInputChange = (event) => {
-    const formattedNumber = formatPhoneNumber(event.target.value);
-    setPhoneNumber(formattedNumber);
-    setPhoneInput(event.target.value);
+    let inputValue = event.target.value;
+
+    // 숫자만 입력되도록, 하이픈을 제외한 나머지 문자 제거
+    let numbers = inputValue.replace(/[^\d]/g, "");
+
+    // 하이픈 추가 로직
+    if (numbers.length > 3 && numbers.length <= 7) {
+      numbers = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    } else if (numbers.length > 7) {
+      numbers = `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(
+        7,
+        11,
+      )}`;
+    }
+
+    // input value를 업데이트 (React state를 사용하는 경우)
+    setPhoneInput(numbers); // state를 사용하여 입력값 관리하는 경우
+    setPhoneNumber(numbers);
   };
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
@@ -273,19 +288,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   };
   return (
     <>
-      {/* <button
-        className="Add_Btn2"
-        onClick={handleShow}
-        style={{
-          width: "20px",
-          height: "20px",
-          marginLeft: "48px",
-          marginRight: "16px",
-        }}
-      >
-        <img src={add_icon} />
-      </button> */}
-
       <Modal
         className="modal-style  "
         show={show}
@@ -318,19 +320,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
           style={{ margin: "-15px 0px" }}
         >
           <Form onSubmit={handleSubmit}>
-            {/* <Form.Group> controlId="contractYn.ControlCheckbox1">
-              <Form.Check
-                type="checkbox"
-                label="계약 체결 여부"
-                checked={contractYn} // 체크박스 상태를 반영
-                onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
-                style={{
-                  marginLeft: "14px",
-                  marginBottom: "10px",
-                  marginTop: "-20px",
-                }}
-              />
-            </Form.Group> */}
             <div className="mb-1  h-12 w-[352px] ">
               <div class=" flex items-center">
                 <div className="w-[84px] cursor-default pb-4">
@@ -573,7 +562,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                 ref={phone}
                 // value={phoneInput}
                 onChange={handlePhoneInputChange}
-                placeholder=" 010-0000-0000"
+                placeholder="01012345678"
               />
             </div>
             <div class="modal_item_container mb-2">

@@ -496,7 +496,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 ref={phoneRef}
                 defaultValue={selectedCustomer?.phone}
                 onChange={handlePhoneInputChange}
-                placeholder=" 010-0000-0000"
+                placeholder="01012345678"
               />
             </div>
             <div class="modal_item_container mb-2">
