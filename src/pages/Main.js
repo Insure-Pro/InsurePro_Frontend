@@ -4,7 +4,7 @@ import "../App.css";
 import "../MainStyles.css";
 import Navbar from "../components/Navbar";
 import Dbbar from "../components/Dbbar";
-import Modal1 from "../components/Modal/Modal";
+import Modal from "../components/Modal/Modal";
 import EditModal from "../components/Modal/EditModal";
 import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
@@ -449,7 +449,7 @@ const Main = () => {
         setFormattedDate={setFormattedDate}
         activeType={activeType} // activeType을 props로 전달합니다.
       />
-      {showModal && <Modal1 show={showModal} onModalClose={handleModalClose} />}
+      {showModal && <Modal show={showModal} onModalClose={handleModalClose} />}
       {showExcelUploadModal && (
         <ExcelUploadModal
           show={showExcelUploadModal}

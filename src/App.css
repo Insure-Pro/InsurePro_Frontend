@@ -656,7 +656,7 @@ body {
 .modal-style {
   background-color: white;
   width: 352px;
-  height: 600px;
+  /* height: 600px; */
   margin-top: 60px;
   padding-left: 0px !important;
   position: fixed;

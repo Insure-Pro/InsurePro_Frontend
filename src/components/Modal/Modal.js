@@ -65,9 +65,11 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   const state = useRef("");
 
   const [phoneNumber, setPhoneNumber] = useState("");
-
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [modalHeight, setModalHeight] = useState("600px");
 
   const customerTypeColors = {
     OD: "var(--colorN-1)",
@@ -190,10 +192,41 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
-
+  // 전화번호 형식을 검증하는 함수
+  const isValidPhoneNumber = (phoneNumber) => {
+    // 전화번호 형식: '010-xxxx-xxxx', '010xxxxxxx', '010.xxx.xxxx.xxxx' 등을 허용
+    const regex =
+      /^01[0-9]-?([0-9]{4})-?([0-9]{4})$|^01[0-9]\.?([0-9]{4})\.?([0-9]{4})$/;
+    return regex.test(phoneNumber);
+  };
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
+    }
+    // 에러 메시지 및 모달 높이 초기화
+    setErrorMessage("");
+    setModalHeight("600px");
+    // 필수 입력 사항 검사
+    if (!selectedCustomerType) {
+      setErrorMessage("고객유형이 선택되지 않았습니다.");
+      setModalHeight("630px");
+      return;
+    } else if (!nameInput) {
+      setErrorMessage("고객이름이 입력되지 않았습니다.");
+      setModalHeight("630px");
+      return;
+    } else if (!phoneInput) {
+      setErrorMessage("전화번호가 입력되지 않았습니다.");
+      setModalHeight("630px");
+      return;
+    } else if (!selectedCustomerType && !nameInput && !phoneInput) {
+      setErrorMessage("필수입력사항을 입력해주세요.");
+      setModalHeight("630px");
+    } else if (!isValidPhoneNumber(phoneInput)) {
+      setErrorMessage("올바른 전화번호 형식이 아닙니다.");
+      setModalHeight("630px");
+    } else {
+      setErrorMessage(""); // 에러 메시지 초기화
     }
 
     if (!customerType.current) {
@@ -286,6 +319,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
         }
       });
   };
+
   return (
     <>
       <Modal
@@ -293,6 +327,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
         show={show}
         onHide={handleClose}
         onExited={onModalClose}
+        style={{ height: modalHeight }} // 모달 높이 동적 조절
       >
         <div
           className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal"
@@ -594,17 +629,19 @@ function Modal1({ show, onModalOpen, onModalClose }) {
               />
             </div>
 
-            <Modal.Footer>
-              {/* <Button variant="secondary" onClick={handleClose}>
-                취소
-              </Button> */}
+            <div>
+              {errorMessage && (
+                <div className="mb-[14px] text-center text-xs font-bold text-Danger-600">
+                  {errorMessage}
+                </div>
+              )}
               <button
                 class="flex h-[40px] w-[280px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
                 type="submit"
               >
                 등록
               </button>
-            </Modal.Footer>
+            </div>
           </Form>
         </div>
       </Modal>
