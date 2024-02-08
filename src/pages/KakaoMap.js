@@ -798,9 +798,14 @@ const KakaoMap = () => {
           style={{
             borderRight: isLoading ? "none" : "1px solid var(--gray-150)",
             width: "33%",
-            height: "100vh",
+            height: "95vh",
             minWidth: "300px",
-            overflowY: "auto",
+            overflowX: "hidden",
+            overflowY: isSearchMode
+              ? "auto"
+              : hasVisibleCustomers
+                ? "auto"
+                : "hidden",
             position: "relative",
           }}
         >
@@ -835,7 +840,7 @@ const KakaoMap = () => {
           ) : hasVisibleCustomers ? (
             visibleCustomers.map(renderCustomerItem)
           ) : (
-            <div class="flex h-[700px] items-center justify-center text-sm">
+            <div class="flex h-full items-center justify-center overflow-hidden text-sm">
               {" "}
               현 위치에 해당하는 고객정보가 없습니다.
             </div>
@@ -893,8 +898,7 @@ const KakaoMap = () => {
               width: "100%", // Use full width of the container
               height: "100%", // Use full height of the container
               position: "relative",
-              zIndex: 1,
-              // border: "1px solid #C9CAC9",
+              zIndex: 0,
             }}
           ></div>
           {isDetailVisible && viewState === "list" ? (
