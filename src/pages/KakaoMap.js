@@ -27,6 +27,8 @@ const KakaoMap = () => {
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
   const check_on = process.env.PUBLIC_URL + "/check_on_8.png";
   const check_off = process.env.PUBLIC_URL + "/check_off_8.png";
+  const blue_circle = process.env.PUBLIC_URL + "/Map_Blue.png";
+  const Red_circle = process.env.PUBLIC_URL + "/Map_Red.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
