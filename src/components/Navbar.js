@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -84,27 +84,23 @@ const Navbar = ({
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    } else {
-      try {
-        const response = await axios.post(`${MAIN_URL}/logout`, null, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
+    try {
+      const response = await axios.post(`${MAIN_URL}/logout`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
-        if (response.status === 200) {
-          localStorage.removeItem("accessToken"); // Remove access token
-          localStorage.removeItem("refreshToken"); // Remove refresh token
-          dispatch(logoutSuccess()); // Dispatch logoutSuccess action
-          navigate("/login"); // Redirect to login page
-        }
-      } catch (error) {
-        console.error("Logout failed", error);
-        if (error.response && error.response.data) {
-          console.error("Error message:", error.response.data.message);
-        }
+      if (response.status === 200) {
+        localStorage.removeItem("accessToken"); // Remove access token
+        localStorage.removeItem("refreshToken"); // Remove refresh token
+        dispatch(logoutSuccess()); // Dispatch logoutSuccess action
+        navigate("/login"); // Redirect to login page
+      }
+    } catch (error) {
+      console.error("Logout failed", error);
+      if (error.response && error.response.data) {
+        console.error("Error message:", error.response.data.message);
       }
     }
   };
@@ -209,6 +205,37 @@ const Navbar = ({
     dispatch(setSearchOff()); // Dispatch setSearchOff action to hide the Search component
   };
 
+  //로그인 상태에서 마이페이지 아이콘 클릭시 로그아웃 버튼
+  const [showLogoutButton, setShowLogoutButton] = useState(false); // 로그아웃 버튼 표시 상태
+
+  const logoutButtonRef = useRef(null); // 로그아웃 버튼 참조
+
+  // 마이페이지 아이콘 클릭 핸들러 수정
+  const handleMypageClick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      setShowLogoutButton(!showLogoutButton); // 로그아웃 버튼 토글
+    }
+  };
+
+  // 외부 클릭 감지를 위한 이벤트 핸들러
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        logoutButtonRef.current &&
+        !logoutButtonRef.current.contains(event.target)
+      ) {
+        setShowLogoutButton(false); // 외부 클릭 시 로그아웃 버튼 숨김
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [logoutButtonRef]);
+
   return (
     <>
       <div
@@ -289,8 +316,17 @@ const Navbar = ({
                 <img src={search} onClick={handleSearchToggle} />
               </div>
             )}
-            <div className="cursor-pointer pt-1">
-              <img src={mypage} onClick={handleLogout} />
+            <div className="cursor-pointer pt-1" ref={logoutButtonRef}>
+              {/* <img src={mypage} onClick={handleLogout} /> */}
+              <img src={mypage} onClick={handleMypageClick} />
+              {showLogoutButton && (
+                <div
+                  className="absolute right-3 top-14 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover"
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </div>
+              )}
             </div>
           </div>
         </div>
