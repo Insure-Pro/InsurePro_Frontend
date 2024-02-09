@@ -23,6 +23,8 @@ const KakaoMap = () => {
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
+  const marker_blue2 = process.env.PUBLIC_URL + "/marker_blue2.png";
+  const marker_red2 = process.env.PUBLIC_URL + "/marker_red2.png";
   const search_white = process.env.PUBLIC_URL + "/search_white.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
@@ -148,18 +150,6 @@ const KakaoMap = () => {
       window.kakao.maps.ControlPosition.RIGHT,
     );
 
-    const markerImageBlue = new window.kakao.maps.MarkerImage(
-      marker_blue,
-      new window.kakao.maps.Size(21, 28),
-      { offset: new window.kakao.maps.Point(27, 69) },
-    );
-
-    const markerImageRed = new window.kakao.maps.MarkerImage(
-      marker_red,
-      new window.kakao.maps.Size(21, 28),
-      { offset: new window.kakao.maps.Point(27, 69) },
-    );
-
     const groupCustomersByLocation = (customers) => {
       const grouped = {};
       customers.forEach((customer) => {
@@ -203,6 +193,33 @@ const KakaoMap = () => {
                       ? (numberOfCustomers - 1) * 32 + 110
                       : 110; // Calculate marginBottom based on number of customers
                   //62 3개짜리 112 2개짜리 110 1개짜리
+
+                  const markerImageBlue =
+                    numberOfCustomers > 1
+                      ? new window.kakao.maps.MarkerImage(
+                          marker_blue2,
+                          new window.kakao.maps.Size(21, 28),
+                          { offset: new window.kakao.maps.Point(27, 69) },
+                        )
+                      : new window.kakao.maps.MarkerImage(
+                          marker_blue,
+                          new window.kakao.maps.Size(21, 28),
+                          { offset: new window.kakao.maps.Point(27, 69) },
+                        );
+
+                  const markerImageRed =
+                    numberOfCustomers > 1
+                      ? new window.kakao.maps.MarkerImage(
+                          marker_red2,
+                          new window.kakao.maps.Size(21, 28),
+                          { offset: new window.kakao.maps.Point(27, 69) },
+                        )
+                      : new window.kakao.maps.MarkerImage(
+                          marker_red,
+                          new window.kakao.maps.Size(21, 28),
+                          { offset: new window.kakao.maps.Point(27, 69) },
+                        );
+
                   // 여러 고객 정보를 포함하는 오버레이 내용 생성
                   let content = `<div class="custom-overlay" style="margin-top: -${marginBottomValue}px;"  >`;
                   customersGroup.forEach((customer, index) => {
@@ -232,19 +249,32 @@ const KakaoMap = () => {
                     "click",
                     function () {
                       // 모든 마커의 이미지를 초기화    // If there's a previously selected marker, reset its image to blue
+                      // Reset the image of any previously selected marker
                       if (selectedMarkerRef.current) {
+                        const prevNumberOfCustomers =
+                          selectedMarkerRef.current.customersGroup.length;
+                        const prevMarkerImage =
+                          prevNumberOfCustomers > 1
+                            ? marker_blue2
+                            : marker_blue;
                         selectedMarkerRef.current.setImage(
                           new window.kakao.maps.MarkerImage(
-                            marker_blue,
+                            prevMarkerImage,
                             new window.kakao.maps.Size(21, 28),
                             { offset: new window.kakao.maps.Point(27, 69) },
                           ),
                         );
                       }
-                      // Set the clicked marker's image to red
+
+                      // Determine the number of customers associated with the clicked marker
+                      const numberOfCustomers = marker.customersGroup.length;
+                      const clickedMarkerImage =
+                        numberOfCustomers > 1 ? marker_red2 : marker_red;
+
+                      // Set the clicked marker's image
                       marker.setImage(
                         new window.kakao.maps.MarkerImage(
-                          marker_red,
+                          clickedMarkerImage,
                           new window.kakao.maps.Size(21, 28),
                           { offset: new window.kakao.maps.Point(27, 69) },
                         ),
@@ -311,6 +341,18 @@ const KakaoMap = () => {
                     yAnchor: 3.4, // Adjust this to position the tooltip above the marker
                     zIndex: 3,
                   });
+                  // 고객 수가 2명 이상일 경우, CustomOverlay로 고객 수 표시
+                  if (numberOfCustomers > 1) {
+                    const content = `<div style="color: white; width:30px; height:13px; display:flex; justify-content:center; text-align: center; font-size: 12px; font-weight: bold;">${numberOfCustomers}</div>`;
+                    const customOverlay = new window.kakao.maps.CustomOverlay({
+                      content: content,
+                      position: coords,
+                      xAnchor: 1.07,
+                      yAnchor: 5, // 마커 위에 표시되도록 조정
+                      zIndex: 4,
+                    });
+                    customOverlay.setMap(mapRef.current);
+                  }
 
                   // Adding an event listener to the map container for delegation
                   document.getElementById("map").addEventListener(
@@ -414,12 +456,17 @@ const KakaoMap = () => {
     if (marker) {
       mapRef.current.panTo(marker.getPosition());
 
+      const numberOfCustomers = marker.customersGroup.length;
+      const markerImageBlue =
+        numberOfCustomers > 1 ? marker_blue2 : marker_blue;
+      const markerImageRed = numberOfCustomers > 1 ? marker_red2 : marker_red;
+
       // Deselect if the same customer is clicked again
       if (selectedMarkerRef.current === marker) {
         // Toggle off, set all markersRef.current to blue
         marker.setImage(
           new window.kakao.maps.MarkerImage(
-            marker_blue, // Assuming marker_blue is the URL or path to the blue marker image
+            markerImageBlue, // Assuming marker_blue is the URL or path to the blue marker image
             new window.kakao.maps.Size(21, 28),
             { offset: new window.kakao.maps.Point(27, 69) },
           ),
@@ -437,7 +484,7 @@ const KakaoMap = () => {
         if (selectedMarkerRef.current) {
           selectedMarkerRef.current.setImage(
             new window.kakao.maps.MarkerImage(
-              marker_blue,
+              markerImageBlue,
               new window.kakao.maps.Size(21, 28),
               { offset: new window.kakao.maps.Point(27, 69) },
             ),
@@ -447,7 +494,7 @@ const KakaoMap = () => {
         // Select new marker, set to red
         marker.setImage(
           new window.kakao.maps.MarkerImage(
-            marker_red, // Assuming marker_red is the URL or path to the red marker image
+            markerImageRed, // Assuming marker_red is the URL or path to the red marker image
             new window.kakao.maps.Size(21, 28),
             { offset: new window.kakao.maps.Point(27, 69) },
           ),
@@ -509,16 +556,22 @@ const KakaoMap = () => {
       });
 
       // Initialize all markersRef.current to a blue marker
+      // 모든 마커를 기본적으로 파란색으로 초기화하고, 고객 수에 따라 이미지 변경
       markersRef.current.forEach((marker) => {
+        const numberOfCustomers = marker.customersGroup
+          ? marker.customersGroup.length
+          : 0;
+        const appropriateMarkerImage =
+          numberOfCustomers > 1 ? marker_blue2 : marker_blue;
+
         marker.setImage(
           new window.kakao.maps.MarkerImage(
-            marker_blue, // Make sure marker_blue is the correct variable for your blue marker image
+            appropriateMarkerImage, // 고객 수에 따라 선택된 이미지
             new window.kakao.maps.Size(21, 28),
             { offset: new window.kakao.maps.Point(27, 69) },
           ),
         );
       });
-
       //커스텀 오버레이 초기화
       if (currentOpenOverlay) {
         currentOpenOverlay.setMap(null);
