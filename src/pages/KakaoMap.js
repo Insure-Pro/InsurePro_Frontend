@@ -15,9 +15,10 @@ const KakaoMap = () => {
     lng: 129.05562775, // Default longitude (Busan City Hall)
   });
   const [locationObtained, setLocationObtained] = useState(false);
-  const [markers, setMarkers] = useState([]); // New state for storing marker objects
-  const [selectedMarker, setSelectedMarker] = useState(null); // 클릭한 마커 색 변경 관리
-
+  // const [markersRef.current, setMarkers] = useState([]); // New state for storing marker objects
+  const markersRef = useRef([]); // 마커를 저장할 ref 생성
+  // const [selectedMarker, setSelectedMarker] = useState(null); // 클릭한 마커 색 변경 관리
+  const selectedMarkerRef = useRef(null); // 선택된 마커를 저장할 ref
   const [currentOpenOverlay, setCurrentOpenOverlay] = useState(null); //현 지도 검색 시 커스텀 오버레이 상태관리
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
@@ -222,15 +223,35 @@ const KakaoMap = () => {
                   // This approach stores the entire customer group in the marker for later use
                   marker.customersGroup = customersGroup; // Attach the customers data to the marker
 
-                  setMarkers((prevMarkers) => [...prevMarkers, marker]);
+                  // setMarkers((prevMarkers) => [...prevMarkers, marker]);
+                  markersRef.current = [...markersRef.current, marker];
                   marker.setTitle(String(customersGroup.pk));
 
                   window.kakao.maps.event.addListener(
                     marker,
                     "click",
                     function () {
-                      // 모든 마커의 이미지를 초기화
-                      // markers.forEach((m) => m.setImage(markerImageBlue));
+                      // 모든 마커의 이미지를 초기화    // If there's a previously selected marker, reset its image to blue
+                      if (selectedMarkerRef.current) {
+                        selectedMarkerRef.current.setImage(
+                          new window.kakao.maps.MarkerImage(
+                            marker_blue,
+                            new window.kakao.maps.Size(21, 28),
+                            { offset: new window.kakao.maps.Point(27, 69) },
+                          ),
+                        );
+                      }
+                      // Set the clicked marker's image to red
+                      marker.setImage(
+                        new window.kakao.maps.MarkerImage(
+                          marker_red,
+                          new window.kakao.maps.Size(21, 28),
+                          { offset: new window.kakao.maps.Point(27, 69) },
+                        ),
+                      );
+
+                      // Update the selectedMarker reference
+                      selectedMarkerRef.current = marker; // 현재 마커를 선택된 마커로 저장
                       //마커 클릭 시 MapCustomerDetail 컴포넌트 보이도록
                       if (marker.customersGroup.length > 0) {
                         setSelectedCustomerPk(marker.customersGroup[0].pk); // Example: Use the first customer's PK
@@ -384,7 +405,7 @@ const KakaoMap = () => {
   const [allCustomerCoords, setAllCustomerCoords] = useState([]);
 
   const handleCustomerClick = (customer) => {
-    const marker = markers.find(
+    const marker = markersRef.current.find(
       (m) =>
         m.customersGroup && m.customersGroup.some((c) => c.pk === customer.pk),
     );
@@ -394,8 +415,8 @@ const KakaoMap = () => {
       mapRef.current.panTo(marker.getPosition());
 
       // Deselect if the same customer is clicked again
-      if (selectedCustomerPk === customer.pk) {
-        // Toggle off, set all markers to blue
+      if (selectedMarkerRef.current === marker) {
+        // Toggle off, set all markersRef.current to blue
         marker.setImage(
           new window.kakao.maps.MarkerImage(
             marker_blue, // Assuming marker_blue is the URL or path to the blue marker image
@@ -403,17 +424,18 @@ const KakaoMap = () => {
             { offset: new window.kakao.maps.Point(27, 69) },
           ),
         );
-        setSelectedCustomerPk(null); // Deselect
+        setSelectedCustomerPk(null);
+        selectedMarkerRef.current = null; // 선택 해제
         setIsDetailVisible(false); // Optionally close detail view
       } else {
         // Set previously selected marker back to blue
-        const previousMarker = markers.find(
-          (m) =>
-            m.customersGroup &&
-            m.customersGroup.some((c) => c.pk === selectedCustomerPk),
-        );
-        if (previousMarker) {
-          previousMarker.setImage(
+        // const previousMarker = markersRef.current.find(
+        //   (m) =>
+        //     m.customersGroup &&
+        //     m.customersGroup.some((c) => c.pk === selectedCustomerPk),
+        // );
+        if (selectedMarkerRef.current) {
+          selectedMarkerRef.current.setImage(
             new window.kakao.maps.MarkerImage(
               marker_blue,
               new window.kakao.maps.Size(21, 28),
@@ -431,6 +453,7 @@ const KakaoMap = () => {
           ),
         );
         setSelectedCustomerPk(customer.pk); // Select new
+        selectedMarkerRef.current = marker; // 마커 선택
         setIsDetailVisible(true); // Optionally open detail view
       }
     }
@@ -485,8 +508,8 @@ const KakaoMap = () => {
         );
       });
 
-      // Initialize all markers to a blue marker
-      markers.forEach((marker) => {
+      // Initialize all markersRef.current to a blue marker
+      markersRef.current.forEach((marker) => {
         marker.setImage(
           new window.kakao.maps.MarkerImage(
             marker_blue, // Make sure marker_blue is the correct variable for your blue marker image
