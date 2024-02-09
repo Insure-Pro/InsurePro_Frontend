@@ -352,7 +352,15 @@ const KakaoMap = () => {
                       zIndex: 4,
                     });
                     customOverlay.setMap(mapRef.current);
+                    // 마커에 커스텀 오버레이 참조 저장
+                    marker.customOverlay = customOverlay;
                   }
+
+                  // 클러스터에 마커 추가
+                  clusterer.addMarker(marker);
+                  // 클러스터 클릭 이벤트 리스너 내에서 커스텀 오버레이 숨기기 로직은 제거
+                  // 이유: 클러스터를 클릭했을 때 이미 클러스터링되어 있으므로,
+                  // 여기서는 클러스터링 발생 시 마커의 오버레이를 숨기는 것이 목표임
 
                   // Adding an event listener to the map container for delegation
                   document.getElementById("map").addEventListener(
