@@ -8,6 +8,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
+import Swal from "sweetalert2";
 
 function Modal1({ show, onModalOpen, onModalClose }) {
   // const [show, setShow] = useState(false);
@@ -284,7 +285,18 @@ function Modal1({ show, onModalOpen, onModalClose }) {
       })
       .then((response) => {
         if (response.status === 201) {
-          alert("신규고객 등록이 완료되었습니다.");
+          Swal.fire({
+            html:
+              "<div style='text-align: left; font-size:16px;'>" +
+              "신규고객 등록이 완료되었습니다..<br><br>" +
+              "</div>",
+            // width: "700px",
+            timer: 3500,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            position: "top", // Position the alert near the top of the screen
+          });
+          // alert("신규고객 등록이 완료되었습니다.");
           // setShow(false);
           // onModalClose(); // 모달이 닫힐 때 새로고침 상태 변경
           resetStates(); // 입력 상태 초기화

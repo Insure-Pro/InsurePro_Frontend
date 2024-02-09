@@ -7,6 +7,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
+import Swal from "sweetalert2";
 
 const EditModal = ({
   onClose,
@@ -201,7 +202,18 @@ const EditModal = ({
       );
       // 데이터 업데이트 후 Main.js의 fetchData 함수를 호출하기 위해 onClose를 실행
       if (response.status === 200) {
-        alert("고객정보 수정 등록이 완료되었습니다.");
+        Swal.fire({
+          html:
+            "<div style='text-align: left; font-size:16px;'>" +
+            "고객정보 수정이 완료되었습니다.<br><br>" +
+            "</div>",
+          // width: "700px",
+          timer: 3500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+          position: "top", // Position the alert near the top of the screen
+        });
+
         onClose();
       }
       onHide(); // Close the modal

@@ -9,6 +9,7 @@ import Search from "./Search";
 import DateChangeAModal from "./Modal/DateChangeAModal";
 import { toggleSearch } from "../redux/searchSlice";
 import { setSearchOff } from "../redux/searchSlice";
+import Swal from "sweetalert2";
 
 const Navbar = ({
   onAllCustomersClick,
@@ -92,6 +93,17 @@ const Navbar = ({
       });
 
       if (response.status === 200) {
+        Swal.fire({
+          html:
+            "<div style='text-align: left; font-size:16px;'>" +
+            "로그아웃 되었습니다..<br><br>" +
+            "</div>",
+          // width: "700px",
+          timer: 3500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+          position: "top", // Position the alert near the top of the screen
+        });
         localStorage.removeItem("accessToken"); // Remove access token
         localStorage.removeItem("refreshToken"); // Remove refresh token
         dispatch(logoutSuccess()); // Dispatch logoutSuccess action
