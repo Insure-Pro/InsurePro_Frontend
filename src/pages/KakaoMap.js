@@ -343,7 +343,7 @@ const KakaoMap = () => {
                   });
                   // 고객 수가 2명 이상일 경우, CustomOverlay로 고객 수 표시
                   if (numberOfCustomers > 1) {
-                    const content = `<div style="color: white; width:30px; height:13px; display:flex; justify-content:center; text-align: center; font-size: 12px; font-weight: bold;">${numberOfCustomers}</div>`;
+                    const content = `<div style="color: white; width:30px; height:13px; display:flex; cursor: pointer; justify-content:center; text-align: center; font-size: 12px; font-weight: bold;">${numberOfCustomers}</div>`;
                     const customOverlay = new window.kakao.maps.CustomOverlay({
                       content: content,
                       position: coords,
@@ -354,6 +354,14 @@ const KakaoMap = () => {
                     customOverlay.setMap(mapRef.current);
                     // 마커에 커스텀 오버레이 참조 저장
                     marker.customOverlay = customOverlay;
+
+                    // 커스텀 오버레이의 컨텐츠에 직접 접근하여 클릭 이벤트 리스너 추가
+                    const overlayElement = customOverlay.a; // a는 CustomOverlay의 내부 DOM 요소를 참조하는 프로퍼티입니다. API 버전에 따라 다를 수 있습니다.
+                    overlayElement.addEventListener("click", function () {
+                      // 여기에 클릭 이벤트가 발생했을 때 실행할 로직을 추가
+                      // 예: 마커 클릭 이벤트 트리거, 특정 함수 호출 등
+                      window.kakao.maps.event.trigger(marker, "click");
+                    });
                   }
 
                   // 클러스터에 마커 추가
