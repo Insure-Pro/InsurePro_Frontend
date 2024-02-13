@@ -393,6 +393,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
                             let isValid = true;
                             let isEmpty = cellData === "";
+                            let isMandatory = false; // 필수 항목인지 여부를 결정하는 플래그
+
                             // let displayData = cellData;
                             // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
                             switch (cellIndex) {
@@ -401,8 +403,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 baseClassName = "td-db-date";
                                 break;
                               case 1:
-                                isValid = isEmpty || isValidName(cellData);
-
+                                isValid = isValidName(cellData);
+                                isMandatory = true; // 이름은 필수 항목
                                 baseClassName = "td-name";
                                 break;
                               case 2:
@@ -424,7 +426,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                   isValid: isContactValid,
                                 } = formatAndValidateContact(cellData);
                                 cellData = formattedContact; // Use the possibly formatted number
-                                isValid = isEmpty || isContactValid; // Use the validation result
+                                isValid = isContactValid; // Use the validation result
+                                isMandatory = true; // 연락처는 필수 항목
                                 baseClassName = "td-contact";
                                 break;
                               case 6:
@@ -440,10 +443,17 @@ const ExcelUploadModal = ({ show, onHide }) => {
                               default:
                                 baseClassName = "";
                             }
+                            // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
+                            if (isMandatory && isEmpty) {
+                              isValid = false;
+                            }
+
                             // Append 'cell-invalid' class if data is invalid
                             let className = `${baseClassName} ${
-                              isEmpty ? "bg-Secondary-50/80" : ""
-                            } ${!isValid && !isEmpty ? "cell-invalid" : ""}`;
+                              isEmpty && !isMandatory
+                                ? "bg-Secondary-50/80"
+                                : ""
+                            } ${!isValid ? "cell-invalid" : ""}`;
 
                             return (
                               <td key={cellIndex} className={className.trim()}>
