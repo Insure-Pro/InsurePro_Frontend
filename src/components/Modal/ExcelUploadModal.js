@@ -458,7 +458,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                               let baseClassName;
 
                               let isValid = true;
-                              let isEmpty = cellData === "";
+                              let isEmpty = cellData.toString().trim() === ""; // 공백만 있는 경우도 빈 값으로 처리
                               let isMandatory = false; // 필수 항목인지 여부를 결정하는 플래그
 
                               // let displayData = cellData;
