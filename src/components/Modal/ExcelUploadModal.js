@@ -35,6 +35,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
       const wb = XLSX.read(bstr, { type: "binary" });
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
+      // raw 옵션을 false로 설정하면, 라이브러리가 셀의 값을 원시 형식으로 변환하지 않고, 사용자가 직접 처리할 수 있도록 함
+      // const data = XLSX.utils.sheet_to_json(ws, {
+      //   header: 1,
+      //   raw: false,
+      //   defval: "",
+      // });
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
       setExcelData(data);
     };
@@ -52,25 +58,55 @@ const ExcelUploadModal = ({ show, onHide }) => {
     setIsNextClicked(false); // Set state when 'Next' is clicked
   };
 
+  // isRowNotEmpty 함수를 컴포넌트 바깥쪽 혹은 렌더링 로직 전에 정의합니다.
+  const isRowNotEmpty = (row) => row.some((cell) => cell);
+
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
   const formatCustomerData = (rowData) => {
     // Mapping Excel data to API format
     // 각 필드에 대해 값이 undefined, null, 또는 빈 문자열인 경우 ""로 대체
     return {
-      registerDate: rowData[0] || "",
-      name: rowData[1] || "",
-      customerType: rowData[2] || "",
-      birth: rowData[3] || "",
-      age: rowData[4] || "",
-      phone: rowData[5] || "",
-      dongString: rowData[6] || "", // 이미 잘 처리되고 있는 것으로 가정
-      memo: rowData[7] || "",
-      state: rowData[8] || "",
+      registerDate:
+        rowData[0] && typeof rowData[0] === "string"
+          ? formatDate(rowData[0].trim())
+          : "",
+      name:
+        rowData[1] && typeof rowData[1] === "string" ? rowData[1].trim() : "",
+      customerType:
+        rowData[2] && typeof rowData[2] === "string" ? rowData[2].trim() : "",
+      birth:
+        rowData[3] && typeof rowData[3] === "string" ? rowData[3].trim() : "",
+      age: rowData[4] ? rowData[4].toString().trim() : "", // 나이는 숫자일 수 있음, 문자열로 변환 후 처리
+      phone:
+        rowData[5] && typeof rowData[5] === "string"
+          ? formatAndValidateContact(rowData[5].trim()).formattedContact
+          : "",
+      dongString:
+        rowData[6] && typeof rowData[6] === "string" ? rowData[6].trim() : "",
+      memo:
+        rowData[7] && typeof rowData[7] === "string" ? rowData[7].trim() : "",
+      state:
+        rowData[8] && typeof rowData[8] === "string" ? rowData[8].trim() : "",
     };
   };
   const handleSubmit = async () => {
-    const customerData = excelData.slice(1).map(formatCustomerData); // Skip the header row
+    // const customerData = excelData.slice(1).map(formatCustomerData);
+    // Skip the header row
+    // 전처리 및 유효성 검사를 통과한 데이터만 필터링
+    const filteredAndFormattedData = excelData
+      .slice(1)
+      .map((row) => formatCustomerData(row))
+      .filter((rowData) => {
+        // rowData의 모든 필드가 비어 있지 않은지 확인
+        const isNotEmpty = Object.values(rowData).some((value) => value !== "");
+        // 여기에 추가적인 유효성 검사 로직을 적용할 수 있음
+        return isNotEmpty;
+      });
 
+    if (filteredAndFormattedData.length === 0) {
+      console.error("No valid data to submit");
+      return; // 유효한 데이터가 없으면 여기서 함수 종료
+    }
     try {
       const response = await fetch(`${MAIN_URL}/customers`, {
         method: "POST",
@@ -78,7 +114,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-        body: JSON.stringify(customerData),
+        body: JSON.stringify(filteredAndFormattedData),
       });
 
       if (response.status === 201) {
@@ -102,9 +138,31 @@ const ExcelUploadModal = ({ show, onHide }) => {
   };
 
   // 컬럼 0: 'Db분배일'에 대한 유효성 검사 (날짜 검증)
-  const isValidDbDate = (dateString) => {
-    const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
-    return cleanString.startsWith("202") && cleanString.length === 8;
+  // const isValidDbDate = (dateString) => {
+  //   const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
+  //   return cleanString.startsWith("202") && cleanString.length === 8;
+  // };
+  // 날짜 데이터를 'YYYY-MM-DD' 형식으로 변환하는 함수
+  const formatDate = (dateStr) => {
+    if (!dateStr) return ""; // dateStr이 undefined, null, 또는 빈 문자열일 경우 빈 문자열 반환
+
+    // 모든 비숫자 제거 후 YYYYMMDD 형식으로 예상
+    const cleanDateStr = dateStr.replace(/\D/g, "");
+
+    // Expecting 'YYYYMMDD' after cleanup
+    if (cleanDateStr.length === 8) {
+      return `${cleanDateStr.slice(0, 4)}-${cleanDateStr.slice(
+        4,
+        6,
+      )}-${cleanDateStr.slice(6, 8)}`;
+    }
+    // 다른 형식 처리 또는 비표준 입력에 대해 원본 문자열 반환
+    return dateStr;
+  };
+  // Validate the date format to be 'YYYY-MM-DD'
+  const isValidDbDate = (dateStr) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(formatDate(dateStr));
   };
 
   // 컬럼 1: '이름'에 대한 유효성 검사 (한글만 허용)
@@ -129,13 +187,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
   // 컬럼 5: '연락처'에 대한 전처리 및 유효성 검사
   const formatAndValidateContact = (contact) => {
-    // 문자열로 변환하여 trim()과 같은 문자열 메소드를 안전하게 사용
-    let contactStr = String(contact);
+    // 입력 값이 undefined이거나 빈 문자열인 경우, 즉시 반환
+    const trimmedContact = contact?.trim(); //입력된 연락처가 공백만 있는 경우 빈 문자열("")로 처리
+    if (!trimmedContact) return { formattedContact: "", isValid: true };
 
-    // 빈 문자열일 경우 즉시 유효하다고 간주하고 변경하지 않음
-    if (contactStr.trim() === "") {
-      return { formattedContact: "", isValid: true };
-    }
+    // 문자열로 변환하여 trim()과 같은 문자열 메소드를 안전하게 사용
+    let contactStr = String(contact).trim();
 
     // 일반적인 구분자와 공백을 제거하여 입력을 정규화
     let normalizedContact = contactStr.replace(/[\.\-\/\s]/g, "");
@@ -178,8 +235,23 @@ const ExcelUploadModal = ({ show, onHide }) => {
       "대전",
       "울산",
       "세종",
+      "양산",
+      "경남",
+      "경북",
     ];
-    const validEndings = ["시", "도", "군", "구", "동", "읍", "면", "리"];
+    const validEndings = [
+      "시",
+      "도",
+      "군",
+      "구",
+      "동",
+      "읍",
+      "면",
+      "리",
+      "로",
+      "대로",
+      "길",
+    ];
 
     // 도시 이름을 포함하는지 검사
     const containsValidCity = validCities.some((city) =>
@@ -365,105 +437,110 @@ const ExcelUploadModal = ({ show, onHide }) => {
                 </div>
                 <div class=" h-[220px] overflow-x-hidden overflow-y-scroll">
                   <tbody class=" w-full  text-[11px]">
-                    {/* {excelData.slice(1).map((row, index) => {
-                      // J열부터 O열까지 해당하는 인덱스를 제외하고 나머지 데이터만 선택
-                      const filteredRow = [
-                        ...row.slice(0, 9),
-                        ...row.slice(15),
-                      ];
+                    {excelData
+                      .slice(1)
+                      .filter(isRowNotEmpty)
+                      .map((row, rowIndex) => {
+                        return (
+                          <tr
+                            className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
+                            key={rowIndex}
+                          >
+                            {Array.from({ length: 9 }).map((_, cellIndex) => {
+                              // Ensure 9 columns for each row
+                              // Check if data exists for this column, else render empty
+                              let cellData =
+                                row[cellIndex] !== undefined
+                                  ? row[cellIndex]
+                                  : "";
 
-                      // Check if the first column's data is valid
-                      const isFirstColumnValid = isValidDate(row[0]); */}
-                    {excelData.slice(1).map((row, rowIndex) => {
-                      return (
-                        <tr
-                          className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
-                          key={rowIndex}
-                        >
-                          {Array.from({ length: 9 }).map((_, cellIndex) => {
-                            // Ensure 9 columns for each row
-                            // Check if data exists for this column, else render empty
-                            let cellData =
-                              row[cellIndex] !== undefined
-                                ? row[cellIndex]
-                                : "";
+                              // Initial class name based on column index
+                              let baseClassName;
 
-                            // Initial class name based on column index
-                            let baseClassName;
+                              let isValid = true;
+                              let isEmpty = cellData === "";
+                              let isMandatory = false; // 필수 항목인지 여부를 결정하는 플래그
 
-                            let isValid = true;
-                            let isEmpty = cellData === "";
-                            let isMandatory = false; // 필수 항목인지 여부를 결정하는 플래그
+                              // let displayData = cellData;
+                              // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
+                              switch (cellIndex) {
+                                case 0:
+                                  // Transform and validate the date format directly
+                                  const transformedDate = formatDate(
+                                    cellData.toString(),
+                                  );
+                                  cellData = transformedDate; // Use the transformed date for display
+                                  isValid =
+                                    isEmpty || isValidDbDate(transformedDate); // Validate the transformed date
+                                  baseClassName = "td-db-date";
+                                  break;
+                                case 1:
+                                  isValid = isValidName(cellData);
+                                  isMandatory = true; // 이름은 필수 항목
+                                  baseClassName = "td-name";
+                                  break;
+                                case 2:
+                                  isValid =
+                                    isEmpty || isValidCustomerType(cellData);
+                                  baseClassName = "td-customer-type";
+                                  break;
+                                case 3:
+                                  isValid =
+                                    isEmpty || isValidBirthDate(cellData);
+                                  baseClassName = "td-birth";
+                                  break;
+                                case 4:
+                                  isValid = isEmpty || isValidAge(cellData);
+                                  baseClassName = "td-age";
+                                  break;
+                                case 5:
+                                  const {
+                                    formattedContact,
+                                    isValid: isContactValid,
+                                  } = formatAndValidateContact(cellData);
+                                  cellData = formattedContact; // Use the possibly formatted number
+                                  isValid = isContactValid; // Use the validation result
+                                  isMandatory = true; // 연락처는 필수 항목
+                                  baseClassName = "td-contact";
+                                  break;
+                                case 6:
+                                  isValid =
+                                    isEmpty || isValidResidence(cellData);
+                                  baseClassName = "td-residence";
+                                  break;
+                                case 7:
+                                  baseClassName = "td-special-note";
+                                  break;
+                                case 8:
+                                  baseClassName = "td-state";
+                                  break;
+                                default:
+                                  baseClassName = "";
+                              }
+                              // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
+                              if (isMandatory && isEmpty) {
+                                isValid = false;
+                              }
 
-                            // let displayData = cellData;
-                            // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
-                            switch (cellIndex) {
-                              case 0:
-                                isValid = isEmpty || isValidDbDate(cellData);
-                                baseClassName = "td-db-date";
-                                break;
-                              case 1:
-                                isValid = isValidName(cellData);
-                                isMandatory = true; // 이름은 필수 항목
-                                baseClassName = "td-name";
-                                break;
-                              case 2:
-                                isValid =
-                                  isEmpty || isValidCustomerType(cellData);
-                                baseClassName = "td-customer-type";
-                                break;
-                              case 3:
-                                isValid = isEmpty || isValidBirthDate(cellData);
-                                baseClassName = "td-birth";
-                                break;
-                              case 4:
-                                isValid = isEmpty || isValidAge(cellData);
-                                baseClassName = "td-age";
-                                break;
-                              case 5:
-                                const {
-                                  formattedContact,
-                                  isValid: isContactValid,
-                                } = formatAndValidateContact(cellData);
-                                cellData = formattedContact; // Use the possibly formatted number
-                                isValid = isContactValid; // Use the validation result
-                                isMandatory = true; // 연락처는 필수 항목
-                                baseClassName = "td-contact";
-                                break;
-                              case 6:
-                                isValid = isEmpty || isValidResidence(cellData);
-                                baseClassName = "td-residence";
-                                break;
-                              case 7:
-                                baseClassName = "td-special-note";
-                                break;
-                              case 8:
-                                baseClassName = "td-state";
-                                break;
-                              default:
-                                baseClassName = "";
-                            }
-                            // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
-                            if (isMandatory && isEmpty) {
-                              isValid = false;
-                            }
+                              // Append 'cell-invalid' class if data is invalid
+                              let className = `${baseClassName} ${
+                                isEmpty && !isMandatory
+                                  ? "bg-Secondary-50/80"
+                                  : ""
+                              } ${!isValid ? "cell-invalid" : ""}`;
 
-                            // Append 'cell-invalid' class if data is invalid
-                            let className = `${baseClassName} ${
-                              isEmpty && !isMandatory
-                                ? "bg-Secondary-50/80"
-                                : ""
-                            } ${!isValid ? "cell-invalid" : ""}`;
-
-                            return (
-                              <td key={cellIndex} className={className.trim()}>
-                                {cellData}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
+                              return (
+                                <td
+                                  key={cellIndex}
+                                  className={className.trim()}
+                                >
+                                  {cellData}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </div>
               </div>
