@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -42,6 +42,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       //   defval: "",
       // });
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
       setExcelData(data);
     };
     reader.readAsBinaryString(file);
@@ -146,6 +147,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
   const formatDate = (dateStr) => {
     if (!dateStr) return ""; // dateStr이 undefined, null, 또는 빈 문자열일 경우 빈 문자열 반환
 
+    // 문자열로 강제 변환하기 전에 dateStr이 문자열인지 확인
+    if (typeof dateStr !== "string") {
+      console.error("dateStr must be a string");
+      return ""; // 문자열이 아닌 경우 빈 문자열 반환
+    }
     // 모든 비숫자 제거 후 YYYYMMDD 형식으로 예상
     const cleanDateStr = dateStr.replace(/\D/g, "");
 
@@ -267,6 +273,76 @@ const ExcelUploadModal = ({ show, onHide }) => {
     return containsValidCity || containsValidEnding;
   };
 
+  const [invalidCounts, setInvalidCounts] = useState(Array(7).fill(0)); // 9개 컬럼에 대한 유효하지 않은 값의 개수 초기화
+
+  useEffect(() => {
+    const newInvalidCounts = excelData
+      .slice(1) // Assuming first row is headers
+      .reduce((acc, row) => {
+        row.forEach((cell, index) => {
+          // Apply each validation function based on the column index
+          let isValid;
+          let isEmpty = cell.toString().trim() === ""; // 공백만 있는 경우도 빈 값으로 처리
+          let isMandatory = false; // 필수 항목인지 여부를 결정하는 플래그
+
+          switch (index) {
+            case 0:
+              const transformedDate = formatDate(cell.toString());
+              cell = transformedDate;
+              isValid = isEmpty || isValidDbDate(transformedDate);
+              break;
+            case 1:
+              isValid = isValidName(cell);
+              isMandatory = true; // 이름은 필수 항목
+              break;
+            case 2:
+              isValid = isEmpty || isValidCustomerType(cell);
+
+              break;
+            case 3:
+              isValid = isEmpty || isValidBirthDate(cell);
+
+              break;
+            case 4:
+              isValid = isEmpty || isValidAge(cell);
+
+              break;
+            case 5:
+              const { formattedContact, isValid: isContactValid } =
+                formatAndValidateContact(cell);
+              cell = formattedContact; // Use the possibly formatted number
+              isValid = isContactValid; // Use the validation result
+              isMandatory = true; // 연락처는 필수 항목
+              break;
+            case 6:
+              isValid = isEmpty || isValidResidence(cell);
+              break;
+            // Include other cases for each column's validation
+          }
+          // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
+          if (isMandatory && isEmpty) {
+            isValid = false;
+          }
+
+          if (!isValid) acc[index]++;
+        });
+        return acc;
+      }, Array(7).fill(0));
+
+    setInvalidCounts(newInvalidCounts);
+  }, [excelData]); // Depend on excelData so this runs whenever excelData changes
+
+  const columnNames = [
+    "DB 분배일",
+    "이름",
+    "고객유형",
+    "생년월일",
+    "나이",
+    "연락처",
+    "주소",
+    // "Special Notes", "Argument status" 제외 (유효성 검증하지 않음)
+  ];
+
   return (
     <>
       <div>
@@ -377,7 +453,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
         )}
         {isNextClicked && (
           <>
-            <Modal className="excelupload-modal-style2  " show={show}>
+            <Modal className="excelupload-modal-style2" show={show}>
               <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div class="cursor-default">엑셀파일로 고객 추가</div>
@@ -472,21 +548,25 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                   cellData = transformedDate; // Use the transformed date for display
                                   isValid =
                                     isEmpty || isValidDbDate(transformedDate); // Validate the transformed date
+                                  // if (!isValid) incrementInvalidCount(0);
                                   baseClassName = "td-db-date";
                                   break;
                                 case 1:
                                   isValid = isValidName(cellData);
                                   isMandatory = true; // 이름은 필수 항목
+                                  // if (!isValid) incrementInvalidCount(1);
                                   baseClassName = "td-name";
                                   break;
                                 case 2:
                                   isValid =
                                     isEmpty || isValidCustomerType(cellData);
+                                  // if (!isValid) incrementInvalidCount(2);
                                   baseClassName = "td-customer-type";
                                   break;
                                 case 3:
                                   isValid =
                                     isEmpty || isValidBirthDate(cellData);
+                                  // if (!isValid) incrementInvalidCount(3);
                                   baseClassName = "td-birth";
                                   break;
                                 case 4:
@@ -544,8 +624,24 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   </tbody>
                 </div>
               </div>
-              <div class="mt-10 flex w-full flex-col text-center">
-                <div>파일의 내용이 알맞게 삽입되었는지 확인해보세요.</div>
+              <div class="mt-10 flex justify-center text-xs font-semibold text-LightMode-Text">
+                {invalidCounts.map((count, index) => {
+                  if (index < columnNames.length) {
+                    // columnNames의 길이를 초과하지 않도록 체크
+                    return (
+                      <div class="mr-5 flex" key={index}>
+                        {`${columnNames[index]}`} :{" "}
+                        <p class="ml-1 text-xs font-extrabold text-Danger-600">{`${count
+                          .toString()
+                          .padStart(2, "0")}`}</p>
+                      </div>
+                    );
+                  }
+                  return null; // columnNames의 길이를 초과하는 경우 렌더링하지 않음
+                })}
+              </div>
+              <div class="mt-6 flex w-full  flex-col text-center text-xs font-light   text-LightMode-Text">
+                <div>파일의 내용이 알맞게 삽입되었는지 확인해주세요.</div>
                 <div>
                   엑셀 등록 이후, 잘못된 정보는 개별 삭제만 가능하오니
                   유의바랍니다.
@@ -553,13 +649,13 @@ const ExcelUploadModal = ({ show, onHide }) => {
               </div>
               <div class="mt-10 flex w-full justify-center">
                 <button
-                  class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-300 hover:text-white"
+                  class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-400 hover:text-white"
                   onClick={handleprevClick}
                 >
                   이전
                 </button>
                 <button
-                  class="h-10 w-[310px] border bg-Primary-300 text-white"
+                  class="h-10 w-[310px] border bg-Primary-400 text-white"
                   onClick={handleSubmit}
                 >
                   저장
