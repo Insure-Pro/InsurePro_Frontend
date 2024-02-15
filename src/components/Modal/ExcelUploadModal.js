@@ -64,6 +64,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
   const formatCustomerData = (rowData) => {
+    const phoneData = formatAndValidateContact(rowData[5]); // 연락처 전처리
+
     // Mapping Excel data to API format
     // 각 필드에 대해 값이 undefined, null, 또는 빈 문자열인 경우 ""로 대체
     return {
@@ -78,10 +80,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       birth:
         rowData[3] && typeof rowData[3] === "string" ? rowData[3].trim() : "",
       age: rowData[4] ? rowData[4].toString().trim() : "", // 나이는 숫자일 수 있음, 문자열로 변환 후 처리
-      phone:
-        rowData[5] && typeof rowData[5] === "string"
-          ? formatAndValidateContact(rowData[5].trim()).formattedContact
-          : "",
+      phone: phoneData.formattedContact, // 전처리된 연락처 데이터 사용
       dongString:
         rowData[6] && typeof rowData[6] === "string" ? rowData[6].trim() : "",
       memo:
@@ -193,9 +192,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
   // 컬럼 5: '연락처'에 대한 전처리 및 유효성 검사
   const formatAndValidateContact = (contact) => {
+    // 입력 값이 undefined이거나 null인 경우, 즉시 빈 문자열로 처리
+    if (contact == null || undefined)
+      return { formattedContact: "", isValid: false };
     // 입력 값이 undefined이거나 빈 문자열인 경우, 즉시 반환
-    const trimmedContact = contact?.trim(); //입력된 연락처가 공백만 있는 경우 빈 문자열("")로 처리
-    if (!trimmedContact) return { formattedContact: "", isValid: true };
+    // const trimmedContact = contact?.trim(); //입력된 연락처가 공백만 있는 경우 빈 문자열("")로 처리
+    // if (!trimmedContact) return { formattedContact: "", isValid: true };
 
     // 문자열로 변환하여 trim()과 같은 문자열 메소드를 안전하게 사용
     let contactStr = String(contact).trim();
@@ -274,12 +276,13 @@ const ExcelUploadModal = ({ show, onHide }) => {
   };
 
   const [invalidCounts, setInvalidCounts] = useState(Array(7).fill(0)); // 9개 컬럼에 대한 유효하지 않은 값의 개수 초기화
-
+  const totalInvalidCounts = invalidCounts.reduce((acc, curr) => acc + curr, 0);
   useEffect(() => {
     const newInvalidCounts = excelData
       .slice(1) // Assuming first row is headers
       .reduce((acc, row) => {
         row.forEach((cell, index) => {
+          if (index >= 7) return; // 7개 컬럼만 유효성 검사를 수행
           // Apply each validation function based on the column index
           let isValid;
           let isEmpty = cell.toString().trim() === ""; // 공백만 있는 경우도 빈 값으로 처리
@@ -327,11 +330,14 @@ const ExcelUploadModal = ({ show, onHide }) => {
           if (!isValid) acc[index]++;
         });
         return acc;
-      }, Array(7).fill(0));
+      }, Array(7).fill(0)); // 7개 컬럼에 대한 유효하지 않은 값의 개수 초기화
 
-    setInvalidCounts(newInvalidCounts);
+    setInvalidCounts(newInvalidCounts.filter((n) => !isNaN(n))); // NaN 값을 제외하고 상태 업데이트
+    console.log(invalidCounts);
+    console.log(totalInvalidCounts);
   }, [excelData]); // Depend on excelData so this runs whenever excelData changes
 
+  console.log(totalInvalidCounts);
   const columnNames = [
     "DB 분배일",
     "이름",
@@ -624,29 +630,43 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   </tbody>
                 </div>
               </div>
-              <div class="mt-10 flex justify-center text-xs font-semibold text-LightMode-Text">
-                {invalidCounts.map((count, index) => {
-                  if (index < columnNames.length) {
-                    // columnNames의 길이를 초과하지 않도록 체크
-                    return (
-                      <div class="mr-5 flex" key={index}>
-                        {`${columnNames[index]}`} :{" "}
-                        <p class="ml-1 text-xs font-extrabold text-Danger-600">{`${count
-                          .toString()
-                          .padStart(2, "0")}`}</p>
-                      </div>
-                    );
-                  }
-                  return null; // columnNames의 길이를 초과하는 경우 렌더링하지 않음
-                })}
-              </div>
-              <div class="mt-6 flex w-full  flex-col text-center text-xs font-light   text-LightMode-Text">
-                <div>파일의 내용이 알맞게 삽입되었는지 확인해주세요.</div>
-                <div>
-                  엑셀 등록 이후, 잘못된 정보는 개별 삭제만 가능하오니
-                  유의바랍니다.
+              {/* 유효하지 않은 값이 존재하는 경우에만 표시 */}
+              {totalInvalidCounts > 0 && (
+                <div class="mt-10 flex justify-center text-xs font-semibold text-LightMode-Text">
+                  {invalidCounts.map((count, index) => {
+                    if (index < columnNames.length) {
+                      // columnNames의 길이를 초과하지 않도록 체크
+                      return (
+                        <div class="mr-5 flex" key={index}>
+                          {`${columnNames[index]}`} :{" "}
+                          <p class="ml-1 text-xs font-extrabold text-Danger-600">{`${count
+                            .toString()
+                            .padStart(2, "0")}`}</p>
+                        </div>
+                      );
+                    }
+                    return null; // columnNames의 길이를 초과하는 경우 렌더링하지 않음
+                  })}
                 </div>
-              </div>
+              )}
+              {/* 유효하지 않은 값이 없는 경우에만 표시 */}
+              {totalInvalidCounts === 0 ? (
+                <div class="mt-6 flex w-full flex-col text-center text-xs font-light text-LightMode-Text">
+                  <div>파일의 내용이 알맞게 삽입되었는지 확인해보세요.</div>
+                  <div>
+                    엑셀 등록 이후, 잘못된 정보는 개별 삭제만 가능하오니
+                    유의바랍니다.
+                  </div>
+                </div>
+              ) : (
+                <div class="mt-6 flex w-full flex-col text-center text-xs font-light text-Danger-500">
+                  <div>파일의 내용이 알맞게 삽입되었는지 확인해주세요.</div>
+                  <div>
+                    엑셀 등록 이후, 잘못된 정보는 개별 삭제만 가능하오니
+                    유의바랍니다.
+                  </div>
+                </div>
+              )}
               <div class="mt-10 flex w-full justify-center">
                 <button
                   class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-400 hover:text-white"
