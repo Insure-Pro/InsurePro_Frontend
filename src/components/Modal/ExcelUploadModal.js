@@ -69,12 +69,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
     // Mapping Excel data to API format
     // 각 필드에 대해 값이 undefined, null, 또는 빈 문자열인 경우 ""로 대체
     return {
-      registerDate: rowData[0] ? formatDate(rowData[0].toString()) : "",
+      registerDate: rowData[0] ? formatDate(rowData[0].toString().trim()) : "",
       name:
         rowData[1] && typeof rowData[1] === "string" ? rowData[1].trim() : "",
       customerType:
         rowData[2] && typeof rowData[2] === "string" ? rowData[2].trim() : "",
-      birth: rowData[3] ? formatDate(rowData[3].toString()) : "",
+      birth: rowData[3] ? formatDate(rowData[3].toString().trim()) : "",
       age: rowData[4] ? rowData[4].toString().trim() : "", // 나이는 숫자일 수 있음, 문자열로 변환 후 처리
       phone: phoneData.formattedContact, // 전처리된 연락처 데이터 사용
       dongString:
