@@ -74,8 +74,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
         rowData[1] && typeof rowData[1] === "string" ? rowData[1].trim() : "",
       customerType:
         rowData[2] && typeof rowData[2] === "string" ? rowData[2].trim() : "",
-      birth:
-        rowData[3] && typeof rowData[3] === "string" ? rowData[3].trim() : "",
+      birth: rowData[3] ? formatDate(rowData[3].toString()) : "",
       age: rowData[4] ? rowData[4].toString().trim() : "", // 나이는 숫자일 수 있음, 문자열로 변환 후 처리
       phone: phoneData.formattedContact, // 전처리된 연락처 데이터 사용
       dongString:
@@ -566,8 +565,15 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                   baseClassName = "td-customer-type";
                                   break;
                                 case 3:
+                                  // 생년월일 데이터 변환
+                                  const formattedBirthDate = formatDate(
+                                    cellData.toString(),
+                                  );
+                                  cellData = formattedBirthDate; // 변환된 날짜를 사용
                                   isValid =
-                                    isEmpty || isValidBirthDate(cellData);
+                                    isEmpty ||
+                                    isValidBirthDate(formattedBirthDate); // 변환된 날짜의 유효성 검사
+
                                   // if (!isValid) incrementInvalidCount(3);
                                   baseClassName = "td-birth";
                                   break;
