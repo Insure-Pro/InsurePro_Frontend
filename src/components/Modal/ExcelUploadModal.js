@@ -69,10 +69,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
     // Mapping Excel data to API format
     // 각 필드에 대해 값이 undefined, null, 또는 빈 문자열인 경우 ""로 대체
     return {
-      registerDate:
-        rowData[0] && typeof rowData[0] === "string"
-          ? formatDate(rowData[0].trim())
-          : "",
+      registerDate: rowData[0] ? formatDate(rowData[0].toString()) : "",
       name:
         rowData[1] && typeof rowData[1] === "string" ? rowData[1].trim() : "",
       customerType:
@@ -193,8 +190,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
   // 컬럼 5: '연락처'에 대한 전처리 및 유효성 검사
   const formatAndValidateContact = (contact) => {
     // 입력 값이 undefined이거나 null인 경우, 즉시 빈 문자열로 처리
-    if (contact == null || undefined)
-      return { formattedContact: "", isValid: false };
+    if (contact == null) return { formattedContact: "", isValid: false };
     // 입력 값이 undefined이거나 빈 문자열인 경우, 즉시 반환
     // const trimmedContact = contact?.trim(); //입력된 연락처가 공백만 있는 경우 빈 문자열("")로 처리
     // if (!trimmedContact) return { formattedContact: "", isValid: true };
