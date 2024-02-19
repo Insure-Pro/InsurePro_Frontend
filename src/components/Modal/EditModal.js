@@ -213,7 +213,7 @@ const EditModal = ({
           timerProgressBar: true,
           position: "top", // Position the alert near the top of the screen
         });
-
+        // alert("고객정보 수정이 완료되었습니다");
         onClose();
       }
       onHide(); // Close the modal

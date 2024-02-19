@@ -584,6 +584,15 @@ body {
 .cell-invalid {
   @apply border-Danger-600 bg-Danger-50 font-semibold text-Danger-600; /* Example using Tailwind CSS for red background with 50% opacity */
 }
+/* Assuming you're using a separate CSS file or <style> tags */
+.text-input-class {
+  width: 100%; /* Make input fill the td */
+  background-color: transparent; /* Transparent background */
+  text-align: center; /* Center text horizontally */
+  border: none; /* Remove default input border */
+  outline: none; /* Remove focus outline to keep the design clean */
+}
+
 /* input type=file 커스텀 */
 .filebox .upload-name {
   display: inline-block;
