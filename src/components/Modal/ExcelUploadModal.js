@@ -464,7 +464,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       <div>
         {!isNextClicked && (
           <>
-            <Modal className="excelupload-modal-style  " show={show}>
+            <Modal className="excelupload-modal-style" show={show}>
               <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div>엑셀파일로 고객 추가</div>
@@ -536,7 +536,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
         )}
         {isNextClicked && (
           <>
-            <Modal className="excelupload-modal-style2" show={show}>
+            <Modal
+              className="excelupload-modal-style2"
+              class={`${totalInvalidCounts === 0 ? "h-[574px]" : "h-[630px]"}`}
+              show={show}
+            >
               <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div class="cursor-default">엑셀파일로 고객 추가</div>
@@ -578,7 +582,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   />
                 </div>
               </div>
-              <div class="mx-9 mt-6">
+              <div class="mx-9 mt-6 bg-Gray-scale-50/20">
                 <div class="Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ">
                   <div class="w-[96px]">Db분배일</div>
                   <div class="w-[70px]">이름</div>
@@ -722,8 +726,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 // Adjust className based on isEmpty, isMandatory, and isValid
                                 let className = `${baseClassName} ${
                                   isEmptyState && !isMandatory
-                                    ? "bg-Secondary-50/80"
-                                    : ""
+                                    ? "bg-Secondary-100/60" //기존 아마 Secondary-50/80
+                                    : "bg-white"
                                 } ${!isValidState ? "cell-invalid" : ""} ${
                                   isEmptyState && isMandatory
                                     ? "cell-invalid"
@@ -810,7 +814,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   </div>
                 </div>
               )}
-              <div class="mt-6 flex justify-center text-xs font-semibold text-Primary-400">
+              <div class="mt-6 flex justify-center text-xs font-semibold text-Primary-400  underline underline-offset-[3px]">
                 <button onClick={() => setIsEditMode(!isEditMode)}>
                   바로 수정하기
                 </button>{" "}
@@ -820,13 +824,13 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-400 hover:text-white"
                   onClick={handleprevClick}
                 >
-                  이전
+                  {isEditMode ? "취소" : "이전"}
                 </button>
                 <button
                   class="h-10 w-[310px] border bg-Primary-400 text-white"
                   onClick={handleSubmit}
                 >
-                  저장
+                  {isEditMode ? "변경사항 저장" : "저장"}
                 </button>
               </div>
             </Modal>
