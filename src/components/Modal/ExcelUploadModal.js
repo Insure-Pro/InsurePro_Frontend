@@ -537,8 +537,9 @@ const ExcelUploadModal = ({ show, onHide }) => {
         {isNextClicked && (
           <>
             <Modal
-              className="excelupload-modal-style2"
-              class={`${totalInvalidCounts === 0 ? "h-[574px]" : "h-[630px]"}`}
+              className={`excelupload-modal-style2 ${
+                totalInvalidCounts > 0 ? "h-[630px]" : "h-[574px]"
+              }`}
               show={show}
             >
               <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">

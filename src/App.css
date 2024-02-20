@@ -574,7 +574,7 @@ body {
   @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
 .td-special-note {
-  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
+  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
 }
 .td-state {
   @apply ml-1 flex h-7 w-[110px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
@@ -596,6 +596,8 @@ body {
   text-align: center; /* Center text horizontally */
   border: none; /* Remove default input border */
   outline: none; /* Remove focus outline to keep the design clean */
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* input type=file 커스텀 */
