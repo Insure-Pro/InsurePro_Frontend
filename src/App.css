@@ -584,6 +584,12 @@ body {
 .cell-invalid {
   @apply border-Danger-600 bg-Danger-50 font-semibold text-Danger-600; /* Example using Tailwind CSS for red background with 50% opacity */
 }
+.td-focused-within:focus-within {
+  border: 1px solid var(--LightMode-Hover);
+  background-color: var(
+    --LightMode-Hover
+  ); /* Replace this with the correct variable or color value */
+}
 /* Assuming you're using a separate CSS file or <style> tags */
 .text-input-class {
   width: 100%; /* Make input fill the td */

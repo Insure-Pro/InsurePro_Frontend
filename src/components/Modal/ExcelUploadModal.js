@@ -457,7 +457,6 @@ const ExcelUploadModal = ({ show, onHide }) => {
     }
 
     setModifiedCells([...modifiedCells]);
-
     setInvalidCounts(newInvalidCounts);
   };
   return (
@@ -741,7 +740,12 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 // }`;
 
                                 return (
-                                  <td key={cellIndex} className={className}>
+                                  <td
+                                    key={cellIndex}
+                                    className={`${className} ${
+                                      isEditMode ? "td-focused-within" : ""
+                                    }`}
+                                  >
                                     {isEditMode ? (
                                       <input
                                         type="text"
