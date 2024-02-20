@@ -411,6 +411,19 @@ const ExcelUploadModal = ({ show, onHide }) => {
       modifiedCells.push({ rowIndex, cellIndex, newValue, isValid });
     }
 
+    // Directly update invalidCounts based on the new validity
+    const newInvalidCounts = [...invalidCounts];
+    // Determine if the cell was previously counted as invalid
+    const cellPreviouslyInvalid = invalidCounts[cellIndex] > 0;
+
+    if (isValid && cellPreviouslyInvalid) {
+      // Correctly decrease the count if the cell becomes valid
+      newInvalidCounts[cellIndex]--;
+    } else if (!isValid && !cellPreviouslyInvalid) {
+      // Correctly increase the count if the cell becomes invalid
+      newInvalidCounts[cellIndex]++;
+    }
+
     // Update the modifiedCells state
     const existingIndex = modifiedCells.findIndex(
       (mc) => mc.rowIndex === rowIndex && mc.cellIndex === cellIndex,
@@ -442,7 +455,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
       );
       modifiedCells.push(newModifiedCell);
     }
+
     setModifiedCells([...modifiedCells]);
+
+    setInvalidCounts(newInvalidCounts);
   };
   return (
     <>
