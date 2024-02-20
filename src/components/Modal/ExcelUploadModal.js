@@ -194,6 +194,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
     const cleanString = dateString.toString().replace(/[\.\-\/]/g, "");
     return cleanString.length === 8;
   };
+
   // 컬럼 4: '나이'에 대한 전처리 및 유효성 검사 (숫자만 허용 0~130)
   const isValidAge = (age) => {
     return !isNaN(age) && age >= 0 && age <= 130;
@@ -357,8 +358,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
   // excelData 배열의 범위를 벗어나지 않는지 확인합니다.
   const handleCellChange = (e, rowIndex, cellIndex) => {
     const newValue = e.target.value;
+    const isEmptyValue = newValue.trim() === "";
     // 셀의 유효성 검사 결과를 업데이트하는 로직을 여기에 추가해야 합니다.
-    // 예시로, 이름 컬럼에 대한 유효성 검사를 적용하는 경우:
     let isValid = true;
     console.log(
       `Cell change detected at row ${rowIndex + 1}, column ${
@@ -368,26 +369,31 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
     switch (cellIndex) {
       case 0:
-        isValid = isValidDbDate(newValue);
+        isValid = isEmptyValue || isValidDbDate(newValue); // Allow empty values
         break;
       case 1:
-        isValid = isValidName(newValue);
+        // 이름 컬럼 처리: 빈값이 아닌 경우에 한해 유효성 검증
+        isValid = !isEmptyValue && isValidName(newValue); // 이름은 빈값을 허용하지 않고 한글만 유효
         break;
       case 2:
-        isValid = isValidCustomerType(newValue);
+        isValid = isEmptyValue || isValidCustomerType(newValue); // Allow empty values
         break;
       case 3:
-        isValid = isValidBirthDate(newValue);
+        isValid = isEmptyValue || isValidBirthDate(newValue); // Allow empty values
         break;
       case 4:
         isValid = isValidAge(newValue);
         break;
       case 5:
-        isValid = formatAndValidateContact(newValue).isValid;
+        // 연락처 컬럼 처리: 빈값이 아닌 경우에 한해 유효성 검증
+        isValid = !isEmptyValue
+          ? formatAndValidateContact(newValue).isValid
+          : false;
         break;
       case 6:
-        isValid = isValidResidence(newValue);
+        isValid = isEmptyValue || isValidResidence(newValue); // Allow empty values
         break;
+
       // 추가적인 컬럼에 대한 유효성 검사가 필요한 경우 여기에 로직 추가...
     }
 
@@ -415,6 +421,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
         ...modifiedCells[existingIndex],
         newValue,
         isValid,
+        isEmpty: isEmptyValue,
       };
       console.log(
         `Updating cell at rowIndex: ${rowIndex}, cellIndex: ${cellIndex} with`,
@@ -422,7 +429,13 @@ const ExcelUploadModal = ({ show, onHide }) => {
       );
       modifiedCells[existingIndex] = updatedCell;
     } else {
-      const newModifiedCell = { rowIndex, cellIndex, newValue, isValid };
+      const newModifiedCell = {
+        rowIndex,
+        cellIndex,
+        newValue,
+        isValid,
+        isEmpty: isEmptyValue,
+      };
       console.log(
         `Adding new modified cell for rowIndex: ${rowIndex}, cellIndex: ${cellIndex}:`,
         newModifiedCell,
@@ -591,10 +604,28 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                     modCell.rowIndex === rowIndex &&
                                     modCell.cellIndex === cellIndex,
                                 );
-                                let isValid = modifiedCell
-                                  ? modifiedCell.isValid
-                                  : true; // If not modified, consider it valid
+                                // 실시간 유효성 검사를 반영하는 로직
+                                let isValid = true; // 기본값 설정
+                                if (modifiedCell) {
+                                  // 수정된 셀에 대한 로직
+                                  isValid = modifiedCell.isValid;
+                                  isEmpty = modifiedCell.isEmpty;
+                                }
 
+                                // Determine if the cell is being edited
+                                const isEditing = isEditMode && modifiedCell;
+
+                                // Determine the validation state for class application
+                                let isValidState, isEmptyState;
+                                if (isEditing) {
+                                  // Use the modified state for edited cells
+                                  isValidState = modifiedCell.isValid;
+                                  isEmptyState = modifiedCell.isEmpty;
+                                } else {
+                                  // Use the initial validation state for unedited cells
+                                  isValidState = isValid; // Assuming 'isValid' reflects the initial validation
+                                  isEmptyState = isEmpty; // Assuming 'isEmpty' reflects the initial empty check
+                                }
                                 // let displayData = cellData;
                                 // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
                                 switch (cellIndex) {
@@ -610,7 +641,9 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                     baseClassName = "td-db-date";
                                     break;
                                   case 1:
-                                    isValid = isValidName(cellData);
+                                    isValid = !isEmpty
+                                      ? isValidName(cellData)
+                                      : true;
                                     isMandatory = true; // 이름은 필수 항목
                                     // if (!isValid) incrementInvalidCount(1);
                                     baseClassName = "td-name";
@@ -644,7 +677,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                       isValid: isContactValid,
                                     } = formatAndValidateContact(cellData);
                                     cellData = formattedContact; // Use the possibly formatted number
-                                    isValid = isContactValid; // Use the validation result
+                                    isValid = !isEmpty
+                                      ? formatAndValidateContact(cellData)
+                                          .isValid
+                                      : true;
                                     isMandatory = true; // 연락처는 필수 항목
                                     baseClassName = "td-contact";
                                     break;
@@ -670,10 +706,23 @@ const ExcelUploadModal = ({ show, onHide }) => {
                                 // Append 'cell-invalid' class if data is invalid
                                 // Adjust className based on isEmpty, isMandatory, and isValid
                                 let className = `${baseClassName} ${
-                                  isEmpty && !isMandatory
+                                  isEmptyState && !isMandatory
                                     ? "bg-Secondary-50/80"
                                     : ""
-                                } ${!isValid ? "cell-invalid" : ""}`;
+                                } ${!isValidState ? "cell-invalid" : ""} ${
+                                  isEmptyState && isMandatory
+                                    ? "cell-invalid"
+                                    : ""
+                                } `;
+                                // 유효하지 않은 값에 대해서도 빨강 배경
+                                // 필수 항목이면서 비어 있으면 빨강 배경
+                                // let className = `${baseClassName} ${
+                                //   modifiedCell && modifiedCell.isEmpty
+                                //     ? "bg-Secondary-50/80" // 비어있는 값에 대한 배경색
+                                //     : !modifiedCell || !modifiedCell.isValid
+                                //       ? "cell-invalid" // 유효하지 않은 값에 대한 배경색
+                                //       : "" // 유효한 값에 대한 배경색은 없음
+                                // }`;
 
                                 return (
                                   <td key={cellIndex} className={className}>
