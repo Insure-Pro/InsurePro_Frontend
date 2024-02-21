@@ -84,30 +84,34 @@ const ExcelUploadModal = ({ show, onHide }) => {
     // 기존 데이터의 복사본을 만듭니다.
     console.log("Original Excel Data:", excelData);
     console.log("Modifications to Apply:", modifiedCells);
+    // Prepare data by applying modifications
+    let preparedData = excelData.map((row, rowIndex) => {
+      // Ensure each row has the correct length, considering headers
+      let newRow = new Array(excelData[0].length).fill("");
+      row.forEach((cell, cellIndex) => {
+        newRow[cellIndex] = cell;
+      });
 
-    const updatedExcelData = excelData.map((row, rowIndex) =>
-      row.map((cell, cellIndex) => {
+      return newRow.map((cell, cellIndex) => {
         const modification = modifiedCells.find(
           (mc) => mc.rowIndex === rowIndex - 1 && mc.cellIndex === cellIndex,
         );
+        // Apply modification if exists, or use existing cell data
         return modification ? modification.newValue : cell;
-      }),
-    );
-    console.log("Updated Excel Data for Submission: ", updatedExcelData);
-    // 변경된 셀에 대해서만 데이터를 업데이트합니다.
-    // modifiedCells.forEach(({ rowIndex, cellIndex, newValue }) => {
-    //   if (updatedExcelData[rowIndex]) {
-    //     updatedExcelData[rowIndex][cellIndex] = newValue;
-    //   }
-    // });
+      });
+    });
+    // Now, `preparedData` includes changes to all cells, including those that were initially empty
+    console.log("Prepared Data for Submission:", preparedData);
 
-    // Format the updated data for submission
-    const formattedDataForSubmission = updatedExcelData
-      .slice(1) // 헤더 제외
-      .map((row) => formatCustomerData(row)) // 각 행에 대한 데이터 포매팅
+    // Proceed with formatting and submitting the data as before
+
+    // Proceed with data formatting for submission
+    const formattedDataForSubmission = preparedData
+      .slice(1) // Assuming first row is headers
+      .map((row) => formatCustomerData(row))
       .filter((rowData) =>
         Object.values(rowData).some((value) => value !== ""),
-      ); // 유효한 데이터만 필터링
+      );
     console.log("Formatted Data for Submission: ", formattedDataForSubmission);
     // Filter out rows where all the fields are empty
     // const validDataForSubmission = formattedDataForSubmission.filter(
