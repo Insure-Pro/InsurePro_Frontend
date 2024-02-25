@@ -4,23 +4,40 @@ import { jwtDecode } from "jwt-decode";
 
 export const refreshToken = createAsyncThunk(
   "auth/refreshToken",
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const state = getState();
     const accessToken = state.auth.accessToken;
     const refreshToken = state.auth.refreshToken;
     const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+    // Check for refresh token expiration here
+    const refreshTokenExpiry = localStorage.getItem("refreshTokenExpiry"); // Assuming you store expiry time in localStorage
+    //토큰 만료 시간을 localStorage에서 가져옴
+    const currentTime = Date.now();
+
+    if (
+      refreshTokenExpiry &&
+      currentTime > parseInt(refreshTokenExpiry) - 29 * 60 * 1000
+    ) {
+      // 현재 시간이 리프레시 토큰 만료 시간보다 29분 더 짧은 경우
+
+      dispatch(logoutSuccess()); // 로그아웃 액션 디스패치
+      localStorage.clear(); // 로컬 스토리지 클리어
+      window.location.href = "/login"; // 사용자를 로그인 페이지로 리디렉션
+      return;
+    }
+
     if (!accessToken || !refreshToken) {
       throw new Error("No access or refresh token available");
     }
 
     const decodedToken = jwtDecode(accessToken);
-    const currentTime = Date.now() / 1000;
+    const decodedTokenTime = Date.now() / 1000;
 
-    if (decodedToken.exp < currentTime) {
+    if (decodedToken.exp < decodedTokenTime) {
       const response = await axios.patch(
         `${MAIN_URL}/employee/authorization`,
         null,
-        { headers: { Refresh: refreshToken } }
+        { headers: { Refresh: refreshToken } },
       );
 
       if (response.status === 204) {
@@ -30,7 +47,7 @@ export const refreshToken = createAsyncThunk(
         throw new Error("Failed to refresh token");
       }
     }
-  }
+  },
 );
 
 const authSlice = createSlice({
