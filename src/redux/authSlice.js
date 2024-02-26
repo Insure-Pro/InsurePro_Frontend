@@ -16,9 +16,9 @@ export const refreshToken = createAsyncThunk(
 
     if (
       refreshTokenExpiry &&
-      currentTime > parseInt(refreshTokenExpiry) - 29 * 60 * 1000
+      currentTime > parseInt(refreshTokenExpiry) - 60 * 1000
     ) {
-      // 현재 시간이 리프레시 토큰 만료 시간보다 29분 더 짧은 경우
+      // 만료 1분 전에 처리
 
       dispatch(logoutSuccess()); // 로그아웃 액션 디스패치
       localStorage.clear(); // 로컬 스토리지 클리어

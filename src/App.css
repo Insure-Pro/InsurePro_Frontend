@@ -462,7 +462,7 @@ body {
 }
 
 .dropdown-item > li {
-  @apply h-7  text-xs font-semibold text-LightMode-Subtext text-LightMode-Subtext hover:font-bold  hover:text-LightMode-Text;
+  @apply h-7  text-xs font-semibold text-LightMode-Subtext hover:font-bold  hover:text-LightMode-Text;
 }
 .dropdown-img {
   @apply ml-2 h-[8.75px] w-[20px];
