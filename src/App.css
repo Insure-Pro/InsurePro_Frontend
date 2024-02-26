@@ -301,6 +301,9 @@ body {
   z-index: 15;
 }
 
+/* .error_message {
+  @apply mb-[14px] text-center text-xs font-bold text-Danger-600;
+} */
 /* 텍스트 색상 클래스 예시 */
 .text-color-1 {
   color: var(--LightMode-Text);

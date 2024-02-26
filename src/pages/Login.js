@@ -107,7 +107,7 @@ const Login = () => {
               placeholder="비밀번호를 입력해주세요."
               className="login_input_box my-3"
             />
-            <div className="mb-[14px] text-center text-xs font-bold text-Danger-600"></div>
+            <div class="error_message mb-[14px] text-center text-xs font-bold text-Danger-600 "></div>
           </div>
           <div class="mb-6 flex cursor-pointer justify-end text-xs">
             <div onClick={() => navigate("/Email")} class="font-light">
