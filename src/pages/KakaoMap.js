@@ -934,7 +934,7 @@ const KakaoMap = () => {
           ) : hasVisibleCustomers ? (
             visibleCustomers.map(renderCustomerItem)
           ) : (
-            <div class="flex h-full items-center justify-center overflow-hidden text-sm">
+            <div class="mt-[320px] flex h-full justify-center overflow-hidden text-sm">
               {" "}
               현 위치에 해당하는 고객정보가 없습니다.
             </div>

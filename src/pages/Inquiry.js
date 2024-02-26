@@ -179,7 +179,7 @@ const Inquiry = ({}) => {
             <button
               onClick={handleSubmit}
               // type="submit"
-              class="flex h-[40px] w-[280px] items-center justify-center  border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+              class="flex h-[40px] w-[280px] items-center justify-center rounded  border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
             >
               접수
             </button>
