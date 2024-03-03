@@ -860,6 +860,7 @@ const KakaoMap = () => {
               right: 0,
               bottom: 0,
               left: 0,
+              width: "300px",
               backgroundColor: "rgba(0, 0, 0, 0.4)",
               zIndex: 2, // This ensures the overlay is on top of non-selected items
             }}
@@ -891,15 +892,15 @@ const KakaoMap = () => {
           className="Map_customerList_container"
           style={{
             borderRight: isLoading ? "none" : "1px solid var(--gray-150)",
-            width: "33%",
+            width: "300px",
             height: "95vh",
             // minWidth: "300px",
-            overflowX: "hidden",
-            overflowY: isSearchMode
-              ? "auto"
-              : hasVisibleCustomers
-                ? "auto"
-                : "hidden",
+
+            // overflowY: isSearchMode
+            //   ? "auto"
+            //   : hasVisibleCustomers
+            //     ? "auto"
+            //     : "hidden",
             position: "relative",
           }}
         >

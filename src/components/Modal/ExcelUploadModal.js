@@ -348,11 +348,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
       }, Array(7).fill(0)); // 7개 컬럼에 대한 유효하지 않은 값의 개수 초기화
 
     setInvalidCounts(newInvalidCounts.filter((n) => !isNaN(n))); // NaN 값을 제외하고 상태 업데이트
-    console.log(invalidCounts);
-    console.log(totalInvalidCounts);
   }, [excelData]); // Depend on excelData so this runs whenever excelData changes
 
-  console.log(totalInvalidCounts);
   const columnNames = [
     "DB 분배일",
     "이름",
@@ -465,12 +462,10 @@ const ExcelUploadModal = ({ show, onHide }) => {
       modifiedCells.push(newModifiedCell);
     }
 
-    console.log(invalidCounts);
     setModifiedCells([...modifiedCells]);
     setInvalidCounts(newInvalidCounts);
   };
-  console.log(invalidCounts);
-  console.log(totalInvalidCounts);
+
   return (
     <>
       <div>
