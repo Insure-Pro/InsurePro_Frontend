@@ -893,7 +893,7 @@ const KakaoMap = () => {
             borderRight: isLoading ? "none" : "1px solid var(--gray-150)",
             width: "33%",
             height: "95vh",
-            minWidth: "300px",
+            // minWidth: "300px",
             overflowX: "hidden",
             overflowY: isSearchMode
               ? "auto"
