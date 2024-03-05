@@ -195,7 +195,7 @@ const KakaoMap = () => {
                   //62 3개짜리 112 2개짜리 110 1개짜리
 
                   const markerImageBlue =
-                    numberOfCustomers > 1
+                    numberOfCustomers > 0
                       ? new window.kakao.maps.MarkerImage(
                           marker_blue2,
                           new window.kakao.maps.Size(21, 28),
@@ -208,7 +208,7 @@ const KakaoMap = () => {
                         );
 
                   const markerImageRed =
-                    numberOfCustomers > 1
+                    numberOfCustomers > 0
                       ? new window.kakao.maps.MarkerImage(
                           marker_red2,
                           new window.kakao.maps.Size(21, 28),
@@ -254,7 +254,7 @@ const KakaoMap = () => {
                         const prevNumberOfCustomers =
                           selectedMarkerRef.current.customersGroup.length;
                         const prevMarkerImage =
-                          prevNumberOfCustomers > 1
+                          prevNumberOfCustomers > 0
                             ? marker_blue2
                             : marker_blue;
                         selectedMarkerRef.current.setImage(
@@ -269,7 +269,7 @@ const KakaoMap = () => {
                       // Determine the number of customers associated with the clicked marker
                       const numberOfCustomers = marker.customersGroup.length;
                       const clickedMarkerImage =
-                        numberOfCustomers > 1 ? marker_red2 : marker_red;
+                        numberOfCustomers > 0 ? marker_red2 : marker_red;
 
                       // Set the clicked marker's image
                       marker.setImage(
@@ -342,7 +342,7 @@ const KakaoMap = () => {
                     zIndex: 3,
                   });
                   // 고객 수가 2명 이상일 경우, CustomOverlay로 고객 수 표시
-                  if (numberOfCustomers > 1) {
+                  if (numberOfCustomers > 0) {
                     const content = `<div style="color: white; width:30px; height:13px; display:flex; cursor: pointer; justify-content:center; text-align: center; font-size: 12px; font-weight: bold;">${numberOfCustomers}</div>`;
                     const customOverlay = new window.kakao.maps.CustomOverlay({
                       content: content,
@@ -474,8 +474,8 @@ const KakaoMap = () => {
 
       const numberOfCustomers = marker.customersGroup.length;
       const markerImageBlue =
-        numberOfCustomers > 1 ? marker_blue2 : marker_blue;
-      const markerImageRed = numberOfCustomers > 1 ? marker_red2 : marker_red;
+        numberOfCustomers > 0 ? marker_blue2 : marker_blue;
+      const markerImageRed = numberOfCustomers > 0 ? marker_red2 : marker_red;
 
       // Deselect if the same customer is clicked again
       if (selectedMarkerRef.current === marker) {
@@ -578,7 +578,7 @@ const KakaoMap = () => {
           ? marker.customersGroup.length
           : 0;
         const appropriateMarkerImage =
-          numberOfCustomers > 1 ? marker_blue2 : marker_blue;
+          numberOfCustomers > 0 ? marker_blue2 : marker_blue;
 
         marker.setImage(
           new window.kakao.maps.MarkerImage(
