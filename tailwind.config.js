@@ -106,6 +106,11 @@ module.exports = {
         "inset-400": "inset(400px 0 0 0)", // Custom utility value
         // Add more custom values as needed
       },
+      screens: {
+        md: "768px",
+        lg: "976px",
+        xl: "1440px",
+      },
     },
   },
   variants: {

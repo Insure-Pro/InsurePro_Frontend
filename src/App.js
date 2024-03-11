@@ -19,6 +19,7 @@ const Main = lazy(() => import("./pages/Main"));
 const Detail = lazy(() => import("./pages/Detail"));
 // const Map = lazy(() => import("./pages/Map"));
 const KakaoMap = lazy(() => import("./pages/KakaoMap"));
+const KakaoTalk = lazy(() => import("./pages/KakaoTalk"));
 const Inquiry = lazy(() => import("./pages/Inquiry"));
 const Analysis = lazy(() => import("./pages/Analysis"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
@@ -27,6 +28,7 @@ const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
 // const ProtectedMap = withAuth(Map);
 const ProtectedKakaoMap = withAuth(KakaoMap);
+const ProtectedKakaoTalk = withAuth(KakaoTalk);
 const ProtectedInquiry = withAuth(Inquiry);
 const ProtectedAnalysis = withAuth(Analysis);
 
@@ -78,6 +80,10 @@ function App() {
             <Route path="/main" element={renderProtected(ProtectedMain)} />
             <Route path="/detail" element={renderProtected(ProtectedDetail)} />
             <Route path="/map" element={renderProtected(ProtectedKakaoMap)} />
+            <Route
+              path="/kakaoTalk"
+              element={renderProtected(ProtectedKakaoTalk)}
+            />
             <Route
               path="/inquiry"
               element={renderProtected(ProtectedInquiry)}

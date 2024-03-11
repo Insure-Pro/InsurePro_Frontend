@@ -9,6 +9,9 @@ import Search from "./Search";
 import DateChangeAModal from "./Modal/DateChangeAModal";
 import { toggleSearch } from "../redux/searchSlice";
 import { setSearchOff } from "../redux/searchSlice";
+import { toggleNavItem } from "../redux/navbarSlice";
+import { setNavItemOff } from "../redux/navbarSlice";
+import { setNavItemOn } from "../redux/navbarSlice";
 import Swal from "sweetalert2";
 
 const Navbar = ({
@@ -99,7 +102,7 @@ const Navbar = ({
             "로그아웃 되었습니다..<br><br>" +
             "</div>",
           // width: "700px",
-          timer: 3500,
+          timer: 1500,
           showConfirmButton: false,
           timerProgressBar: true,
           position: "top", // Position the alert near the top of the screen
@@ -163,6 +166,7 @@ const Navbar = ({
   }, [location]);
 
   const showSearch = useSelector((state) => state.search.showSearch);
+  const showNavItem = useSelector((state) => state.navbar.showNavItem);
   // Update event handlers
   const handleSearchToggle = () => {
     dispatch(toggleSearch());
@@ -251,9 +255,10 @@ const Navbar = ({
   return (
     <>
       <div
-        className={`vertical-navbar flex w-full min-w-[1024px] flex-col ${
+        className={`vertical-navbar fixed flex h-[76px] w-full min-w-[1024px] flex-col ${
           isLandingPage ? "landing-page-navbar" : ""
         }`}
+        style={{ zIndex: "3" }}
       >
         <div
           className="brand w-2/12"
@@ -320,20 +325,28 @@ const Navbar = ({
         </div>
 
         <div class="flex w-2/12  max-w-[390px] justify-end ">
-          <div class="flex max-w-[90px]   justify-between">
+          <div class="flex  w-[90px] justify-between  md:mr-0 xl:mr-[80px]">
             {/* 검색 아이콘은 /main 경로일 때만 표시 */}
             {isMainRoute && isLoggedIn && (
-              <div className=" h-6 cursor-pointer pr-7">
+              <div className=" h-6 cursor-pointer pr-6 ">
                 {/* 여기서 h-7이상 입력하면 Navbar 세로 길이 차이발생 */}
-                <img src={search} onClick={handleSearchToggle} />
+                <img
+                  src={search}
+                  class=" md:mr-0 md:h-7 md:w-7 xl:mr-[10px] xl:h-[32px] xl:w-[32px]"
+                  onClick={handleSearchToggle}
+                />
               </div>
             )}
             <div className="cursor-pointer pt-1" ref={logoutButtonRef}>
               {/* <img src={mypage} onClick={handleLogout} /> */}
-              <img src={mypage} onClick={handleMypageClick} />
+              <img
+                src={mypage}
+                class=" absoulte md:h-6 md:w-6 xl:h-[26px] xl:w-[26px]"
+                onClick={handleMypageClick}
+              />
               {showLogoutButton && (
                 <div
-                  className="absolute right-3 top-14 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover"
+                  className="  relative right-7 top-4 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover"
                   onClick={handleLogout}
                 >
                   로그아웃
@@ -343,6 +356,13 @@ const Navbar = ({
           </div>
         </div>
       </div>
+
+      {showDropdown && (
+        <div
+          style={{ zIndex: "1" }}
+          class=" fixed flex h-[258px] w-full bg-white pt-[76px]"
+        ></div>
+      )}
       {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
       {isMainRoute && showSearch && (
         <div class=" flex h-[88px]  w-full items-center justify-center bg-white ">

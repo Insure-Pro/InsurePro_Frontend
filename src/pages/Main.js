@@ -486,6 +486,7 @@ const Main = () => {
           </div>
           <ul
             className="dropdown-container"
+            style={{ zIndex: "0" }}
             onClick={() => {
               setDropdownview(!dropdownview);
             }}

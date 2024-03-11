@@ -338,6 +338,7 @@ body {
   text-align: left;
   cursor: pointer;
   padding-top: 4px;
+  @apply xl:text-[24px];
 }
 .logo {
   /* background: linear-gradient(to right top, #861657, #ffa69e); */
@@ -356,6 +357,7 @@ body {
 }
 .navbar-container > div {
   margin-right: 80px;
+  @apply xl:text-[18px];
 }
 
 .navbar-item:hover,
@@ -455,7 +457,7 @@ body {
 /* - - - - -[메인화면 시작]- - - - - */
 
 .dropdown-container {
-  @apply relative ml-[764px] mr-10 flex h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center rounded  bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
+  @apply relative z-[0] ml-[764px] mr-10 flex h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center rounded  bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
 }
 .dropdown-item {
   /* position: absolute; 절대적 위치

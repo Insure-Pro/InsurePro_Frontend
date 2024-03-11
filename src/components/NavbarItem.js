@@ -59,6 +59,12 @@ const NavbarItem = ({
       >
         위치 기반
       </div>
+      {/* <div
+        className={getTabStyle("KakaoTalk")}
+        onClick={() => handleTabChange("KakaoTalk")}
+      >
+        kt
+      </div> */}
     </div>
   );
 };
