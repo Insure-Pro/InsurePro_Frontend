@@ -468,7 +468,7 @@ const Main = () => {
           showModal || showOptions || showExcelUploadModal || isModalOpen
             ? "blur-background no-interaction"
             : ""
-        } flex  flex-col bg-LightMode-SectionBackground`}
+        } flex  min-h-[900px] flex-col bg-LightMode-SectionBackground`}
         style={{
           clipPath: showSearch ? "inset(52px 0 0 0)" : "",
           marginTop: showSearch ? "-52px" : "",
