@@ -469,10 +469,12 @@ const Main = () => {
             ? "blur-background no-interaction"
             : ""
         } flex  min-h-[900px] flex-col bg-LightMode-SectionBackground`}
-        style={{
-          clipPath: showSearch ? "inset(52px 0 0 0)" : "",
-          marginTop: showSearch ? "-52px" : "",
-        }}
+        style={
+          {
+            // clipPath: showSearch ? "inset(52px 0 0 0)" : "",
+            // marginTop: showSearch ? "-52px" : "",
+          }
+        }
       >
         <div class=" flex w-screen items-center justify-center pt-2">
           <div class="  flex h-[52px] items-center text-center">

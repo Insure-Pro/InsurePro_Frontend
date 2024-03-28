@@ -97,12 +97,11 @@ const Detail = ({}) => {
         // resetFiltersAndSort={handleLogoClick}
       />
       <div
-        className={`pt-[76px] ${
+        className={` ${
           showEditModalD || isHistoryModalOpen
             ? "blur-background-detail no-interaction mt-[-76px]"
             : ""
         }  mx-auto h-screen w-full min-w-[1024px] select-none`}
-        style={{}}
       >
         {selectedCustomer && (
           <>

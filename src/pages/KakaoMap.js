@@ -880,7 +880,7 @@ const KakaoMap = () => {
         AllCustomersClick={handleAllCustomersClick}
         resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
       />
-      <div class="flex flex-row pt-[76px]">
+      <div class="flex flex-row">
         {/* Main Content Container */}
         {isLoading && (
           <div className="map_spinner">

@@ -171,10 +171,10 @@ const Analysis = () => {
         resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
       />
       <div
-        className={`select-none   justify-center pt-[76px] ${
+        className={`select-none   justify-center ${
           showModal ? "blur-background no-interaction" : ""
         } `}
-        style={{ marginTop: showModal ? "-112px" : "" }}
+        style={{ marginTop: showModal ? "-36px" : "" }}
       >
         <div class="flex h-10 items-center justify-center px-12">
           {/* DateChangeModal component */}

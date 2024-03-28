@@ -72,17 +72,11 @@ const Search = ({ setCustomers, onClose }) => {
   };
   return (
     <div
-      className="Search_container"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        zIndex: "7",
-      }}
-      class=" mb-7 mt-[146px] flex h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1"
+      style={{ display: "flex" }}
+      class=" mb-10 mt-4 h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1"
     >
       <img class="mr-7 h-6 w-6" src={search} onClick={handleSearch}></img>
       <input
-        className="Search_input"
         type="name"
         placeholder="검색하려는 이름을 입력해주세요."
         style={{

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const navbarSlice = createSlice({
   name: "navbar",
-  initialState: { selectedTab: "전체", showNavItem: false },
+  initialState: { selectedTab: "전체", showNavItem: false, showDateBar: false },
   reducers: {
     setAllCustomersState: (state) => {
       state.contractYn = null;
@@ -31,6 +31,13 @@ const navbarSlice = createSlice({
     setSelectedTab: (state, action) => {
       state.selectedTab = action.payload;
     },
+    setShowDateBar: (state) => {
+      state.showDateBar = true;
+    },
+
+    setCloseDateBar: (state) => {
+      state.showDateBar = false;
+    },
     toggleNavItem: (state) => {
       state.showNavItem = !state.showNavItem;
     },
@@ -52,5 +59,7 @@ export const {
   toggleNavItem,
   setNavItemOff,
   setNavItemOn,
+  setShowDateBar,
+  setCloseDateBar,
 } = navbarSlice.actions;
 export default navbarSlice.reducer;

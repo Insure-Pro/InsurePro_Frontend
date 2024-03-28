@@ -60,7 +60,7 @@ const Dbbar = ({
 
   const showSearch = useSelector((state) => state.search.showSearch);
   const showNavItem = useSelector((state) => state.navbar.showNavItem);
-
+  const showDateBar = useSelector((state) => state.navbar.showDateBar);
   // const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
   const [selectedTab, setSelectedTab] = useState("");
 
@@ -151,8 +151,8 @@ const Dbbar = ({
       <div class="Dbbar">
         <div>
           <div
-            class={`ml-6  ${
-              showSearch ? "z-0 hidden" : ""
+            class={`ml-6   ${
+              showDateBar ? "mt-9" : "mt-0"
             } flex  h-[36px] w-[1024px] bg-white`}
           >
             {/* <span
