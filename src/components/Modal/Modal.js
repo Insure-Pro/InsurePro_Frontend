@@ -5,15 +5,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import CustomerTypeButtons from "../Button/CustomerTypeButtons";
 
 function Modal1({ show, onModalOpen, onModalClose }) {
-  // const [show, setShow] = useState(false);
-
   const modalRef = useRef(); // Reference to the modal
 
   const handleClose = (event) => {
@@ -21,7 +18,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       resetStates(); // 상태 초기화 함수
       onModalClose();
-      // setShow(false);
     }
   };
 
@@ -217,10 +213,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
       setErrorMessage(""); // 에러 메시지 초기화
     }
 
-    if (!customerType.current) {
-      alert("고객유형을 선택해주세요.");
-      return;
-    }
     const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
     const metroName =
@@ -247,7 +239,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-    customerType.current.value = selectedCustomerType;
     phone.current = phone.current; // phone Ref를 업데이트하지 않음
     const data = {
       customerType: selectedCustomerType,
@@ -355,51 +346,11 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                   {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
-                <div class="flex h-12 w-52 items-center overflow-x-scroll whitespace-nowrap   ">
-                  {Object.keys(customerTypeColors).map((type, idx, array) => {
-                    const isFirst = idx === 0;
-                    const isLast = idx === array.length - 1;
-                    let buttonStyle = {
-                      color:
-                        selectedCustomerType === type
-                          ? "white"
-                          : "var(--Gray-scale-100)",
-                      backgroundColor:
-                        selectedCustomerType === type
-                          ? customerTypeColors[type]
-                          : "transparent",
-                      borderColor:
-                        selectedCustomerType === type
-                          ? customerTypeColors[type]
-                          : "var(--Gray-scale-100)",
-                      fontWeight:
-                        selectedCustomerType === type ? "bold" : "normal",
-                    };
-
-                    // Apply rounded corners for the first and last button
-                    if (isFirst) {
-                      buttonStyle.borderTopLeftRadius = "4px";
-                      buttonStyle.borderBottomLeftRadius = "4px";
-                    }
-                    if (isLast) {
-                      buttonStyle.borderTopRightRadius = "4px";
-                      buttonStyle.borderBottomRightRadius = "4px";
-                    }
-
-                    return (
-                      <button
-                        key={idx}
-                        className="flex h-7 w-12 items-center  border-x-[0.5px] border-y border-gray-300 px-[14px] py-[5px] outline-none"
-                        type="button"
-                        ref={customerType}
-                        style={buttonStyle}
-                        value={selectedCustomerType}
-                        onClick={() => handleCustomerTypeClick(type)}
-                      >
-                        {type}
-                      </button>
-                    );
-                  })}
+                <div className="mb-4">
+                  <CustomerTypeButtons
+                    selectedCustomerType={selectedCustomerType}
+                    handleCustomerTypeClick={handleCustomerTypeClick}
+                  />
                 </div>
               </div>
             </div>

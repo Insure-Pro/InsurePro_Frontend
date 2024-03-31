@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import CustomerTypeButtons from "../Button/CustomerTypeButtons";
 
 const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const nameRef = useRef("");
@@ -267,53 +267,10 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                   {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
-                <div className="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
-                  {Object.keys(customerTypeColors).map((type, idx, array) => {
-                    const isFirst = idx === 0;
-                    const isLast = idx === array.length - 1;
-                    let buttonStyle = {
-                      color:
-                        selectedCustomerType === type
-                          ? "white"
-                          : "var(--Gray-scale-100)",
-                      backgroundColor:
-                        selectedCustomerType === type
-                          ? customerTypeColors[type]
-                          : "transparent",
-                      borderColor:
-                        selectedCustomerType === type
-                          ? customerTypeColors[type]
-                          : "var(--Gray-scale-100)",
-                      fontWeight:
-                        selectedCustomerType === type ? "bold" : "normal",
-                      borderLeftWidth: isFirst ? "1px" : "1px", // 첫 번째 버튼의 왼쪽 테두리 두께
-                      borderRightWidth: isLast ? "1px" : "1px", // 마지막 버튼의 오른쪽 테두리 두께
-                    };
-
-                    // Apply rounded corners for the first and last button
-                    if (isFirst) {
-                      buttonStyle.borderTopLeftRadius = "4px";
-                      buttonStyle.borderBottomLeftRadius = "4px";
-                    }
-                    if (isLast) {
-                      buttonStyle.borderTopRightRadius = "4px";
-                      buttonStyle.borderBottomRightRadius = "4px";
-                    }
-
-                    return (
-                      <button
-                        key={idx}
-                        className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
-                        type="button"
-                        style={buttonStyle}
-                        value={selectedCustomerType}
-                        onClick={() => handleCustomerTypeClick(type)}
-                      >
-                        {type}
-                      </button>
-                    );
-                  })}
-                </div>
+                <CustomerTypeButtons
+                  selectedCustomerType={selectedCustomerType}
+                  handleCustomerTypeClick={handleCustomerTypeClick}
+                />
               </div>
             </div>
             <div className=" modal_item_container">

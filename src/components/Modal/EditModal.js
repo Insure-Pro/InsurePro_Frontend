@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import CustomerTypeButtons from "../Button/CustomerTypeButtons";
 
 const EditModal = ({
   onClose,
@@ -252,51 +252,10 @@ const EditModal = ({
                 {" "}
                 <span className="Highlighting">*</span>고객유형
               </div>
-              <div className="flex h-12 w-52 items-center  overflow-x-scroll whitespace-nowrap  ">
-                {Object.keys(customerTypeColors).map((type, idx, array) => {
-                  const isFirst = idx === 0;
-                  const isLast = idx === array.length - 1;
-                  let buttonStyle = {
-                    color:
-                      selectedCustomerType === type
-                        ? "white"
-                        : "var(--Gray-scale-100)",
-                    backgroundColor:
-                      selectedCustomerType === type
-                        ? customerTypeColors[type]
-                        : "transparent",
-                    borderColor:
-                      selectedCustomerType === type
-                        ? customerTypeColors[type]
-                        : "var(--Gray-scale-100)",
-                    fontWeight:
-                      selectedCustomerType === type ? "bold" : "normal",
-                  };
-
-                  // Apply rounded corners for the first and last button
-                  if (isFirst) {
-                    buttonStyle.borderTopLeftRadius = "4px";
-                    buttonStyle.borderBottomLeftRadius = "4px";
-                  }
-                  if (isLast) {
-                    buttonStyle.borderTopRightRadius = "4px";
-                    buttonStyle.borderBottomRightRadius = "4px";
-                  }
-
-                  return (
-                    <button
-                      key={idx}
-                      className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
-                      type="button"
-                      style={buttonStyle}
-                      value={selectedCustomerType}
-                      onClick={() => handleCustomerTypeClick(type)}
-                    >
-                      {type}
-                    </button>
-                  );
-                })}
-              </div>
+              <CustomerTypeButtons
+                selectedCustomerType={selectedCustomerType}
+                handleCustomerTypeClick={handleCustomerTypeClick}
+              />
             </div>
           </div>
           <div className=" modal_item_container">
