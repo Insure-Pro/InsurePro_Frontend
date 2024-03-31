@@ -17,15 +17,6 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
 
-  // const handleShow = () => {
-  //   setShow(true);
-  //   setIsHistoryModalOpen(true); // Set state in Detail when opening the modal
-  // };
-  // const handleClose = () => {
-  //   setShow(false);
-  //   // setIsHistoryModalOpen(false); // Reset state in Detail when closing the modal
-  // };
-
   useEffect(() => {
     if (selectedHistory) {
       setSelectedProgressType(selectedHistory?.progress || "");
@@ -44,36 +35,6 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
   useEffect(() => {
     setUpdatedHistory(selectedHistory);
   }, [selectedHistory]);
-
-  // const [editedHistory, setEditedHistory] = useState({
-  //   progress: "",
-  //   date: "",
-  //   address: "",
-  //   memo: "",
-  // });
-
-  // useEffect(() => {
-  //   setEditedHistory(selectedHistory);
-  // }, [selectedHistory]);
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setEditedHistory((prev) => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleSaveChanges = async () => {
-  //   try {
-  //     const url = `${MAIN_URL}/schedule/${selectedHistory.pk}`;
-  //     await axios.patch(url, editedHistory, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     });
-  //     onClose();
-  //   } catch (error) {
-  //     console.error("Error updating history:", error);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

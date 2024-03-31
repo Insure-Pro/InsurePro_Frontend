@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import "../LandingPage.css"; // Add styling for your landing pagesimport '.'
 import Navbar from "../components/Navbar";
 import Section1 from "../components/LandingPage/Section1";
@@ -109,26 +108,9 @@ const LandingPage = () => {
     }
   };
 
-  // const handleMonthCustomersClick = () => {
-  //   navigate("/main", { state: { selectedTab: "월별 고객", formattedDate1 } });
-  // };
-
-  const handleAllCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
-
-  const handleContractCompleteClick = () => {
-    navigate("/main", { state: { selectedTab: "계약완료고객" } });
-  };
-
   return (
     <div class=" w-screen">
-      <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        isLandingPage={true}
-        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
-      />
+      <Navbar isLandingPage={true} />
       <div class="pt-[76px]"></div>
       <Section1 />
       <Section2 />

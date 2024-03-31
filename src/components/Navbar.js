@@ -5,27 +5,19 @@ import "../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../redux/authSlice";
-import NavbarItem from "./NavbarItem";
 import Search from "./Search";
 import DateChangeAModal from "./Modal/DateChangeAModal";
 import { toggleSearch } from "../redux/searchSlice";
 import { setSearchOff } from "../redux/searchSlice";
 import { setShowDateBar } from "../redux/navbarSlice";
 import { setCloseDateBar } from "../redux/navbarSlice";
-import { toggleNavItem } from "../redux/navbarSlice";
-import { setNavItemOff } from "../redux/navbarSlice";
-import { setNavItemOn } from "../redux/navbarSlice";
+import { setCurrentTab } from "../redux/tabsSlice";
 import Swal from "sweetalert2";
 
 const Navbar = ({
-  onAllCustomersClick,
-  onContractCompleteClick,
   onMonthCustomersClick,
   setCustomers,
   isLandingPage = false,
-  currentSection,
-  resetFiltersAndSort,
-  resetSearch,
 }) => {
   //----------------------------------------------------------------------
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -55,16 +47,16 @@ const Navbar = ({
       name: "고객목록",
       path: "/main", // 예시 경로, 실제 경로에 맞게 조정 필요
       subMenus: [
-        { name: "전체", path: "/main", action: onAllCustomersClick },
-        { name: "월별고객", path: "/main", action: onMonthCustomersClick },
-        { name: "계약완료", path: "/main", action: onContractCompleteClick },
+        { name: "전체", path: "/main" },
+        { name: "월별고객", path: "/main" },
+        { name: "계약완료", path: "/main" },
       ],
     },
     {
       name: "고객관리",
       path: "/", // 이 항목에 대한 기본 경로
       subMenus: [
-        { name: "인근고객", path: "/map" },
+        { name: "인근고객", path: "/kakaomap" },
         { name: "카톡발송", path: "/" },
         { name: "모바일 명함", path: "/" },
       ],
@@ -82,18 +74,10 @@ const Navbar = ({
   ];
 
   //----------------------------------------------------------------------
+
   const [userName, setUserName] = useState("UserName");
-  const [selectedTab, setSelectedTab] = useState("전체");
 
   const dispatch = useDispatch();
-
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [dropdownClicked, setDropdownClicked] = useState(false);
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-    setDropdownClicked(!dropdownClicked);
-  };
 
   const location = useLocation();
 
@@ -102,44 +86,9 @@ const Navbar = ({
 
   // Retrieve the login status from Redux
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // Modify this function to handle logo click based on login status
-  const handleLogoClick = () => {
-    if (isLoggedIn) {
-      // 로그인 상태일 경우
-      if (typeof resetFiltersAndSort === "function") {
-        navigate("/main", { state: { selectedTab: "로고" } });
-        resetSearch();
-      }
-    } else {
-      // User is not logged in, navigate to /landingPage
-      navigate("/landingPage");
-    }
-    // resetSearch(); // 검색 결과 초기화
-  };
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
 
-  const handleTabClick = (tabName) => {
-    // Update the analysis selected state based on whether the 'Analysis' tab is clicked
-    setSelectedTab(tabName); // 탭 상태를 직접 업데이트
-
-    // Update selected tab state
-
-    // Call the appropriate handler based on the tab name
-    if (tabName === "월별 고객") {
-      onMonthCustomersClick();
-      navigate("/main", { state: { selectedTab: "월별 고객" } });
-    } else if (tabName === "전체") {
-      navigate("/main", { state: { selectedTab: "전체" } });
-      // onAllCustomersClick();
-    } else if (tabName === "계약완료고객") {
-      onContractCompleteClick();
-      navigate("/main", { state: { selectedTab: "계약완료고객" } });
-    } else if (tabName === "로고") {
-      // resetFiltersAndSort();
-      navigate("/main", { state: { selectedTab: "로고" } });
-    }
-  };
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
@@ -203,30 +152,10 @@ const Navbar = ({
     fetchEmployeeName(); // 직원 정보를 가져오는 함수 호출
   }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
 
-  // Simplified the function to get the font weight based on the selected tab
-  const getFontWeight = (tabName) =>
-    selectedTab === tabName ? "Bold" : "normal";
-
-  //기존 Navigate로 페이지 이동 함수 하나로 합침
-  const handleTabChange = (selectedTab) => {
-    setSelectedTab(selectedTab);
-    navigate(`/${selectedTab.toLowerCase()}`, { state: { selectedTab } });
-  };
-
-  useEffect(() => {
-    const tab = location.state?.selectedTab;
-    if (tab) {
-      setSelectedTab(tab);
-    }
-  }, [location]);
-
   const showSearch = useSelector((state) => state.search.showSearch);
-  const showDateBar = useSelector((state) => state.navbar.showDateBar);
-  const showNavItem = useSelector((state) => state.navbar.showNavItem);
-  // Update event handlers
+
   const handleSearchToggle = () => {
     dispatch(toggleSearch());
-    setShowDropdown(false);
   };
 
   const [showDate, setShowDate] = useState(false);
@@ -244,8 +173,6 @@ const Navbar = ({
 
   const handleFormattedDateClick = () => {
     setIsModalOpen(true);
-    // if (selectedTab === "월별 고객") {
-    // }
   };
   const handleshowDateClick = () => {
     setShowDate(true);
@@ -261,15 +188,6 @@ const Navbar = ({
     setIsModalOpen(false); // Optionally, close the modal after changing the date
     const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}`;
     onMonthCustomersClick(formattedDate2);
-  };
-
-  // '고객관리' 클릭 핸들러
-  const handleClientClick = () => {
-    dispatch(setSearchOff()); // showSearch를 false로 설정
-    if (isLoggedIn) {
-      resetSearch();
-      toggleDropdown();
-    }
   };
 
   // Handle the close action for the Search component
@@ -309,7 +227,8 @@ const Navbar = ({
   }, [logoutButtonRef]);
 
   // 메뉴 클릭 시 해당 페이지로 이동
-  const handleMenuClick = (name, path, action = null, event) => {
+  const handleMenuClick = (name, path, event) => {
+    event.preventDefault(); // 페이지 리로드 방지
     // 서브메뉴 클릭 시 상위 이벤트로의 전파를 막습니다.
     if (event) {
       event.stopPropagation();
@@ -321,18 +240,8 @@ const Navbar = ({
       dispatch(setCloseDateBar());
       handleCloseDateClick();
     }
-    // 서브메뉴의 action이 정의되어 있으면 실행합니다.
-    if (action) {
-      action(); // 서브메뉴의 특정 로직을 실행합니다.
-      navigate(path, {
-        state: {
-          /* 필요한 상태를 여기에 전달 */
-        },
-      });
-    } else {
-      // 메인 메뉴 클릭 시 기본 동작
-      navigate(path);
-    }
+    dispatch(setCurrentTab(name)); // 클릭된 메뉴 이름을 현재 탭으로 설정
+    navigate(path, { state: { selectedTab: name } });
   };
   return (
     <header
@@ -347,8 +256,8 @@ const Navbar = ({
             <div
               className={`logo ${!isMainRoute ? "ml-[-8px]" : ""}`}
               onClick={() => {
-                handleTabClick("로고");
-                handleLogoClick();
+                dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
+                navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
                 handleCloseDateClick();
                 dispatch(setCloseDateBar());
               }}
@@ -369,7 +278,7 @@ const Navbar = ({
                       windowWidth >= 960 && setShowSubMenus(true)
                     }
                     onClick={(e) => {
-                      handleMenuClick(menu.name, menu.path, menu.action, e);
+                      handleMenuClick(menu.name, menu.path, e);
                       setShowSubMenus(false);
                       windowWidth < 960 && setIsMenuOpen(!isMenuOpen);
                     }}
@@ -377,7 +286,6 @@ const Navbar = ({
                     <a href="#" onClick={(e) => e.preventDefault()}>
                       {menu.name}
                     </a>
-                    {/* Show submenus based on the showSubMenus state */}
                     <ul
                       className={`submenu ${
                         showSubMenus && !isLandingPage ? "show" : "hide"
@@ -387,12 +295,7 @@ const Navbar = ({
                         <li
                           key={subIndex}
                           onClick={(e) => {
-                            handleMenuClick(
-                              subMenu.name,
-                              subMenu.path,
-                              subMenu.action,
-                              e,
-                            );
+                            handleMenuClick(subMenu.name, subMenu.path, e);
                             setShowSubMenus(false);
                           }}
                         >
@@ -486,7 +389,6 @@ const Navbar = ({
                 src={right_icon}
               />
               <div class="  h-full w-[782px]"></div>
-              {/* The rest of the content, blurred when modal is open */}
 
               {isModalOpen && (
                 <DateChangeAModal

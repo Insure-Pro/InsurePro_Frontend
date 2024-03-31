@@ -2,15 +2,10 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Navbar from "../components/Navbar";
-import Dbbar from "../components/Dbbar";
 import CustomerDetail from "../components/CustomerDetail";
-import CustomerInfo from "../components/CustomerInfo"; // Assuming you have this component
-import CustomerHistory from "../components/CustomerHistory"; // Assuming you have this component
-import EditModalD from "../components/Modal/EditModalD";
-import HistoryModal from "../components/Modal/HistoryModal";
-import { useNavigate } from "react-router-dom";
+import CustomerInfo from "../components/CustomerInfo";
+import CustomerHistory from "../components/CustomerHistory";
 import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 
 const Detail = ({}) => {
   const location = useLocation();
@@ -20,22 +15,8 @@ const Detail = ({}) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   const [showEditModalD, setShowEditModalD] = useState(false);
-  const [showEditModalH, setShowEditModalH] = useState(false);
-  // HistoryModal이 열려 있는지 추적하는 새로운 상태
+
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
-
-  const currentDate = new Date(); // 현재 날짜를 얻습니다.
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1,
-  );
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -59,10 +40,6 @@ const Detail = ({}) => {
     fetchCustomer();
   }, [customerPk]);
 
-  // const handleEditClick = () => {
-  //   setShowEditModalD(true);
-  // };
-
   const handleUpdateSuccess = (updatedCustomer) => {
     try {
       setSelectedCustomer(updatedCustomer);
@@ -71,35 +48,13 @@ const Detail = ({}) => {
     }
   };
 
-  const handleMonthCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate } });
-  };
-
-  const handleAllCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
-
-  const handleContractCompleteClick = () => {
-    navigate("/main", { state: { selectedTab: "계약완료고객" } });
-  };
-  // const handleLogoClick = () => {
-  //   navigate("/main", { state: { selectedTab: "로고" } });
-  // };
   return (
     <div>
-      <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
-        ContractedCustomerClcik={handleContractCompleteClick}
-        AllCustomersClick={handleAllCustomersClick}
-        resetSearch={() => {}}
-        // resetFiltersAndSort={handleLogoClick}
-      />
+      <Navbar />
       <div
         className={` ${
           showEditModalD || isHistoryModalOpen
-            ? "blur-background-detail no-interaction mt-[-76px]"
+            ? "blur-background-detail no-interaction "
             : ""
         }  mx-auto h-screen w-full min-w-[1024px] select-none`}
       >
@@ -111,13 +66,9 @@ const Detail = ({}) => {
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
               showEditModal={showEditModalD}
-              onEditClick={() => setShowEditModalD(true)} // Opens the modal
-              onCloseModal={() => setShowEditModalD(false)} // Closes the modal
+              onEditClick={() => setShowEditModalD(true)}
+              onCloseModal={() => setShowEditModalD(false)}
             />
-            {/* <hr
-              className="Detail_hr"
-              style={{ width: "1020px", marginTop: "40px", marginLeft: "12px" }}
-            /> */}
             <div>
               <CustomerInfo
                 data={selectedCustomer}
@@ -125,28 +76,18 @@ const Detail = ({}) => {
                 customerPk={customerPk}
                 onUpdateSuccess={handleUpdateSuccess}
                 showEditModal={showEditModalD}
-                onEditClick={() => setShowEditModalD(true)} // Opens the modal
-                onCloseModal={() => setShowEditModalD(false)} // Closes the modal
+                onEditClick={() => setShowEditModalD(true)}
+                onCloseModal={() => setShowEditModalD(false)}
               />
             </div>
 
-            {/* <hr
-              className="Detail_hr Detail_hr2"
-              style={{ width: "1020px", marginLeft: "12px" }}
-            /> */}
             <CustomerHistory
               data={customerSchedules}
               customerPk={customerPk}
               setIsHistoryModalOpen={setIsHistoryModalOpen}
-              onEditClick={() => setIsHistoryModalOpen(true)} // Opens the modal
-              onCloseModal={() => setIsHistoryModalOpen(false)} // Closes the modal
+              onEditClick={() => setIsHistoryModalOpen(true)}
+              onCloseModal={() => setIsHistoryModalOpen(false)}
             />
-            {/* <EditModalD
-              show={showEditModalD}
-              onHide={() => setShowEditModalD(false)}
-              selectedCustomer={selectedCustomer}
-              onUpdateSuccess={handleUpdateSuccess}
-            /> */}
           </>
         )}
       </div>

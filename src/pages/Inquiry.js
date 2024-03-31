@@ -2,33 +2,17 @@ import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { FormCheck } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 const Inquiry = ({}) => {
-  // const content = useRef("");
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
 
   const location = useLocation();
 
   const add_icon = process.env.PUBLIC_URL + "/folder-add.png";
-
-  const currentDate = new Date(); // 현재 날짜를 얻습니다.
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1,
-  );
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -84,18 +68,6 @@ const Inquiry = ({}) => {
     }
   };
 
-  const handleMonthCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate } });
-  };
-
-  const handleAllCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
-
-  const handleContractCompleteClick = () => {
-    navigate("/main", { state: { selectedTab: "계약완료고객" } });
-  };
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -105,14 +77,7 @@ const Inquiry = ({}) => {
 
   return (
     <div>
-      <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
-        ContractedCustomerClcik={handleContractCompleteClick}
-        AllCustomersClick={handleAllCustomersClick}
-        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
-      />
+      <Navbar />
       <div
         class=" mx-auto h-screen w-full min-w-[1024px] bg-LightMode-SectionBackground"
         style={{
@@ -178,7 +143,6 @@ const Inquiry = ({}) => {
           <div class="flex w-full justify-center">
             <button
               onClick={handleSubmit}
-              // type="submit"
               class="flex h-[40px] w-[280px] items-center justify-center rounded  border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
             >
               접수

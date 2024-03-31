@@ -1,13 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
-// import { useDispatch } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
-import { refreshToken } from "./redux/authSlice";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import withAuth from "./withAuth";
 import { loginSuccess, logoutSuccess } from "./redux/authSlice";
 
@@ -79,7 +74,10 @@ function App() {
             <Route path="/landingPage" element={<LandingPage />} />
             <Route path="/main" element={renderProtected(ProtectedMain)} />
             <Route path="/detail" element={renderProtected(ProtectedDetail)} />
-            <Route path="/map" element={renderProtected(ProtectedKakaoMap)} />
+            <Route
+              path="/kakaomap"
+              element={renderProtected(ProtectedKakaoMap)}
+            />
             <Route
               path="/kakaoTalk"
               element={renderProtected(ProtectedKakaoTalk)}

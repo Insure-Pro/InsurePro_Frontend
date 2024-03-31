@@ -1,16 +1,13 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../App.css";
 import Navbar from "../components/Navbar";
 import DateChangeAModal from "../components/Modal/DateChangeAModal";
-
 import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";
 import PcGraph from "../components/Graph/PcGraph";
 import ContractGraph from "../components/Graph/ContractGraph";
 import { PropagateLoader } from "react-spinners";
-import { Colors } from "chart.js";
 
 const Analysis = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -29,18 +26,6 @@ const Analysis = () => {
 
   const customerTypes = ["OD", "AD", "CD", "CP", "JD"];
 
-  const navigate = useNavigate();
-  // Function to format the date for display
-
-  const currentDate = new Date(); // 현재 날짜를 얻습니다.
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1,
-  );
-  const formattedDate1 = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
 
@@ -117,8 +102,6 @@ const Analysis = () => {
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
-  // console.log(data);
-  // console.log(date);
 
   const allTaCount =
     data["OD"]?.ta +
@@ -145,31 +128,9 @@ const Analysis = () => {
     data["CP"]?.subscriptionCount +
     data["JD"]?.subscriptionCount;
 
-  const handleMonthCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate1 } });
-  };
-
-  const handleAllCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
-
-  const handleContractCompleteClick = () => {
-    navigate("/main", { state: { selectedTab: "계약완료고객" } });
-  };
-
-  // const handleLogoClick = () => {
-  //   navigate("/main", { state: { selectedTab: "로고" } });
-  // };
   return (
     <div className="Detail_container w-screen">
-      <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
-        ContractedCustomerClcik={handleContractCompleteClick}
-        AllCustomersClick={handleAllCustomersClick}
-        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
-      />
+      <Navbar />
       <div
         className={`select-none   justify-center ${
           showModal ? "blur-background no-interaction" : ""
@@ -177,7 +138,6 @@ const Analysis = () => {
         style={{ marginTop: showModal ? "-36px" : "" }}
       >
         <div class="flex h-10 items-center justify-center px-12">
-          {/* DateChangeModal component */}
           {showModal && (
             <DateChangeAModal
               initialYear={year}
@@ -186,7 +146,7 @@ const Analysis = () => {
               onClose={() => setShowModal(false)}
             />
           )}
-          {/* <div className="analysis_header maintitle">성과분석</div> */}
+
           <div
             className="analysis_subtitle_left"
             onClick={() => setShowModal(true)}

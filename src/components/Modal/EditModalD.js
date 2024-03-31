@@ -1,11 +1,8 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import PropTypes from "prop-types";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
@@ -84,8 +81,6 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
     }
   }, [selectedCustomer, hangjungdong]);
 
-  const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
-
   const customerTypeColors = {
     OD: "var(--colorN-1)",
     AD: "var(--colorN-2)",
@@ -113,10 +108,6 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
     setContractYn(!contractYn);
     setRenderKey((prevKey) => prevKey + 1); // Increment the render key to force re-render
   };
-
-  // useEffect(() => {
-  //   setContractYn(!contractYn);
-  // }, [contractYn]);
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
@@ -281,15 +272,6 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         </div>
         <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <Form onSubmit={handleSubmit}>
-            {/* <div className="mb-4" controlId="formName">
-              <Form.Control
-                type="text"
-                placeholder="이름"
-                defaultValue={selectedCustomer?.name}
-                ref={nameRef}
-              />
-            </div> */}
-
             <div className="mb-1    h-12 w-[352px] select-none ">
               <div className=" flex items-center">
                 <div className="w-[84px] pb-4 ">

@@ -5,36 +5,11 @@ import "../App.css";
 const Search = ({ setCustomers, onClose }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // 경고 메시지 상태 추가
   const name = useRef("");
   const search = process.env.PUBLIC_URL + "/search.png";
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
-  // const handleSearch = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${MAIN_URL}/customers/name/${inputName}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //         },
-  //       },
-  //     );
-  //     if (response.status === 200) {
-  //       setCustomers(response.data);
-  //       setInputName("");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching customers by name:", error);
-  //   }
-  // };
-
-  // const handleOnKeyDown = (e) => {
-  //   if (e.key === "Enter") {
-  //     handleSearch();
-  //   }
-  // };
   const handleSearch = async () => {
     try {
       const response = await axios.request({
@@ -97,20 +72,6 @@ const Search = ({ setCustomers, onClose }) => {
         onBlur={() => setInputFocused(false)}
         autoFocus
       ></input>
-      {/* <button
-        className="Search_button"
-        style={{
-          width: "60px",
-          height: "36px",
-          borderRadius: "8px",
-          backgroundColor: isInputFocused ? "#175CD3" : "#98A2B3",
-          color: isInputFocused ? "#fff" : "#fff",
-          border: "none",
-        }}
-        onClick={handleSearch}
-      >
-        검색
-      </button> */}
     </div>
   );
 };

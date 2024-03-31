@@ -1,8 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
@@ -12,7 +9,6 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
   const [address, setAddress] = useState("");
   const [memo, setMemo] = useState("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
-  const progressTypes = ["TA", "AP", "PT", "PC"];
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -117,22 +113,6 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
         <div className="Modal_container">
           <Form onSubmit={handleSubmit}>
             <div>
-              {/* {progressTypes.map((type, idx) => (
-                <ToggleButton
-                  key={idx}
-                  type="button"
-                  variant={
-                    selectedProgressType === type
-                      ? "primary"
-                      : "outline-primary"
-                  }
-                  value={selectedProgressType}
-                  onClick={() => handleProgressTypeClick(type)}
-                  style={{ borderRadius: "0px" }}
-                >
-                  {type}
-                </ToggleButton>
-              ))} */}
               <div className="mb-1  mt-2 flex h-10 w-[352px] items-center ">
                 <div class=" flex items-center">
                   <div className="mr-[38px] w-[50px] cursor-default ">

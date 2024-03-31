@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import "../App.css";
-import Navbar from "./Navbar";
 import Nav from "react-bootstrap/Nav";
-import Search from "../components/Search";
-import ExcelUploadModal from "./Modal/ExcelUploadModal";
-import DateChangeModal from "./Modal/DateChangeModal";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { setSelectedTab } from "../redux/customerSlice";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ItemType = "NAV_ITEM";
@@ -37,12 +31,8 @@ const DraggableNavItem = ({ item, index, moveItem }) => {
 };
 
 const Dbbar = ({
-  onAllCustomersClick,
-  onContractCompleteClick,
   onMonthCustomersClick,
-  children,
   onTypeChange,
-  setCustomers,
   activeType, // 이제 이 prop을 사용합니다.
 }) => {
   const [items, setItems] = useState([
@@ -58,11 +48,7 @@ const Dbbar = ({
     { key: "link-10", label: "Z" },
   ]);
 
-  const showSearch = useSelector((state) => state.search.showSearch);
-  const showNavItem = useSelector((state) => state.navbar.showNavItem);
   const showDateBar = useSelector((state) => state.navbar.showDateBar);
-  // const [activeType, setActiveType] = useState("All"); // 초기 선택값을 "All"로 설정
-  const [selectedTab, setSelectedTab] = useState("");
 
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -73,31 +59,6 @@ const Dbbar = ({
   const [selectedMonth, setSelectedMonth] = useState(
     currentDate.getMonth() + 1,
   );
-
-  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
-
-  const formattedDateTitle = `${selectedYear}년 ${String(
-    selectedMonth,
-  ).padStart(2, "0")}월`; // formattedDate 업데이트
-  const handleMonthCustomersClick = () => {
-    setSelectedTab("월별 고객"); // 계약 완료 여부를 true로 설정
-  };
-  const handleAllCustomersClick = () => {
-    setSelectedTab("전체");
-  };
-
-  const handleContractCompleteClick = () => {
-    setSelectedTab("계약완료고객");
-  };
-
-  const handleFormattedDateClick = () => {
-    if (selectedTab === "월별 고객") {
-      setIsModalOpen(true);
-    }
-  };
 
   // 선택한 년, 월로 formattedDate를 업데이트하는 함수
   const handleDateChange = (newYear, newMonth, fetchedData) => {
@@ -115,18 +76,6 @@ const Dbbar = ({
 
   //   setItems(updatedItems);
   // };
-
-  const [showExcelModal, setShowExcelModal] = useState(false); // State to control Excel Modal visibility
-
-  // Handler for opening Excel Modal
-  const handleExcelModalShow = () => {
-    setShowExcelModal(true);
-  };
-
-  // Handler for closing Excel Modal
-  const handleExcelModalClose = () => {
-    setShowExcelModal(false);
-  };
 
   const handleTypeClick = (type) => {
     // setActiveType(type);
@@ -155,23 +104,6 @@ const Dbbar = ({
               showDateBar ? "mt-9" : "mt-0"
             } flex  h-[36px] w-[1024px] bg-white`}
           >
-            {/* <span
-              className="Excel_Customer_Add"
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                paddingRight: "50px",
-                marginBottom: "-30px",
-                fontWeight: "600",
-                opacity: "0.7",
-                color: "#000",
-                cursor: "pointer",
-              }}
-              onClick={handleExcelModalShow}
-            >
-              엑셀로 고객 추가하기
-            </span> */}
-
             <Nav>
               {items.map((item) => (
                 <Nav.Link
@@ -195,51 +127,13 @@ const Dbbar = ({
                         ? `2px solid ${customerTypeColors[item.label]}`
                         : "none",
                   }}
-
-                  // 유형별로 아예 색상 변경, borderbottom 포함
-                  // style={{
-                  //   color: customerTypeColors[item.label],
-                  //   fontWeight:
-                  //     activeType === item.label || hoveredItem === item.label
-                  //       ? "bold"
-                  //       : "normal",
-                  //   borderBottom:
-                  //     activeType === item.label || hoveredItem === item.label
-                  //       ? `2px solid ${customerTypeColors[item.label]}`
-                  //       : "none",
-                  // }}
                 >
                   {item.label}
                 </Nav.Link>
               ))}
-              {/* <Search setCustomers={setCustomers} /> */}
             </Nav>
-            {/* <hr
-              className="Dbbar_hr"
-              style={{
-                width: "1024px",
-                height: "2px",
-                marginTop: "-2px",
-                marginBottom: "0px",
-              }}
-            /> */}
-            {/* {children} */}
           </div>
         </div>
-        {/* {isModalOpen && (
-          <DateChangeModal
-            initialYear={selectedYear}
-            initialMonth={selectedMonth}
-            onDateChange={handleDateChange}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
-        {showExcelModal && (
-          <ExcelUploadModal
-            show={showExcelModal}
-            onHide={handleExcelModalClose}
-          />
-        )} */}
       </div>
     </DndProvider>
   );

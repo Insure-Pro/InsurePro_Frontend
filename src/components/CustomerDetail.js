@@ -19,13 +19,7 @@ const CustomerDetail = ({
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
   const checkbox = process.env.PUBLIC_URL + "/checkbox-12.png";
 
-  // Step 1: Add a state to manage the visibility of the EditModal
-  // const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(data); // initialCustomerData는 초기 고객 데이터입니다.
-  // Step 2: Add an event handler that sets showEditModal to true when the edit icon is clicked
-  const handleEditClick = () => {
-    showEditModal();
-  };
 
   const customerTypeColors = {
     OD: "var(--colorN-1)",
@@ -38,14 +32,6 @@ const CustomerDetail = ({
     Y: "var(--colorN-8)",
     Z: "var(--colorN-9)",
   };
-
-  // const handleUpdateSuccess = (updatedCustomerData) => {
-  //   setSelectedCustomer(updatedCustomerData);
-  // };
-  // const handleModalClose = () => {
-  //   setShowEditModal(false);
-  // Optionally, refresh customer data if it has been modified in the modal
-  // };
 
   return (
     <div className="customer-detail-container">
@@ -81,10 +67,6 @@ const CustomerDetail = ({
               onHide={onCloseModal} // This function updates the state to close the modal
               selectedCustomer={data}
               onUpdateSuccess={onUpdateSuccess}
-
-              // onHide={() => setShowEditModal(false)}
-              // selectedCustomer={data}
-              // onUpdateSuccess={onUpdateSuccess}
             />
           </div>
         </div>
@@ -116,13 +98,6 @@ const CustomerDetail = ({
                 (만 {data.age}세)
               </div>
             </div>
-
-            {/* <Form.Check
-              className="Detail_checkbox"
-              aria-label="option 1"
-              checked={data.contractYn}
-              readOnly
-            /> */}
           </div>
 
           <div class="mb-3 text-sm" style={{ cursor: "default" }}>

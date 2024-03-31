@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 중복 오류남
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
@@ -262,20 +259,6 @@ const EditModal = ({
         style={{ margin: "-15px 0px" }}
       >
         <Form onSubmit={handleSubmit}>
-          {/* <Form.Group> controlId="contractYn.ControlCheckbox1">
-            <Form.Check
-              type="checkbox"
-              label="계약 체결 여부"
-              checked={contractYn} // 체크박스 상태를 반영
-              onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
-              style={{
-                marginLeft: "14px",
-                marginBottom: "10px",
-                marginTop: "-20px",
-              }}
-            />
-          </Form.Group> */}
-
           <div className="mb-1  h-12 w-[352px] ">
             <div className=" flex items-center">
               <div className="w-[84px] pb-4 ">

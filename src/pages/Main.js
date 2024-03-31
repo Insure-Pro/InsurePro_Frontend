@@ -45,30 +45,30 @@ const Main = () => {
   // Retrieve the login status from Redux
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  //-----------------------------------------------------------------------
+  // Redux에서 현재 탭 상태 가져오기
+  const currentTab = useSelector((state) => state.tabs.currentTab);
+
   useEffect(() => {
-    if (selectedTab) {
-      switch (selectedTab) {
-        case "전체":
-          handleAllCustomersClick();
-          break;
-        case "계약완료고객":
-          handleContractCompleteClick();
-          break;
-        case "월별 고객":
-          if (formattedDate) {
-            handleMonthCustomersClick(formattedDate);
-          }
-          break;
-        case "로고":
-          resetFiltersAndSort();
-          break;
-        // Add cases for other tabs if necessary
-        default:
-          // Default action
-          break;
-      }
+    // 현재 탭에 따른 로직 실행
+    switch (currentTab) {
+      case "전체":
+        handleAllCustomersClick();
+        break;
+      case "월별 고객":
+        // 필요한 경우 formattedDate 사용
+        handleMonthCustomersClick(formattedDate);
+        break;
+      case "계약완료":
+        handleContractCompleteClick();
+        break;
+      case "로고":
+        resetFiltersAndSort();
+        break;
+      // 추가적인 케이스...
     }
-  }, [selectedTab, location]);
+  }, [currentTab]); // currentTab이 변경될 때마다 이 useEffect가 실행됩니다.
+  //-----------------------------------------------------------------------
 
   const navigate = useNavigate();
 
@@ -163,11 +163,11 @@ const Main = () => {
   }, [refresh, selectedAge, selectedSort, activeType, formattedDate]); // refresh, activeType, selectedAge가 변경될 때마다 데이터 다시 불러옵니다.
 
   const handleAllCustomersClick = () => {
-    setSelectedContractYn(null);
     setSelectedAge("");
     setSelectedSort("latest");
     setActiveType("All");
-    setSelectedSort("All");
+    // setSelectedSort("All");
+    setSelectedContractYn(null);
     setFormattedDate(null);
   };
 
@@ -184,6 +184,16 @@ const Main = () => {
     setSelectedSort("");
   };
 
+  //로고 클릭시 모든 정렬기준 초기화 함수
+  const resetFiltersAndSort = () => {
+    setSelectedAge("");
+    setSelectedSort("latest");
+    setActiveType("All");
+    setSelectedContractYn(null);
+    setFormattedDate(null);
+    setCurrentSelection("정렬기준");
+  };
+
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
@@ -195,12 +205,12 @@ const Main = () => {
     setShowModal(false); // 모달을 숨김
   };
 
-  const handleEditClick = (customer) => {
-    setSelectedCustomer(customer);
-    setShowEditModal(true);
-    setIsModalOpen(true);
-    fetchData();
-  };
+  // const handleEditClick = (customer) => {
+  //   setSelectedCustomer(customer);
+  //   setShowEditModal(true);
+  //   setIsModalOpen(true);
+  //   fetchData();
+  // };
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
@@ -211,10 +221,10 @@ const Main = () => {
     fetchData();
   };
 
-  const handleRightClick = (e, customerId) => {
-    e.preventDefault(); // 기본 우클릭 메뉴 차단
-    setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
-  };
+  // const handleRightClick = (e, customerId) => {
+  //   e.preventDefault(); // 기본 우클릭 메뉴 차단
+  //   setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
+  // };
 
   const customerTypeColors = {
     OD: "var(--colorN-1)",
@@ -325,15 +335,6 @@ const Main = () => {
   const handleAddCustomerWithExcel = () => {
     setShowOptions(false);
     setShowExcelUploadModal(true);
-  };
-
-  //로고 클릭시 모든 정렬기준 초기화 함수
-  const resetFiltersAndSort = () => {
-    setSelectedAge("");
-    setActiveType("All");
-    setSelectedSort("All");
-    setSelectedContractYn(null);
-    setCurrentSelection("정렬기준");
   };
 
   // 검색 결과를 초기화하는 함수

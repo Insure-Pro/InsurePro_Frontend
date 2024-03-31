@@ -5,14 +5,8 @@ import { useState, useEffect } from "react";
 import EditModalH from "./Modal/EditModalH";
 import ContextMenu from "./Modal/ContextMenu";
 
-const CustomerHistory = ({
-  customerPk,
-  setIsHistoryModalOpen,
-  onEditClick,
-  onCloseModal,
-}) => {
+const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
   const [selectedHistory, setSelectedHistory] = useState(null);
   const [showEditModalH, setShowEditModalH] = useState(false);
   const [histories, setHistories] = useState([]);
@@ -33,17 +27,6 @@ const CustomerHistory = ({
     } catch (error) {
       console.error("Error fetching customer history:", error.message);
     }
-  };
-
-  const handleRightClick = (e, historyId) => {
-    e.preventDefault(); // 기본 우클릭 메뉴 차단
-    setShowOptions((prevId) => (prevId === historyId ? null : historyId)); // 버튼 토글
-  };
-  // 수정 버튼 클릭 시, EditModalH를 띄우고 해당 히스토리 정보를 전달하는 이벤트 핸들러
-  const handleEditHClick = (History) => {
-    setSelectedHistory(History);
-    setShowEditModalH(true);
-    fetchData();
   };
 
   useEffect(() => {
@@ -221,42 +204,6 @@ const CustomerHistory = ({
               </div>
               <div className="historyItemStyle3">{history.memo}</div>
             </div>
-            {/* {showOptions === history.pk && (
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <button
-                  className="history_edit_Btn"
-                  variant="outline-primary"
-                  onClick={() => handleEditHClick(history)}
-                  style={{
-                    fontSize: "14px",
-                    width: "58px",
-                    height: "32px",
-                    marginBottom: "6px",
-                    paddingBottom: "10px",
-                    marginLeft: "-10px",
-                    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                  }}
-                >
-                  수정
-                </button>{" "}
-                <button
-                  className="history_edit_Btn"
-                  variant="outline-danger"
-                  onClick={() => handleDeleteClick(history)}
-                  style={{
-                    fontSize: "14px",
-                    width: "58px",
-                    height: "32px",
-                    marginBottom: "6px",
-                    paddingBottom: "10px",
-                    marginLeft: "-10px",
-                    boxShadow: "4px 4px 4px 0px rgba(46, 64, 97, 0.15)",
-                  }}
-                >
-                  삭제
-                </button>{" "}
-              </div>
-            )} */}
           </div>
         ))}
         {contextMenu.visible && (

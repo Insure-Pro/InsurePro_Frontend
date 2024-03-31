@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
 import MapCustomerDetail from "../components/MapCustomerDetail";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
 
@@ -15,9 +14,7 @@ const KakaoMap = () => {
     lng: 129.05562775, // Default longitude (Busan City Hall)
   });
   const [locationObtained, setLocationObtained] = useState(false);
-  // const [markersRef.current, setMarkers] = useState([]); // New state for storing marker objects
   const markersRef = useRef([]); // 마커를 저장할 ref 생성
-  // const [selectedMarker, setSelectedMarker] = useState(null); // 클릭한 마커 색 변경 관리
   const selectedMarkerRef = useRef(null); // 선택된 마커를 저장할 ref
   const [currentOpenOverlay, setCurrentOpenOverlay] = useState(null); //현 지도 검색 시 커스텀 오버레이 상태관리
 
@@ -25,13 +22,10 @@ const KakaoMap = () => {
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
   const marker_blue2 = process.env.PUBLIC_URL + "/marker_blue2.png";
   const marker_red2 = process.env.PUBLIC_URL + "/marker_red2.png";
-  const search_white = process.env.PUBLIC_URL + "/search_white.png";
   const search = process.env.PUBLIC_URL + "/search.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
   const check_on = process.env.PUBLIC_URL + "/check_on_8.png";
   const check_off = process.env.PUBLIC_URL + "/check_off_8.png";
-  const blue_circle = process.env.PUBLIC_URL + "/Map_Blue.png";
-  const Red_circle = process.env.PUBLIC_URL + "/Map_Red.png";
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -491,12 +485,6 @@ const KakaoMap = () => {
         selectedMarkerRef.current = null; // 선택 해제
         setIsDetailVisible(false); // Optionally close detail view
       } else {
-        // Set previously selected marker back to blue
-        // const previousMarker = markersRef.current.find(
-        //   (m) =>
-        //     m.customersGroup &&
-        //     m.customersGroup.some((c) => c.pk === selectedCustomerPk),
-        // );
         if (selectedMarkerRef.current) {
           selectedMarkerRef.current.setImage(
             new window.kakao.maps.MarkerImage(
@@ -640,31 +628,6 @@ const KakaoMap = () => {
     setIsDetailVisible(false);
   };
 
-  const navigate = useNavigate();
-
-  const currentDate = new Date(); // 현재 날짜를 얻습니다.
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1,
-  );
-
-  const formattedDate = `${selectedYear}-${String(selectedMonth).padStart(
-    2,
-    "0",
-  )}`; // formattedDate 업데이트
-
-  const handleMonthCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "월별 고객", formattedDate } });
-  };
-
-  const handleAllCustomersClick = () => {
-    navigate("/main", { state: { selectedTab: "전체" } });
-  };
-
-  const handleContractCompleteClick = () => {
-    navigate("/main", { state: { selectedTab: "계약완료고객" } });
-  };
-
   //////////  현재위치정보 리스트에 보여주는 로직 시작  //////////
   const [currentAddress, setCurrentAddress] = useState("");
 
@@ -797,6 +760,48 @@ const KakaoMap = () => {
     }
   };
   //////////  이름 검색 로직 끝  //////////
+  // useEffect(() => {
+  //   // 컴포넌트가 마운트된 후에 실행되는 코드
+  //   const mapContainer = document.getElementById("map");
+  //   if (mapContainer) {
+  //     const handleMapClick = function (e) {
+  //       // 여기에 이벤트 처리 로직 추가
+  //       let targetElement = e.target.closest(".custom-overlay-items");
+  //       if (targetElement) {
+  //         const pk = targetElement.getAttribute("data-pk");
+  //         if (pk) {
+  //           setSelectedCustomerPk(pk);
+  //           setIsDetailVisible(true);
+  //           // 여기에 클릭된 요소에 대한 추가 처리 로직을 추가할 수 있습니다.
+  //         }
+  //       }
+  //     };
+  //     mapContainer.addEventListener("click", handleMapClick, true); // 이벤트 리스너 추가
+
+  //     return () => {
+  //       // 컴포넌트가 언마운트될 때 실행되는 클린업 코드
+  //       mapContainer.removeEventListener("click", handleMapClick, true); // 이벤트 리스너 제거
+  //     };
+  //   }
+  // }, []); // 의존성 배열을 빈 배열로 설정하여 컴포넌트가 처음 마운트될 때만 실행됩니다.
+  useEffect(() => {
+    // 이벤트 리스너를 추가하기 전에 'map' 요소가 존재하는지 확인
+    const mapElement = document.getElementById("map");
+    if (!mapElement) return; // 'map' 요소가 없으면 여기서 종료
+
+    const handleClick = (e) => {
+      let targetElement = e.target.closest(".custom-overlay-items");
+      // 여기에 클릭 이벤트에 대한 로직 추가
+    };
+
+    // 'map' 요소에 클릭 이벤트 리스너 추가
+    mapElement.addEventListener("click", handleClick, true);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      mapElement.removeEventListener("click", handleClick, true);
+    };
+  }, []); // 의존성 배열이 비어있으면 컴포넌트 마운트 시에만 실행됩니다.
 
   //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 시작  //////////
 
@@ -872,14 +877,7 @@ const KakaoMap = () => {
   //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 끝  //////////
   return (
     <div>
-      <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
-        ContractedCustomerClcik={handleContractCompleteClick}
-        AllCustomersClick={handleAllCustomersClick}
-        resetSearch={() => {}} //메인컴포넌트 이외에는 그냥 에러만 발생하지 않도록 빈값 전달
-      />
+      <Navbar />
       <div class="flex flex-row">
         {/* Main Content Container */}
         {isLoading && (
@@ -895,7 +893,6 @@ const KakaoMap = () => {
             width: "300px",
             height: "95vh",
             // minWidth: "300px",
-
             // overflowY: isSearchMode
             //   ? "auto"
             //   : hasVisibleCustomers
@@ -917,11 +914,9 @@ const KakaoMap = () => {
                   onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
                   class="flex items-center text-LightMode-Text outline-none"
                 ></input>
-                {/* <div class="">새로고침</div> */}
               </div>
               <div class="my-2 mb-6 flex w-full justify-between px-6 text-[10px] font-normal text-LightMode-Text">
                 <div class="cursor-default">현 위치 : {currentAddress}</div>
-                {/* <div class="">새로고침</div> */}
               </div>
             </>
           ) : (
