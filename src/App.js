@@ -12,18 +12,14 @@ const Password = lazy(() => import("./pages/Password"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Main = lazy(() => import("./pages/Main"));
 const Detail = lazy(() => import("./pages/Detail"));
-// const Map = lazy(() => import("./pages/Map"));
 const KakaoMap = lazy(() => import("./pages/KakaoMap"));
-const KakaoTalk = lazy(() => import("./pages/KakaoTalk"));
 const Inquiry = lazy(() => import("./pages/Inquiry"));
 const Analysis = lazy(() => import("./pages/Analysis"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 
 const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
-// const ProtectedMap = withAuth(Map);
 const ProtectedKakaoMap = withAuth(KakaoMap);
-const ProtectedKakaoTalk = withAuth(KakaoTalk);
 const ProtectedInquiry = withAuth(Inquiry);
 const ProtectedAnalysis = withAuth(Analysis);
 
@@ -37,7 +33,6 @@ function App() {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
-    // console.log("App Loaded. isLoggedIn from storage:", isLoggedInStorage);
     if (isLoggedInStorage && accessToken && refreshToken) {
       dispatch(
         loginSuccess({
@@ -49,8 +44,6 @@ function App() {
       dispatch(logoutSuccess());
     }
   }, [dispatch]);
-
-  // console.log("App Rendered. Current isLoggedIn status:", isLoggedIn);
 
   // 보호된 경로에 대한 조건부 렌더링 함수
   const renderProtected = (Component) => {
@@ -77,10 +70,6 @@ function App() {
             <Route
               path="/kakaomap"
               element={renderProtected(ProtectedKakaoMap)}
-            />
-            <Route
-              path="/kakaoTalk"
-              element={renderProtected(ProtectedKakaoTalk)}
             />
             <Route
               path="/inquiry"

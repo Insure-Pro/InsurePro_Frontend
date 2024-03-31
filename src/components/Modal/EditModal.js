@@ -17,7 +17,6 @@ const EditModal = ({
   const nameRef = useRef("");
   const ageRef = useRef("");
   const registerDateRef = useRef("");
-  const customerTypesNameRef = useRef("");
   const birthRef = useRef("");
   const phoneRef = useRef("");
   const addressRef = useRef("");
@@ -33,8 +32,6 @@ const EditModal = ({
   const [contractYn, setContractYn] = useState(
     selectedCustomer?.contractYn || false,
   );
-
-  const customerTypes = ["OD", "AD", "CP", "CD", "JD", "H", "X", "Y", "Z"];
 
   const customerTypeColors = {
     OD: "var(--colorN-1)",

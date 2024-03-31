@@ -153,12 +153,12 @@ const Navbar = ({
   }, []); // componentDidMount와 동일한 효과를 위해 빈 dependency 배열 사용
 
   const showSearch = useSelector((state) => state.search.showSearch);
+  const showDateBar = useSelector((state) => state.navbar.showDateBar);
 
   const handleSearchToggle = () => {
     dispatch(toggleSearch());
   };
 
-  const [showDate, setShowDate] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentDate = new Date(); // 현재 날짜를 얻습니다.
@@ -173,12 +173,6 @@ const Navbar = ({
 
   const handleFormattedDateClick = () => {
     setIsModalOpen(true);
-  };
-  const handleshowDateClick = () => {
-    setShowDate(true);
-  };
-  const handleCloseDateClick = () => {
-    setShowDate(false);
   };
 
   // 선택한 년, 월로 formattedDate를 업데이트하는 함수
@@ -235,10 +229,8 @@ const Navbar = ({
     }
     if (name === "월별고객") {
       dispatch(setShowDateBar());
-      handleshowDateClick();
     } else {
       dispatch(setCloseDateBar());
-      handleCloseDateClick();
     }
     dispatch(setCurrentTab(name)); // 클릭된 메뉴 이름을 현재 탭으로 설정
     navigate(path, { state: { selectedTab: name } });
@@ -258,7 +250,6 @@ const Navbar = ({
               onClick={() => {
                 dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
                 navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
-                handleCloseDateClick();
                 dispatch(setCloseDateBar());
               }}
             >
@@ -373,8 +364,8 @@ const Navbar = ({
           <div className="navbar-search-black-blur"></div>
         </>
       )}
-      {showDate && (
-        <div class=" relative z-[3] h-10 w-full bg-white   ">
+      {showDateBar && (
+        <div class=" relative z-[3] h-10 w-full bg-white  ">
           <div class="  m-auto   w-[1024px] px-12">
             <div class="flex  h-10  items-center justify-center  text-[17px] font-bold  text-LightMode-Text">
               <div

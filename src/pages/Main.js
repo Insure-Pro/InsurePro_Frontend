@@ -205,13 +205,6 @@ const Main = () => {
     setShowModal(false); // 모달을 숨김
   };
 
-  // const handleEditClick = (customer) => {
-  //   setSelectedCustomer(customer);
-  //   setShowEditModal(true);
-  //   setIsModalOpen(true);
-  //   fetchData();
-  // };
-
   const handleEditModalClose = () => {
     setShowEditModal(false);
     setSelectedCustomer(null);
@@ -220,11 +213,6 @@ const Main = () => {
     setShowOptions(null);
     fetchData();
   };
-
-  // const handleRightClick = (e, customerId) => {
-  //   e.preventDefault(); // 기본 우클릭 메뉴 차단
-  //   setShowOptions((prevId) => (prevId === customerId ? null : customerId)); // 버튼 토글
-  // };
 
   const customerTypeColors = {
     OD: "var(--colorN-1)",
@@ -434,20 +422,15 @@ const Main = () => {
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
         onMonthCustomersClick={handleMonthCustomersClick}
         setCustomers={setCustomers}
         resetFiltersAndSort={resetFiltersAndSort}
         resetSearch={resetSearch}
+        setFormattedDate={setFormattedDate}
       />
       <Dbbar
         onTypeChange={handleTypeChange}
-        onContractCompleteClick={handleContractCompleteClick}
-        onAllCustomersClick={handleAllCustomersClick}
-        onMonthCustomersClick={handleMonthCustomersClick}
         customers={customers}
-        setFormattedDate={setFormattedDate}
         activeType={activeType} // activeType을 props로 전달합니다.
       />
       {showModal && <Modal show={showModal} onModalClose={handleModalClose} />}

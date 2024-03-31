@@ -31,7 +31,6 @@ const DraggableNavItem = ({ item, index, moveItem }) => {
 };
 
 const Dbbar = ({
-  onMonthCustomersClick,
   onTypeChange,
   activeType, // 이제 이 prop을 사용합니다.
 }) => {
@@ -51,23 +50,6 @@ const Dbbar = ({
   const showDateBar = useSelector((state) => state.navbar.showDateBar);
 
   const [hoveredItem, setHoveredItem] = useState(null);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const currentDate = new Date(); // 현재 날짜를 얻습니다.
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentDate.getMonth() + 1,
-  );
-
-  // 선택한 년, 월로 formattedDate를 업데이트하는 함수
-  const handleDateChange = (newYear, newMonth, fetchedData) => {
-    setSelectedYear(newYear);
-    setSelectedMonth(newMonth);
-    setIsModalOpen(false); // Optionally, close the modal after changing the date
-    const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}`;
-    onMonthCustomersClick(formattedDate2);
-  };
 
   // const moveItem = (fromIndex, toIndex) => {
   //   const updatedItems = [...items];
@@ -102,7 +84,7 @@ const Dbbar = ({
           <div
             class={`ml-6   ${
               showDateBar ? "mt-9" : "mt-0"
-            } flex  h-[36px] w-[1024px] bg-white`}
+            } flex  h-[36px] w-[1024px]  bg-white`}
           >
             <Nav>
               {items.map((item) => (

@@ -189,9 +189,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
   };
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
-  const initial_icon = process.env.PUBLIC_URL + "/initial_icon.png";
-  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
-  const circle_icon = process.env.PUBLIC_URL + "/circle-12.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
   // 전화번호 형식을 검증하는 함수
   const isValidPhoneNumber = (phoneNumber) => {

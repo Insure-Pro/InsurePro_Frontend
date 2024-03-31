@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import CloseButton from "react-bootstrap/CloseButton";
 
 const MapCustomerDetail = ({ customerPk, onClose }) => {
@@ -90,7 +89,6 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
       className=""
       style={{
         position: "absolute",
-        // left: "300px", // Adjust based on the width of the Map_customerList_container
         top: 0,
         width: "300px",
         height: "100%",
@@ -140,24 +138,6 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         >
           상세정보 바로가기 <img src={right} class="h-4 w-4" />
         </div>
-        {/* <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-
-            cursor: "default",
-          }}
-        >
-          <h7 style={{ marginBottom: "-4px" }}>
-            <Form.Check
-              className="Detail_checkbox"
-              aria-label="option 1"
-              checked={customerData.contractYn || false}
-              readOnly
-              style={{ marginLeft: "8px", marginTop: "-4px" }}
-            />
-          </h7>
-        </div> */}
         <CloseButton
           onClick={onClose}
           style={{
@@ -229,12 +209,10 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
           </div>
         </div>
       )}
-      {/* <hr style={{ margin: "0px", marginBottom: "10px" }} /> */}
       {activeTab === "히스토리" &&
         scheduleData &&
         scheduleData.map((schedule, index) => (
           <div className="MapCustomerDetail_item_container" key={index}>
-            {/* <div class="w-[88px]">{schedule.progress}</div> */}
             <div class="flex flex-col items-center ">
               <div
                 style={{

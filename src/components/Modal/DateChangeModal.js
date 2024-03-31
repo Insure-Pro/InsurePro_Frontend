@@ -38,7 +38,6 @@ const DateChangeModal = ({
           margin: "2px",
           border: "none",
           backgroundColor: "#fff",
-          //   color: "#98A2B3",
           color: idx + 1 === month ? "#000" : "#98A2B3",
         }}
         active={idx + 1 === month} // Highlight the button if it represents the selected month
@@ -58,7 +57,6 @@ const DateChangeModal = ({
           margin: "2px",
           border: "none",
           backgroundColor: "#fff",
-          //   color: "#98A2B3",
           color: y === year ? "#000" : "#98A2B3",
         }}
         active={y === year} // Highlight the button if it represents the selected year

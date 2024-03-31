@@ -11,7 +11,6 @@ const CustomerInfo = ({
   onEditClick,
   onCloseModal,
 }) => {
-  // const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(data);
 
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
