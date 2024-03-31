@@ -1,9 +1,9 @@
-import HistoryModal from "./Modal/HistoryModal";
+import HistoryModal from "../Modal/HistoryModal";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import EditModalH from "./Modal/EditModalH";
-import ContextMenu from "./Modal/ContextMenu";
+import EditModalH from "../Modal/EditModalH";
+import ContextMenu from "../Modal/ContextMenu";
 
 const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가

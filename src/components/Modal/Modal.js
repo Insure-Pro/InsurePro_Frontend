@@ -447,7 +447,7 @@ function Modal1({ show, onModalOpen, onModalClose }) {
                   contractYn ? "text-Primary-400" : "text-Secondary-100"
                 }`}
               >
-                {contractYn ? "계약안료 고객" : "계약 미완료"}
+                {contractYn ? "계약완료 고객" : "계약 미완료"}
               </span>
             </div>
             <div class=" modal_item_container">

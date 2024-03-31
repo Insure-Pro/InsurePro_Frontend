@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../App.css";
+import "../../App.css";
 import Nav from "react-bootstrap/Nav";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";

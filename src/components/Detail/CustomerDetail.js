@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import EditModalD from "./Modal/EditModalD";
+import EditModalD from "../Modal/EditModalD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import "../App.css";
+import "../../App.css";
 
 const CustomerDetail = ({
   onUpdateSuccess,

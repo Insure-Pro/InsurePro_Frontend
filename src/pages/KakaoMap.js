@@ -1,7 +1,7 @@
 /* global kakao */
 import React, { useEffect, useState, useRef } from "react";
-import Navbar from "../components/Navbar";
-import MapCustomerDetail from "../components/MapCustomerDetail";
+import Navbar from "../components/Main/Navbar";
+import MapCustomerDetail from "../components/Map/MapCustomerDetail";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
 

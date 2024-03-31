@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/authSlice";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Main/Navbar";
 
 const Login = () => {
   const email = useRef("");

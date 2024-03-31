@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../LandingPage.css"; // Add styling for your landing pagesimport '.'
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Main/Navbar";
 import Section1 from "../components/LandingPage/Section1";
 import Section2 from "../components/LandingPage/Section2";
 import Section3 from "../components/LandingPage/Section3";

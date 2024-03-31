@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useRef } from "react";
-import "../App.css";
+import "../../App.css";
 
 const Search = ({ setCustomers, onClose }) => {
   const [inputName, setInputName] = useState("");

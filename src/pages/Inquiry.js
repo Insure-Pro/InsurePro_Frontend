@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Main/Navbar";
 import { useLocation } from "react-router-dom";
 import { FormCheck } from "react-bootstrap";
 import Swal from "sweetalert2";

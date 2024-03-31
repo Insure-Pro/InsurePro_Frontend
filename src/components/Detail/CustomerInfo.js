@@ -1,7 +1,7 @@
-import "../App.css";
+import "../../App.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import EditModalD from "./Modal/EditModalD";
+import EditModalD from "../Modal/EditModalD";
 
 const CustomerInfo = ({
   onUpdateSuccess,

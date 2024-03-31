@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../App.css";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Main/Navbar";
 import DateChangeAModal from "../components/Modal/DateChangeAModal";
 import ApGraph from "../components/Graph/ApGraph";
 import TaGraph from "../components/Graph/TaGraph";

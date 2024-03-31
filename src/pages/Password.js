@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Main/Navbar";
 
 const Password = () => {
   const email = useRef("");
