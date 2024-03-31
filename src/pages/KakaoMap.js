@@ -4,6 +4,7 @@ import Navbar from "../components/Main/Navbar";
 import MapCustomerDetail from "../components/Map/MapCustomerDetail";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
+import { customerTypeColors } from "../constants/customerTypeColors";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -32,18 +33,6 @@ const KakaoMap = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
 
   const [viewState, setViewState] = useState("list"); // 'list', 'detail', 'mapDetail' 중 하나의 상태를 갖습니다.
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-  };
 
   const createCurrentLocationCircle = (map, position) => {
     new window.kakao.maps.Circle({

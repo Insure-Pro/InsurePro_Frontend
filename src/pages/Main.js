@@ -13,6 +13,7 @@ import Pagination from "../components/Main/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ListGroup from "react-bootstrap/ListGroup";
+import { customerTypeColors } from "../constants/customerTypeColors";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
@@ -212,18 +213,6 @@ const Main = () => {
     // 모달이 닫힐 때 Edit/Delete 옵션을 숨깁니다.
     setShowOptions(null);
     fetchData();
-  };
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
   };
 
   const [contextMenu, setContextMenu] = useState({

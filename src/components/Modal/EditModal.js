@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal"; // 이거때문에 function Modal이 
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const EditModal = ({
   onClose,
@@ -33,17 +34,6 @@ const EditModal = ({
     selectedCustomer?.contractYn || false,
   );
 
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-  };
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";

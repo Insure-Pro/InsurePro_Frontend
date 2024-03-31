@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import CloseButton from "react-bootstrap/CloseButton";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const MapCustomerDetail = ({ customerPk, onClose }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -10,18 +11,6 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
   const [scheduleData, setScheduleData] = useState("");
 
   const [activeTab, setActiveTab] = useState("고객 정보"); // Default to '고객 정보'
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-  };
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);

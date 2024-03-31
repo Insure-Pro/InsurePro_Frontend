@@ -6,6 +6,7 @@ import EditModalD from "../Modal/EditModalD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const CustomerDetail = ({
   onUpdateSuccess,
@@ -20,18 +21,6 @@ const CustomerDetail = ({
   const checkbox = process.env.PUBLIC_URL + "/checkbox-12.png";
 
   const [selectedCustomer, setSelectedCustomer] = useState(data); // initialCustomerData는 초기 고객 데이터입니다.
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-  };
 
   return (
     <div className="customer-detail-container">

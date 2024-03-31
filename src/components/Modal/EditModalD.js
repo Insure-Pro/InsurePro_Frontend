@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const nameRef = useRef("");
@@ -80,18 +81,6 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
       setSelectedDong(dongId);
     }
   }, [selectedCustomer, hangjungdong]);
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-  };
 
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");

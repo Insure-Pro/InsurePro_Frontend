@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const ItemType = "NAV_ITEM";
 
@@ -62,19 +63,6 @@ const Dbbar = ({
   const handleTypeClick = (type) => {
     // setActiveType(type);
     onTypeChange(type); // 선택한 유형을 부모 컴포넌트로 전달
-  };
-
-  const customerTypeColors = {
-    OD: "var(--colorN-1)",
-    AD: "var(--colorN-2)",
-    CP: "var(--colorN-3)",
-    CD: "var(--colorN-4)",
-    JD: "var(--colorN-5)",
-    H: "var(--colorN-6)",
-    X: "var(--colorN-7)",
-    Y: "var(--colorN-8)",
-    Z: "var(--colorN-9)",
-    All: "black", // 기본 색상
   };
 
   return (
