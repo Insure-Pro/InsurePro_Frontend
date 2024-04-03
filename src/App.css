@@ -962,7 +962,9 @@ body {
   border: none !important;
 }
 .analysis_subtitle {
-  width: 412px;
+  display: flex;
+  width: 420px;
+  justify-content: center;
   /* grid-area: subtitle; */
   font-size: 16px;
   text-align: right;

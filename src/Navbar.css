@@ -103,7 +103,7 @@ a {
   .header .gnb > ul > li > .submenu {
     position: absolute;
     left: 0;
-    top: 76px; /*  이런씨발 염병할 간격이 생겨서 여기서 서브메뉴바가 계속 끊겻네..씨빨꺼 */
+    top: 76px;
     width: 100%;
     z-index: 14;
     /* display: none; */
