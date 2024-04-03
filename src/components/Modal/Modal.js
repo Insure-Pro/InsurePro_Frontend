@@ -10,7 +10,7 @@ import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
 import CustomerTypeButtons from "../Button/CustomerTypeButtons";
 
-function Modal1({ show, onModalOpen, onModalClose }) {
+function Modal1({ show, onModalClose }) {
   const modalRef = useRef(); // Reference to the modal
 
   const handleClose = (event) => {
@@ -35,11 +35,6 @@ function Modal1({ show, onModalOpen, onModalClose }) {
     setSelectedSido("");
     setSelectedSigugun("");
     setSelectedDong("");
-  };
-
-  const handleShow = () => {
-    onModalOpen();
-    // setShow(true);
   };
 
   //모달창 외부 클릭 시 닫힘

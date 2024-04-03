@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../../redux/authSlice";
 import Search from "./Search";
 import DateChangeAModal from "../Modal/DateChangeAModal";
+import ManageCustomerTypesModal from "../Modal/ManageCustomerTypesModal";
 import { toggleSearch } from "../../redux/searchSlice";
 import { setSearchOff } from "../../redux/searchSlice";
 import { setShowDateBar } from "../../redux/navbarSlice";
@@ -22,6 +23,8 @@ const Navbar = ({
   //----------------------------------------------------------------------
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   // Use a boolean to control the visibility of all submenus
   const [showSubMenus, setShowSubMenus] = useState(false);
 
@@ -235,6 +238,15 @@ const Navbar = ({
     dispatch(setCurrentTab(name)); // 클릭된 메뉴 이름을 현재 탭으로 설정
     navigate(path, { state: { selectedTab: name } });
   };
+
+  const handleModalOpen = () => {
+    setShowModal(true);
+    setShowLogoutButton(false);
+  };
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   return (
     <header
       id="header"
@@ -326,6 +338,14 @@ const Navbar = ({
                   <>
                     <div
                       className={` ${
+                        isMainRoute ? "left-20" : "left-16"
+                      } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
+                      onClick={() => handleModalOpen()}
+                    >
+                      고객설정
+                    </div>
+                    <div
+                      className={` ${
                         isMainRoute ? "left-20" : "left-16 "
                       } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
                       onClick={handleLogout}
@@ -393,7 +413,14 @@ const Navbar = ({
           </div>
         </div>
       )}
-      {isModalOpen && <div className="blur-navbar-datechange"></div>}
+      {showModal && (
+        <ManageCustomerTypesModal
+          show={handleModalOpen}
+          close={handleModalClose}
+        />
+      )}
+      {isModalOpen ||
+        (showModal && <div className="blur-navbar-datechange"></div>)}
       <div
         className={`${showSubMenus ? "show" : "hide"} navbar-black-blur`}
       ></div>
