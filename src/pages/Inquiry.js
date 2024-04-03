@@ -76,24 +76,34 @@ const Inquiry = ({}) => {
   };
 
   return (
-    <div>
+    <div class="">
       <Navbar />
       <div
-        class=" mx-auto h-screen w-full min-w-[1024px] bg-LightMode-SectionBackground"
+        class=" w-full min-w-[1024px] bg-LightMode-SectionBackground"
         style={{
           userSelect: "none",
         }}
       >
-        <div class="h-[86px] bg-white px-12  py-4 text-start text-sm font-normal">
-          {" "}
-          <div class="mb-2.5">안녕하세요 INSUREPRO CS TEAM입니다.</div>
-          <div>
-            보다 나은 서비스를 제공하기 위해 여러분들의 불편사항 및 문의 사항을
-            접수 받고 있습니다.
+        <div class="h-[86px]  bg-white  px-12 py-4 text-sm font-normal">
+          <div class="flex flex-col items-center">
+            {" "}
+            <div class="flex">
+              <div class=" mb-2.5 flex w-[470px]">
+                안녕하세요 INSUREPRO CS TEAM입니다.
+              </div>
+              <div class=" w-[450px]"></div>
+            </div>
+            <div class="flex">
+              <div class="flex w-[500px]">
+                보다 나은 서비스를 제공하기 위해 여러분들의 불편사항 및 문의
+                사항을 접수 받고 있습니다.
+              </div>
+              <div class="w-[420px]"></div>
+            </div>
           </div>
         </div>
 
-        <div class="flex h-[558px] flex-col items-start bg-LightMode-SectionBackground pl-[75px] pt-10 align-top  text-sm">
+        <div class="flex h-[558px] flex-col items-center bg-LightMode-SectionBackground pt-10 align-top  text-sm">
           <div class="mb-10 flex">
             <div class="flex  flex-col">
               <span class="mr-[47px] w-[60px] pl-1.5 text-left">내용</span>
