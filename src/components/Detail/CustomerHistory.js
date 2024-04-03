@@ -154,8 +154,8 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   };
 
   return (
-    <div className="flex h-4/6  bg-LightMode-SectionBackground pt-6">
-      <div className="detailTitle ">
+    <div className="flex h-4/6 w-full justify-center  bg-LightMode-SectionBackground pt-6">
+      <div className=" mr-5  flex w-60 pl-12 text-sm">
         <div class="flex flex-row" style={{ cursor: "default" }}>
           히스토리{" "}
           <HistoryModal

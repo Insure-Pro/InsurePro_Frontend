@@ -483,15 +483,13 @@ body {
 /* - - - - -[메인화면 끝]???? 확인해보고 삭제- - - - - */
 /* - - - - -[상세정보 시작]- - - - - */
 .customer-detail-container {
-  /* width: 1024px; */
-  /* overflow: auto; 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
   text-align: start;
 }
 .backpage {
-  @apply ml-12 h-9 min-w-[1024px] bg-white py-[9px] text-sm font-normal;
+  @apply ml-12 h-9 w-full min-w-[1024px] bg-white py-[9px]   text-sm font-normal;
 }
 .detailTitle {
-  @apply mr-16  flex w-60 pl-24 text-sm;
+  @apply mr-5  flex w-60 pl-12 text-sm;
 }
 .infoItem {
   @apply mb-3 flex cursor-default flex-row text-sm font-semibold;
@@ -503,7 +501,7 @@ body {
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mb-3 flex h-[68px]  w-[622px] select-text flex-row items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
+  @apply mx-auto mb-3 flex h-[68px] w-[622px] select-text  items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
 }
 /* 진척도 */
 .historyItemStyle1 {

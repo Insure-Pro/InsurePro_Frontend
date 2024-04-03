@@ -16,7 +16,7 @@ const CustomerInfo = ({
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
 
   return (
-    <div class="flex  flex-row pb-3 pt-6">
+    <div class="flex w-full justify-center pb-3 pt-6">
       <div className="detailTitle ">
         세부정보{" "}
         <div class="flex h-[20px] w-[20px] items-end">
@@ -40,18 +40,20 @@ const CustomerInfo = ({
           />
         </div>
       </div>
-      <div>
-        <div className="infoItem">
-          <span className="infoTitle">Db 분배일</span>
-          <span className="infoSpan">{data.registerDate}</span>
-        </div>
-        <div className="infoItem">
-          <span className="infoTitle">인수상태</span>
-          <span className="infoSpan">{data.state}</span>
-        </div>
-        <div className="infoItem">
-          <span className="infoTitle">특이사항</span>
-          <span className="infoSpan">{data.memo}</span>
+      <div class="flex h-full w-[622px] flex-col items-center">
+        <div class="mx-auto h-full w-full ">
+          <div className="infoItem">
+            <span className="infoTitle">Db 분배일</span>
+            <span className="infoSpan">{data.registerDate}</span>
+          </div>
+          <div className="infoItem">
+            <span className="infoTitle">인수상태</span>
+            <span className="infoSpan">{data.state}</span>
+          </div>
+          <div className="infoItem">
+            <span className="infoTitle">특이사항</span>
+            <span className="infoSpan">{data.memo}</span>
+          </div>
         </div>
       </div>
     </div>
