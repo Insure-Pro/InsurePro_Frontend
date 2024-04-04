@@ -333,7 +333,11 @@ const Navbar = ({
                   </div>
                 </div>
               </div>
-              <div class="right-2 h-[38px] w-[120px]">
+              <div
+                class={`right-2 h-[38px] w-[120px] ${
+                  isMainRoute ? "" : "hidden"
+                }`}
+              >
                 {showLogoutButton && (
                   <>
                     <div
@@ -419,8 +423,11 @@ const Navbar = ({
           close={handleModalClose}
         />
       )}
-      {isModalOpen ||
-        (showModal && <div className="blur-navbar-datechange"></div>)}
+      {isModalOpen || showModal ? (
+        <div className="blur-navbar-datechange"></div>
+      ) : (
+        ""
+      )}
       <div
         className={`${showSubMenus ? "show" : "hide"} navbar-black-blur`}
       ></div>
