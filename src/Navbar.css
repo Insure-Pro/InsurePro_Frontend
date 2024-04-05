@@ -10,36 +10,33 @@ a {
 .hide {
   display: none;
 }
-#header {
-  width: 100%;
-  height: 76px;
-  /* position: relative; */
-  /* border-bottom: 1px solid var(--Success-300); */
-}
-
-.container {
-  width: 100%;
-  height: inherit;
-  padding: 0 40px;
-  margin: auto;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  display: flex;
-}
-
-.clearfix {
-  display: flex;
-}
 
 @media (min-width: 960px) {
+  #header {
+    width: 100%;
+    height: 76px;
+    /* position: relative; */
+    /* border-bottom: 1px solid var(--Success-300); */
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+    height: inherit;
+    padding: 0 40px;
+    margin: auto;
+  }
   .header {
     display: flex;
     /* flex-direction: row; */
+  }
+  .clearfix {
+    display: flex;
   }
   .header .logo {
     cursor: pointer;
@@ -131,4 +128,7 @@ a {
 
     /* display: none; */
   }
+}
+/* 모바일 웹 네비바 */
+@media (max-width: 960px) {
 }

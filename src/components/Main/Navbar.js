@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import { logoutSuccess } from "../../redux/authSlice";
 import Search from "./Search";
 import DateChangeAModal from "../Modal/DateChangeAModal";
@@ -28,6 +29,7 @@ const Navbar = ({
   // Use a boolean to control the visibility of all submenus
   const [showSubMenus, setShowSubMenus] = useState(false);
 
+  const isMobile = useMediaQuery({ query: "(max-width:960px)" });
   const search = process.env.PUBLIC_URL + "/search.png";
   const mypage = process.env.PUBLIC_URL + "/mypage.png";
   const navRef = useRef(null);
@@ -91,7 +93,7 @@ const Navbar = ({
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
-
+  const hamburger = process.env.PUBLIC_URL + "/hamburger.png";
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
@@ -248,17 +250,269 @@ const Navbar = ({
   };
 
   return (
-    <header
-      id="header"
-      className={` ${
-        isLandingPage ? "landing-page-navbar fixed " : "relative"
-      }`}
-    >
-      <div className="container">
-        <div className="row">
-          <div className="header clearfix">
+    <>
+      {isMobile !== true ? (
+        <header
+          id="header"
+          className={` ${
+            isLandingPage ? "landing-page-navbar fixed " : "relative"
+          }`}
+        >
+          <div className="container">
+            <div className="row">
+              <div className="header clearfix">
+                <div
+                  className={`logo ${!isMainRoute ? "ml-[-8px]" : ""}`}
+                  onClick={() => {
+                    dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
+                    navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
+                    dispatch(setCloseDateBar());
+                  }}
+                >
+                  INSUREPRO
+                </div>
+                <nav
+                  ref={navRef}
+                  className={`gnb ${isMenuOpen ? "open" : ""}`}
+                  onMouseLeave={() => setShowSubMenus(false)}
+                >
+                  <ul className="clearfix">
+                    {menus.map((menu, index) => (
+                      <li
+                        key={index}
+                        // Show all submenus on hover over any menu item
+                        onMouseOver={() =>
+                          windowWidth >= 960 && setShowSubMenus(true)
+                        }
+                        onClick={(e) => {
+                          handleMenuClick(menu.name, menu.path, e);
+                          setShowSubMenus(false);
+                          windowWidth < 960 && setIsMenuOpen(!isMenuOpen);
+                        }}
+                      >
+                        <a href="#" onClick={(e) => e.preventDefault()}>
+                          {menu.name}
+                        </a>
+                        <ul
+                          className={`submenu ${
+                            showSubMenus && !isLandingPage ? "show" : "hide"
+                          }`}
+                        >
+                          {menu.subMenus.map((subMenu, subIndex) => (
+                            <li
+                              key={subIndex}
+                              onClick={(e) => {
+                                handleMenuClick(subMenu.name, subMenu.path, e);
+                                setShowSubMenus(false);
+                              }}
+                            >
+                              <a href="#" onClick={(e) => e.preventDefault()}>
+                                {subMenu.name}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+                <div class="flex flex-col">
+                  <div
+                    className={`icon-wrapper m-auto  flex h-[76px] w-[200px] items-center justify-center ${
+                      isMainRoute ? "" : "pl-[20px]"
+                    }  pt-2`}
+                  >
+                    {isMainRoute && isLoggedIn && (
+                      <div class="mr-6 flex h-7 w-7 cursor-pointer items-center justify-center">
+                        <img src={search} onClick={handleSearchToggle} />
+                      </div>
+                    )}
+                    <div class="flex ">
+                      <div class=" flex h-7 w-7  items-center justify-center">
+                        <img
+                          class="absoulte"
+                          src={mypage}
+                          onClick={handleMypageClick}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class={`right-2 h-[38px] w-[120px] ${
+                      isMainRoute ? "" : "hidden"
+                    }`}
+                  >
+                    {showLogoutButton && (
+                      <>
+                        <div
+                          className={` ${
+                            isMainRoute ? "left-20" : "left-16"
+                          } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
+                          onClick={() => handleModalOpen()}
+                        >
+                          고객설정
+                        </div>
+                        <div
+                          className={` ${
+                            isMainRoute ? "left-20" : "left-16 "
+                          } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
+                          onClick={handleLogout}
+                        >
+                          로그아웃
+                        </div>
+                        <div
+                          className={` ${
+                            isMainRoute ? "left-20" : "left-16"
+                          } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
+                          onClick={() => navigate("/inquiry")}
+                        >
+                          문의하기
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div id="barMenu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  <div className="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="gnbBg"
+            className={showSubMenus && !isLandingPage ? "show" : "hide"}
+          ></div>
+          {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
+          {isMainRoute && showSearch && (
+            <>
+              {" "}
+              <div class=" absolute z-10  flex h-[88px] w-full items-center justify-center bg-white">
+                <Search
+                  setCustomers={setCustomers}
+                  onClose={handleCloseSearch}
+                />
+              </div>
+              <div className="navbar-search-black-blur"></div>
+            </>
+          )}
+          {showDateBar && (
+            <div class=" relative z-[3] h-10 w-full bg-white  ">
+              <div class="  m-auto   w-[1024px] px-12">
+                <div class="flex  h-10  items-center justify-center  text-[17px] font-bold  text-LightMode-Text">
+                  <div
+                    onClick={handleFormattedDateClick}
+                    class="w-[96px] cursor-pointer text-left"
+                  >
+                    {formattedDateTitle}
+                  </div>
+                  <img
+                    onClick={handleFormattedDateClick}
+                    class="cursor-pointer pl-1"
+                    src={right_icon}
+                  />
+                  <div class="  h-full w-[782px]"></div>
+
+                  {isModalOpen && (
+                    <DateChangeAModal
+                      initialYear={selectedYear}
+                      initialMonth={selectedMonth}
+                      onDateChange={handleDateChange}
+                      onClose={() => setIsModalOpen(false)}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {showModal && (
+            <ManageCustomerTypesModal
+              show={handleModalOpen}
+              close={handleModalClose}
+            />
+          )}
+          {isModalOpen || showModal ? (
+            <div className="blur-navbar-datechange"></div>
+          ) : (
+            ""
+          )}
+          <div
+            className={`${showSubMenus ? "show" : "hide"} navbar-black-blur`}
+          ></div>
+        </header>
+      ) : (
+        <div class="flex h-[64px] w-full max-w-[960px] items-center justify-center">
+          <div class="flex h-full w-[360px] items-center justify-center">
+            <div className="hamburger">
+              <img
+                class="relative h-5 w-5"
+                src={hamburger}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              />
+              <div
+                class={`absolute left-0 top-[64px] ${
+                  isMenuOpen ? "left-0" : "left-[-300px]"
+                } flex h-screen w-1/3 max-w-[200px] flex-col bg-white text-LightMode-Subtext duration-100 ease-in-out`}
+              >
+                <div
+                  class="relative mt-10 flex h-[60px] items-center justify-center border-y  border-y-Gray-scale-300"
+                  onClick={() => {
+                    dispatch(setCurrentTab("전체"));
+                    navigate("/main", { state: { selectedTab: "전체" } });
+                    // setIsMenuOpen(false);
+                    setShowSubMenus(!showSubMenus);
+                  }}
+                >
+                  고객목록
+                </div>
+                {showSubMenus && (
+                  <div class=" text-xs">
+                    <div
+                      class="mr-3 h-[30px] "
+                      onClick={() => {
+                        dispatch(setCurrentTab("계약완료"));
+                        navigate("/main", {
+                          state: { selectedTab: "계약완료" },
+                        });
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      계약완료
+                    </div>
+                    <div
+                      class="mr-3 h-[30px] "
+                      onClick={() => {
+                        dispatch(setCurrentTab("월별고객"));
+                        navigate("/main", {
+                          state: { selectedTab: "월별고객" },
+                        });
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      월별고객
+                    </div>
+                  </div>
+                )}
+
+                <div
+                  class="flex h-[60px] items-center  justify-center border-y border-y-Gray-scale-300"
+                  onClick={() => {
+                    navigate("/kakaomap");
+                  }}
+                >
+                  인근고객
+                </div>
+                <div
+                  class=" flex h-[60px] items-center  justify-center border-b border-b-Gray-scale-300"
+                  onClick={() => {
+                    navigate("/analysis");
+                  }}
+                >
+                  성과분석
+                </div>
+              </div>
+            </div>
             <div
-              className={`logo ${!isMainRoute ? "ml-[-8px]" : ""}`}
+              className="ml-[90px] mr-[55px] text-[20px] font-semibold text-Primary-400"
               onClick={() => {
                 dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
                 navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
@@ -267,171 +521,16 @@ const Navbar = ({
             >
               INSUREPRO
             </div>
-            <nav
-              ref={navRef}
-              className={`gnb ${isMenuOpen ? "open" : ""}`}
-              onMouseLeave={() => setShowSubMenus(false)}
-            >
-              <ul className="clearfix">
-                {menus.map((menu, index) => (
-                  <li
-                    key={index}
-                    // Show all submenus on hover over any menu item
-                    onMouseOver={() =>
-                      windowWidth >= 960 && setShowSubMenus(true)
-                    }
-                    onClick={(e) => {
-                      handleMenuClick(menu.name, menu.path, e);
-                      setShowSubMenus(false);
-                      windowWidth < 960 && setIsMenuOpen(!isMenuOpen);
-                    }}
-                  >
-                    <a href="#" onClick={(e) => e.preventDefault()}>
-                      {menu.name}
-                    </a>
-                    <ul
-                      className={`submenu ${
-                        showSubMenus && !isLandingPage ? "show" : "hide"
-                      }`}
-                    >
-                      {menu.subMenus.map((subMenu, subIndex) => (
-                        <li
-                          key={subIndex}
-                          onClick={(e) => {
-                            handleMenuClick(subMenu.name, subMenu.path, e);
-                            setShowSubMenus(false);
-                          }}
-                        >
-                          <a href="#" onClick={(e) => e.preventDefault()}>
-                            {subMenu.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div class="flex flex-col">
-              <div
-                className={`icon-wrapper m-auto  flex h-[76px] w-[200px] items-center justify-center ${
-                  isMainRoute ? "" : "pl-[20px]"
-                }  pt-2`}
-              >
-                {isMainRoute && isLoggedIn && (
-                  <div class="mr-6 flex h-7 w-7 cursor-pointer items-center justify-center">
-                    <img src={search} onClick={handleSearchToggle} />
-                  </div>
-                )}
-                <div class="flex ">
-                  <div class=" flex h-7 w-7  items-center justify-center">
-                    <img
-                      class="absoulte"
-                      src={mypage}
-                      onClick={handleMypageClick}
-                    />
-                  </div>
-                </div>
+            <div className="icon-wrapper">
+              <div class="flex">
+                <img src={search} class="mr-4" />
+                <img src={mypage} />
               </div>
-              <div
-                class={`right-2 h-[38px] w-[120px] ${
-                  isMainRoute ? "" : "hidden"
-                }`}
-              >
-                {showLogoutButton && (
-                  <>
-                    <div
-                      className={` ${
-                        isMainRoute ? "left-20" : "left-16"
-                      } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
-                      onClick={() => handleModalOpen()}
-                    >
-                      고객설정
-                    </div>
-                    <div
-                      className={` ${
-                        isMainRoute ? "left-20" : "left-16 "
-                      } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
-                      onClick={handleLogout}
-                    >
-                      로그아웃
-                    </div>
-                    <div
-                      className={` ${
-                        isMainRoute ? "left-20" : "left-16"
-                      } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
-                      onClick={() => navigate("/inquiry")}
-                    >
-                      문의하기
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-            <div id="barMenu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              <div className="bar"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        id="gnbBg"
-        className={showSubMenus && !isLandingPage ? "show" : "hide"}
-      ></div>
-      {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
-      {isMainRoute && showSearch && (
-        <>
-          {" "}
-          <div class=" absolute z-10  flex h-[88px] w-full items-center justify-center bg-white">
-            <Search setCustomers={setCustomers} onClose={handleCloseSearch} />
-          </div>
-          <div className="navbar-search-black-blur"></div>
-        </>
-      )}
-      {showDateBar && (
-        <div class=" relative z-[3] h-10 w-full bg-white  ">
-          <div class="  m-auto   w-[1024px] px-12">
-            <div class="flex  h-10  items-center justify-center  text-[17px] font-bold  text-LightMode-Text">
-              <div
-                onClick={handleFormattedDateClick}
-                class="w-[96px] cursor-pointer text-left"
-              >
-                {formattedDateTitle}
-              </div>
-              <img
-                onClick={handleFormattedDateClick}
-                class="cursor-pointer pl-1"
-                src={right_icon}
-              />
-              <div class="  h-full w-[782px]"></div>
-
-              {isModalOpen && (
-                <DateChangeAModal
-                  initialYear={selectedYear}
-                  initialMonth={selectedMonth}
-                  onDateChange={handleDateChange}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              )}
             </div>
           </div>
         </div>
       )}
-      {showModal && (
-        <ManageCustomerTypesModal
-          show={handleModalOpen}
-          close={handleModalClose}
-        />
-      )}
-      {isModalOpen || showModal ? (
-        <div className="blur-navbar-datechange"></div>
-      ) : (
-        ""
-      )}
-      <div
-        className={`${showSubMenus ? "show" : "hide"} navbar-black-blur`}
-      ></div>
-    </header>
+    </>
   );
 };
 
