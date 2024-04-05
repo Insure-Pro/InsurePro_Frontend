@@ -440,9 +440,9 @@ const Navbar = ({
           ></div>
         </header>
       ) : (
-        <div class="flex w-full justify-center">
-          <div class="xsm:w-[360px] flex h-[64px] max-w-[960px] justify-center sm:w-[500px]">
-            <div class="flex h-full w-[360px] items-center justify-center">
+        <div class="mx-auto flex w-full justify-center">
+          <div class=" flex h-[64px] max-w-[960px] justify-center  ">
+            <div class="xsm:w-[330px] flex h-full  items-center justify-between sm:w-[500px] md:w-[682px]">
               <div className="hamburger">
                 <img
                   class="relative h-5 w-5"

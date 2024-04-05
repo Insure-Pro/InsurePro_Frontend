@@ -324,95 +324,6 @@ const Main = () => {
     fetchData(); // 전체 고객 목록을 다시 불러옴
   };
 
-  // 검색 결과를 확인하고 메시지를 표시하는 로직
-  // const renderCustomerList = () => {
-  //   if (displayCustomers.length === 0) {
-  //     return <p class="mb-1 mt-3">일치하는 고객이 없습니다.</p>; // 고객이 없을 때 메시지 표시
-  //   }
-
-  //   return [...displayCustomers]
-  //     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // 최신 순으로 정렬합니다.
-  //     .map((customer) => (
-  //       <div
-  //         key={customer.pk}
-  //         data-id={customer.pk} // 추가한 data-id 속성
-  //         onContextMenu={(e) => handleContextMenu(e, customer)}
-  //       >
-  //         <ListGroup
-  //           className="mx-11 flex justify-center"
-  //           key={customer.pk}
-  //           onClick={() => handleCustomerClick(customer)}
-  //         >
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem1 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             {customer.registerDate}
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={` listItemStyle listItem2 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //             style={{ color: customerTypeColors[customer.customerType] }}
-  //           >
-  //             {customer.customerType}
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem3 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             {customer.name}
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem4 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             만 {customer.age}세
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem5 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             {customer.phone}
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem6 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             {customer.dongString}
-  //             {customer.address}
-  //           </ListGroup.Item>
-  //           <ListGroup.Item
-  //             className={`listItemStyle listItem7 ${
-  //               customer.contractYn
-  //                 ? "listItemStyle-contract"
-  //                 : "listItemStyle-noContract"
-  //             }`}
-  //           >
-  //             {customer.state}
-  //           </ListGroup.Item>
-  //         </ListGroup>
-  //       </div>
-  //     ));
-  // };
-
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
@@ -511,17 +422,6 @@ const Main = () => {
             handleContextMenu={handleContextMenu}
           />
         )}
-        {/* <div class="mx-12 mb-1 mt-3.5 flex  select-none justify-center">
-          <div className="listItemTitleStyle listItem1">DB 분배일</div>
-          <div className="listItemTitleStyle listItem2">고객유형</div>
-          <div className="listItemTitleStyle listItem3">이름</div>
-          <div className="listItemTitleStyle listItem4">나이</div>
-          <div className="listItemTitleStyle listItem5">연락처</div>
-          <div className="listItemTitleStyle listItem6">거주지</div>
-          <div className="listItemTitleStyle listItem7">인수상태</div>
-        </div> */}
-        {/* 고객 목록 렌더링 */}
-        {/* <div>{renderCustomerList()}</div> */}
         {shouldPaginate && (
           <Pagination
             currentPage={currentPage}
