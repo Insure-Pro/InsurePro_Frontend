@@ -107,6 +107,8 @@ module.exports = {
         // Add more custom values as needed
       },
       screens: {
+        xsm: "360px",
+        sm: "500px",
         md: "768px",
         lg: "976px",
         xl: "1440px",

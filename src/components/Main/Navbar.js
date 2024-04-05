@@ -440,91 +440,93 @@ const Navbar = ({
           ></div>
         </header>
       ) : (
-        <div class="flex h-[64px] w-full max-w-[960px] items-center justify-center">
-          <div class="flex h-full w-[360px] items-center justify-center">
-            <div className="hamburger">
-              <img
-                class="relative h-5 w-5"
-                src={hamburger}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              />
-              <div
-                class={`absolute left-0 top-[64px] ${
-                  isMenuOpen ? "left-0" : "left-[-300px]"
-                } flex h-screen w-1/3 max-w-[200px] flex-col bg-white text-LightMode-Subtext duration-100 ease-in-out`}
-              >
+        <div class="flex w-full justify-center">
+          <div class="xsm:w-[360px] flex h-[64px] max-w-[960px] justify-center sm:w-[500px]">
+            <div class="flex h-full w-[360px] items-center justify-center">
+              <div className="hamburger">
+                <img
+                  class="relative h-5 w-5"
+                  src={hamburger}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                />
                 <div
-                  class="relative mt-10 flex h-[60px] items-center justify-center border-y  border-y-Gray-scale-300"
-                  onClick={() => {
-                    dispatch(setCurrentTab("전체"));
-                    navigate("/main", { state: { selectedTab: "전체" } });
-                    // setIsMenuOpen(false);
-                    setShowSubMenus(!showSubMenus);
-                  }}
+                  class={`absolute left-0 top-[64px] ${
+                    isMenuOpen ? "left-0" : "left-[-300px]"
+                  } flex h-screen w-1/3 max-w-[200px] flex-col bg-white text-LightMode-Subtext duration-100 ease-in-out`}
                 >
-                  고객목록
-                </div>
-                {showSubMenus && (
-                  <div class=" text-xs">
-                    <div
-                      class="mr-3 h-[30px] "
-                      onClick={() => {
-                        dispatch(setCurrentTab("계약완료"));
-                        navigate("/main", {
-                          state: { selectedTab: "계약완료" },
-                        });
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      계약완료
-                    </div>
-                    <div
-                      class="mr-3 h-[30px] "
-                      onClick={() => {
-                        dispatch(setCurrentTab("월별고객"));
-                        navigate("/main", {
-                          state: { selectedTab: "월별고객" },
-                        });
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      월별고객
-                    </div>
+                  <div
+                    class="relative mt-10 flex h-[60px] items-center justify-center border-y  border-y-Gray-scale-300"
+                    onClick={() => {
+                      dispatch(setCurrentTab("전체"));
+                      navigate("/main", { state: { selectedTab: "전체" } });
+                      // setIsMenuOpen(false);
+                      setShowSubMenus(!showSubMenus);
+                    }}
+                  >
+                    고객목록
                   </div>
-                )}
+                  {showSubMenus && (
+                    <div class=" text-xs">
+                      <div
+                        class="mr-3 h-[30px] "
+                        onClick={() => {
+                          dispatch(setCurrentTab("계약완료"));
+                          navigate("/main", {
+                            state: { selectedTab: "계약완료" },
+                          });
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        계약완료
+                      </div>
+                      <div
+                        class="mr-3 h-[30px] "
+                        onClick={() => {
+                          dispatch(setCurrentTab("월별고객"));
+                          navigate("/main", {
+                            state: { selectedTab: "월별고객" },
+                          });
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        월별고객
+                      </div>
+                    </div>
+                  )}
 
-                <div
-                  class="flex h-[60px] items-center  justify-center border-y border-y-Gray-scale-300"
-                  onClick={() => {
-                    navigate("/kakaomap");
-                  }}
-                >
-                  인근고객
-                </div>
-                <div
-                  class=" flex h-[60px] items-center  justify-center border-b border-b-Gray-scale-300"
-                  onClick={() => {
-                    navigate("/analysis");
-                  }}
-                >
-                  성과분석
+                  <div
+                    class="flex h-[60px] items-center  justify-center border-y border-y-Gray-scale-300"
+                    onClick={() => {
+                      navigate("/kakaomap");
+                    }}
+                  >
+                    인근고객
+                  </div>
+                  <div
+                    class=" flex h-[60px] items-center  justify-center border-b border-b-Gray-scale-300"
+                    onClick={() => {
+                      navigate("/analysis");
+                    }}
+                  >
+                    성과분석
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="ml-[90px] mr-[55px] text-[20px] font-semibold text-Primary-400"
-              onClick={() => {
-                dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
-                navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
-                dispatch(setCloseDateBar());
-              }}
-            >
-              INSUREPRO
-            </div>
-            <div className="icon-wrapper">
-              <div class="flex">
-                <img src={search} class="mr-4" />
-                <img src={mypage} />
+              <div
+                className="ml-[90px] mr-[55px] text-[20px] font-semibold text-Primary-400"
+                onClick={() => {
+                  dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
+                  navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
+                  dispatch(setCloseDateBar());
+                }}
+              >
+                INSUREPRO
+              </div>
+              <div className="icon-wrapper">
+                <div class="flex">
+                  <img src={search} class="mr-4" />
+                  <img src={mypage} />
+                </div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ import ContextMenu from "../components/Modal/ContextMenu";
 import ExcelDownloadButton from "../components/ExcelDownloadButton";
 import ExcelUploadModal from "../components/Modal/ExcelUploadModal";
 import CustomerList from "../components/Main/CustomerList";
+import MobileCustomerList from "../components/Main/MobileCustomerList";
 import Pagination from "../components/Main/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -445,7 +446,9 @@ const Main = () => {
           showModal || showOptions || showExcelUploadModal || isModalOpen
             ? "blur-background no-interaction"
             : ""
-        } flex  min-h-[900px] flex-col bg-LightMode-SectionBackground`}
+        } flex  min-h-[900px] flex-col ${
+          isMobile ? "bg-white" : " bg-LightMode-SectionBackground"
+        } `}
         style={
           {
             // clipPath: showSearch ? "inset(52px 0 0 0)" : "",
@@ -454,7 +457,13 @@ const Main = () => {
         }
       >
         <div class=" flex w-screen items-center justify-center pt-2">
-          <div class="  flex h-[52px] items-center text-center">
+          <div
+            class={`  flex h-[52px]  items-center text-center ${
+              isMobile
+                ? "xsm:ml-[-50px] xsm:w-[360px] float-left w-full sm:ml-[-90px] sm:w-[500px] md:ml-[-8px] md:w-[768px]"
+                : ""
+            }`}
+          >
             <button className="add_Btn" onClick={handleShowOptions}>
               <img src={add_icon} />
             </button>
@@ -465,7 +474,7 @@ const Main = () => {
           </div>
           <ul
             className={`dropdown-container ${
-              isMobile ? " ml-[264px]" : " ml-[764px]"
+              isMobile ? "hidden" : " ml-[764px] flex"
             }`}
             style={{ zIndex: "0" }}
             onClick={() => {
@@ -490,12 +499,11 @@ const Main = () => {
           </ul>
         </div>
         {isMobile ? (
-          // <MobileCustomerList
-          //   customers={customers}
-          //   handleCustomerClick={handleCustomerClick}
-          //   handleContextMenu={handleContextMenu}
-          // />
-          <div>응애 나 모바일 화면</div>
+          <MobileCustomerList
+            customers={customers}
+            handleCustomerClick={handleCustomerClick}
+            handleContextMenu={handleContextMenu}
+          />
         ) : (
           <CustomerList
             customers={displayCustomers}
