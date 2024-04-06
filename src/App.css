@@ -849,11 +849,11 @@ body {
 }
 /* - - - - -[체크박스 커스텀 끝]- - - - - */
 .context-menu {
-  @apply absolute z-10 h-[38px] w-[108px]  rounded;
+  @apply absolute z-10  rounded;
 }
 
 .context-menu-item {
-  @apply flex cursor-pointer items-start   bg-white px-5 py-[9px] text-sm font-semibold text-LightMode-Text hover:bg-primary-100 hover:text-white;
+  @apply flex cursor-pointer  bg-white  font-semibold text-LightMode-Text hover:bg-primary-100 hover:text-white;
 }
 
 .context-menu :nth-child(1) {

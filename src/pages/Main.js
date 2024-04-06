@@ -414,6 +414,7 @@ const Main = () => {
             customers={customers}
             handleCustomerClick={handleCustomerClick}
             handleContextMenu={handleContextMenu}
+            setContextMenu={setContextMenu}
           />
         ) : (
           <CustomerList

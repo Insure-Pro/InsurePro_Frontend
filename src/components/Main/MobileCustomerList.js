@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { customerTypeColors } from "../../constants/customerTypeColors";
 
@@ -6,12 +6,36 @@ function MobileCustomerList({
   customers,
   handleCustomerClick,
   handleContextMenu,
+  setContextMenu,
 }) {
+  const mobileMenuIcon = process.env.PUBLIC_URL + "/mobileMenuIcon.png";
+  // 현재 열린 ContextMenu의 고객을 추적하는 상태 변수 추가
+  const [currentOpenedMenuCustomer, setCurrentOpenedMenuCustomer] =
+    useState(null);
+
+  // 모바일에서 컨텍스트 메뉴를 표시하는 함수
+  const handleMobileContextMenu = (e, customer) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // 만약 현재 클릭된 고객의 메뉴가 이미 열려있다면, 메뉴를 닫습니다.
+    if (currentOpenedMenuCustomer === customer.pk) {
+      setContextMenu({ visible: false }); // ContextMenu를 닫음
+      setCurrentOpenedMenuCustomer(null); // 현재 열린 메뉴 상태를 초기화
+    } else {
+      // 모바일 환경에서는 pageX와 pageY를 사용할 수 없으므로, 대체 방법이 필요합니다.
+      setContextMenu({
+        visible: !false,
+        xPos: e.currentTarget.offsetLeft,
+        yPos: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
+        customer: customer,
+      });
+      setCurrentOpenedMenuCustomer(customer.pk); // 현재 열린 메뉴의 고객 상태를 업데이트
+    }
+  };
+
   if (customers.length === 0) {
     return <p className="mb-1 mt-3">일치하는 고객이 없습니다.</p>;
   }
-  const mobileMenuIcon = process.env.PUBLIC_URL + "/mobileMenuIcon.png";
-
   return (
     <>
       <div class=" flex w-full justify-center">
@@ -21,12 +45,7 @@ function MobileCustomerList({
           {customers
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((customer) => (
-              <div
-                key={customer.pk}
-                data-id={customer.pk}
-                onContextMenu={(e) => handleContextMenu(e, customer)}
-                className="  "
-              >
+              <div key={customer.pk} data-id={customer.pk} className="  ">
                 <ListGroup
                   className=""
                   key={customer.pk}
@@ -59,7 +78,10 @@ function MobileCustomerList({
                             </span>
                           </button>
                         </div>
-                        <div>
+                        <div
+                          class=" h-5 w-5 cursor-pointer"
+                          onClick={(e) => handleMobileContextMenu(e, customer)}
+                        >
                           <img src={mobileMenuIcon} />
                         </div>
                       </div>
