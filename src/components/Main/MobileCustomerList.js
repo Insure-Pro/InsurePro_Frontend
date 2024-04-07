@@ -22,7 +22,7 @@ function MobileCustomerList({
       setContextMenu({ visible: false }); // ContextMenu를 닫음
       setCurrentOpenedMenuCustomer(null); // 현재 열린 메뉴 상태를 초기화
     } else {
-      // 모바일 환경에서는 pageX와 pageY를 사용할 수 없으므로, 대체 방법이 필요합니다.
+      // 모바일 환경에서는 pageX와 pageY를 사용할 수 없으므로, 대체 방법 사용
       setContextMenu({
         visible: !false,
         xPos: e.currentTarget.offsetLeft,
@@ -57,16 +57,10 @@ function MobileCustomerList({
                         <div class="flex">
                           <button
                             style={{
-                              width: "24px",
-                              height: "16px",
                               backgroundColor:
                                 customerTypeColors[customer.customerType],
-                              borderRadius: "4px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              marginRight: "4px",
                             }}
+                            class="mr-1 flex h-4 w-6 items-center justify-center rounded"
                           >
                             <span class="text-[10px] font-normal text-white">
                               {customer.customerType}

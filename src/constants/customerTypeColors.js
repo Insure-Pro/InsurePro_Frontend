@@ -1,4 +1,5 @@
 export const customerTypeColors = {
+  All: "var(--LightMode-Text)",
   OD: "var(--colorN-1)",
   AD: "var(--colorN-2)",
   CP: "var(--colorN-3)",
