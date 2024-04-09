@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
-import "../App.css";
-import Navbar from "../components/Main/Navbar";
-import DateChangeAModal from "../components/Modal/DateChangeAModal";
-import ApGraph from "../components/Graph/ApGraph";
-import TaGraph from "../components/Graph/TaGraph";
-import PcGraph from "../components/Graph/PcGraph";
-import ContractGraph from "../components/Graph/ContractGraph";
+import "../../App.css";
+import "../Analysis/Analysis.css";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import DateChangeAModal from "../../components/Modal/DateChangeAModal";
+import ApGraph from "../../components/Graph/ApGraph";
+import TaGraph from "../../components/Graph/TaGraph";
+import PcGraph from "../../components/Graph/PcGraph";
+import ContractGraph from "../../components/Graph/ContractGraph";
 import { PropagateLoader } from "react-spinners";
 
 const Analysis = () => {
@@ -129,7 +130,7 @@ const Analysis = () => {
     data["JD"]?.subscriptionCount;
 
   return (
-    <div className="Detail_container w-screen">
+    <div className="w-screen">
       <Navbar />
       <div
         className={`select-none   justify-center ${

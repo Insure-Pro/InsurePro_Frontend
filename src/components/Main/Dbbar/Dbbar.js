@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../App.css";
+import "../../../App.css";
 import Nav from "react-bootstrap/Nav";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import { customerTypeColors } from "../../../constants/customerTypeColors";
 import { useMediaQuery } from "react-responsive";
 import MobileDbbar from "./MobileDbbar";
 
@@ -97,7 +97,7 @@ const Dbbar = ({
           onTypeChange={handleTypeClick}
         />
       ) : (
-        <div class="Dbbar">
+        <div class="relative z-[2] ml-7 mt-2 flex justify-center">
           <div>
             <div
               class={`  ${showDateBar ? "mt-9" : "mt-0"} flex ${

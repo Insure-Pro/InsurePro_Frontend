@@ -1,0 +1,114 @@
+.excelupload-modal-style {
+  background-color: white;
+  width: 986px;
+  height: 240px;
+  position: fixed;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
+  z-index: 12;
+}
+.excelupload-modal-style2 {
+  background-color: white;
+  width: 986px;
+  position: fixed;
+  padding-left: 0px !important;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
+  z-index: 12;
+}
+.Excel-Item-Title > div {
+  @apply ml-1 flex h-7 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
+}
+.td-db-date {
+  @apply ml-1 flex h-7 w-[96px] items-center justify-center border border-Gray-scale-50;
+}
+.td-name {
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
+}
+.td-customer-type {
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
+}
+.td-birth {
+  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
+}
+.td-age {
+  @apply ml-1 flex h-7 w-[50px] items-center justify-center border border-Gray-scale-50;
+}
+.td-contact {
+  @apply ml-1 flex h-7 w-[122px] items-center justify-center border border-Gray-scale-50;
+}
+.td-residence {
+  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
+}
+.td-special-note {
+  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
+}
+.td-state {
+  @apply ml-1 flex h-7 w-[110px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
+}
+
+.cell-invalid {
+  @apply border-Danger-600 bg-Danger-50 font-semibold text-Danger-600; /* Example using Tailwind CSS for red background with 50% opacity */
+}
+.td-focused-within:focus-within {
+  border: 1px solid var(--LightMode-Hover);
+  background-color: var(--LightMode-Hover);
+}
+/* Assuming you're using a separate CSS file or <style> tags */
+.text-input-class {
+  width: 100%;
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* input type=file 커스텀 */
+.filebox .upload-name {
+  display: inline-block;
+  width: 708px;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid var(--Gray-scale-50);
+  color: var(--Gray-scale-400);
+  background-color: #fff; /* Add background color for visibility */
+}
+
+.filebox label {
+  display: flex;
+  width: 110px;
+  height: 40px;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  color: var(--LightMode-Text);
+  vertical-align: middle;
+  border: 1px solid var(--Gray-scale-100);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 12px;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../Navbar.css";
+import ".././Navbar/Navbar.css";
 import axios from "axios";
-import "../../App.css";
+import "../../../App.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import { logoutSuccess } from "../../redux/authSlice";
-import Search from "./Search";
-import DateChangeAModal from "../Modal/DateChangeAModal";
-import ManageCustomerTypesModal from "../Modal/ManageCustomerTypesModal";
-import { toggleSearch } from "../../redux/searchSlice";
-import { setSearchOff } from "../../redux/searchSlice";
-import { setShowDateBar } from "../../redux/navbarSlice";
-import { setCloseDateBar } from "../../redux/navbarSlice";
-import { setCurrentTab } from "../../redux/tabsSlice";
+import { logoutSuccess } from "../../../redux/authSlice";
+import Search from "../Search";
+import DateChangeAModal from "../../Modal/DateChangeAModal";
+import ManageCustomerTypesModal from "../../Modal/ManageCustomerTypesModal";
+import { toggleSearch } from "../../../redux/searchSlice";
+import { setSearchOff } from "../../../redux/searchSlice";
+import { setShowDateBar } from "../../../redux/navbarSlice";
+import { setCloseDateBar } from "../../../redux/navbarSlice";
+import { setCurrentTab } from "../../../redux/tabsSlice";
 import Swal from "sweetalert2";
 
 const Navbar = ({
@@ -318,7 +318,7 @@ const Navbar = ({
                 </nav>
                 <div class="flex flex-col">
                   <div
-                    className={`icon-wrapper m-auto  flex h-[76px] w-[200px] items-center justify-center ${
+                    className={`IconWrapper m-auto  flex h-[76px] w-[200px] items-center justify-center ${
                       isMainRoute ? "" : "pl-[20px]"
                     }  pt-2`}
                   >

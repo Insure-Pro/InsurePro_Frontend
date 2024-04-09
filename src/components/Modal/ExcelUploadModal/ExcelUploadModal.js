@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import "../../App.css";
+import "../../../App.css";
+import "../ExcelUploadModal/ExcelUploadModal.css";
 import * as XLSX from "xlsx";
 
 const ExcelUploadModal = ({ show, onHide }) => {

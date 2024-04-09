@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Main/Navbar";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import "../Signup/Signup.css";
 import styled from "styled-components";
 
 const Signup = () => {
@@ -227,7 +228,7 @@ const Signup = () => {
         name="file"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        class="flex h-screen justify-center bg-LightMode-SectionBackground pt-[76px]"
+        class="flex h-screen justify-center bg-LightMode-SectionBackground"
       >
         <div style={{ width: "780px" }}>
           <div

@@ -1,0 +1,25 @@
+/* - - - - -[회원가입 시작]- - - - - */
+.Highlighting {
+  @apply pr-1 text-[#FF0000];
+}
+.signin_input_box {
+  @apply h-[42px] w-[360px] rounded border border-Gray-scale-50 py-3 pl-5 text-sm font-light;
+}
+.signin_span {
+  @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
+}
+
+/* .signin_hr0 {
+  @apply w-[780px] border-[1px] border-white;
+} */
+.signin_hr1 {
+  @apply mb-7 mt-6 w-[780px] border-[1px] border-white;
+}
+.signin_hr2 {
+  @apply mb-7  w-[780px] border-[1px] border-white;
+}
+.signin_hr3 {
+  @apply mb-24 mt-0 w-[780px] border-[1px] border-white;
+}
+
+/* - - - - -[회원가입 끝]- - - - - */

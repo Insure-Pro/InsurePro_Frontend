@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../LandingPage.css"; // Add styling for your landing pagesimport '.'
-import Navbar from "../components/Main/Navbar";
-import Section1 from "../components/LandingPage/Section1";
-import Section2 from "../components/LandingPage/Section2";
-import Section3 from "../components/LandingPage/Section3";
-import Section4 from "../components/LandingPage/Section4";
-import Section5 from "../components/LandingPage/Section5";
-import Section6 from "../components/LandingPage/Section6";
-import Section7 from "../components/LandingPage/Section7";
-import Section8 from "../components/LandingPage/Section8";
-import Section9 from "../components/LandingPage/Section9";
+import ".././LandingPage/LandingPage.css";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import Section1 from "../../components/LandingPage/Section1";
+import Section2 from "../../components/LandingPage/Section2";
+import Section3 from "../../components/LandingPage/Section3";
+import Section4 from "../../components/LandingPage/Section4";
+import Section5 from "../../components/LandingPage/Section5";
+import Section6 from "../../components/LandingPage/Section6";
+import Section7 from "../../components/LandingPage/Section7";
+import Section8 from "../../components/LandingPage/Section8";
+import Section9 from "../../components/LandingPage/Section9";
 
 const LandingPage = () => {
   const [currentSection, setCurrentSection] = useState(6);

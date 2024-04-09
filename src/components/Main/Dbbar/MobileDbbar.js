@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../App.css";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import "../../../App.css";
+import "../Dbbar/MobileDbbar.css";
+import { customerTypeColors } from "../../../constants/customerTypeColors";
 
 const MobileDbbar = ({ activeType, items, onTypeChange }) => {
   const [isOpen, setIsOpen] = useState(false);

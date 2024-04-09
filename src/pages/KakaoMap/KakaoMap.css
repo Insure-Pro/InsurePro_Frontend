@@ -1,0 +1,104 @@
+.Map_customerList_item {
+  @apply flex h-[58px] items-center;
+}
+
+.inline-container-left {
+  display: flex;
+  width: 37%;
+  align-items: center;
+  opacity: 1;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  padding-left: 16px;
+}
+.inline-container-right {
+  width: 63%;
+  color: #000;
+  font-weight: 600;
+  padding-left: 34px;
+}
+.customer-info {
+  margin-bottom: 2px;
+  padding-left: 10px;
+  font-weight: 400;
+}
+.customer-type {
+  font-weight: bold;
+}
+.font12 {
+  font-size: 12px;
+}
+.Map_Search_Btn {
+  border: none;
+  width: 210px;
+  height: 32px;
+  padding: 4px 28px;
+  color: #fff;
+  background-color: var(--Gray-scale-700);
+  border-radius: 10px;
+}
+.inline-container-left :nth-child(1) {
+  width: 32px;
+}
+.inline-container-left :nth-child(2) {
+  width: 60px;
+}
+.inline-container-right :nth-child(1) {
+  width: 140px;
+}
+.inline-container-right :nth-child(2) {
+  width: 170px;
+  padding-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Map_list_hr {
+  display: block !important;
+}
+
+.map_spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  z-index: 5;
+}
+
+.custom-overlay {
+  display: flex;
+  width: 105px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+}
+.custom-overlay-items {
+  width: 105px;
+  height: 32px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+}
+.custom-overlay-items.active {
+  background-color: var(--Primary-400); /* 활성화 배경색 */
+  color: var(--LightMode-Background); /* 활성화 글자색 */
+}
+
+.custom-overlay-items.inactive {
+  background-color: var(--LightMode-SectionBackground); /* 비활성화 배경색 */
+  color: var(--LightMode-Subtext); /* 비활성화 글자색 */
+}

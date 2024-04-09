@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import "../../LandingPage.css";
+import "../../pages/LandingPage/LandingPage.css";
 
 const Section1 = () => {
   const sectionRef = useRef(null);

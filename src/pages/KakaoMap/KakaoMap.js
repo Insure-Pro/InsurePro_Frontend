@@ -1,10 +1,11 @@
 /* global kakao */
 import React, { useEffect, useState, useRef } from "react";
-import Navbar from "../components/Main/Navbar";
-import MapCustomerDetail from "../components/Map/MapCustomerDetail";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import MapCustomerDetail from "../../components/Map/MapCustomerDetail";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
-import { customerTypeColors } from "../constants/customerTypeColors";
+import "../KakaoMap/KakaoMap.css";
+import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;

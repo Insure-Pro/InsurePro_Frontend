@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
-import "../App.css";
-import Navbar from "../components/Main/Navbar";
-import CustomerDetail from "../components/Detail/CustomerDetail";
-import CustomerInfo from "../components/Detail/CustomerInfo";
-import CustomerHistory from "../components/Detail/CustomerHistory";
+import "../../App.css";
+import "../Detail/Detail.css";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import CustomerDetail from "../../components/Detail/CustomerDetail";
+import CustomerInfo from "../../components/Detail/CustomerInfo";
+import CustomerHistory from "../../components/Detail/CustomerHistory";
 import { useLocation } from "react-router-dom";
 
 const Detail = ({}) => {

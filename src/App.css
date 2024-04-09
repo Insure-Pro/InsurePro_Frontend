@@ -161,20 +161,6 @@ body {
 } */
 
 :root {
-  --gray-50: #9e9e9e;
-  --gray-100: #f3f3f3;
-  --gray-150: #b8b8b8;
-  --gray-200: #d9d9d9;
-  --gray-250: #575757;
-  --gray-300: #cfcfcf;
-  --gray-350: #616161;
-  --gray-400: #98a2b3;
-  /* --primary-100: #175cd3; */
-  /* --primary-100: #b61865; */
-  --primary-100: #6692ff;
-  --secondary-100: #175cd3;
-  --secondary-400: #ffcd5b;
-  --secondary-500: #ffc132;
   --colorN-1: #e70000;
   --colorN-2: #fa7533;
   --colorN-3: #21a549;
@@ -282,163 +268,7 @@ body {
 .App-link {
   color: #61dafb;
 }
-/* - - - - -[네비게이션바 시작]- - - - - */
-.vertical-navbar {
-  background-color: white;
-  z-index: 1;
-  position: fixed;
-}
-.landing-page-navbar {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(30px);
 
-  /* animation: slideDown 20.35s ease-out; */
-  z-index: 15;
-}
-
-/* .error_message {
-  @apply mb-[14px] text-center text-xs font-bold text-Danger-600;
-} */
-/* 텍스트 색상 클래스 예시 */
-.text-color-1 {
-  color: var(--LightMode-Text);
-}
-.text-color-2 {
-  color: var(--Success-300);
-}
-.text-color-3 {
-  color: var(--Primary-500);
-}
-.text-color-4 {
-  color: var(--Success-600);
-}
-.text-color-5 {
-  color: red;
-}
-.Dbbar {
-  /* padding-top: 76px; */
-  @apply relative z-[2]  ml-7 mt-2 flex justify-center;
-}
-/* 로고 */
-.brand {
-  /* background: linear-gradient(to right top, #861657, #ffa69e); */
-  background: var(
-    --Gradients-Style-52,
-    linear-gradient(107deg, #4568dc 0%, #b06ab3 97.22%)
-  );
-  color: transparent;
-  -webkit-background-clip: text;
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 48px;
-  text-align: left;
-  cursor: pointer;
-  padding-top: 4px;
-  @apply xl:text-[24px];
-}
-.logo {
-  /* background: linear-gradient(to right top, #861657, #ffa69e); */
-  background: var(
-    --Gradients-Style-52,
-    linear-gradient(107deg, #4568dc 0%, #b06ab3 97.22%)
-  );
-  color: transparent;
-  -webkit-background-clip: text;
-  font-size: 25px;
-  font-weight: bold;
-}
-.navbar-container {
-  display: flex;
-  flex-direction: row;
-}
-.navbar-container > div {
-  /* margin-right: 40px; */
-  @apply xl:text-[18px];
-}
-
-.navbar-item:hover,
-.navbar-item:focus {
-  font-weight: bold;
-}
-
-/* 전체 */
-.navbar-client :nth-child(1) {
-  margin-top: 46px;
-}
-.navbar-client > div {
-  @apply mb-5 text-[17px] hover:font-bold hover:text-LightMode-Text;
-}
-.navbar-client :nth-child(4) {
-  margin-bottom: 16px;
-}
-
-.navbar-container :nth-child(5) {
-  display: flex;
-  align-items: flex-start;
-  width: 24px;
-  margin-left: 88px;
-  margin-top: 2px;
-  margin-right: 24px !important;
-}
-/* 마이페이지 */
-.navbar-container :nth-child(6) {
-  display: flex;
-  align-items: flex-start;
-  width: 20px;
-  margin-top: 4px;
-  margin-right: 0px !important;
-}
-.navbar-client-item {
-  cursor: pointer;
-}
-.navbar-black-blur {
-  position: fixed;
-  top: 228px; /* NavbarItem 아래에서 시작 */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  /* backdrop-filter: blur(5px); 블러 효과 */
-  z-index: 15; /* NavbarItem 아래에 위치하도록 z-index 설정 */
-}
-.navbar-search-black-blur {
-  position: fixed;
-  top: 164px; /* NavbarItem 아래에서 시작 */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* 검은색 배경 투명도 0.4 */
-  /* backdrop-filter: blur(5px); 블러 효과 */
-  z-index: 12; /* NavbarItem 아래에 위치하도록 z-index 설정 */
-}
-/* - - - - -[네비게이션바 끝]- - - - - */
-
-/* - - - - -[회원가입 시작]- - - - - */
-.Highlighting {
-  @apply pr-1 text-[#FF0000];
-}
-.signin_input_box {
-  @apply h-[42px] w-[360px] rounded border border-Gray-scale-50 py-3 pl-5 text-sm font-light;
-}
-.signin_span {
-  @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
-}
-
-.signin_hr0 {
-  @apply w-[780px] border-[1px] border-white;
-}
-.signin_hr1 {
-  @apply mb-7 mt-6 w-[780px] border-[1px] border-white;
-}
-.signin_hr2 {
-  @apply mb-7  w-[780px] border-[1px] border-white;
-}
-.signin_hr3 {
-  @apply mb-24 mt-0 w-[780px] border-[1px] border-white;
-}
-
-/* - - - - -[회원가입 끝]- - - - - */
 /* - - - - -[로그인 시작]- - - - - */
 .login_input_box {
   @apply h-[42px] w-[280px] rounded border  border-LightMode-Subtext py-3 pl-5 text-sm font-light;
@@ -457,9 +287,6 @@ body {
   @apply relative z-0 mr-10  h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center rounded  bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
 }
 .dropdown-item {
-  /* position: absolute; 절대적 위치
-  top: 100%; `<ul>`의 아래쪽에 위치
-  width: 100%; 부모 컨테이너 너비에 맞춤 */
   @apply absolute left-0 top-full  w-full rounded bg-white p-[10px];
 }
 
@@ -481,164 +308,8 @@ body {
   border: none;
 }
 /* - - - - -[메인화면 끝]???? 확인해보고 삭제- - - - - */
-/* - - - - -[상세정보 시작]- - - - - */
-.customer-detail-container {
-  text-align: start;
-}
-.backpage {
-  @apply ml-12 h-9 w-full min-w-[1024px] bg-white py-[9px]   text-sm font-normal;
-}
-.detailTitle {
-  @apply mr-5  flex w-60 pl-12 text-sm;
-}
-.infoItem {
-  @apply mb-3 flex cursor-default flex-row text-sm font-semibold;
-}
-.infoTitle {
-  @apply w-[76px] text-left;
-}
-.infoSpan {
-  @apply text-sm font-normal text-black;
-}
-.history-container {
-  @apply mx-auto mb-3 flex h-[68px] w-[622px] select-text  items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
-}
-/* 진척도 */
-.historyItemStyle1 {
-  @apply mr-[57px] cursor-default
-  pl-[4px] text-[17px] font-bold;
-}
-/* 시간, 장소 */
-.historyItemStyle2 {
-  @apply mb-2 flex cursor-default text-sm font-semibold;
-}
-/* 메모 */
-.historyItemStyle3 {
-  @apply flex cursor-default text-xs font-normal;
-}
-/* - - - - -[상세정보 끝]- - - - - */
+
 /* - - - - -[모달창 시작]- - - - - */
-.excelupload-modal-style {
-  background-color: white;
-  width: 986px;
-  height: 240px;
-  position: fixed;
-  /* padding-right: 0px !important; */
-  font-size: 14px;
-  top: 50%;
-  left: 50%;
-  border: 1px solid var(--gray-100);
-  border-radius: 6px;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
-  outline: none;
-  z-index: 12; /* Adjust as needed */
-}
-.excelupload-modal-style2 {
-  background-color: white;
-  width: 986px;
-  position: fixed;
-  padding-left: 0px !important;
-  font-size: 14px;
-  top: 50%;
-  left: 50%;
-  border: 1px solid var(--gray-100);
-  border-radius: 6px;
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
-  outline: none;
-  z-index: 12; /* Adjust as needed */
-}
-.Excel-Item-Title > div {
-  @apply ml-1 flex h-7 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
-}
-.td-db-date {
-  @apply ml-1 flex h-7 w-[96px] items-center justify-center border border-Gray-scale-50;
-} /* Adjust widths as needed */
-.td-name {
-  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
-}
-.td-customer-type {
-  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
-}
-.td-birth {
-  @apply ml-1 flex h-7 w-[70px] items-center justify-center border border-Gray-scale-50;
-}
-.td-age {
-  @apply ml-1 flex h-7 w-[50px] items-center justify-center border border-Gray-scale-50;
-}
-.td-contact {
-  @apply ml-1 flex h-7 w-[122px] items-center justify-center border border-Gray-scale-50;
-}
-.td-residence {
-  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
-}
-.td-special-note {
-  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
-}
-.td-state {
-  @apply ml-1 flex h-7 w-[110px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
-}
-
-.cell-invalid {
-  @apply border-Danger-600 bg-Danger-50 font-semibold text-Danger-600; /* Example using Tailwind CSS for red background with 50% opacity */
-}
-.td-focused-within:focus-within {
-  border: 1px solid var(--LightMode-Hover);
-  background-color: var(
-    --LightMode-Hover
-  ); /* Replace this with the correct variable or color value */
-}
-/* Assuming you're using a separate CSS file or <style> tags */
-.text-input-class {
-  width: 100%; /* Make input fill the td */
-  background-color: transparent; /* Transparent background */
-  text-align: center; /* Center text horizontally */
-  border: none; /* Remove default input border */
-  outline: none; /* Remove focus outline to keep the design clean */
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-/* input type=file 커스텀 */
-.filebox .upload-name {
-  display: inline-block;
-  width: 708px;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid var(--Gray-scale-50);
-  color: var(--Gray-scale-400);
-  background-color: #fff; /* Add background color for visibility */
-}
-
-.filebox label {
-  display: flex;
-  width: 110px;
-  height: 40px;
-  /* padding: 11px 22px; */
-  font-size: 14px;
-  align-items: center;
-  justify-content: center;
-  color: var(--LightMode-Text);
-  vertical-align: middle;
-  border: 1px solid var(--Gray-scale-100);
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  margin-left: 12px;
-}
-
-.filebox input[type="file"] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-}
-/* input type=file 커스텀  끝 */
-
 .history-modal-style {
   background-color: white;
   width: 352px;
@@ -651,7 +322,7 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 12; /* Adjust as needed */
+  z-index: 12;
   padding-right: 0px !important;
 }
 .date-modal-style {
@@ -667,7 +338,7 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 12; /* Adjust as needed */
+  z-index: 12;
 }
 .modal-style {
   background-color: white;
@@ -683,7 +354,7 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 7; /* Adjust as needed */
+  z-index: 7;
 }
 .modal-style-detail {
   background-color: white;
@@ -699,7 +370,7 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 7; /* Adjust as needed */
+  z-index: 7;
 }
 
 .options-modal-style {
@@ -724,7 +395,6 @@ body {
   @apply ml-12 mr-4 h-5 w-5;
 }
 .blur-background {
-  /* filter: blur(5px); */
   position: fixed; /* 전체 화면에 적용 */
   top: 112px;
   left: 0%;
@@ -734,7 +404,6 @@ body {
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
 .blur-background-detail {
-  /* filter: blur(5px); */
   position: fixed; /* 전체 화면에 적용 */
   top: 76px;
   left: 0%;
@@ -743,19 +412,6 @@ body {
   filter: blur(5px);
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
-.blur-navbar-datechange {
-  position: fixed; /* 전체 화면에 적용 */
-  top: 164px; /* NavbarItem 아래에서 시작 */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  backdrop-filter: blur(5px);
-  z-index: 5; /* 버튼보다 낮은 z-index 값 */
-}
-
-/* .Modal_container {
-  @apply px-8;
-} */
 
 .modal_item_container {
   @apply flex h-10 w-[352px] items-center;
@@ -773,7 +429,6 @@ body {
 /* - - - - -[모달창 끝]- - - - - */
 /* - - - - -[체크박스 커스텀 시작]- - - - - */
 
-/* 숨겨진 원래 체크박스 */
 /* 숨겨진 원래 체크박스 */
 .hidden-checkbox {
   display: none;
@@ -804,19 +459,13 @@ body {
   width: 14px;
   height: 14px;
   background-image: url("/public/check_off_14.png"); /* 체크되지 않은 상태의 이미지 */
-  /* background-size: cover; */
   cursor: pointer;
 }
 
 /* 원래 체크박스가 체크되었을 때 레이블의 배경 이미지 변경 */
 .hidden-checkbox:checked + .checkbox-label_14 {
   background-image: url("/public/check_on_14.png");
-  /* background-size: cover; 이미지 크기 조정 */
 }
-/* .hidden-checkbox:checked + .checkbox-label { */
-/* background-image: url("/public/check_on.png"); */
-/* background-size: cover; */
-/* } */
 
 /* Hide the original checkbox */
 .hidden-checkbox {
@@ -829,8 +478,7 @@ body {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background-image: url("/public/check_off_14.png"); /* Default image */
-  /* margin-right: 8px; */
+  background-image: url("/public/check_off_14.png");
   vertical-align: middle;
 }
 
@@ -841,11 +489,11 @@ body {
 
 /* Styling for label text when checkbox is checked */
 .checkbox-custom label {
-  color: black; /* Default text color */
+  color: black;
 }
 
 .hidden-checkbox:checked + label {
-  color: var(--Primary-400); /* Color for checked state */
+  color: var(--Primary-400);
 }
 /* - - - - -[체크박스 커스텀 끝]- - - - - */
 .context-menu {
@@ -884,7 +532,7 @@ body {
 #file {
   display: none;
 }
-
+/* ????????? 도대체 어디에 적용된 코드임??? */
 .customerName {
   margin: 16px 0px;
   margin-bottom: 8px;
@@ -899,7 +547,7 @@ body {
   user-select: text !important;
 }
 .customer-info-container {
-  width: 500px; /* 원하는 가로 크기 */
+  width: 500px;
   height: 360px;
   border-radius: 50px;
   box-shadow: 10px 4px 4px 0px rgba(46, 64, 97, 0.1);
@@ -908,8 +556,8 @@ body {
   background-color: #fff;
 }
 .customerHistorySection {
-  width: 500px; /* 원하는 가로 크기 */
-  height: 500px; /* 원하는 세로 크기 */
+  width: 500px;
+  height: 500px;
   border-radius: 50px;
   box-shadow: 10px 4px 4px 0px rgba(46, 64, 97, 0.1);
   overflow: auto; /* 내용이 컨테이너를 넘어갈 경우 스크롤바 표시 */
@@ -937,249 +585,7 @@ body {
 .modal-title {
   user-select: none;
 }
-.analysis_container {
-  display: grid;
-  grid-gap: 8px;
-  background-color: var(--LightMode-SectionBackground);
-  grid-template-columns: 607px 313px;
-  grid-template-rows: 175px 175px 175px 40px;
-  grid-template-areas:
-    "explain graph1"
-    "graph4 graph2"
-    "graph4 graph3"
-    " update update";
-}
-.analysis_container > div {
-  /* border: 1px solid #98a2b3; */
-}
-.analysis_header {
-  grid-area: header;
-  margin-top: 18px;
-  margin-left: -10px;
-  cursor: default;
-}
-.analysis_header {
-  border: none !important;
-}
-.analysis_subtitle {
-  display: flex;
-  width: 420px;
-  justify-content: center;
-  /* grid-area: subtitle; */
-  font-size: 16px;
-  text-align: right;
-  color: var(--LightMode-Subtext);
-  border: none !important;
-}
-.analysis_subtitle > span {
-  padding-right: 24px;
-}
-.analysis_subtitle > span:last-of-type {
-  padding-right: 0px;
-  /* margin-left: -4px; */
-}
-.analysis_subtitle_left {
-  width: 128px;
-  /* grid-area: subtitleleft; */
-  /* position: relative; */
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  border: none !important;
-  margin-right: 390px;
-  margin-left: 8px;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--LightMode-Text);
-  cursor: pointer;
-}
-.analysis_explain {
-  grid-area: explain;
-  display: flex;
-  font-size: 14px;
-  font-weight: 400;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding-top: 10px;
-  border: 1px solid white;
-  color: var(--LightMode-Text);
-  background-color: var(--LightMode-SectionBackground);
-  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
-}
-.analysis_explain > div {
-  margin-bottom: 10px;
-}
 
-.analysis_explain_item > span {
-  text-align: left;
-  padding-left: 12px;
-}
-
-.analysis_explain_item :nth-child(1) {
-  width: 80px;
-  text-align: left;
-}
-.explain_item_title {
-  width: 90px !important;
-  text-align: left !important;
-}
-.analysis_explain > div:first-child {
-  @apply mt-[-20px] flex w-full justify-start pl-6 text-[16px] font-bold text-LightMode-Text;
-}
-
-.analysis_graph1 {
-  grid-area: graph1;
-}
-.analysis_graph2 {
-  grid-area: graph2;
-}
-.analysis_graph3 {
-  grid-area: graph3;
-}
-.analysis_graph4 {
-  grid-area: graph4;
-}
-.analysis_graph3,
-.analysis_graph2,
-.analysis_graph1 {
-  position: relative; /* 이것은 내부의 absolute 요소를 정확한 위치에 배치하기 위함입니다. */
-  /* 기타 스타일... */
-}
-
-.Ta_ratio_item {
-  position: absolute; /* 이것은 요소를 겹치게 할 것입니다. */
-  /* top: 0; 상단에서부터의 위치 */
-  right: 0; /* 오른쪽에서부터의 위치 */
-  z-index: 10; /* TaGraph 위에 오도록 z-index 설정 */
-  margin-top: 26px;
-}
-.Ta_ratio_item > span {
-  padding-bottom: 10px;
-  color: var(--LightMode-Subtext);
-}
-.recharts-pie-sector:focus {
-  outline: none;
-}
-.updateMessage {
-  grid-area: update;
-  color: var(--LightMode-Subtext);
-  font-size: 14px;
-  align-items: center;
-  display: flex;
-  justify-content: end;
-  border: none !important;
-  opacity: 0.7;
-}
-.Map_customerList_item {
-  @apply flex h-[58px] items-center;
-}
-
-.inline-container-left {
-  display: flex;
-  width: 37%;
-  align-items: center;
-  opacity: 1;
-  color: #000;
-  font-weight: bold;
-  font-size: 14px;
-  padding-left: 16px;
-}
-.inline-container-right {
-  width: 63%;
-  color: #000;
-  font-weight: 600;
-  padding-left: 34px;
-
-  /* opacity: 0.9; */
-}
-.customer-info {
-  margin-bottom: 2px;
-  padding-left: 10px;
-  /* text-align: center; */
-  font-weight: 400;
-}
-.customer-type {
-  font-weight: bold;
-}
-.font12 {
-  font-size: 12px;
-}
-.Map_Search_Btn {
-  border: none;
-  width: 210px;
-  height: 32px;
-  padding: 4px 28px;
-  color: #fff;
-  background-color: var(--Gray-scale-700);
-  border-radius: 10px;
-}
-.inline-container-left :nth-child(1) {
-  width: 32px;
-}
-.inline-container-left :nth-child(2) {
-  width: 60px;
-}
-.inline-container-right :nth-child(1) {
-  width: 140px;
-}
-.inline-container-right :nth-child(2) {
-  width: 170px;
-  padding-right: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.Map_list_hr {
-  display: block !important;
-}
-
-.map_spinner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-  z-index: 5;
-}
-
-.custom-overlay {
-  display: flex;
-  width: 105px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 4px;
-}
-.custom-overlay-items {
-  width: 105px;
-  height: 32px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color: var(--Primary-400); */
-  /* color: #fff; */
-  font-size: 12px;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-}
-.custom-overlay-items.active {
-  background-color: var(--Primary-400); /* 활성화 배경색 */
-  color: var(--LightMode-Background); /* 활성화 글자색 */
-}
-
-.custom-overlay-items.inactive {
-  background-color: var(--LightMode-SectionBackground); /* 비활성화 배경색 */
-  color: var(--LightMode-Subtext); /* 비활성화 글자색 */
-}
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #e0f2f1 !important; /* 원하는 색으로 변경 */
 }
@@ -1189,35 +595,4 @@ body {
 }
 .MapCustomerDetail_item_wrapper > div {
   margin-bottom: 4px;
-}
-/* ------------------------------- */
-.Dbbar-dropdown {
-  @apply relative inline-block h-10 w-[350px] sm:w-[520px];
-}
-
-.Dbbar-dropdown-toggle {
-  @apply h-full w-[324px] cursor-pointer px-[26px] py-[10px]  text-left text-lg font-medium leading-none sm:w-[494px];
-}
-
-.Dbbar-dropdown-menu {
-  /* absolute 이 코드로 뒷배경 밀리는 문제 해결 */
-  /* z-index: 1; */
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-  @apply absolute flex h-auto  w-full  flex-col items-center justify-center  rounded-b-lg bg-white;
-
-  /* 아래 코드로 쓰면 이때까지 만들던 고객유형 가로 선택버튼 바로 나옴;(모달창에 있는거) */
-  /* @apply flex h-[600px] w-[400px] justify-center border border-Danger-300; */
-}
-
-.Dbbar-dropdown-item {
-  cursor: pointer;
-  @apply h-[40px] w-[344px] px-[38px] py-2 text-left font-medium hover:bg-LightMode-Hover sm:w-[514px];
-}
-
-/* ------------------------------- */
-
-@media (max-width: 960px) {
-  .Dbbar {
-    /* display: none; */
-  }
 }

@@ -1,0 +1,22 @@
+.Dbbar-dropdown {
+  @apply relative inline-block h-10 w-[350px] sm:w-[520px];
+}
+
+.Dbbar-dropdown-toggle {
+  @apply h-full w-[324px] cursor-pointer px-[26px] py-[10px]  text-left text-lg font-medium leading-none sm:w-[494px];
+}
+
+.Dbbar-dropdown-menu {
+  /* absolute 이 코드로 뒷배경 밀리는 문제 해결 */
+  /* z-index: 1; */
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  @apply absolute flex h-auto  w-full  flex-col items-center justify-center  rounded-b-lg bg-white;
+
+  /* 아래 코드로 쓰면 이때까지 만들던 고객유형 가로 선택버튼 바로 나옴;(모달창에 있는거) */
+  /* @apply flex h-[600px] w-[400px] justify-center border border-Danger-300; */
+}
+
+.Dbbar-dropdown-item {
+  cursor: pointer;
+  @apply h-[40px] w-[344px] px-[38px] py-2 text-left font-medium hover:bg-LightMode-Hover sm:w-[514px];
+}

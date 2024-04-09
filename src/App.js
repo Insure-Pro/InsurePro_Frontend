@@ -9,13 +9,13 @@ import { loginSuccess, logoutSuccess } from "./redux/authSlice";
 const Login = lazy(() => import("./pages/Login"));
 const Email = lazy(() => import("./pages/Email"));
 const Password = lazy(() => import("./pages/Password"));
-const Signup = lazy(() => import("./pages/Signup"));
+const Signup = lazy(() => import("./pages/Signup/Signup"));
 const Main = lazy(() => import("./pages/Main"));
-const Detail = lazy(() => import("./pages/Detail"));
-const KakaoMap = lazy(() => import("./pages/KakaoMap"));
+const Detail = lazy(() => import("./pages/Detail/Detail"));
+const KakaoMap = lazy(() => import("./pages/KakaoMap/KakaoMap"));
 const Inquiry = lazy(() => import("./pages/Inquiry"));
-const Analysis = lazy(() => import("./pages/Analysis"));
-const LandingPage = lazy(() => import("./pages/LandingPage"));
+const Analysis = lazy(() => import("./pages/Analysis/Analysis"));
+const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 
 const ProtectedMain = withAuth(Main);
 const ProtectedDetail = withAuth(Detail);
