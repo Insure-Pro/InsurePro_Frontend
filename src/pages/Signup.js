@@ -20,6 +20,7 @@ const Signup = () => {
   const [isCodeSent, setIsCodeSent] = useState(false);
 
   const [selectedTeam, setSelectedTeam] = useState("팀 선택");
+  const [selectedCompany, setSelectedCompany] = useState("회사 선택");
 
   const initial_icon = process.env.PUBLIC_URL + "/initial_icon.png";
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
@@ -111,6 +112,21 @@ const Signup = () => {
         console.error("팀을 선택해주세요.");
         return; // 팀이 선택되지 않았다면 함수 실행을 중단
     }
+    let companyPk;
+    switch (currentCompanyValue) {
+      case "영진에셋 하랑사업단":
+        companyPk = 1;
+        break;
+      case "AFG 센텀점":
+        companyPk = 2;
+        break;
+      case "응애":
+        companyPk = 3;
+        break;
+      default:
+        console.error("회사를 선택해주세요.");
+        return; // 팀이 선택되지 않았다면 함수 실행을 중단
+    }
 
     if (validate()) {
       axios
@@ -121,6 +137,7 @@ const Signup = () => {
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
           authNum: parseInt(authNumConfirm.current.value),
+          companyPk: companyPk,
           teamPk: teamPk, // 서버로 전송할 요청 본문에 teamPk 추가
         })
         .then((response) => {
@@ -185,14 +202,22 @@ const Signup = () => {
 
   const handleChange = (event) => {
     setSelectedTeam(event.target.value);
+    setSelectedCompany(event.target.value);
   };
 
   const [currentValue, setCurrentValue] = useState("팀 선택");
+  const [currentCompanyValue, setCurrentCompanyValue] = useState("회사 선택");
   const [showOptions, setShowOptions] = useState(false);
+  const [showCompanyOptions, setShowCompanyOptions] = useState(false);
 
   const handleOnChangeSelectValue = (e) => {
     const { innerText } = e.target;
     setCurrentValue(innerText);
+  };
+  const handleOnChangeSelectCompanyValue = (e) => {
+    const { innerText } = e.target;
+
+    setCurrentCompanyValue(innerText);
   };
 
   return (
@@ -361,6 +386,42 @@ const Signup = () => {
             </div>
           </div>
           <hr className="signin_hr2" />
+          <div
+            class="flex items-center "
+            style={{
+              width: "780px",
+              height: "42px",
+              alignItems: "center",
+              margin: " 24px 0px 24px 78px",
+            }}
+          >
+            <span className="signin_span pl-[10px]">회사 선택</span>
+            <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
+              <Label>{currentCompanyValue}</Label>
+              <SelectOptions
+                value={selectedCompany}
+                onChange={handleChange}
+                show={showCompanyOptions}
+                style={{ position: "absolute", zIndex: "1" }}
+              >
+                <Option
+                  onClick={handleOnChangeSelectCompanyValue}
+                  value="영진에셋 하랑사업단"
+                >
+                  영진에셋 하랑사업단
+                </Option>
+                <Option
+                  onClick={handleOnChangeSelectCompanyValue}
+                  value="AFG 센텀점"
+                >
+                  AFG 센텀점
+                </Option>
+                <Option onClick={handleOnChangeSelectCompanyValue} value="응애">
+                  응애
+                </Option>
+              </SelectOptions>
+            </SelectBox>
+          </div>
           <div
             class="flex items-center "
             style={{

@@ -62,7 +62,6 @@ const Detail = ({}) => {
           <>
             <CustomerDetail
               data={selectedCustomer}
-              customer={selectedCustomer}
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
               showEditModal={showEditModalD}
@@ -72,7 +71,6 @@ const Detail = ({}) => {
             <div>
               <CustomerInfo
                 data={selectedCustomer}
-                customer={selectedCustomer}
                 customerPk={customerPk}
                 onUpdateSuccess={handleUpdateSuccess}
                 showEditModal={showEditModalD}

@@ -455,7 +455,7 @@ const EditModal = ({
             />
           </div>
 
-          <Modal.Footer>
+          <div>
             {/* <Button variant="secondary" onClick={handleClose}>
               취소
             </Button> */}
@@ -465,7 +465,7 @@ const EditModal = ({
             >
               등록
             </button>
-          </Modal.Footer>
+          </div>
         </Form>
       </div>
     </Modal>

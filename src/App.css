@@ -672,7 +672,7 @@ body {
 .modal-style {
   background-color: white;
   width: 352px;
-  /* height: 600px; */
+  height: 600px;
   margin-top: 60px;
   padding-left: 0px !important;
   position: fixed;
@@ -753,9 +753,9 @@ body {
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
 
-.Modal_container {
+/* .Modal_container {
   @apply px-8;
-}
+} */
 
 .modal_item_container {
   @apply flex h-10 w-[352px] items-center;

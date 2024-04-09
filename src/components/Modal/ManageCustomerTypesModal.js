@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
 
 function ManageCustomerTypesModal({ show, close }) {
   const [name, setName] = useState("");
@@ -18,79 +16,48 @@ function ManageCustomerTypesModal({ show, close }) {
   const handleDataTypeChange = () => {
     setCustomerType((prev) => (prev === "DB" ? "ETC" : "DB"));
   };
+
+  const [customerTypes, setCustomerTypes] = useState([]); // 서버에서 가져온 고객 유형들을 저장할 상태
+
+  useEffect(() => {
+    // 모달이 열릴 때 서버에서 고객 유형을 불러오는 함수
+    const fetchCustomerTypes = async () => {
+      const response = await axios.get(`${MAIN_URL}/customerTypes/employee`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setCustomerTypes(response.data); // 응답 데이터를 상태에 저장
+    };
+
+    if (show) {
+      fetchCustomerTypes();
+    }
+  }, [show, MAIN_URL]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       name,
       dataType: customerType,
     };
+
     try {
       await axios.post(`${MAIN_URL}/customerType`, formData, {
         headers: {
-          Authorization: `Bearer${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
+      // POST 요청 성공 후, 즉시 고객 유형 목록을 다시 불러옵니다.
+      // await fetchCustomerTypes();
+      setName(""); // 입력 필드 초기화
     } catch (err) {
-      console.log(formData);
       console.error("Error while submitting data", err);
     }
   };
 
-  ////////////////////////////////////////////////////////
-  //   const [name, setName] = useState("");
-  //   const [customerType, setCustomerType] = useState("DB");
-  //   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
-  //   const [customerTypes, setCustomerTypes] = useState([]); // 서버에서 가져온 고객 유형들을 저장할 상태
-
-  //   const close_icon = process.env.PUBLIC_URL + "/Close.png";
-  //   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
-  //   const check_on = process.env.PUBLIC_URL + "/check_on_14.png";
-  //   const check_off = process.env.PUBLIC_URL + "/check_off_14.png";
-
-  //   useEffect(() => {
-  //     // 모달이 열릴 때 서버에서 고객 유형을 불러오는 함수
-  //     const fetchCustomerTypes = async () => {
-  //       const response = await axios.get(`${MAIN_URL}/customerTypes/employee`, {
-  //         headers: {
-  //           Authorization: `Bearer${localStorage.getItem("accessToken")}`,
-  //         },
-  //       });
-  //       setCustomerTypes(response.data); // 응답 데이터를 상태에 저장
-  //     };
-
-  //     if (show) {
-  //       fetchCustomerTypes();
-  //     }
-  //   }, [show, MAIN_URL]);
-
-  //   const handleDataTypeChange = () => {
-  //     setCustomerType((prev) => (prev === "DB" ? "ETC" : "DB"));
-  //   };
-
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     const formData = {
-  //       name,
-  //       dataType: customerType,
-  //     };
-
-  //     try {
-  //       await axios.post(`${MAIN_URL}/customerType`, formData, {
-  //         headers: {
-  //           Authorization: `Bearer${localStorage.getItem("accessToken")}`,
-  //         },
-  //       });
-  //       // POST 요청 성공 후, 즉시 고객 유형 목록을 다시 불러옵니다.
-  //       await fetchCustomerTypes();
-  //       setName(""); // 입력 필드 초기화
-  //     } catch (err) {
-  //       console.error("Error while submitting data", err);
-  //     }
-  //   };
-
-  ////////////////////////////////////////////////////////
   return (
-    <Modal
+    <div
       className="history-modal-style"
       show={show}
       style={{ marginTop: "130px" }}
@@ -101,18 +68,18 @@ function ManageCustomerTypesModal({ show, close }) {
           <img class="cursor-pointer" onClick={close} src={close_icon} />
         </div>
       </div>
-      <div className="Modal_container">
-        <Form onSubmit={handleSubmit}>
-          <div class="h-[160px]">
-            <div class="flex justify-between border-b  border-LightMode-Hover">
+      <div className="Modal_container ">
+        <form onSubmit={handleSubmit}>
+          <div class="h-[38px] border-b border-LightMode-Hover  px-7">
+            <div class="flex justify-between ">
               <input
-                class="h-[40px] w-[76px] px-3 py-2"
+                class="h-[36px] w-[76px] py-2"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="고객유형 입력"
+                placeholder="고객유형"
               />
-              <div class="flex h-[40px] items-center justify-center">
+              <div class="flex h-[36px] items-center justify-center">
                 <img
                   src={customerType === "DB" ? check_on : check_off}
                   onClick={handleDataTypeChange}
@@ -125,10 +92,25 @@ function ManageCustomerTypesModal({ show, close }) {
               </div>
             </div>
           </div>
+          <div class="h-[140px] w-full overflow-y-auto">
+            {customerTypes.map((customerType) => (
+              <div class=" ">
+                <div class="flex h-[38px] w-full  items-center  pl-7">
+                  <div class="mr-[200px] h-[18px] w-8 text-sm">
+                    {customerType.name}
+                  </div>
+                  <div class="h-4 w-[36px] text-xs text-LightMode-Subtext">
+                    {customerType.delYn ? "" : "숨기기"}
+                  </div>
+                </div>
+                <hr class="ml-[-32px] h-[1px] w-[352px] bg-LightMode-Hover" />
+              </div>
+            ))}
+          </div>
           <div class="flex h-[40px] items-center justify-center font-normal text-Primary-400">
             + 새로운 유형 추가하기
           </div>
-          <div>
+          <div class="px-8">
             <button
               class=" mt-2 flex  h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
               type="submit"
@@ -136,9 +118,9 @@ function ManageCustomerTypesModal({ show, close }) {
               저장
             </button>
           </div>
-        </Form>
+        </form>
       </div>
-    </Modal>
+    </div>
   );
 }
 
