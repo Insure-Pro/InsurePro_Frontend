@@ -9,16 +9,21 @@ import { store, persistor } from "./redux/store"; // Import persistor from the f
 import { Provider } from "react-redux";
 import { setAuthLoading } from "./redux/authSlice";
 import { refreshToken } from "./redux/authSlice";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
+  </BrowserRouter>,
 );
 
 // If you want to start measuring performance in your app, pass a function

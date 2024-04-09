@@ -7,12 +7,14 @@ import navbarReducer from "./navbarSlice";
 import tabsReducer from "./tabsSlice";
 import main from "./modules/mainSlice";
 import searchReducer from "./searchSlice";
+import customerTypesReducer from "./customerTypeSlice";
 // import contractReducer from "./modules/contractSlice";
 const reducers = combineReducers({
   auth: authReducer,
   navbar: navbarReducer,
   search: searchReducer,
   tabs: tabsReducer,
+  customerTypes: customerTypesReducer,
 });
 const persistConfig = {
   key: "root",

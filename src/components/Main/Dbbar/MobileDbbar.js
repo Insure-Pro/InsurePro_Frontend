@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../../../App.css";
 import "../Dbbar/MobileDbbar.css";
 import { customerTypeColors } from "../../../constants/customerTypeColors";
+import { useCustomerTypes } from "../../../hooks/useCustomerTypes";
 
 const MobileDbbar = ({ activeType, items, onTypeChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +10,8 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
 
   const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
   const dropup = process.env.PUBLIC_URL + "/dropup.png";
+
+  const { data: customerTypes, isLoading } = useCustomerTypes();
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,24 +51,21 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
         </button>
         {isOpen && (
           <ul className="Dbbar-dropdown-menu">
-            {items
-              .filter((item) => item.label !== activeType)
-              .map((item) => (
+            {customerTypes
+              .filter((type) => type.name !== activeType)
+              ?.map((type) => (
                 <li
-                  key={item.key}
+                  key={type.key}
                   className="Dbbar-dropdown-item"
                   onClick={() => {
-                    onTypeChange(item.label);
+                    onTypeChange(type.name);
                     setIsOpen(false);
                   }}
                   style={{
-                    color:
-                      activeType === item.label
-                        ? "black"
-                        : customerTypeColors[item.label],
+                    color: activeType === type.name ? "black" : type.color,
                   }}
                 >
-                  {item.label}
+                  {type.name}
                 </li>
               ))}
           </ul>
