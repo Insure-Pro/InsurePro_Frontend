@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+import { useCustomerTypes } from "../../hooks/useCustomerTypes";
 
 function MobileCustomerList({
   customers,
@@ -32,6 +33,15 @@ function MobileCustomerList({
     }
   };
 
+  // Assuming you have a hook to fetch customer types including colors
+  const { data: customerTypes, isLoading } = useCustomerTypes();
+
+  // Function to find color by customer type name
+  const getColorByTypeName = (typeName) => {
+    const type = customerTypes?.find((t) => t.name === typeName);
+    return type ? type.color : "black"; // Replace 'defaultColor' with a default color of your choice
+  };
+
   if (customers.length === 0) {
     return <p className="mb-1 mt-3">일치하는 고객이 없습니다.</p>;
   }
@@ -55,16 +65,14 @@ function MobileCustomerList({
                       <div class="mb-2 flex justify-between">
                         <div class="flex">
                           <button
-                            // style={{
-                            //   backgroundColor:
-                            //     customerTypeColors[customer.customerType],
-                            // }}
+                            style={{
+                              backgroundColor: getColorByTypeName(
+                                customer.customerType.name,
+                              ),
+                            }}
                             class="mr-1 flex h-4 w-6 items-center justify-center rounded"
                           >
-                            <div
-                              // key={customer.pk}
-                              class="text-[10px] font-normal text-Primary-400"
-                            >
+                            <div class="text-[10px] font-normal text-white">
                               {customer.customerType.name}
                             </div>
                           </button>

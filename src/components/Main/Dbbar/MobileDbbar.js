@@ -13,6 +13,11 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
 
   const { data: customerTypes, isLoading } = useCustomerTypes();
   // Close dropdown when clicking outside
+  const getColorByTypeName = (typeName) => {
+    const type = customerTypes?.find((t) => t.name === typeName);
+    return type ? type.color : "black"; // Replace 'defaultColor' with a default color of your choice
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -40,7 +45,9 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
           <div className="flex items-center justify-center space-x-[250px] sm:space-x-[410px] md:space-x-[588px]">
             {" "}
             {/* Added flex container */}
-            <span>{activeType.name}</span>{" "}
+            <span style={{ color: getColorByTypeName(activeType.name) }}>
+              {activeType.name}
+            </span>{" "}
             {/* Wrapped in <span> for potential styling */}
             {isOpen ? (
               <img src={dropup} alt="Dropup" />

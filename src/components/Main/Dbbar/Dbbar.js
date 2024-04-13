@@ -87,7 +87,7 @@ const Dbbar = ({
                 {customerTypes?.map((type) => (
                   <div
                     key={type.pk}
-                    className="ml-6 inline-block h-[36px] w-[42px] py-2 text-center text-sm text-black"
+                    className="ml-6 inline-block h-[36px] w-[42px] cursor-pointer py-2 text-center text-sm text-black"
                     onClick={() => handleTypeClick(type)}
                     onMouseEnter={() => setHoveredItem(type.name)}
                     onMouseLeave={() => setHoveredItem(null)}
