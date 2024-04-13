@@ -9,7 +9,8 @@ export const fetchCustomerTypes = async () => {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });
-  return response.data;
+  const allTypesOption = { name: "All", pk: 0 }; // Add 'All' option with pk=0
+  return [allTypesOption, ...response.data];
 };
 
 export const addCustomerType = async ({ name, dataType }) => {

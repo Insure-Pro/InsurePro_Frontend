@@ -1,26 +1,27 @@
 // CustomerTypeButtons.js
 import React from "react";
-import { customerTypeColors } from "../../constants/customerTypeColors";
-
+import { useCustomerTypes } from "../../hooks/useCustomerTypes";
 const CustomerTypeButtons = ({
   selectedCustomerType,
   handleCustomerTypeClick,
 }) => {
+  const { data: customerTypes, isLoading } = useCustomerTypes();
+
   return (
     <div className="flex h-12 w-52 items-center overflow-x-scroll whitespace-nowrap">
-      {Object.keys(customerTypeColors).map((type, idx, array) => {
+      {customerTypes.map((type, idx, array) => {
         const isFirst = idx === 0;
         const isLast = idx === array.length - 1;
         let buttonStyle = {
           color:
-            selectedCustomerType === type ? "white" : "var(--Gray-scale-100)",
+            selectedCustomerType.pk === type.pk
+              ? "white"
+              : "var(--Gray-scale-100)",
           backgroundColor:
-            selectedCustomerType === type
-              ? customerTypeColors[type]
-              : "transparent",
+            selectedCustomerType.pk === type.pk ? type.color : "transparent",
           borderColor:
-            selectedCustomerType === type
-              ? customerTypeColors[type]
+            selectedCustomerType.pk === type.pk
+              ? type.color
               : "var(--Gray-scale-100)",
           fontWeight: selectedCustomerType === type ? "bold" : "normal",
           borderLeftWidth: isFirst ? "1px" : "0.5px", // Adjusted for consistency
@@ -40,14 +41,17 @@ const CustomerTypeButtons = ({
 
         return (
           <button
-            key={type}
+            key={type.pk}
             className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
             type="button"
             style={buttonStyle}
             // ref={type}
-            onClick={() => handleCustomerTypeClick(type)}
+            onClick={() => {
+              handleCustomerTypeClick({ pk: type.pk, name: type.name });
+              console.log("버튼을 클릭하긴 했네요");
+            }}
           >
-            {type}
+            {type.name}
           </button>
         );
       })}

@@ -63,13 +63,8 @@ const CustomerDetail = ({
         <div class="flex h-full w-[622px] flex-col items-center">
           <div class="mx-auto h-full w-full ">
             <div class="flex">
-              <div
-                class="mb-1.5 text-[17px] font-bold "
-                style={{
-                  color: customerTypeColors[data.customerType],
-                }}
-              >
-                {data.customerType}
+              <div class="mb-1.5 text-[17px] font-bold text-Primary-400">
+                {data.customerType.name}
               </div>
               {data.contractYn && ( // 조건부 렌더링: data.contractYn이 true일 경우만 아래의 div를 렌더링
                 <div class="mb-1.5 ml-2 flex w-[70px] items-center text-[10px] text-Primary-400">

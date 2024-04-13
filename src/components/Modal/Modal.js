@@ -47,7 +47,7 @@ function Modal1({ show, onModalClose }) {
     };
   }, []);
 
-  const customerType = useRef("");
+  // const customerType = useRef("");s
   const name = useRef("");
   const age = useRef("");
   const birth = useRef("");
@@ -58,7 +58,10 @@ function Modal1({ show, onModalClose }) {
   const state = useRef("");
 
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedCustomerType, setSelectedCustomerType] = useState("");
+  const [selectedCustomerType, setSelectedCustomerType] = useState({
+    name: "",
+    pk: null,
+  });
   const [contractYn, setContractYn] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -111,11 +114,11 @@ function Modal1({ show, onModalClose }) {
   };
 
   // 고객 유형 버튼 클릭 핸들러
-  const handleCustomerTypeClick = (type) => {
-    if (selectedCustomerType === type) {
-      setSelectedCustomerType("");
+  const handleCustomerTypeClick = (typeObj) => {
+    if (selectedCustomerType.pk === typeObj.pk) {
+      setSelectedCustomerType({ name: "", pk: null }); // Reset to initial state
     } else {
-      setSelectedCustomerType(type);
+      setSelectedCustomerType(typeObj); // Update with the new type object
     }
   };
 
@@ -231,12 +234,16 @@ function Modal1({ show, onModalClose }) {
       dongName: dongName,
     };
 
+    const customerTypes = {
+      pk: selectedCustomerType.pk,
+      // name: selectedCustomerType.name,
+    };
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
     phone.current = phone.current; // phone Ref를 업데이트하지 않음
     const data = {
-      customerType: selectedCustomerType,
+      customerTypePk: selectedCustomerType.pk,
       name: name.current.value,
       birth: birthValue,
       registerDate: registerDateValue,

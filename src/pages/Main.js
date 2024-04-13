@@ -21,9 +21,9 @@ import { customerTypeColors } from "../constants/customerTypeColors";
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  const [activeType, setActiveType] = useState("All"); // 활성화된 고객유형 Main컴포넌트에서 관리
+  const [activeType, setActiveType] = useState({ name: "All", pk: 0 }); // 활성화된 고객유형 Main컴포넌트에서 관리
   const [selectedAge, setSelectedAge] = useState(""); // 선택된 나이 필터 추가
-  const [selectedSort, setSelectedSort] = useState("All"); // 선택된 나이 필터 추가
+  const [selectedSort, setSelectedSort] = useState("latest"); // 선택된 나이 필터 추가
   const [showOptions, setShowOptions] = useState(null); // ID of customer for which options should be shown
   const [selectedContractYn, setSelectedContractYn] = useState(null); // 계약 완료 여부 상태 추가
   const [showEditModal, setShowEditModal] = useState(false);
@@ -104,10 +104,11 @@ const Main = () => {
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
   };
 
-  const handleTypeChange = (type) => {
-    setActiveType(type); // 선택된 유형 업데이트
+  const handleTypeChange = (typeObj) => {
+    setActiveType(typeObj); // 선택된 유형 업데이트
   };
 
+  // console.log(activeType.id);
   const fetchData = async () => {
     let url;
     if (formattedDate) {
@@ -117,10 +118,12 @@ const Main = () => {
     } else if (selectedAge) {
       url = `${MAIN_URL}/customers/age/${selectedAge}`;
     } else {
+      // Adjust the URL based on the selected customer type
+      const customerTypePk = activeType.pk; // Assuming activeType is now an object
       url =
         selectedSort === "latest"
-          ? `${MAIN_URL}/customers/latest`
-          : `${MAIN_URL}/customers/latest`;
+          ? `${MAIN_URL}/customers/latest?customerTypePk=${customerTypePk}`
+          : `${MAIN_URL}/customers/latest?customerTypePk=${customerTypePk}`;
     }
     try {
       const response = await axios.get(url, {
@@ -130,10 +133,11 @@ const Main = () => {
       });
       if (response.data && Array.isArray(response.data)) {
         const filteredCustomers = response.data.filter((customer) => {
-          if (activeType === "All") {
+          if (activeType.name === "All") {
             return true;
           }
-          return customer.customerType === activeType;
+
+          return customer.customerType.name === activeType.name;
         });
         setCustomers(filteredCustomers);
       }
@@ -171,7 +175,7 @@ const Main = () => {
   const handleAllCustomersClick = () => {
     setSelectedAge("");
     setSelectedSort("latest");
-    setActiveType("All");
+    setActiveType({ name: "All", pk: 0 });
     // setSelectedSort("All");
     setSelectedContractYn(null);
     setFormattedDate(null);
@@ -194,7 +198,7 @@ const Main = () => {
   const resetFiltersAndSort = () => {
     setSelectedAge("");
     setSelectedSort("latest");
-    setActiveType("All");
+    setActiveType({ name: "All", pk: 0 });
     setSelectedContractYn(null);
     setFormattedDate(null);
     setCurrentSelection("정렬기준");
@@ -323,7 +327,6 @@ const Main = () => {
   const resetSearch = () => {
     fetchData(); // 전체 고객 목록을 다시 불러옴
   };
-
   return (
     <div style={{ width: "100vw" }}>
       <Navbar
@@ -371,7 +374,7 @@ const Main = () => {
           <div
             class={`  flex h-[52px]  items-center text-center ${
               isMobile
-                ? "xsm:ml-[-50px] xsm:w-[360px] float-left w-full sm:ml-[-90px] sm:w-[500px] md:ml-[-8px] md:w-[768px]"
+                ? "float-left w-full xsm:ml-[-50px] xsm:w-[360px] sm:ml-[-90px] sm:w-[500px] md:ml-[-8px] md:w-[768px]"
                 : ""
             }`}
           >
@@ -411,7 +414,7 @@ const Main = () => {
         </div>
         {isMobile ? (
           <MobileCustomerList
-            customers={customers}
+            customers={displayCustomers}
             handleCustomerClick={handleCustomerClick}
             handleContextMenu={handleContextMenu}
             setContextMenu={setContextMenu}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { customerTypeColors } from "../../constants/customerTypeColors";
 
 function MobileCustomerList({
   customers,
@@ -40,7 +39,7 @@ function MobileCustomerList({
     <>
       <div class=" flex w-full justify-center">
         <div
-          class={`sm:[380px] xsm:grid-cols-2 xsm:gap-1 mx-4 grid h-full gap-1 sm:grid-cols-3 sm:gap-2 md:grid-cols-4 md:gap-3 `}
+          class={`sm:[380px] mx-4 grid h-full gap-1 xsm:grid-cols-2 xsm:gap-1 sm:grid-cols-3 sm:gap-2 md:grid-cols-4 md:gap-3 `}
         >
           {customers
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -56,15 +55,18 @@ function MobileCustomerList({
                       <div class="mb-2 flex justify-between">
                         <div class="flex">
                           <button
-                            style={{
-                              backgroundColor:
-                                customerTypeColors[customer.customerType],
-                            }}
+                            // style={{
+                            //   backgroundColor:
+                            //     customerTypeColors[customer.customerType],
+                            // }}
                             class="mr-1 flex h-4 w-6 items-center justify-center rounded"
                           >
-                            <span class="text-[10px] font-normal text-white">
-                              {customer.customerType}
-                            </span>
+                            <div
+                              // key={customer.pk}
+                              class="text-[10px] font-normal text-Primary-400"
+                            >
+                              {customer.customerType.name}
+                            </div>
                           </button>
                           <button class="flex h-4 w-[44px] items-center justify-center rounded border border-Success-300 bg-Success-50">
                             <span class="text-[10px] font-normal text-Success-300">

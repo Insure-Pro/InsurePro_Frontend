@@ -1,14 +1,8 @@
-import axios from "axios";
 import { useCustomerTypes } from "../../hooks/useCustomerTypes";
 import { useAddCustomerType } from "../../hooks/useAddCustomerType";
 import { useState, useEffect } from "react";
 
 function ManageCustomerTypesModal({ show, close }) {
-  // const [name, setName] = useState("");
-  //   const [dataType, setDataType] = useState(true);
-  // const [customerType, setCustomerType] = useState("DB");
-  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
-
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const check_on = process.env.PUBLIC_URL + "/check_on_14.png";
@@ -19,52 +13,8 @@ function ManageCustomerTypesModal({ show, close }) {
   const { data: customerTypes, isLoading } = useCustomerTypes();
   const addMutation = useAddCustomerType();
 
-  // handleDataTypeChange 함수를 수정하여 customerType 상태를 토글합니다.
-  // const handleDataTypeChange = () => {
-  //   setCustomerType((prev) => (prev === "DB" ? "ETC" : "DB"));
-  // };
-
   const handleDataTypeToggle = () =>
     setDataType(dataType === "DB" ? "ETC" : "DB");
-
-  // const [customerTypes, setCustomerTypes] = useState([]); // 서버에서 가져온 고객 유형들을 저장할 상태
-
-  useEffect(() => {
-    // 모달이 열릴 때 서버에서 고객 유형을 불러오는 함수
-    const fetchCustomerTypes = async () => {
-      const response = await axios.get(`${MAIN_URL}/customerTypes/employee`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      // setCustomerTypes(response.data); // 응답 데이터를 상태에 저장
-    };
-
-    if (show) {
-      fetchCustomerTypes();
-    }
-  }, [show, MAIN_URL]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = {
-  //     name,
-  //     dataType: customerType,
-  //   };
-
-  //   try {
-  //     await axios.post(`${MAIN_URL}/customerType`, formData, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     });
-  //     // POST 요청 성공 후, 즉시 고객 유형 목록을 다시 불러옵니다.
-  //     // await fetchCustomerTypes();
-  //     setName(""); // 입력 필드 초기화
-  //   } catch (err) {
-  //     console.error("Error while submitting data", err);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,8 +42,6 @@ function ManageCustomerTypesModal({ show, close }) {
                 class="h-[36px] w-[76px] py-2"
                 type="text"
                 value={name}
-                // onChange={(e) => setName(e.target.value)}
-                // value={newTypeName}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="고객유형"
               />

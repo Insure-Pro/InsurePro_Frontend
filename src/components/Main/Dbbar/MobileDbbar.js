@@ -40,7 +40,7 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
           <div className="flex items-center justify-center space-x-[250px] sm:space-x-[410px] md:space-x-[588px]">
             {" "}
             {/* Added flex container */}
-            <span>{activeType}</span>{" "}
+            <span>{activeType.name}</span>{" "}
             {/* Wrapped in <span> for potential styling */}
             {isOpen ? (
               <img src={dropup} alt="Dropup" />
@@ -58,7 +58,7 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
                   key={type.key}
                   className="Dbbar-dropdown-item"
                   onClick={() => {
-                    onTypeChange(type.name);
+                    onTypeChange({ name: type.name, pk: type.pk });
                     setIsOpen(false);
                   }}
                   style={{

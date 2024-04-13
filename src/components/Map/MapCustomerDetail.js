@@ -89,11 +89,11 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
       <div class="flex h-[80px] items-center bg-LightMode-SectionBackground px-6 py-7">
         <div
           class="pr-2 text-[15px] font-bold text-secondary-100"
-          style={{
-            color: customerTypeColors[customerData.customerType],
-          }}
+          // style={{
+          // color: customerTypeColors[customerData.customerType],
+          // }}
         >
-          {customerData.customerType}
+          {customerData.customerType.name}
         </div>
         <div class="flex flex-col ">
           {/* 체크박스 추가 */}

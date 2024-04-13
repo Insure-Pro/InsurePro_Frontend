@@ -1,12 +1,22 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { customerTypeColors } from "../../constants/customerTypeColors";
+import { useCustomerTypes } from "../../hooks/useCustomerTypes";
 
 function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
   if (customers.length === 0) {
     return <p className="mb-1 mt-3">일치하는 고객이 없습니다.</p>;
   }
-
+  // console.log(customers.name);
+  // console.log(customers.customerType.name);
+  // const { data: customerTypes, isLoading } = useCustomerTypes();
+  console.log(
+    "Web customerList data:",
+    customers.map((customer) => ({
+      ...customer,
+      customerType: customer.customerType ? customer.customerType.name : "N/A",
+    })),
+  );
   return (
     <>
       <div class="flex justify-center">
@@ -49,9 +59,9 @@ function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
                     ? "listItemStyle-contract"
                     : "listItemStyle-noContract"
                 }`}
-                style={{ color: customerTypeColors[customer.customerType] }}
+                style={{}}
               >
-                {customer.customerType}
+                {customer.customerType.name}
               </ListGroup.Item>
               <ListGroup.Item
                 className={`listItemStyle listItem3 ${
