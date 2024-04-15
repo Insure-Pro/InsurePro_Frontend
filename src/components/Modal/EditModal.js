@@ -171,7 +171,7 @@ const EditModal = ({
         state: stateRef.current.value,
         memo: memoRef.current.value,
         contractYn: contractYn,
-        customerType: selectedCustomerType,
+        customerTypePk: selectedCustomerType.pk,
         registerDate: registerDateValue,
         metroGuDong: metroGuDong,
       };
@@ -191,7 +191,6 @@ const EditModal = ({
             "<div style='text-align: left; font-size:16px;'>" +
             "고객정보 수정이 완료되었습니다.<br><br>" +
             "</div>",
-          // width: "700px",
           timer: 3500,
           showConfirmButton: false,
           timerProgressBar: true,

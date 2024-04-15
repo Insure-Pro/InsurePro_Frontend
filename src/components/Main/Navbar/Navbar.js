@@ -94,6 +94,7 @@ const Navbar = ({
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
   const hamburger = process.env.PUBLIC_URL + "/hamburger.png";
+  const white_hamburger = process.env.PUBLIC_URL + "/white-hamburger.png";
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleLogout = async () => {
@@ -396,8 +397,8 @@ const Navbar = ({
             </>
           )}
           {showDateBar && (
-            <div class=" relative z-[3] h-10 w-full bg-white  ">
-              <div class="  m-auto   w-[1024px] px-12">
+            <div class=" relative z-[3] h-10 w-full bg-white">
+              <div class="  m-auto w-[1024px] px-12">
                 <div class="flex  h-10  items-center justify-center  text-[17px] font-bold  text-LightMode-Text">
                   <div
                     onClick={handleFormattedDateClick}
@@ -441,21 +442,29 @@ const Navbar = ({
         </header>
       ) : (
         <div class="mx-auto flex w-full justify-center">
-          <div class=" flex h-[64px] max-w-[960px] justify-center  ">
-            <div class="xsm:w-[330px] flex h-full  items-center justify-between sm:w-[500px] md:w-[682px]">
+          <div class="flex h-[64px] max-w-[960px] justify-center ">
+            <div class="flex h-full items-center  justify-between xsm:w-[330px] sm:w-[500px] md:w-[682px]">
               <div className="hamburger">
-                <img
-                  class="relative h-5 w-5"
-                  src={hamburger}
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                />
+                {isMenuOpen ? (
+                  <img
+                    class="relative z-[21] h-5 w-5"
+                    src={white_hamburger}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  />
+                ) : (
+                  <img
+                    class="relative h-5 w-5"
+                    src={hamburger}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  />
+                )}
                 <div
-                  class={`absolute left-0 top-[64px] ${
-                    isMenuOpen ? "left-0" : "left-[-300px]"
-                  } flex h-screen w-1/3 max-w-[200px] flex-col bg-white text-LightMode-Subtext duration-100 ease-in-out`}
+                  class={`absolute left-0 top-0  pt-[76px] ${
+                    isMenuOpen ? "left-0 z-[20]" : "left-[-300px] z-[1]"
+                  } flex h-full w-1/3 max-w-[200px] flex-col bg-Primary-300 text-white duration-100 ease-in-out `}
                 >
                   <div
-                    class="relative mt-10 flex h-[60px] items-center justify-center border-y  border-y-Gray-scale-300"
+                    class="relative mt-10 flex h-[60px] items-center justify-center"
                     onClick={() => {
                       dispatch(setCurrentTab("전체"));
                       navigate("/main", { state: { selectedTab: "전체" } });
@@ -468,7 +477,7 @@ const Navbar = ({
                   {showSubMenus && (
                     <div class=" text-xs">
                       <div
-                        class="mr-3 h-[30px] "
+                        class="mr-3 h-[30px] font-normal focus:font-bold"
                         onClick={() => {
                           dispatch(setCurrentTab("계약완료"));
                           navigate("/main", {
@@ -495,7 +504,7 @@ const Navbar = ({
                   )}
 
                   <div
-                    class="flex h-[60px] items-center  justify-center border-y border-y-Gray-scale-300"
+                    class="flex h-[60px] items-center  justify-center"
                     onClick={() => {
                       navigate("/kakaomap");
                     }}
@@ -503,12 +512,24 @@ const Navbar = ({
                     인근고객
                   </div>
                   <div
-                    class=" flex h-[60px] items-center  justify-center border-b border-b-Gray-scale-300"
+                    class=" flex h-[60px] items-center  justify-center "
                     onClick={() => {
                       navigate("/analysis");
                     }}
                   >
                     성과분석
+                  </div>
+                  <div class="mt-[434px] text-sm text-white">
+                    <div
+                      onClick={() => {
+                        handleModalOpen();
+                        setIsMenuOpen(!isMenuOpen);
+                      }}
+                      class="mb-5"
+                    >
+                      유형변경
+                    </div>
+                    <div onClick={() => navigate("/inquiry")}>문의하기</div>
                   </div>
                 </div>
               </div>
@@ -530,6 +551,13 @@ const Navbar = ({
               </div>
             </div>
           </div>
+          {showModal && (
+            <ManageCustomerTypesModal
+              show={handleModalOpen}
+              close={handleModalClose}
+            />
+          )}
+          {isMenuOpen && <div className="mobile-navbar-black-blur"></div>}
         </div>
       )}
     </>

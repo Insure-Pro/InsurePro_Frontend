@@ -185,7 +185,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         state: stateRef.current.value,
         memo: memoRef.current.value,
         contractYn: contractYn,
-        customerType: selectedCustomerType,
+        customerTypePk: selectedCustomerType.pk,
         registerDate: registerDateValue,
         metroGuDong: metroGuDong,
       };

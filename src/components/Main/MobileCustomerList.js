@@ -9,6 +9,8 @@ function MobileCustomerList({
   setContextMenu,
 }) {
   const mobileMenuIcon = process.env.PUBLIC_URL + "/mobileMenuIcon.png";
+  const check_on = process.env.PUBLIC_URL + "/activate-check14.png";
+  const check_off = process.env.PUBLIC_URL + "/deactivate-check14.png";
   // 현재 열린 ContextMenu의 고객을 추적하는 상태 변수 추가
   const [currentOpenedMenuCustomer, setCurrentOpenedMenuCustomer] =
     useState(null);
@@ -56,12 +58,17 @@ function MobileCustomerList({
             .map((customer) => (
               <div key={customer.pk} data-id={customer.pk} className="  ">
                 <ListGroup
-                  className=""
                   key={customer.pk}
                   onClick={() => handleCustomerClick(customer)}
                 >
                   <div class="">
-                    <div className="customerCardWrapper h-[122px] w-[162px] rounded border-[0.5px] border-black bg-white py-3 pl-4 pr-2">
+                    <div
+                      className={`customerCardWrapper h-[122px] w-[162px] rounded border ${
+                        customer.contractYn
+                          ? " border-Primary-400"
+                          : " border-black/50"
+                      } bg-white py-3 pl-4 pr-2`}
+                    >
                       <div class="mb-2 flex justify-between">
                         <div class="flex">
                           <button
@@ -70,6 +77,7 @@ function MobileCustomerList({
                                 customer.customerType.name,
                               ),
                             }}
+                            key={customer.pk}
                             class="mr-1 flex h-4 w-6 items-center justify-center rounded"
                           >
                             <div class="text-[10px] font-normal text-white">
@@ -89,9 +97,14 @@ function MobileCustomerList({
                           <img src={mobileMenuIcon} />
                         </div>
                       </div>
-                      <div class="mb-1 flex text-sm text-LightMode-Text">
-                        <div class="mr-2"> {customer.name}</div>{" "}
-                        <div> ({customer.age})</div>
+                      <div class="mb-1 flex items-center text-sm text-LightMode-Text">
+                        <div class="mr-0.5"> {customer.name}</div>{" "}
+                        <div class="mr-1.5"> ({customer.age})</div>
+                        {customer.contractYn ? (
+                          <img class=" h-[14px] w-[14px] " src={check_on} />
+                        ) : (
+                          <img class="h-[14px] w-[14px]" src={check_off} />
+                        )}
                       </div>
 
                       <div class="mb-2 flex text-xs text-LightMode-Subtext">

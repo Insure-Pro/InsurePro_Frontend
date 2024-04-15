@@ -111,15 +111,15 @@ const Main = () => {
   // console.log(activeType.id);
   const fetchData = async () => {
     let url;
+    const customerTypePk = activeType.pk; // Assuming activeType is now an object
     if (formattedDate) {
       url = `${MAIN_URL}/customers/latest/${formattedDate}-01`;
     } else if (selectedContractYn != null) {
-      url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest`;
+      url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest?customerTypePk=${customerTypePk}`;
     } else if (selectedAge) {
       url = `${MAIN_URL}/customers/age/${selectedAge}`;
     } else {
       // Adjust the URL based on the selected customer type
-      const customerTypePk = activeType.pk; // Assuming activeType is now an object
       url =
         selectedSort === "latest"
           ? `${MAIN_URL}/customers/latest?customerTypePk=${customerTypePk}`
