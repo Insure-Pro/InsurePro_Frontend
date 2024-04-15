@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
@@ -111,7 +110,7 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
           </div>
         </div>
         <div className="Modal_container">
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} class="pl-8">
             <div>
               <div className="mb-1  mt-2 flex h-10 w-[352px] items-center ">
                 <div class=" flex items-center">
@@ -205,7 +204,7 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
                 등록
               </button>
             </div>
-          </Form>
+          </form>
         </div>
       </Modal>
     </>

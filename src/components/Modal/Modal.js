@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import "../../App.css";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
@@ -309,17 +306,14 @@ function Modal1({ show, onModalClose }) {
 
   return (
     <>
-      <Modal
-        className="modal-style  "
+      <div
+        className="modal-style "
         show={show}
         onHide={handleClose}
         onExited={onModalClose}
         style={{ height: modalHeight }} // 모달 높이 동적 조절
       >
-        <div
-          className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal"
-          style={{ margin: "0px" }}
-        >
+        <div className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex cursor-default justify-between font-normal text-LightMode-Text">
             <div>신규고객 추가 </div>
             <img
@@ -329,7 +323,7 @@ function Modal1({ show, onModalClose }) {
             />
           </div>
         </div>
-        <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
+        <div class="mb-[15px]  mr-[18px] mt-2 flex justify-end pb-2">
           <img
             src={circle_icon_middle}
             style={{ width: "12px", height: "12px", marginTop: "2px" }}
@@ -337,11 +331,11 @@ function Modal1({ show, onModalClose }) {
           <span class="cursor-default text-[12px]">필수입력사항</span>
         </div>
         <div
-          className="Modal_container"
           ref={modalRef}
-          style={{ margin: "-15px 0px" }}
+          class="my-[-15px]"
+          // style={{ margin: "-15px 0px" }}
         >
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className=" h-full w-full  pl-6">
             <div className="mb-1  h-12 w-[352px] ">
               <div class=" flex items-center">
                 <div className="w-[84px] cursor-default pb-4">
@@ -357,7 +351,7 @@ function Modal1({ show, onModalClose }) {
               </div>
             </div>
             <div class=" modal_item_container">
-              <div class="w-[84px] cursor-default">
+              <div class="w-[84px] cursor-default pr-5">
                 <span className="Highlighting">*</span>
                 이름
               </div>
@@ -394,7 +388,7 @@ function Modal1({ show, onModalClose }) {
               </span>
             </div>
             <div class=" modal_item_container">
-              <div class="w-[84px] cursor-default pl-2">나이 (만)</div>
+              <div class="w-[84px] cursor-default pl-1">나이 (만)</div>
               <input
                 class={` modal_item_input ${
                   ageInput ? "border-primary-100" : "border-gray-300"
@@ -405,8 +399,10 @@ function Modal1({ show, onModalClose }) {
                 onChange={handleAgeInputChange}
               />
             </div>
-            <Row className=" flex h-[40px] items-center">
-              <div class="w-[75px] cursor-default pl-2">주소</div>
+            <div className="flex items-center  ">
+              <div class=" flex h-[40px] w-[76px] cursor-default items-center pl-5 ">
+                주소
+              </div>
               <Col>
                 <div class="flex" controlId="sidoSelect">
                   <span>
@@ -486,7 +482,7 @@ function Modal1({ show, onModalClose }) {
                   </Form.Select>
                 </div>
               </Col>
-            </Row>
+            </div>
             <div class="mb-2 flex items-center">
               <input
                 className={` modal_item_input  ${
@@ -589,9 +585,9 @@ function Modal1({ show, onModalClose }) {
                 등록
               </button>
             </div>
-          </Form>
+          </form>
         </div>
-      </Modal>
+      </div>
     </>
   );
 }

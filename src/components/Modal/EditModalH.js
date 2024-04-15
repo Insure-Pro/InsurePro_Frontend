@@ -1,9 +1,5 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 function HistoryModalH({ show, onHide, selectedHistory }) {
@@ -96,7 +92,7 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
           </div>
         </div>
         <div className="Modal_container">
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} class="pl-8">
             <div>
               <div className="mb-1  mt-2 flex h-10 w-[352px] items-center ">
                 <div class=" flex items-center">
@@ -194,7 +190,7 @@ function HistoryModalH({ show, onHide, selectedHistory }) {
                 변경사항 저장
               </button>
             </div>
-          </Form>
+          </form>
         </div>
       </Modal>
     </>

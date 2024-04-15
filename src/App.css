@@ -412,7 +412,9 @@ body {
   filter: blur(5px);
   z-index: 5; /* 버튼보다 낮은 z-index 값 */
 }
-
+.Highlighting {
+  @apply pr-1 text-[#FF0000];
+}
 .modal_item_container {
   @apply flex h-10 w-[352px] items-center;
 }

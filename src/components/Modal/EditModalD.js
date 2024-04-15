@@ -260,7 +260,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
           <span class="text-[12px]">필수입력사항</span>
         </div>
         <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} class="pl-8">
             <div className="mb-1    h-12 w-[352px] select-none ">
               <div className=" flex items-center">
                 <div className="w-[84px] pb-4 ">
@@ -311,7 +311,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 // value={ageInput}
               />
             </div>
-            <Row className=" flex h-[40px] items-center">
+            <div className=" flex h-[40px] items-center">
               <div class="w-[75px] pl-2">주소</div>
               <Col>
                 <div class="flex" controlId="sidoSelect">
@@ -392,7 +392,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                   </Form.Select>
                 </div>
               </Col>
-            </Row>
+            </div>
             <div class="mb-2 flex items-center">
               <input
                 className={` modal_item_input  ml-[84px] px-3 `}
@@ -469,7 +469,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
             >
               등록
             </button>
-          </Form>
+          </form>
         </Modal.Body>
       </Modal>
     </>

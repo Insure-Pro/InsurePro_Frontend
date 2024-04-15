@@ -223,10 +223,7 @@ const EditModal = ({
       onHide={handleClose}
       onExited={onModalClose}
     >
-      <div
-        className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
-        // style={{ margin: "0px" }}
-      >
+      <div className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal">
         <div class="mb-10 flex justify-between font-normal text-LightMode-Text">
           <div>고객정보 수정</div>
           <img class="cursor-pointer" onClick={handleClose} src={close_icon} />
@@ -239,12 +236,8 @@ const EditModal = ({
         />
         <span class="text-[12px]">필수입력사항</span>
       </div>
-      <div
-        className="Modal_container"
-        ref={modalRef}
-        style={{ margin: "-15px 0px" }}
-      >
-        <Form onSubmit={handleSubmit}>
+      <div class="my-[-15px]" ref={modalRef}>
+        <form onSubmit={handleSubmit} class="pl-8">
           <div className="mb-1  h-12 w-[352px] ">
             <div className=" flex items-center">
               <div className="w-[84px] pb-4 ">
@@ -302,8 +295,8 @@ const EditModal = ({
               // value={ageInput}
             />
           </div>
-          <Row className=" flex h-[40px] items-center">
-            <div class="w-[75px] pl-2">주소</div>
+          <div className=" flex  items-center">
+            <div class="flex h-[40px] w-[75px] items-center pl-2">주소</div>
             <Col>
               <div class="flex" controlId="sidoSelect">
                 <span>
@@ -383,7 +376,7 @@ const EditModal = ({
                 </Form.Select>
               </div>
             </Col>
-          </Row>
+          </div>
           <div class="mb-2 flex items-center">
             <input
               className={` modal_item_input  ml-[84px] px-3 `}
@@ -465,7 +458,7 @@ const EditModal = ({
               등록
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     </Modal>
   );
