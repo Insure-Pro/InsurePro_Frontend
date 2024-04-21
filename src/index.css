@@ -3,53 +3,104 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoL.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-Light.ttf") format("ttf");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoR.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-Regular.ttf") format("ttf");
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoM.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-Medium.ttf") format("ttf");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoSB.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-SemiBold.ttf") format("ttf");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoB.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-Bold.ttf") format("ttf");
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoEB.woff") format("woff");
+  font-family: "Inter";
+  src: url("./fonts/Inter-ExtraBold.ttf") format("ttf");
   font-weight: 800;
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/Inter-Black.ttf") format("ttf");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------- */
+
+/* @font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoL.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+} */
+
+/* @font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoR.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+} */
+/* @font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoM.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+} */
+/* 
+@font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoSB.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+} */
+
+/* @font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoB.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+} */
+/* @font-face {
+  font-family: "AppleSDGothicNeo";
+  src: url("./fonts/AppleSDGothicNeoEB.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+} */
+
 body {
   margin: 0;
-  font-family: "AppleSDGothicNeo", sans-serif;
+  font-family: "Inter", sans-serif;
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
 }
 * {
-  font-family: "AppleSDGothicNeo";
+  font-family: "Inter";
 }
 
 /* code {
