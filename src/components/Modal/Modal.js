@@ -309,8 +309,6 @@ function Modal1({ show, onModalClose }) {
       <div
         className="modal-style "
         show={show}
-        onHide={handleClose}
-        onExited={onModalClose}
         style={{ height: modalHeight }} // 모달 높이 동적 조절
       >
         <div className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
