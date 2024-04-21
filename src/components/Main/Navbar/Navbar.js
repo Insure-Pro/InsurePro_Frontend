@@ -296,7 +296,9 @@ const Navbar = ({
                         </a>
                         <ul
                           className={`submenu ${
-                            showSubMenus && !isLandingPage ? "show" : "hide"
+                            isLoggedIn && showSubMenus && !isLandingPage
+                              ? "show"
+                              : "hide"
                           }`}
                         >
                           {menu.subMenus.map((subMenu, subIndex) => (
@@ -381,7 +383,9 @@ const Navbar = ({
           </div>
           <div
             id="gnbBg"
-            className={showSubMenus && !isLandingPage ? "show" : "hide"}
+            className={
+              isLoggedIn && showSubMenus && !isLandingPage ? "show" : "hide"
+            }
           ></div>
           {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
           {isMainRoute && showSearch && (
@@ -437,7 +441,9 @@ const Navbar = ({
             ""
           )}
           <div
-            className={`${showSubMenus ? "show" : "hide"} navbar-black-blur`}
+            className={`${
+              isLoggedIn && showSubMenus ? "show" : "hide"
+            } navbar-black-blur`}
           ></div>
         </header>
       ) : (
