@@ -21,11 +21,8 @@ const CustomerInfo = ({
         세부정보{" "}
         <div class="flex h-[20px] w-[20px] items-end">
           <img
-            className="userName mb-1 ml-1 pl-1 text-gray-400"
+            className="userName mb-1 ml-1 cursor-pointer pl-1 text-gray-400"
             src={imageUrl}
-            style={{
-              cursor: "pointer",
-            }}
             onClick={onEditClick} // EditModalD를 열기 위해 클릭 이벤트 연결
           />
           <EditModalD

@@ -1,6 +1,7 @@
 // CustomerTypeButtons.js
 import React from "react";
 import { useCustomerTypes } from "../../hooks/useCustomerTypes";
+
 const CustomerTypeButtons = ({
   selectedCustomerType,
   handleCustomerTypeClick,
@@ -48,7 +49,7 @@ const CustomerTypeButtons = ({
             // ref={type}
             onClick={() => {
               handleCustomerTypeClick({ pk: type.pk, name: type.name });
-              console.log("버튼을 클릭하긴 했네요");
+              // console.log("버튼을 클릭하긴 했네요");
             }}
           >
             {type.name}

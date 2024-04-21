@@ -268,7 +268,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                   <span className="Highlighting">*</span>고객유형
                 </div>
                 <CustomerTypeButtons
-                  selectedCustomerType={selectedCustomerType}
+                  selectedCustomerType={selectedCustomer?.customerType}
                   handleCustomerTypeClick={handleCustomerTypeClick}
                 />
               </div>

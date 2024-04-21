@@ -325,6 +325,21 @@ body {
   z-index: 12;
   padding-right: 0px !important;
 }
+.customerType-modal-style {
+  background-color: white;
+  width: 352px;
+  height: 260px;
+  position: fixed;
+  font-size: 14px;
+  top: 30%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  outline: none;
+  z-index: 12;
+  padding-right: 0px !important;
+}
 .date-modal-style {
   background-color: white;
   width: 408px;

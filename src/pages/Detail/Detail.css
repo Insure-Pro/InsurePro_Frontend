@@ -18,7 +18,7 @@
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mx-auto mb-3 flex h-[68px] w-[622px] select-text  items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
+  @apply mx-auto mb-3 flex h-[68px] w-[312px] select-text  items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
 }
 /* 진척도 */
 .historyItemStyle1 {
