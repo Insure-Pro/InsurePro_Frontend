@@ -12,6 +12,7 @@ function ManageCustomerTypesModal({ show, close }) {
   const [name, setName] = useState("");
   const [dataType, setDataType] = useState("DB"); // Default to 'DB'
   const [delYn, setDelYn] = useState("false");
+  const [isAddingType, setIsAddingType] = useState(false);
   const { data: customerTypes, isLoading } = useCustomerTypes();
   const addMutation = useAddCustomerType();
 
@@ -25,6 +26,7 @@ function ManageCustomerTypesModal({ show, close }) {
     e.preventDefault();
     addMutation.mutate({ name, dataType }); // 서버에 새 고객 유형 추가 요청
     setName(""); // 입력 필드 초기화
+    setIsAddingType(false); // Hide input fields after submission
   };
 
   useEffect(() => {
@@ -49,7 +51,7 @@ function ManageCustomerTypesModal({ show, close }) {
 
   return (
     <div
-      className="history-modal-style"
+      className="customerType-modal-style"
       show={show}
       style={{ marginTop: "130px" }}
     >
@@ -61,29 +63,38 @@ function ManageCustomerTypesModal({ show, close }) {
       </div>
       <div className="Modal_container ">
         <form onSubmit={handleSubmit}>
-          <div class="h-[38px] border-b border-LightMode-Hover  px-7">
-            <div class="flex justify-between ">
-              <input
-                class="h-[36px] w-[76px] py-2"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="고객유형"
-              />
-              <div class="flex h-[36px] items-center justify-center">
-                <img
-                  src={dataType === "DB" ? check_on : check_off}
-                  onClick={handleDataTypeToggle}
-                  alt="checkbox"
-                  class="mr-2 h-3 w-3"
+          {!isAddingType ? (
+            <button
+              class="flex h-[40px] w-full items-center justify-center font-normal text-Primary-400"
+              onClick={() => setIsAddingType(true)}
+            >
+              + 새로운 유형 추가하기
+            </button>
+          ) : (
+            <div class="h-[38px] border-b border-LightMode-Hover  px-7">
+              <div class="flex justify-between ">
+                <input
+                  class="h-[36px] w-[76px] py-2"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="고객유형"
                 />
-                <span class="w-[50px]">
-                  {dataType === "DB" ? "DB유형" : "그 외"}
-                </span>
+                <div class="flex h-[36px] items-center justify-center">
+                  <img
+                    src={dataType === "DB" ? check_on : check_off}
+                    onClick={handleDataTypeToggle}
+                    alt="checkbox"
+                    class="mr-2 h-3 w-3"
+                  />
+                  <span class="w-[50px]">
+                    {dataType === "DB" ? "DB유형" : "그 외"}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="h-[140px] w-full overflow-y-auto">
+          )}
+          <div class="relative z-[1] h-[140px]  w-full overflow-y-auto">
             {customerTypes?.map((type) => (
               <div class=" ">
                 <div class="flex h-[38px] w-full  items-center  pl-7">
@@ -103,16 +114,23 @@ function ManageCustomerTypesModal({ show, close }) {
               </div>
             ))}
           </div>
-          <div class="flex h-[40px] items-center justify-center font-normal text-Primary-400">
-            + 새로운 유형 추가하기
-          </div>
-          <div class="px-8">
-            <button
-              class=" mt-2 flex  h-10 w-[280px] items-center justify-center rounded border border-Primary-300 text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
-              type="submit"
-            >
-              저장
-            </button>
+
+          <div class="backdrop-blur-xs absolute top-[200px] z-[2] h-[76px] w-full px-8">
+            {!isAddingType ? (
+              <button
+                class=" absolute z-[100] mt-2  flex h-10 w-[280px] items-center justify-center rounded border border-Primary-300 bg-white text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
+                type="submit"
+              >
+                확인
+              </button>
+            ) : (
+              <button
+                class=" absolute z-[100] mt-2  flex h-10 w-[280px] items-center justify-center rounded border border-Primary-300 bg-white text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
+                type="submit"
+              >
+                저장
+              </button>
+            )}
           </div>
         </form>
       </div>
