@@ -6,7 +6,7 @@ const Search = ({ setCustomers, onClose }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
   const name = useRef("");
-  const search = process.env.PUBLIC_URL + "/search.png";
+  const searchWeb = process.env.PUBLIC_URL + "/search-Web-inactive.png";
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -50,7 +50,7 @@ const Search = ({ setCustomers, onClose }) => {
       style={{ display: "flex" }}
       class=" mb-10 mt-4 h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1"
     >
-      <img class="mr-7 h-6 w-6" src={search} onClick={handleSearch}></img>
+      <img class="mr-7 h-6 w-6" src={searchWeb} onClick={handleSearch}></img>
       <input
         type="name"
         placeholder="검색하려는 이름을 입력해주세요."

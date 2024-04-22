@@ -30,8 +30,14 @@ const Navbar = ({
   const [showSubMenus, setShowSubMenus] = useState(false);
 
   const isMobile = useMediaQuery({ query: "(max-width:960px)" });
-  const search = process.env.PUBLIC_URL + "/search.png";
-  const mypage = process.env.PUBLIC_URL + "/mypage.png";
+  // const search = process.env.PUBLIC_URL + "/search.png";
+  // const mypage = process.env.PUBLIC_URL + "/mypage.png";
+  const searchWeb = process.env.PUBLIC_URL + "/search-Web-inactive.png";
+  const searchWebActive = process.env.PUBLIC_URL + "/search-Web-active.png";
+  const searchMobile = process.env.PUBLIC_URL + "/search-Mobile-inactive.png";
+  const mypageWeb = process.env.PUBLIC_URL + "/mypage-Web-inactive.png";
+  const mypageWebActive = process.env.PUBLIC_URL + "/mypage-Web-active.png";
+  const mypageMobile = process.env.PUBLIC_URL + "/mypage-Mobile-inactive.png";
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -327,16 +333,31 @@ const Navbar = ({
                   >
                     {isMainRoute && isLoggedIn && (
                       <div class="mr-6 flex h-7 w-7 cursor-pointer items-center justify-center">
-                        <img src={search} onClick={handleSearchToggle} />
+                        {!showSearch ? (
+                          <img src={searchWeb} onClick={handleSearchToggle} />
+                        ) : (
+                          <img
+                            src={searchWebActive}
+                            onClick={handleSearchToggle}
+                          />
+                        )}
                       </div>
                     )}
                     <div class="flex ">
                       <div class=" flex h-7 w-7  items-center justify-center">
-                        <img
-                          class="absoulte"
-                          src={mypage}
-                          onClick={handleMypageClick}
-                        />
+                        {!showLogoutButton ? (
+                          <img
+                            class="absoulte"
+                            src={mypageWeb}
+                            onClick={handleMypageClick}
+                          />
+                        ) : (
+                          <img
+                            class="absoulte"
+                            src={mypageWebActive}
+                            onClick={handleMypageClick}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -551,8 +572,12 @@ const Navbar = ({
               </div>
               <div className="icon-wrapper">
                 <div class="flex">
-                  <img src={search} class="mr-4" />
-                  <img src={mypage} />
+                  <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
+                    <img src={searchMobile} class="mr-6" />
+                  </div>
+                  <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
+                    <img src={mypageMobile} />
+                  </div>
                 </div>
               </div>
             </div>
