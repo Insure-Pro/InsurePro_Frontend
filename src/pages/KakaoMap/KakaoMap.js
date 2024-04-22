@@ -24,7 +24,7 @@ const KakaoMap = () => {
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
   const marker_blue2 = process.env.PUBLIC_URL + "/marker_blue2.png";
   const marker_red2 = process.env.PUBLIC_URL + "/marker_red2.png";
-  const search = process.env.PUBLIC_URL + "/search.png";
+  const search = process.env.PUBLIC_URL + "/search-Web-inactive.png";
   const refresh = process.env.PUBLIC_URL + "/map_refresh.png";
   const check_on = process.env.PUBLIC_URL + "/check_on_8.png";
   const check_off = process.env.PUBLIC_URL + "/check_off_8.png";
