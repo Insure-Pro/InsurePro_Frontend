@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { updateCustomerType } from "../api/customerTypesAPI";
+import { updateCustomerType } from "../../api/customerTypesAPI";
 
 export const useUpdateCustomerType = () => {
   const queryClient = useQueryClient(); // 쿼리 클라이언트 인스턴스

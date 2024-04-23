@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
+import { useAddCustomerProgress } from "../../hooks/CustomerProgress/useAddCustomerProgress";
 
-function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
+function HistoryModal({ customerPk, setIsHistoryModalOpen }) {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
   const [memo, setMemo] = useState("");
   const [selectedProgressType, setSelectedProgressType] = useState("");
-
-  const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+  const addMutation = useAddCustomerProgress();
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
@@ -37,33 +37,26 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let formattedDateValue = date.replace(/[./]/g, "-");
-    const formData = {
-      date: formattedDateValue,
+    addMutation.mutate({
+      date,
       address,
       memo,
       progress: selectedProgressType,
-      delYn: "false",
-    };
-    try {
-      await axios.post(`${MAIN_URL}/schedule/${customerPk}`, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      handleClose();
-      onNewData();
-    } catch (err) {
-      console.log(formData);
-      console.error("Error while submitting data", err);
-    }
+      customerPk,
+    });
+    handleClose();
+  };
+
+  const progressTypeDisplay = {
+    AP: "초회상담",
+    PC: "상품제안",
+    ST: "증권전달",
   };
 
   const progressTypeColors = {
-    TA: "var(--Success-200)",
-    AP: "var(--Success-300)",
-    PT: "var(--Success-500)",
-    PC: "var(--Success-700)",
+    초회상담: "var(--Success-300)",
+    상품제안: "var(--Success-500)",
+    증권전달: "var(--Success-700)",
   };
 
   //모달창 외부 클릭 시 닫힘
@@ -79,25 +72,16 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
   return (
     <>
       <button
-        className="Add_Btn2"
+        className="Add_Btn2 ml-1 flex h-4 w-4 pt-[2.5px] outline-0"
         onClick={handleShow}
-        style={{
-          display: "flex",
-          width: "16px",
-          height: "16px",
-          paddingTop: "2.5px",
-          marginLeft: "4px",
-          outline: "none",
-        }}
       >
         <img src={add_icon} class="ml-1 mt-[-1.5px]" />
       </button>
 
       <Modal
-        className="history-modal-style"
+        className="history-modal-style mt-[130px]"
         show={show}
         onHide={handleClose}
-        style={{ marginTop: "130px" }}
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
@@ -119,49 +103,52 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
                     진척도
                   </div>
                   <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
-                    {Object.keys(progressTypeColors).map((type, idx, array) => {
-                      const isFirst = idx === 0;
-                      const isLast = idx === array.length - 1;
-                      let buttonStyle = {
-                        color:
-                          selectedProgressType === type
-                            ? "white"
-                            : "var(--Gray-scale-100)",
-                        backgroundColor:
-                          selectedProgressType === type
-                            ? progressTypeColors[type]
-                            : "transparent",
-                        borderColor:
-                          selectedProgressType === type
-                            ? progressTypeColors[type]
-                            : "var(--Gray-scale-100)",
-                        fontWeight:
-                          selectedProgressType === type ? "bold" : "normal",
-                      };
+                    {Object.keys(progressTypeDisplay).map(
+                      (type, idx, array) => {
+                        const koreanName = progressTypeDisplay[type]; // Get Korean name using the English code
+                        const isFirst = idx === 0;
+                        const isLast = idx === array.length - 1;
+                        let buttonStyle = {
+                          color:
+                            selectedProgressType === type
+                              ? "white"
+                              : "var(--Gray-scale-100)",
+                          backgroundColor:
+                            selectedProgressType === type
+                              ? progressTypeColors[koreanName]
+                              : "transparent",
+                          borderColor:
+                            selectedProgressType === type
+                              ? progressTypeColors[koreanName]
+                              : "var(--Gray-scale-100)",
+                          fontWeight:
+                            selectedProgressType === type ? "bold" : "normal",
+                        };
 
-                      // Apply rounded corners for the first and last button
-                      if (isFirst) {
-                        buttonStyle.borderTopLeftRadius = "4px";
-                        buttonStyle.borderBottomLeftRadius = "4px";
-                      }
-                      if (isLast) {
-                        buttonStyle.borderTopRightRadius = "4px";
-                        buttonStyle.borderBottomRightRadius = "4px";
-                      }
+                        // Apply rounded corners for the first and last button
+                        if (isFirst) {
+                          buttonStyle.borderTopLeftRadius = "4px";
+                          buttonStyle.borderBottomLeftRadius = "4px";
+                        }
+                        if (isLast) {
+                          buttonStyle.borderTopRightRadius = "4px";
+                          buttonStyle.borderBottomRightRadius = "4px";
+                        }
 
-                      return (
-                        <button
-                          key={idx}
-                          className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
-                          type="button"
-                          style={buttonStyle}
-                          value={selectedProgressType}
-                          onClick={() => handleProgressTypeClick(type)}
-                        >
-                          {type}
-                        </button>
-                      );
-                    })}
+                        return (
+                          <button
+                            key={idx}
+                            className="flex h-7 w-16 items-center justify-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                            type="button"
+                            style={buttonStyle}
+                            value={selectedProgressType}
+                            onClick={() => handleProgressTypeClick(type)} // Using English codes for internal state management
+                          >
+                            {koreanName}
+                          </button>
+                        );
+                      },
+                    )}
                   </div>
                 </div>
               </div>
@@ -180,7 +167,6 @@ function HistoryModal({ customerPk, onNewData, setIsHistoryModalOpen }) {
               <div class="mr-[38px] w-[50px]">장소</div>
               <input
                 type="text"
-                // placeholder="Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 class="h-7 w-[192px] rounded border text-center"
