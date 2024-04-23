@@ -4,8 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux";
-import { customerTypeColors } from "../../../constants/customerTypeColors";
-import { useCustomerTypes } from "../../../hooks/useCustomerTypes";
+import { useCustomerTypes } from "../../../hooks/CustomerTypes/useCustomerTypes";
 import { useMediaQuery } from "react-responsive";
 import MobileDbbar from "./MobileDbbar";
 

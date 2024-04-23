@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useCustomerTypes } from "../../hooks/useCustomerTypes";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 function MobileCustomerList({
   customers,

@@ -35,8 +35,8 @@ const EditModal = ({
   );
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
-  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
+  // const add_icon = process.env.PUBLIC_URL + "/add_button.png";
 
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");

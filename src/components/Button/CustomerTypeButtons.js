@@ -1,6 +1,6 @@
 // CustomerTypeButtons.js
 import React from "react";
-import { useCustomerTypes } from "../../hooks/useCustomerTypes";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 const CustomerTypeButtons = ({
   selectedCustomerType,

@@ -140,15 +140,12 @@ const Navbar = ({
     // 서버에서 직원 정보를 가져오는 함수
     const fetchEmployeeName = async () => {
       try {
-        const response = await fetch(
-          "https://www.insurepro.kro.kr/v1/employee",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
+        const response = await fetch(`${MAIN_URL}/employee`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        );
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch");

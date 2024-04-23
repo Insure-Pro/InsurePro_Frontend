@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import CloseButton from "react-bootstrap/CloseButton";
-import { customerTypeColors } from "../../constants/customerTypeColors";
 
 const MapCustomerDetail = ({ customerPk, onClose }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;

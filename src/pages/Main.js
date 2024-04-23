@@ -16,7 +16,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import ListGroup from "react-bootstrap/ListGroup";
-import { customerTypeColors } from "../constants/customerTypeColors";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.

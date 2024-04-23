@@ -1,6 +1,6 @@
-import { useCustomerTypes } from "../../hooks/useCustomerTypes";
-import { useAddCustomerType } from "../../hooks/useAddCustomerType";
-import { useUpdateCustomerType } from "../../hooks/useUpdateCustomerType"; // New hook
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
+import { useAddCustomerType } from "../../hooks/CustomerTypes/useAddCustomerType";
+import { useUpdateCustomerType } from "../../hooks/CustomerTypes/useUpdateCustomerType"; // New hook
 import { useState, useEffect } from "react";
 
 function ManageCustomerTypesModal({ show, close }) {

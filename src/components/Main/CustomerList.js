@@ -1,6 +1,6 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useCustomerTypes } from "../../hooks/useCustomerTypes";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
   // Assuming you have a hook to fetch customer types including colors
