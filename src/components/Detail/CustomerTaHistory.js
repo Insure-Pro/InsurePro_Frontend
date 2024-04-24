@@ -99,9 +99,9 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div className="flex h-4/6 w-1/2 justify-center  bg-LightMode-SectionBackground pt-6">
-      <div className="flex w-40 pl-12 text-sm">
-        <div class="flex flex-row" style={{ cursor: "default" }}>
+    <div className="flex h-4/6 w-1/2 justify-center border border-Danger-300  bg-LightMode-SectionBackground pt-6">
+      <div className="flex w-1/3 border border-Success-800 pl-6  text-sm">
+        <div class="flex w-[100px] cursor-default flex-row border border-Primary-300 pl-4">
           전화상담{" "}
           <TaHistoryModal
             customerPk={customerPk}
@@ -109,7 +109,7 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
           />
         </div>
       </div>
-      <div>
+      <div class="w-[330px] border border-gray-700">
         {customerTa.map((history) => (
           <div
             key={history.pk}
@@ -123,28 +123,28 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
                 handleContextMenu(e, history);
               }
             }}
-            className="history-container"
+            className="history-container w-full"
           >
             <div class="border border-Danger-200">
               <div
-                className="historyItemStyle1 border border-Primary-400"
+                className="historyItemStyle1 h-5 w-[70px] border border-Primary-400"
                 style={{ color: taTypeColors[taTypeDisplay[history.status]] }}
               >
                 {taTypeDisplay[history.status]}
               </div>
             </div>
-            <div class="border border-Success-300">
+            <div class="flex w-[200px] flex-col justify-center border border-Success-900">
               <div className="historyItemStyle2 border border-Primary-400">
-                <div class="mr-2 border border-Warning-400">
+                <div class="mr-2 h-5 w-10 border border-Warning-400 text-sm">
                   {history.count}차{" "}
                 </div>
                 {history.date}{" "}
-                <div class="ml-6 border border-Success-500">
+                <div class="ml-2 border border-Success-200">
                   {" "}
                   {history.time}
                 </div>
               </div>
-              <div className="historyItemStyle3 border border-Danger-500">
+              <div className="historyItemStyle3 border border-Danger-500 ">
                 {history.memo}
               </div>
             </div>

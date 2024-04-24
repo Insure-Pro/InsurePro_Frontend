@@ -4,20 +4,21 @@ import "../../App.css";
 import "../Detail/Detail.css";
 import Navbar from "../../components/Main/Navbar/Navbar";
 import CustomerDetail from "../../components/Detail/CustomerDetail";
-import CustomerInfo from "../../components/Detail/CustomerInfo";
 import CustomerHistory from "../../components/Detail/CustomerHistory";
+import CustomerTaHistory from "../../components/Detail/CustomerTaHistory";
 import { useLocation } from "react-router-dom";
 
 const Detail = ({}) => {
   const location = useLocation();
   const { customerPk } = location.state;
-  const [customerSchedules, setCustomerSchedules] = useState({});
+  // const [customerSchedules, setCustomerSchedules] = useState({});
 
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   const [showEditModalD, setShowEditModalD] = useState(false);
 
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
+  const [isTaHistoryModalOpen, setIsTaHistoryModalOpen] = useState(false);
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -54,7 +55,7 @@ const Detail = ({}) => {
       <Navbar />
       <div
         className={` ${
-          showEditModalD || isHistoryModalOpen
+          showEditModalD || isHistoryModalOpen || isTaHistoryModalOpen
             ? "blur-background-detail no-interaction "
             : ""
         }  mx-auto h-screen w-full min-w-[1024px] select-none`}
@@ -62,31 +63,25 @@ const Detail = ({}) => {
         {selectedCustomer && (
           <>
             <CustomerDetail
-              data={selectedCustomer}
+              customer={selectedCustomer}
               customerPk={customerPk}
               onUpdateSuccess={handleUpdateSuccess}
               showEditModal={showEditModalD}
               onEditClick={() => setShowEditModalD(true)}
               onCloseModal={() => setShowEditModalD(false)}
             />
-            <div>
-              <CustomerInfo
-                data={selectedCustomer}
-                customerPk={customerPk}
-                onUpdateSuccess={handleUpdateSuccess}
-                showEditModal={showEditModalD}
-                onEditClick={() => setShowEditModalD(true)}
-                onCloseModal={() => setShowEditModalD(false)}
-              />
+            <div class="flex h-full w-full justify-center bg-LightMode-SectionBackground ">
+              <div class="flex w-[1024px]">
+                <CustomerTaHistory
+                  customerPk={customerPk}
+                  setIsTaHistoryModalOpen={setIsTaHistoryModalOpen}
+                />
+                <CustomerHistory
+                  customerPk={customerPk}
+                  setIsHistoryModalOpen={setIsHistoryModalOpen}
+                />
+              </div>
             </div>
-
-            <CustomerHistory
-              data={customerSchedules}
-              customerPk={customerPk}
-              setIsHistoryModalOpen={setIsHistoryModalOpen}
-              onEditClick={() => setIsHistoryModalOpen(true)}
-              onCloseModal={() => setIsHistoryModalOpen(false)}
-            />
           </>
         )}
       </div>

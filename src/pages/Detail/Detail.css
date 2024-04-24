@@ -18,12 +18,12 @@
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mx-auto mb-3 flex h-[68px] w-[312px] select-text  items-center rounded border-2 border-white pl-[20px] pr-[30px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
+  @apply mb-3 flex h-[68px] select-text  items-center rounded border-2 border-white pl-[10px] pr-[20px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
 }
 /* 진척도 */
 .historyItemStyle1 {
-  @apply mr-[57px] cursor-default
-    pl-[4px] text-[17px] font-bold;
+  @apply mr-[18px] cursor-default
+    pl-[4px] text-[16px] font-bold;
 }
 /* 시간, 장소 */
 .historyItemStyle2 {
