@@ -19,32 +19,30 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const memoRef = useRef("");
 
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  // 선택된 고객 유형을 나타내는 state
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
 
-  const checkedIcon = process.env.PUBLIC_URL + "/activate-check14.png"; // 체크된 이미지 경로
-  const uncheckedIcon = process.env.PUBLIC_URL + "/deactivate-check14.png"; // 체크되지 않은 이미지 경로
+  const checkedIcon = process.env.PUBLIC_URL + "/activate-check14.png";
+  const uncheckedIcon = process.env.PUBLIC_URL + "/deactivate-check14.png";
 
   const modalRef = useRef(); // Reference to the modal
-  const handleClose = () => {
-    onHide();
-    // Check if the click is outside the modal content
-    // if (modalRef.current && !modalRef.current.contains(event.target)) {
-    //   onHide();
-    // }
-  };
+  // const handleClose = () => {
+  // onHide();
+  // Check if the click is outside the modal content
+  // if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //   onHide();
+  // }
+  // };
 
-  EditModalD.propTypes = {
-    show: PropTypes.bool.isRequired,
-    onHide: PropTypes.func.isRequired,
-    selectedCustomer: PropTypes.object.isRequired,
-    onUpdateSuccess: PropTypes.func.isRequired,
-  };
+  // EditModalD.propTypes = {
+  //   show: PropTypes.bool.isRequired,
+  //   onHide: PropTypes.func.isRequired,
+  //   selectedCustomer: PropTypes.object.isRequired,
+  //   onUpdateSuccess: PropTypes.func.isRequired,
+  // };
 
   // useEffect that updates state only when selectedCustomer changes
   useEffect(() => {
@@ -268,7 +266,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                   <span className="Highlighting">*</span>고객유형
                 </div>
                 <CustomerTypeButtons
-                  selectedCustomerType={selectedCustomer?.customerType}
+                  selectedCustomerType={selectedCustomerType}
                   handleCustomerTypeClick={handleCustomerTypeClick}
                 />
               </div>

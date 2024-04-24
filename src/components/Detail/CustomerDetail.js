@@ -125,7 +125,7 @@ const CustomerDetail = ({
                   <div class="h-[30px] w-[70px]">주소 </div>
                   <span> : </span>
                   <span class="w-[175px] border border-Primary-600">
-                    {customer.address}
+                    {customer.dongString}
                   </span>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const CustomerDetail = ({
                   <div class="h-[30px] w-[70px]">특이사항 </div>
                   <span> : </span>
                   <span class="w-[175px] border border-Primary-600">
-                    {customer.phone}
+                    {customer.memo}
                   </span>
                 </div>
               </div>
