@@ -7,6 +7,7 @@ import ContextMenu from "../Modal/ContextMenu";
 import { useCustomerProgress } from "../../hooks/CustomerProgress/useCustomerProgress";
 import { useUpdateCustomerProgress } from "../../hooks/CustomerProgress/useUpdateCustomerProgress";
 import { useDeleteCustomerProgress } from "../../hooks/CustomerProgress/useDeleteCustomerProgress";
+import SkeletonHistory from "../../Skeleton/SkeletonHistory";
 
 const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
@@ -104,7 +105,7 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   };
 
   // Rendering logic
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div class="placeholder:">Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
@@ -119,48 +120,62 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
         </div>
       </div>
       <div class="w-[370px] border border-gray-600">
-        {customerProgress.map((history) => (
-          <div
-            key={history.pk}
-            onContextMenu={(e) => {
-              e.preventDefault();
-              handleContextMenu(e, history);
-            }}
-            onClick={(e) => {
-              if (windowWidth <= 700) {
-                e.preventDefault();
-                handleContextMenu(e, history);
-              }
-            }}
-            className="history-container w-[360px]"
-          >
-            <div class="border border-Danger-300">
-              <div
-                className="historyItemStyle1 border border-Primary-400"
-                style={{
-                  color:
-                    progressTypeColors[progressTypeDisplay[history.progress]],
-                }}
-              >
-                {progressTypeDisplay[history.progress]}
-              </div>
-            </div>
-            <div class="w-[360px] border border-Success-300">
-              <div className="historyItemStyle2 w-full border border-Primary-400">
-                <div class="w-[86px] border border-Success-700">
-                  {history.date}{" "}
-                </div>
-                <div class="ml-3 border border-Warning-600">
-                  {" "}
-                  {history.address}
-                </div>
-              </div>
-              <div className="historyItemStyle3 border border-Danger-500">
-                {history.memo}
-              </div>
-            </div>
+        {isLoading ? (
+          <div class="flex flex-col">
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
           </div>
-        ))}
+        ) : (
+          <>
+            {customerProgress.map((history) => (
+              <div
+                key={history.pk}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  handleContextMenu(e, history);
+                }}
+                onClick={(e) => {
+                  if (windowWidth <= 700) {
+                    e.preventDefault();
+                    handleContextMenu(e, history);
+                  }
+                }}
+                className="history-container w-[360px]"
+              >
+                <div class="border border-Danger-300">
+                  <div
+                    className="historyItemStyle1 border border-Primary-400"
+                    style={{
+                      color:
+                        progressTypeColors[
+                          progressTypeDisplay[history.progress]
+                        ],
+                    }}
+                  >
+                    {progressTypeDisplay[history.progress]}
+                  </div>
+                </div>
+                <div class="w-[360px] border border-Success-300">
+                  <div className="historyItemStyle2 w-full border border-Primary-400">
+                    <div class="w-[86px] border border-Success-700">
+                      {history.date}{" "}
+                    </div>
+                    <div class="ml-3 border border-Warning-600">
+                      {" "}
+                      {history.address}
+                    </div>
+                  </div>
+                  <div className="historyItemStyle3 border border-Danger-500">
+                    {history.memo}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
         {contextMenu.visible && (
           <ContextMenu
             history={contextMenu.history}

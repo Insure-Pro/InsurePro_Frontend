@@ -6,6 +6,7 @@ import ContextMenu from "../Modal/ContextMenu";
 import { useCustomerTa } from "../../hooks/CustomerTa/useCustomerTa";
 import { useUpdateCustomerTa } from "../../hooks/CustomerTa/useUpdateCustomerTa";
 import { useDeleteCustomerTa } from "../../hooks/CustomerTa/useDeleteCustomerTa";
+import SkeletonHistory from "../../Skeleton/SkeletonHistory";
 
 const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
@@ -95,7 +96,7 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   };
 
   // Rendering logic
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
@@ -110,46 +111,60 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
         </div>
       </div>
       <div class="w-[330px] border border-gray-700">
-        {customerTa.map((history) => (
-          <div
-            key={history.pk}
-            onContextMenu={(e) => {
-              e.preventDefault();
-              handleContextMenu(e, history);
-            }}
-            onClick={(e) => {
-              if (windowWidth <= 700) {
-                e.preventDefault();
-                handleContextMenu(e, history);
-              }
-            }}
-            className="history-container w-full"
-          >
-            <div class="border border-Danger-200">
-              <div
-                className="historyItemStyle1 h-5 w-[70px] border border-Primary-400"
-                style={{ color: taTypeColors[taTypeDisplay[history.status]] }}
-              >
-                {taTypeDisplay[history.status]}
-              </div>
-            </div>
-            <div class="flex w-[200px] flex-col justify-center border border-Success-900">
-              <div className="historyItemStyle2 border border-Primary-400">
-                <div class="mr-2 h-5 w-10 border border-Warning-400 text-sm">
-                  {history.count}차{" "}
-                </div>
-                {history.date}{" "}
-                <div class="ml-2 border border-Success-200">
-                  {" "}
-                  {history.time}
-                </div>
-              </div>
-              <div className="historyItemStyle3 border border-Danger-500 ">
-                {history.memo}
-              </div>
-            </div>
+        {isLoading ? (
+          <div class="flex flex-col">
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
+            <SkeletonHistory />
           </div>
-        ))}
+        ) : (
+          <>
+            {customerTa.map((history) => (
+              <div
+                key={history.pk}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  handleContextMenu(e, history);
+                }}
+                onClick={(e) => {
+                  if (windowWidth <= 700) {
+                    e.preventDefault();
+                    handleContextMenu(e, history);
+                  }
+                }}
+                className="history-container w-full"
+              >
+                <div class="border border-Danger-200">
+                  <div
+                    className="historyItemStyle1 h-5 w-[70px] border border-Primary-400"
+                    style={{
+                      color: taTypeColors[taTypeDisplay[history.status]],
+                    }}
+                  >
+                    {taTypeDisplay[history.status]}
+                  </div>
+                </div>
+                <div class="flex w-[200px] flex-col justify-center border border-Success-900">
+                  <div className="historyItemStyle2 border border-Primary-400">
+                    <div class="mr-2 h-5 w-10 border border-Warning-400 text-sm">
+                      {history.count}차{" "}
+                    </div>
+                    {history.date}{" "}
+                    <div class="ml-2 border border-Success-200">
+                      {" "}
+                      {history.time}
+                    </div>
+                  </div>
+                  <div className="historyItemStyle3 border border-Danger-500 ">
+                    {history.memo}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
         {contextMenu.visible && (
           <ContextMenu
             history={contextMenu.history}
