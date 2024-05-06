@@ -3,7 +3,7 @@ import SkeletonElement from "./SkeletonElement";
 
 const SkeletonHistory = () => {
   return (
-    <div className="skeleton-wrapper mb-4 flex h-[58px] w-[360px] items-center rounded bg-gray-200/30 px-[15px] ">
+    <div className="skeleton-wrapper  flex h-[80px] w-[360px] items-center rounded bg-Secondary-50/20 px-[15px] ">
       <div className="historyItemStyle1 mr-[18px] pl-1">
         <SkeletonElement type="title" />
       </div>
