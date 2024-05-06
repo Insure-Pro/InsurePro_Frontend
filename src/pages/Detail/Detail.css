@@ -18,19 +18,19 @@
   @apply text-sm font-normal text-black;
 }
 .history-container {
-  @apply mb-3 flex h-[68px] select-text  items-center rounded border-2 border-white pl-[10px] pr-[20px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
+  @apply mb-3 flex h-[68px] select-text  items-center rounded border-2 border-white pl-[16px] pr-[20px] shadow-[0_2px_4px_0_rgba(0,0,0,0.10)];
 }
 /* 진척도 */
 .historyItemStyle1 {
-  @apply mr-[18px] cursor-default
+  @apply ml-2 mr-[18px] flex cursor-default items-center
     pl-[4px] text-[16px] font-bold;
 }
 /* 시간, 장소 */
 .historyItemStyle2 {
-  @apply mb-2 flex cursor-default text-sm font-semibold;
+  @apply mb-1 flex cursor-default text-sm font-semibold;
 }
 /* 메모 */
 .historyItemStyle3 {
-  @apply flex cursor-default text-xs font-normal;
+  @apply ml-1.5 flex cursor-default text-xs font-normal;
 }
 /* - - - - -[상세정보 끝]- - - - - */

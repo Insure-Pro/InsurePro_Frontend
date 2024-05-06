@@ -45,13 +45,14 @@ function EditModalTA({ show, onHide, onSave, selectedTA }) {
     ABSENCE: "부재",
     REJECTION: "거절",
     PROMISE: "확약",
-    AS_TARGET: "AS",
+    PENDING: "보류",
+    // AS_TARGET: "AS",
   };
   const taTypeColors = {
-    AS: "var(--Success-200)",
-    부재: "var(--Success-300)",
-    확약: "var(--Success-500)",
-    거절: "var(--Success-700)",
+    보류: "var(--Success-500)",
+    부재: "var(--Warning-300)",
+    확약: "var(--Primary-400)",
+    거절: "var(--Danger-400)",
   };
 
   //모달창 외부 클릭 시 닫힘
@@ -73,7 +74,7 @@ function EditModalTA({ show, onHide, onSave, selectedTA }) {
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
-            <div>히스토리 추가</div>
+            <div>히스토리 변경</div>
             <img class="cursor-pointer" onClick={onHide} src={close_icon} />
           </div>
         </div>

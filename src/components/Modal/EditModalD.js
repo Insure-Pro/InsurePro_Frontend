@@ -259,7 +259,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         </div>
         <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
           <form onSubmit={handleSubmit} class="pl-8">
-            <div className="mb-1    h-12 w-[352px] select-none ">
+            <div className="mb-1 h-12 w-[352px] select-none ">
               <div className=" flex items-center">
                 <div className="w-[84px] pb-4 ">
                   {" "}

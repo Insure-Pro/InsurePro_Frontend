@@ -23,8 +23,6 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  console.log(customerProgress);
-
   //모바일 웹에서는 마우스 우클릭이 안 됨 -> 모바일웹에서는 클릭으로 바꿔사용하기 위함
   useEffect(() => {
     // 창 크기가 변경될 때마다 windowWidth 상태를 업데이트
@@ -109,9 +107,10 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div className="flex h-4/6 w-full justify-center border border-Success-500  bg-LightMode-SectionBackground pt-6">
-      <div className="flex h-10 w-[150px] border border-Primary-200 pl-5 text-sm">
-        <div class="flex w-full cursor-default  flex-row border border-Warning-500">
+    // <div className="flex h-4/6 w-full justify-center  bg-LightMode-SectionBackground pt-6">
+    <div className="flex h-4/6 w-full justify-center  bg-white pt-6">
+      <div className="flex h-10 w-[150px] pl-5 text-sm">
+        <div class="flex w-full cursor-default  flex-row ">
           진척도{" "}
           <HistoryModal
             customerPk={customerPk}
@@ -119,7 +118,7 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
           />
         </div>
       </div>
-      <div class="w-[370px] border border-gray-600">
+      <div class="w-[370px] ">
         {isLoading ? (
           <div class="flex flex-col">
             <SkeletonHistory />
@@ -145,9 +144,9 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                 }}
                 className="history-container w-[360px]"
               >
-                <div class="border border-Danger-300">
+                <div class="">
                   <div
-                    className="historyItemStyle1 border border-Primary-400"
+                    className="historyItemStyle1 "
                     style={{
                       color:
                         progressTypeColors[
@@ -158,19 +157,12 @@ const CustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                     {progressTypeDisplay[history.progress]}
                   </div>
                 </div>
-                <div class="w-[360px] border border-Success-300">
-                  <div className="historyItemStyle2 w-full border border-Primary-400">
-                    <div class="w-[86px] border border-Success-700">
-                      {history.date}{" "}
-                    </div>
-                    <div class="ml-3 border border-Warning-600">
-                      {" "}
-                      {history.address}
-                    </div>
+                <div class="w-[360px] ">
+                  <div className="historyItemStyle2 w-full ">
+                    <div class="w-[86px] ">{history.date} </div>
+                    <div class="ml-3"> {history.address}</div>
                   </div>
-                  <div className="historyItemStyle3 border border-Danger-500">
-                    {history.memo}
-                  </div>
+                  <div className="historyItemStyle3">{history.memo}</div>
                 </div>
               </div>
             ))}

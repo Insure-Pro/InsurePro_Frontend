@@ -1,17 +1,18 @@
-import axios from "../axiosConfig";
+import axios from "../../axiosConfig";
 import React, { useState, useEffect } from "react";
-import "../App.css";
-import "../MainStyles.css";
-import Navbar from "../components/Main/Navbar/Navbar";
-import Dbbar from "../components/Main/Dbbar/Dbbar";
-import Modal from "../components/Modal/Modal";
-import EditModal from "../components/Modal/EditModal";
-import ContextMenu from "../components/Modal/ContextMenu";
-import ExcelDownloadButton from "../components/ExcelDownloadButton";
-import ExcelUploadModal from "../components/Modal/ExcelUploadModal/ExcelUploadModal";
-import CustomerList from "../components/Main/CustomerList";
-import MobileCustomerList from "../components/Main/MobileCustomerList";
-import Pagination from "../components/Main/Pagination";
+import "../../App.css";
+import "./MainStyles.css";
+import Navbar from "../../components/Main/Navbar/Navbar";
+import Dbbar from "../../components/Main/Dbbar/Dbbar";
+import Modal from "../../components/Modal/Modal";
+import CustomerModal from "../../components/Modal/CustomerModal";
+import EditModal from "../../components/Modal/EditModal";
+import ContextMenu from "../../components/Modal/ContextMenu";
+import ExcelDownloadButton from "../../components/ExcelDownloadButton";
+import ExcelUploadModal from "../../components/Modal/ExcelUploadModal/ExcelUploadModal";
+import CustomerList from "../../components/Main/CustomerList";
+import MobileCustomerList from "../../components/Main/MobileCustomerList";
+import Pagination from "../../components/Main/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -341,6 +342,9 @@ const Main = () => {
         activeType={activeType} // activeType을 props로 전달합니다.
       />
       {showModal && <Modal show={showModal} onModalClose={handleModalClose} />}
+      {/* {showModal && (
+        <CustomerModal show={showModal} onModalClose={handleModalClose} />
+      )} */}
       {showExcelUploadModal && (
         <ExcelUploadModal
           show={showExcelUploadModal}

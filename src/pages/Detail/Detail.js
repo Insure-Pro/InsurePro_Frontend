@@ -70,7 +70,8 @@ const Detail = ({}) => {
               onEditClick={() => setShowEditModalD(true)}
               onCloseModal={() => setShowEditModalD(false)}
             />
-            <div class="flex h-full w-full justify-center bg-LightMode-SectionBackground ">
+            {/* <div class="flex h-full w-full justify-center bg-LightMode-SectionBackground "> */}
+            <div class="mt-2 flex h-full w-full justify-center bg-white ">
               <div class="flex w-[1024px]">
                 <CustomerTaHistory
                   customerPk={customerPk}

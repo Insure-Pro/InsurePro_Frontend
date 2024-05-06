@@ -10,7 +10,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Email = lazy(() => import("./pages/Email"));
 const Password = lazy(() => import("./pages/Password"));
 const Signup = lazy(() => import("./pages/Signup/Signup"));
-const Main = lazy(() => import("./pages/Main"));
+const Main = lazy(() => import("./pages/Main/Main"));
 const Detail = lazy(() => import("./pages/Detail/Detail"));
 const KakaoMap = lazy(() => import("./pages/KakaoMap/KakaoMap"));
 const Inquiry = lazy(() => import("./pages/Inquiry"));

@@ -1,5 +1,9 @@
 .skeleton {
-  background: #ddd;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(251, 251, 251, 0.08) 140%
+  );
   /* margin: 10px 0; */
   border-radius: 4px;
   animation: pulse 2s infinite ease-in-out;
@@ -41,8 +45,8 @@
 }
 
 @keyframes pulse {
-  0% {
-    background-color: #94a3b8;
+  /* 0% {
+    background-color: #f9fafb;
   }
 
   50% {
@@ -50,6 +54,15 @@
   }
 
   100% {
-    background-color: #94a3b8;
+    background-color: #e5e7eb;
+  } */
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

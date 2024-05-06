@@ -385,7 +385,7 @@ body {
   border-radius: 6px;
   transform: translate(-50%, -50%);
   outline: none;
-  z-index: 7;
+  z-index: 17;
 }
 
 .options-modal-style {
@@ -433,6 +433,10 @@ body {
 .modal_item_container {
   @apply flex h-10 w-[352px] items-center;
 }
+.CustomerModal_item_container {
+  @apply flex h-10 w-[352px] flex-row items-center justify-center;
+}
+
 .modal_item_input {
   @apply h-7 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }

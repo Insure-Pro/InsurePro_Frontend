@@ -54,13 +54,14 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
     ABSENCE: "부재",
     REJECTION: "거절",
     PROMISE: "확약",
-    AS_TARGET: "AS",
+    PENDING: "보류",
+    // AS_TARGET: "AS",
   };
   const taTypeColors = {
-    AS: "var(--Success-200)",
-    부재: "var(--Success-300)",
-    확약: "var(--Success-500)",
-    거절: "var(--Success-700)",
+    보류: "var(--Success-500)",
+    부재: "var(--Warning-300)",
+    확약: "var(--Primary-400)",
+    거절: "var(--Danger-400)",
   };
   // -----------------------------------------------
 
@@ -122,7 +123,7 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
                     {" "}
                     진척도
                   </div>
-                  <div class="flex h-7 w-[192px] items-center   whitespace-nowrap  ">
+                  <div class="flex h-7 w-[192px] items-center    whitespace-nowrap  ">
                     {Object.keys(taTypeDisplay).map((type, idx, array) => {
                       const koreanName = taTypeDisplay[type]; // Get Korean name using the English code
                       const isFirst = idx === 0;
@@ -156,7 +157,7 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
                       return (
                         <button
                           key={idx}
-                          className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                          className="flex h-7 w-12 items-center justify-center border border-gray-300 px-[14px] py-[5px] outline-none"
                           type="button"
                           style={buttonStyle}
                           value={selectedTaType}
