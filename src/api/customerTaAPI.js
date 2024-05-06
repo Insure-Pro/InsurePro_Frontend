@@ -25,6 +25,7 @@ export const addCustomerTa = async ({
 
 //Ta 정보 가져오기
 export const fetchCustomerTa = async (customerPk) => {
+  // await new Promise((resolve) => setTimeout(resolve, 60000)); // 60 seconds delay
   const response = await axios.get(`${API_URL}s/${customerPk}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
