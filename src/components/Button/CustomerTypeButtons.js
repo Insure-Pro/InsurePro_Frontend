@@ -1,6 +1,7 @@
 // CustomerTypeButtons.js
 import React from "react";
 import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
+import { useMediaQuery } from "react-responsive";
 
 const CustomerTypeButtons = ({
   selectedCustomerType,
@@ -8,8 +9,15 @@ const CustomerTypeButtons = ({
 }) => {
   const { data: customerTypes, isLoading } = useCustomerTypes();
 
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
+  // 45 7
+  // 315
   return (
-    <div className="flex h-12 w-52 items-center overflow-x-scroll whitespace-nowrap">
+    <div
+      className={`flex h-12  items-center ${
+        isMobile ? "w-[320px] overflow-hidden" : "w-52 overflow-x-scroll"
+      }  whitespace-nowrap`}
+    >
       {customerTypes.map((type, idx, array) => {
         const isFirst = idx === 0;
         const isLast = idx === array.length - 1;
@@ -43,7 +51,9 @@ const CustomerTypeButtons = ({
         return (
           <button
             key={type.pk}
-            className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+            className={`flex ${
+              isMobile ? "h-9 w-11" : "h-7  w-12"
+            } items-center justify-center border border-gray-300 px-[14px] py-[5px] outline-none`}
             type="button"
             style={buttonStyle}
             // ref={type}

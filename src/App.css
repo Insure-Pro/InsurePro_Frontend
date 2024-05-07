@@ -371,6 +371,21 @@ body {
   outline: none;
   z-index: 7;
 }
+.modal-style-mobile {
+  background-color: white;
+  width: 360px;
+  height: 635px;
+  margin-top: 60px;
+  padding-left: 0px !important;
+  position: fixed;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  transform: translate(-50%, -50%);
+  outline: none;
+  z-index: 7;
+}
 .modal-style-detail {
   background-color: white;
   width: 352px;
@@ -440,12 +455,21 @@ body {
 .modal_item_input {
   @apply h-7 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
+.modal_item_input_mobile {
+  @apply h-9 w-[207px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
+}
 .modal_item_input_memo {
   @apply flex h-14 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
+}
+.modal_item_input_memo_mobile {
+  @apply flex h-9 w-[312px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
 
 .modal_address_item {
   @apply h-[28px] w-[60px]  rounded border;
+}
+.modal_address_item_mobile {
+  @apply h-[36px] w-[100px] rounded border p-2;
 }
 /* - - - - -[모달창 끝]- - - - - */
 /* - - - - -[체크박스 커스텀 시작]- - - - - */
