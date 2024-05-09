@@ -46,7 +46,7 @@ const EditModal = ({
 
   const { sido, sigugun, dong } = hangjungdong;
 
-  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
@@ -226,100 +226,101 @@ const EditModal = ({
         // <div class="fixed z-30 m-auto h-scree w-full bg-Success-500">
         <>
           <Modal
-            className="modal-style-mobile rounded-t-2xl "
+            className="modal-style-mobile  flex  w-screen items-center justify-center rounded-t-2xl"
             show={show}
             onHide={handleClose}
             onExited={onModalClose}
           >
-            <div className="h-20  px-7 py-[7px] text-sm font-normal">
-              <div class="mb-5 flex items-center justify-center">
-                <img src={mobile_modal_top} />
-              </div>
-              <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
-                <div
-                  class="cursor-pointer text-sm font-normal"
-                  onClick={handleClose}
-                >
-                  취소
+            <div class="  flex h-[720px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
+              <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
+                <div class="mb-5 flex items-center justify-center">
+                  <img src={mobile_modal_top} />
                 </div>
-                <div class="text-base font-bold">고객정보 수정</div>
-                <div class="cursor-pointer text-sm font-normal">완료</div>
+                <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
+                  <div
+                    class="cursor-pointer text-sm font-normal"
+                    onClick={handleClose}
+                  >
+                    취소
+                  </div>
+                  <div class="text-base font-bold">고객정보 수정</div>
+                  <div class="cursor-pointer text-sm font-normal">완료</div>
+                </div>
               </div>
-            </div>
-            <div class="my-[-15px]" ref={modalRef}>
-              <form onSubmit={handleSubmit} class="pl-4">
-                <div className="mb-1  h-12 w-[352px] ">
-                  <div className=" flex items-center">
-                    <CustomerTypeButtons
-                      selectedCustomerType={selectedCustomerType}
-                      handleCustomerTypeClick={handleCustomerTypeClick}
+              <div class="my-[-15px]" ref={modalRef}>
+                <form onSubmit={handleSubmit} class="pl-9">
+                  <div className="mb-1  h-12 w-[352px] ">
+                    <div className=" flex items-center">
+                      <CustomerTypeButtons
+                        selectedCustomerType={selectedCustomerType}
+                        handleCustomerTypeClick={handleCustomerTypeClick}
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-0.5 flex  text-xs text-Secondary-100">
+                    <input
+                      type="checkbox"
+                      id="customCheckbox"
+                      className="hidden-checkbox"
+                      checked={contractYn} // 체크박스 상태를 반영
+                      onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+                    />
+                    <label
+                      htmlFor="customCheckbox"
+                      class={`checkbox-label_14 mr-1 ${
+                        contractYn ? "text-Primary-400" : "text-Secondary-100"
+                      }`}
+                    ></label>
+                    <span
+                      class={`${
+                        contractYn ? "text-Primary-400" : "text-Secondary-100"
+                      }`}
+                    >
+                      {contractYn ? "계약완료 고객" : "계약 미완료"}
+                    </span>
+                  </div>
+                  <div className=" modal_item_container mb-2">
+                    <div class="w-[108px] text-sm font-normal">
+                      <span className="Highlighting">*</span>
+                      이름
+                    </div>
+                    <input
+                      class={`modal_item_input_mobile   pl-[70px]`}
+                      type="text"
+                      defaultValue={selectedCustomer?.name}
+                      ref={nameRef}
+                      // value={nameInput}
                     />
                   </div>
-                </div>
-                <div class="mb-0.5 flex  text-xs text-Secondary-100">
-                  <input
-                    type="checkbox"
-                    id="customCheckbox"
-                    className="hidden-checkbox"
-                    checked={contractYn} // 체크박스 상태를 반영
-                    onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
-                  />
-                  <label
-                    htmlFor="customCheckbox"
-                    class={`checkbox-label_14 mr-1 ${
-                      contractYn ? "text-Primary-400" : "text-Secondary-100"
-                    }`}
-                  ></label>
-                  <span
-                    class={`${
-                      contractYn ? "text-Primary-400" : "text-Secondary-100"
-                    }`}
-                  >
-                    {contractYn ? "계약완료 고객" : "계약 미완료"}
-                  </span>
-                </div>
-                <div className=" modal_item_container mb-2">
-                  <div class="w-[108px] text-sm font-normal">
-                    <span className="Highlighting">*</span>
-                    이름
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] ">
+                      <span className="Highlighting">*</span>연락처
+                    </div>
+                    <input
+                      class={` modal_item_input_mobile pl-[52px]`}
+                      type="text"
+                      ref={phoneRef}
+                      defaultValue={selectedCustomer?.phone}
+                      onChange={handlePhoneInputChange}
+                      placeholder="01012345678"
+                    />
                   </div>
-                  <input
-                    class={`modal_item_input_mobile   pl-[70px]`}
-                    type="text"
-                    defaultValue={selectedCustomer?.name}
-                    ref={nameRef}
-                    // value={nameInput}
-                  />
-                </div>
-                <div class="modal_item_container mb-2">
-                  <div class="w-[108px] ">
-                    <span className="Highlighting">*</span>연락처
-                  </div>
-                  <input
-                    class={` modal_item_input_mobile pl-[52px]`}
-                    type="text"
-                    ref={phoneRef}
-                    defaultValue={selectedCustomer?.phone}
-                    onChange={handlePhoneInputChange}
-                    placeholder="01012345678"
-                  />
-                </div>
 
-                <div class="modal_item_container mb-2">
-                  <div class="w-[108px]">
-                    <span className="Highlighting">*</span>
-                    DB 분배일
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px]">
+                      <span className="Highlighting">*</span>
+                      DB 분배일
+                    </div>
+                    <input
+                      class={` modal_item_input_mobile  pl-[52px]`}
+                      type="date"
+                      ref={registerDateRef}
+                      // value={registerDateInput}
+                      defaultValue={selectedCustomer?.registerDate}
+                      placeholder=" 2023.00.00"
+                    />
                   </div>
-                  <input
-                    class={` modal_item_input_mobile  pl-[52px]`}
-                    type="date"
-                    ref={registerDateRef}
-                    // value={registerDateInput}
-                    defaultValue={selectedCustomer?.registerDate}
-                    placeholder=" 2023.00.00"
-                  />
-                </div>
-                {/* <div class="modal_item_container mb-2">
+                  {/* <div class="modal_item_container mb-2">
                 <div class="w-[108px] pl-2">생년월일</div>
                 <input
                   class={`modal_item_input_mobile  pl-[52px] `}
@@ -329,147 +330,148 @@ const EditModal = ({
                   placeholder=" 1900.00.00"
                 />
               </div> */}
-                <div class=" modal_item_container mb-2 ">
-                  <div class="w-[108px] pl-2">나이 (만)</div>
-                  <input
-                    class={` modal_item_input_mobile  pl-[82px]`}
-                    type="number"
-                    defaultValue={selectedCustomer?.age}
-                    ref={ageRef}
-                    // value={ageInput}
-                  />
-                </div>
-                <div className=" mb-1">
-                  <div class="flex h-[40px] w-[75px] items-center ">
-                    <span>
-                      <span className="Highlighting">*</span>
-                    </span>
-                    주소
+                  <div class=" modal_item_container mb-2 ">
+                    <div class="w-[108px] pl-2">나이 (만)</div>
+                    <input
+                      class={` modal_item_input_mobile  pl-[82px]`}
+                      type="number"
+                      defaultValue={selectedCustomer?.age}
+                      ref={ageRef}
+                      // value={ageInput}
+                    />
                   </div>
-                  <div class="flex">
-                    <Col>
-                      <div class="flex" controlId="sidoSelect">
-                        <Form.Select
-                          className={`modal_address_item_mobile ${
-                            selectedSido
-                              ? "border-primary-100 text-black"
-                              : "border-gray-300 text-gray-300"
-                          } `}
-                          value={selectedSido}
-                          onChange={(e) => setSelectedSido(e.target.value)}
-                        >
-                          <option className="form-group required" value="">
-                            시/도
-                          </option>
-
-                          {sido.map((el) => (
-                            <option key={el.sido} value={el.sido}>
-                              {el.codeNm}
+                  <div className=" mb-1">
+                    <div class="flex h-[40px] w-[75px] items-center ">
+                      <span>
+                        <span className="Highlighting">*</span>
+                      </span>
+                      주소
+                    </div>
+                    <div class="flex">
+                      <Col>
+                        <div class="flex" controlId="sidoSelect">
+                          <Form.Select
+                            className={`modal_address_item_mobile ${
+                              selectedSido
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            } `}
+                            value={selectedSido}
+                            onChange={(e) => setSelectedSido(e.target.value)}
+                          >
+                            <option className="form-group required" value="">
+                              시/도
                             </option>
-                          ))}
-                        </Form.Select>
-                      </div>
-                    </Col>
-                    <div>
-                      <div class="flex" controlId="sigugunSelect">
-                        <span> </span>
-                        <Form.Select
-                          className={`modal_address_item_mobile ml-1.5 ${
-                            selectedSigugun
-                              ? "border-primary-100 text-black"
-                              : "border-gray-300 text-gray-300"
-                          }  `}
-                          value={selectedSigugun}
-                          onChange={(e) => setSelectedSigugun(e.target.value)}
-                          disabled={!selectedSido}
-                        >
-                          <option value="">구/군</option>
-                          {sigugun
-                            .filter((el) => el.sido === selectedSido)
-                            .map((el) => (
-                              <option key={el.sigugun} value={el.sigugun}>
+
+                            {sido.map((el) => (
+                              <option key={el.sido} value={el.sido}>
                                 {el.codeNm}
                               </option>
                             ))}
-                        </Form.Select>
+                          </Form.Select>
+                        </div>
+                      </Col>
+                      <div>
+                        <div class="flex" controlId="sigugunSelect">
+                          <span> </span>
+                          <Form.Select
+                            className={`modal_address_item_mobile ml-1.5 ${
+                              selectedSigugun
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            }  `}
+                            value={selectedSigugun}
+                            onChange={(e) => setSelectedSigugun(e.target.value)}
+                            disabled={!selectedSido}
+                          >
+                            <option value="">구/군</option>
+                            {sigugun
+                              .filter((el) => el.sido === selectedSido)
+                              .map((el) => (
+                                <option key={el.sigugun} value={el.sigugun}>
+                                  {el.codeNm}
+                                </option>
+                              ))}
+                          </Form.Select>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div class="flex" controlId="dongSelect">
-                        <span></span>
-                        <Form.Select
-                          className={`modal_address_item_mobile ml-1.5 ${
-                            selectedDong
-                              ? "border-primary-100 text-black"
-                              : "border-gray-300 text-gray-300"
-                          } `}
-                          value={selectedDong}
-                          onChange={(e) => setSelectedDong(e.target.value)}
-                          disabled={!selectedSigugun}
-                        >
-                          <option value="">동</option>
-                          {dong
-                            .filter(
-                              (el) =>
-                                el.sido === selectedSido &&
-                                el.sigugun === selectedSigugun,
-                            )
-                            .map((el) => (
-                              <option key={el.dong} value={el.dong}>
-                                {el.codeNm}
-                              </option>
-                            ))}
-                        </Form.Select>
+                      <div>
+                        <div class="flex" controlId="dongSelect">
+                          <span></span>
+                          <Form.Select
+                            className={`modal_address_item_mobile ml-1.5 ${
+                              selectedDong
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            } `}
+                            value={selectedDong}
+                            onChange={(e) => setSelectedDong(e.target.value)}
+                            disabled={!selectedSigugun}
+                          >
+                            <option value="">동</option>
+                            {dong
+                              .filter(
+                                (el) =>
+                                  el.sido === selectedSido &&
+                                  el.sigugun === selectedSigugun,
+                              )
+                              .map((el) => (
+                                <option key={el.dong} value={el.dong}>
+                                  {el.codeNm}
+                                </option>
+                              ))}
+                          </Form.Select>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class=" mb-3 flex items-center">
+                  <div class=" mb-3 flex items-center">
+                    <input
+                      className={` modal_item_input_memo_mobile h-9 px-3 `}
+                      type="text"
+                      ref={addressRef}
+                      defaultValue={selectedCustomer?.address}
+                      placeholder="상세 주소 입력"
+                    />
+                  </div>
+
+                  <div class=" flex h-6 w-[352px] items-center">
+                    <div class="w-[84px] pl-2">인수상태</div>
+                  </div>
                   <input
-                    className={` modal_item_input_memo_mobile  px-3 `}
-                    type="text"
-                    ref={addressRef}
-                    defaultValue={selectedCustomer?.address}
-                    placeholder="상세 주소 입력"
+                    class={`modal_item_input_memo_mobile mb-3 h-9 px-3`}
+                    type="state"
+                    // value={stateInput}
+                    ref={stateRef}
+                    defaultValue={selectedCustomer?.state}
+                    placeholder=" 상담중, 전산완료, 가입불가 "
+                    as="textarea"
+                    rows={1}
                   />
-                </div>
+                  <div class=" flex h-6 w-[352px] items-center">
+                    <div class="w-[84px] pl-2">특이사항</div>
+                  </div>
+                  <textarea
+                    class={`modal_item_input_memo_mobile  mb-3 h-[72px] px-3 pt-2`}
+                    ref={memoRef}
+                    defaultValue={selectedCustomer?.memo}
+                    placeholder=" 월 보험료 00만원/본인점검"
+                    rows={3}
+                  />
 
-                <div class=" flex h-6 w-[352px] items-center">
-                  <div class="w-[84px] pl-2">인수상태</div>
-                </div>
-                <input
-                  class={`modal_item_input_memo_mobile mb-3 px-3`}
-                  type="state"
-                  // value={stateInput}
-                  ref={stateRef}
-                  defaultValue={selectedCustomer?.state}
-                  placeholder=" 상담중, 전산완료, 가입불가 "
-                  as="textarea"
-                  rows={1}
-                />
-                <div class=" flex h-6 w-[352px] items-center">
-                  <div class="w-[84px] pl-2">특이사항</div>
-                </div>
-                <textarea
-                  class={`modal_item_input_memo_mobile  mb-3 px-3 pt-2`}
-                  ref={memoRef}
-                  defaultValue={selectedCustomer?.memo}
-                  placeholder=" 월 보험료 00만원/본인점검"
-                  rows={3}
-                />
-
-                <div>
-                  {/* <Button variant="secondary" onClick={handleClose}>
+                  <div>
+                    {/* <Button variant="secondary" onClick={handleClose}>
                    취소
                  </Button> */}
-                  <button
-                    class="flex h-[32px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
-                    type="submit"
-                  >
-                    등록
-                  </button>
-                </div>
-              </form>
+                    <button
+                      class="flex h-[32px] w-[312px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                      type="submit"
+                    >
+                      등록
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </Modal>
           <div class=" fixed bottom-60 z-20 h-full w-full bg-black/40"></div>

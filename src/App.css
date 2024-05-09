@@ -373,9 +373,9 @@ body {
 }
 .modal-style-mobile {
   background-color: white;
-  width: 360px;
-  height: 635px;
-  margin-top: 60px;
+  /* width: 360px; */
+  /* height: 635px; */
+  margin-top: 115px;
   padding-left: 0px !important;
   position: fixed;
   font-size: 14px;
@@ -385,6 +385,9 @@ body {
   transform: translate(-50%, -50%);
   outline: none;
   z-index: 7;
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
+  max-height: 80vh; /* 최대 높이 설정 */
 }
 .modal-style-detail {
   background-color: white;
@@ -462,7 +465,7 @@ body {
   @apply flex h-14 w-[192px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
 .modal_item_input_memo_mobile {
-  @apply flex h-9 w-[312px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
+  @apply flex w-[312px] rounded border  placeholder-gray-300 focus:border-primary-100 focus:outline-none;
 }
 
 .modal_address_item {
