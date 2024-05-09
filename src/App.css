@@ -388,6 +388,7 @@ body {
   overflow-y: auto; /* 세로 스크롤 활성화 */
   touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
   max-height: 80vh; /* 최대 높이 설정 */
+  padding-bottom: env(safe-area-inset-bottom); /* iOS 안전 영역 패딩 추가 */
 }
 .modal-style-detail {
   background-color: white;
