@@ -220,18 +220,36 @@ const EditModal = ({
     };
   }, []);
 
+  let vh = 0;
+
+  useEffect(() => {
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
+  const setVh = () => {
+    document.documentElement.style.setProperty(
+      "--vh",
+      `${window.innerHeight}px`,
+    );
+  };
+  window.addEventListener("resize", setVh);
+
+  setVh();
+
   return (
     <>
       {isMobile ? (
         // <div class="fixed z-30 m-auto h-scree w-full bg-Success-500">
         <>
           <Modal
-            className="modal-style-mobile  flex  w-screen items-center justify-center rounded-t-2xl"
+            className="modal-style-mobile flex w-screen items-center justify-center rounded-t-2xl"
             show={show}
             onHide={handleClose}
             onExited={onModalClose}
+            style={{ height: "calc(var(--vh, 1vh) * 100)" }}
           >
-            <div class="  flex h-[720px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
+            <div class="  bottom-0 flex h-[740px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
               <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
                 <div class="mb-5 flex items-center justify-center">
                   <img src={mobile_modal_top} />

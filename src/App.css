@@ -143,6 +143,15 @@ body {
   -ms-overflow-style: none;
 }
 
+:root {
+  --vh: 100%;
+}
+
+html,
+body {
+  height: 100vh;
+  height: var(--vh);
+}
 /* ::-webkit-scrollbar {
   display: none;
 } */
@@ -375,6 +384,7 @@ body {
   background-color: white;
   /* width: 360px; */
   /* height: 635px; */
+  /* height: 100vh; */
   margin-top: 115px;
   padding-left: 0px !important;
   position: fixed;
@@ -388,6 +398,7 @@ body {
   overflow-y: auto; /* 세로 스크롤 활성화 */
   touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
   max-height: 80vh; /* 최대 높이 설정 */
+
   margin-bottom: env(safe-area-inset-bottom); /* iOS 안전 영역 패딩 추가 */
 }
 .modal-style-detail {
