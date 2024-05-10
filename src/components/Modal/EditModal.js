@@ -467,7 +467,8 @@ const EditModal = ({
                       class="flex h-[32px] w-[312px] items-center justify-center rounded border border-primary-100 pt-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
                       type="submit"
                       style={{
-                        marginBottom: "calc(env(safe-area-inset-bottom, 60px))",
+                        paddingBottom: "env(safe-area-inset-bottom, 60px)",
+                        paddingBottom: "constant(safe-area-inset-bottom, 60px)",
                       }}
                     >
                       등록
