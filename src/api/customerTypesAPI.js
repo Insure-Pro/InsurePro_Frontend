@@ -5,6 +5,7 @@ const API_URL = `${process.env.REACT_APP_MAIN_URL}/customerType`;
 
 //고객유형 정보 가져오기
 export const fetchCustomerTypes = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // 60 seconds delay
   const response = await axios.get(`${API_URL}s/employee`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

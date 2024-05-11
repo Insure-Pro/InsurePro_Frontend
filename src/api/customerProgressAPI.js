@@ -24,7 +24,7 @@ export const addCustomerProgress = async ({
 
 //진척도 정보 가져오기
 export const fetchCustomerProgress = async (customerPk) => {
-  await new Promise((resolve) => setTimeout(resolve, 10000)); // 60 seconds delay
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // 60 seconds delay
   const response = await axios.get(`${API_URL}s/${customerPk}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
