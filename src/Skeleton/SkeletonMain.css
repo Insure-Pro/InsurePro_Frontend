@@ -1,0 +1,148 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.skeleton.current::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.customertype::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.name::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.registerDate::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.phone::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+.skeleton.address::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  background: linear-gradient(to right, #f2f2f2, rgba(0, 0, 0, 0.16), #f2f2f2);
+  animation: loading 1.8s infinite linear;
+}
+
+.skeleton.customertype {
+  position: relative;
+  overflow: hidden;
+  height: 16px;
+  width: 24px;
+  margin-right: 4px;
+}
+
+.skeleton.current {
+  position: relative;
+  overflow: hidden;
+  width: 44px;
+  height: 16px;
+}
+
+.skeleton.name {
+  position: relative;
+  overflow: hidden;
+  width: 68px;
+  height: 16px;
+  margin-right: 6px;
+}
+.skeleton.circle {
+  position: relative;
+  overflow: hidden;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.skeleton.phone,
+.skeleton.registerDate {
+  position: relative;
+  overflow: hidden;
+  width: 90px;
+  height: 16px;
+}
+.skeleton.address {
+  position: relative;
+  overflow: hidden;
+  width: 138px;
+  height: 16px;
+}
+.skeleton.thumbnail {
+  position: relative;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+}
+
+/* @keyframes pulse {
+  0% {
+    background-position-x: 0%;
+  }
+  50% {
+    background-position-x: 100%;
+  }
+  100% {
+    background-position-x: 50%;
+  }
+} */
+
+@keyframes loading {
+  0% {
+    transform: translateX(0);
+  }
+  50%,
+  100% {
+    transform: translateX(260px);
+  }
+}
