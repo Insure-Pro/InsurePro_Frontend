@@ -19,7 +19,6 @@ const SkeletonMain = () => {
         {/* <div class="mr-0.5"> {customer.name}</div>{" "} */}
         <SkeletonElement type="name" />
         {/* <div class="mr-1.5"> ({customer.age})</div> */}
-        <SkeletonElement type="age" />
         {/* <img class="h-[14px] w-[14px]" src={check_off} /> */}
         <SkeletonElement type="circle" />
       </div>

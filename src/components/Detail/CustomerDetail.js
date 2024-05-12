@@ -172,21 +172,6 @@ const CustomerDetail = ({
                   </div>
                 </div>
               </div>
-
-              {/* <div class=" ">{data.phone}</div>
-            <div className="">
-              <span className="">Db 분배일</span>
-              <span className="">{data.registerDate}</span>
-            </div>
-            <div className="">
-              <span className="">인수상태</span>
-              <span className="">{data.state}</span>
-            </div>
-            <div className="">
-              <span className="">특이사항</span>
-              <span className="">{data.memo}</span>
-            </div> */}
-              {/* </div> */}
             </div>
           </div>
         </div>

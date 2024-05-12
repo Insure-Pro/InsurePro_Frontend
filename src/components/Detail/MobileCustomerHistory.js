@@ -1,23 +1,29 @@
-import TaHistoryModal from "../Modal/TaHistoryModal";
+import HistoryModal from "../Modal/HistoryModal";
 import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
-import EditModalTA from "../Modal/EditModalTA";
+import EditModalH from "../Modal/EditModalH";
 import ContextMenu from "../Modal/ContextMenu";
-import { useCustomerTa } from "../../hooks/CustomerTa/useCustomerTa";
-import { useUpdateCustomerTa } from "../../hooks/CustomerTa/useUpdateCustomerTa";
-import { useDeleteCustomerTa } from "../../hooks/CustomerTa/useDeleteCustomerTa";
+import { useCustomerProgress } from "../../hooks/CustomerProgress/useCustomerProgress";
+import { useUpdateCustomerProgress } from "../../hooks/CustomerProgress/useUpdateCustomerProgress";
+import { useDeleteCustomerProgress } from "../../hooks/CustomerProgress/useDeleteCustomerProgress";
 import SkeletonHistory from "../../Skeleton/SkeletonHistory";
 
-const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
+const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
   const [refresh, setRefresh] = useState(false); // 화면 새로고침을 위한 상태 추가
-  const [selectedTA, setSelectedTa] = useState(null);
+  const [selectedHistory, setSelectedHistory] = useState(null);
   const [showEditModalH, setShowEditModalH] = useState(false);
-  const { data: customerTa, isLoading, error } = useCustomerTa(customerPk);
-  const editMutation = useUpdateCustomerTa();
-  const deleteMutation = useDeleteCustomerTa();
+  const {
+    data: customerProgress,
+    isLoading,
+    error,
+  } = useCustomerProgress(customerPk);
+  const editMutation = useUpdateCustomerProgress();
+  const deleteMutation = useDeleteCustomerProgress();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  //모바일 웹에서는 마우스 우클릭이 안 됨 -> 모바일웹에서는 클릭으로 바꿔사용하기 위함
   useEffect(() => {
     // 창 크기가 변경될 때마다 windowWidth 상태를 업데이트
     const handleResize = () => {
@@ -34,7 +40,7 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
 
   const handleModalHClose = () => {
     setShowEditModalH(false); // EditModalH를 닫는 부분
-    setIsTaHistoryModalOpen(false); // 상태를 false로 설정
+    setIsHistoryModalOpen(false); // 상태를 false로 설정
     setRefresh((prevRefresh) => !prevRefresh); // 모달이 닫힐 때 새로고침 상태 변경
   };
 
@@ -56,15 +62,17 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   };
 
   const handleEdit = (history) => {
-    setSelectedTa(history);
+    setSelectedHistory(history);
     setShowEditModalH(true); // EditModalH를 여는 부분
-    setIsTaHistoryModalOpen(true); // 상태를 true로 설정
+    setIsHistoryModalOpen(true); // 상태를 true로 설정
+
+    // Assuming history is the object containing the edited data
     editMutation.mutate({
       pk: history.pk,
       date: history.date,
-      time: history.time,
+      address: history.address,
       memo: history.memo,
-      status: history.status,
+      progress: history.progress,
     });
     setContextMenu({ ...contextMenu, visible: false });
   };
@@ -82,36 +90,35 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
     };
   }, [contextMenu]);
 
-  const taTypeDisplay = {
-    ABSENCE: "부재",
-    REJECTION: "거절",
-    PROMISE: "확약",
-    PENDING: "보류",
+  const progressTypeDisplay = {
+    AP: "초회상담",
+    PC: "상품제안",
+    ST: "증권전달",
   };
-  const taTypeColors = {
-    보류: "var(--Success-500)",
-    부재: "var(--Warning-300)",
-    확약: "var(--Primary-400)",
-    거절: "var(--Danger-400)",
+
+  const progressTypeColors = {
+    초회상담: "var(--Success-300)",
+    상품제안: "var(--Success-500)",
+    증권전달: "var(--Success-700)",
   };
 
   // Rendering logic
-  // if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div class="placeholder:">Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    // <div className="flex h-4/6 w-1/2 justify-center border border-Danger-300  bg-LightMode-SectionBackground pt-6">
-    <div className="flex h-4/6 w-1/2 justify-center  bg-white pt-6">
-      <div className="flex w-1/3 pl-6  text-sm">
-        <div class="mr-10 flex w-[100px] cursor-default flex-row pl-4">
-          전화상담{" "}
-          <TaHistoryModal
+    // <div className="flex h-4/6 w-full justify-center  bg-LightMode-SectionBackground pt-6">
+    <div className="flex h-4/6 w-full justify-center  bg-white pt-6">
+      {/* <div className="flex h-10 w-[150px] pl-5 text-sm">
+        <div class="flex w-full cursor-default  flex-row ">
+          진척도{" "}
+          <HistoryModal
             customerPk={customerPk}
-            setIsTaHistoryModalOpen={setIsTaHistoryModalOpen} // HistoryModal에 함수 전달
+            setIsHistoryModalOpen={setIsHistoryModalOpen} // HistoryModal에 함수 전달
           />
         </div>
-      </div>
-      <div class="w-[330px]">
+      </div> */}
+      <div class="w-[360px] ">
         {isLoading ? (
           <div class="flex flex-col">
             <SkeletonHistory />
@@ -122,7 +129,7 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
           </div>
         ) : (
           <>
-            {customerTa.map((history) => (
+            {customerProgress.map((history) => (
               <div
                 key={history.pk}
                 onContextMenu={(e) => {
@@ -135,42 +142,40 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
                     handleContextMenu(e, history);
                   }
                 }}
-                className="history-container w-[320px]"
+                className="history-container w-[360px]"
               >
-                <div class="flex h-5 w-[70px]  ">
+                <div class="">
                   <div
-                    class="mt-1 h-2 w-2 rounded-xl"
+                    className="historyItemStyle1 "
                     style={{
-                      backgroundColor:
-                        taTypeColors[taTypeDisplay[history.status]],
-                    }}
-                  ></div>
-                  <div
-                    className="historyItemStyle1 h-5 w-[40px] "
-                    style={{
-                      color: "var(--Secondary-500)",
+                      color:
+                        progressTypeColors[
+                          progressTypeDisplay[history.progress]
+                        ],
                     }}
                   >
-                    {taTypeDisplay[history.status]}
+                    {progressTypeDisplay[history.progress]}
                   </div>
-                  {/* <div
-                    className="historyItemStyle1 h-5 w-[70px] border border-Primary-400"
-                    style={{
-                      color: taTypeColors[taTypeDisplay[history.status]],
-                    }}
-                  >
-                    {taTypeDisplay[history.status]}
-                  </div> */}
                 </div>
-                <div class="flex w-[220px] flex-col justify-center ">
-                  <div className="historyItemStyle2 ">
-                    <div class="mr-2 h-5 w-10 text-sm">{history.count}차 </div>
-                    {history.date} <div class="ml-2 "> {history.time}</div>
+                <div class="w-[360px] ">
+                  <div className="historyItemStyle2 w-full ">
+                    <div class="w-[86px] ">{history.date} </div>
+                    <div class="ml-3"> {history.address}</div>
                   </div>
-                  <div className="historyItemStyle3 ">{history.memo}</div>
+                  <div className="historyItemStyle3">{history.memo}</div>
                 </div>
               </div>
             ))}
+            <button
+              class="mb-[54px] flex h-[40px] w-full items-center justify-between px-[96px] font-normal text-Primary-400"
+              //   onClick={() => setIsAddingType(true)}
+            >
+              <HistoryModal
+                customerPk={customerPk}
+                setIsHistoryModalOpen={setIsHistoryModalOpen} // HistoryModal에 함수 전달
+              />
+              새로운 일정 추가하기{" "}
+            </button>
           </>
         )}
         {contextMenu.visible && (
@@ -183,12 +188,12 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
             showMenu={contextMenu.visible}
           />
         )}
-        {selectedTA && (
-          <EditModalTA
+        {selectedHistory && (
+          <EditModalH
             show={showEditModalH}
             onHide={handleModalHClose}
-            selectedTA={selectedTA}
-            onSave={handleEdit}
+            selectedHistory={selectedHistory}
+            onSave={handleEdit} // Pass handleEdit as a prop to be called upon saving
           />
         )}
       </div>
@@ -196,4 +201,4 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   );
 };
 
-export default CustomerTaHistory;
+export default MobileCustomerHistory;
