@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import CloseButton from "react-bootstrap/CloseButton";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 const MapCustomerDetail = ({ customerPk, onClose }) => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -10,6 +11,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
   const [scheduleData, setScheduleData] = useState("");
 
   const [activeTab, setActiveTab] = useState("고객 정보"); // Default to '고객 정보'
+  const { data: customerTypes, isLoading } = useCustomerTypes();
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
@@ -51,30 +53,20 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
 
   if (!customerPk) return null;
 
+  const getColorByTypeName = (typeName) => {
+    const type = customerTypes?.find((t) => t.name === typeName);
+    return type ? type.color : "black"; // Replace 'defaultColor' with a default color of your choice
+  };
+
   const progressTypeColors = {
     TA: "var(--Success-200)",
     AP: "var(--Success-300)",
-    PT: "var(--Success-500)",
-    PC: "var(--Success-700)",
-  };
-
-  const progressTypeWidth = {
-    TA: "6px",
-    AP: "12px",
-    PT: "18px",
-    PC: "24px",
-  };
-
-  const progressTypeGradient = {
-    TA: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
-    AP: "linear-gradient(270deg, #77C58C 0%, #AEDCBA 100%)",
-    PT: "linear-gradient(270deg, #34A853 2.22%, #77C58C 52.58%, #A2D7B0 100%)",
-    PC: "linear-gradient(270deg, rgba(37, 119, 59, 0.80) 0.06%, rgba(52, 168, 83, 0.80) 32.96%, rgba(119, 197, 140, 0.80) 64.39%, rgba(162, 215, 176, 0.80) 98.27%) ",
+    PC: "var(--Success-500)",
+    ST: "var(--Success-700)",
   };
 
   return (
     <div
-      className=""
       style={{
         position: "absolute",
         top: 0,
@@ -85,18 +77,22 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         borderLeft: "2px solid #dde1e6",
       }}
     >
-      <div class="flex h-[80px] items-center bg-LightMode-SectionBackground px-6 py-7">
+      <div class="flex h-[80px] items-center bg-LightMode-SectionBackground py-7 pl-6 pr-4">
         <div
           class="pr-2 text-[15px] font-bold text-secondary-100"
-          // style={{
-          // color: customerTypeColors[customerData.customerType],
-          // }}
+          style={{
+            color: customerData.customerType
+              ? getColorByTypeName(customerData.customerType.name)
+              : "black",
+          }}
         >
-          {customerData.customerType.name}
+          {customerData.customerType
+            ? customerData.customerType.name
+            : "Loading..."}
         </div>
         <div class="flex flex-col ">
           {/* 체크박스 추가 */}
-          <div class="flex">
+          <div class="ml-1 flex">
             <input
               type="checkbox"
               id="customCheckbox"
@@ -116,13 +112,17 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
           </div>
           <div class="flex">
-            <div class=" text-[15px] font-bold">{customerData.name}</div>
-            <div class=" pl-1 text-[13px]">(만 {customerData.age}세)</div>
+            <div class=" w-[44px] text-[15px] font-bold">
+              {customerData.name}
+            </div>
+            <div class=" w-[58px] pl-1 text-[13px]">
+              (만 {customerData.age}세)
+            </div>
           </div>
         </div>
         <div
           onClick={() => handleCustomerClick(customerData)}
-          class="flex items-center pl-[30px] text-[10px] text-gray-150"
+          class="flex w-[130px] items-center pl-[24px] text-[10px] text-gray-150"
         >
           상세정보 바로가기 <img src={right} class="h-4 w-4" />
         </div>
@@ -201,7 +201,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         scheduleData &&
         scheduleData.map((schedule, index) => (
           <div className="MapCustomerDetail_item_container" key={index}>
-            <div class="flex flex-col items-center ">
+            <div class="flex items-center ">
               <div
                 style={{
                   color: progressTypeColors[schedule.progress],
@@ -210,20 +210,11 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
               >
                 {schedule.progress}
               </div>
-              <div class="mt-1 h-[5px] w-[24px] rounded-lg bg-white">
-                <div
-                  class="h-[5px] rounded-lg"
-                  style={{
-                    background: progressTypeGradient[schedule.progress],
-                    width: progressTypeWidth[schedule.progress],
-                  }}
-                ></div>
-              </div>
             </div>
             <div class=" text-left">
               <div class="flex w-[212px]">
-                <div class="mb-1 w-[72px] font-semibold ">{schedule.date}</div>
-                <div class=" w-[140px] overflow-hidden overflow-ellipsis whitespace-nowrap ">
+                <div class="mb-1 w-[82px] font-semibold ">{schedule.date}</div>
+                <div class=" w-[128px] overflow-hidden overflow-ellipsis whitespace-nowrap ">
                   {schedule.address}
                 </div>
               </div>

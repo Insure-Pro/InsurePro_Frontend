@@ -5,7 +5,7 @@ import MapCustomerDetail from "../../components/Map/MapCustomerDetail";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
 import "../KakaoMap/KakaoMap.css";
-import { customerTypeColors } from "../../constants/customerTypeColors";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -19,6 +19,7 @@ const KakaoMap = () => {
   const markersRef = useRef([]); // 마커를 저장할 ref 생성
   const selectedMarkerRef = useRef(null); // 선택된 마커를 저장할 ref
   const [currentOpenOverlay, setCurrentOpenOverlay] = useState(null); //현 지도 검색 시 커스텀 오버레이 상태관리
+  const { data: customerTypes } = useCustomerTypes();
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
@@ -149,8 +150,9 @@ const KakaoMap = () => {
     let currentOpenOverlay = null; // This variable will track the currently open overlay
     let currentSelectedMarker = null; // Tracks the currently selected marker
     // Existing Axios request to fetch markers
+
     axios
-      .get(`${MAIN_URL}/customers/latest`, {
+      .get(`${MAIN_URL}/customers/latest?customerTypePk=0`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -209,7 +211,7 @@ const KakaoMap = () => {
                   customersGroup.forEach((customer, index) => {
                     // 첫 번째 아이템에만 'active' 클래스 추가, 나머지는 'inactive'
                     const itemClass = index === 0 ? "active" : "inactive";
-                    content += `<div class='custom-overlay-items ${itemClass}' data-pk='${customer.pk}'><span style="margin-right: 8px;">${customer.customerType}</span><span>${customer.name}</span></div><hr>`;
+                    content += `<div class='custom-overlay-items ${itemClass}' data-pk='${customer.pk}'><span style="margin-right: 8px;">${customer.customerType.name}</span><span>${customer.name}</span></div><hr>`;
                   });
                   content += `</div>`;
 
@@ -503,7 +505,7 @@ const KakaoMap = () => {
   // 현 지도 검색 클릭 시 사용
   useEffect(() => {
     axios
-      .get(`${MAIN_URL}/customers/latest`, {
+      .get(`${MAIN_URL}/customers/latest?customerTypePk=0`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -654,7 +656,12 @@ const KakaoMap = () => {
     }
   }, [mapRef.current]);
   //////////  현재위치정보 리스트에 보여주는 로직 끝  //////////
-
+  //////////  고객유형 색 시작  //////////
+  const getColorByTypeName = (typeName) => {
+    const type = customerTypes?.find((t) => t.name === typeName);
+    return type ? type.color : "black"; // Replace 'defaultColor' with a default color of your choice
+  };
+  //////////  고객유형 색 끝  //////////
   //////////  이름 검색 로직 시작  //////////
   const [inputName, setInputName] = useState("");
   const [isSearchMode, setIsSearchMode] = useState(false);
@@ -821,10 +828,10 @@ const KakaoMap = () => {
             <p
               className="customer-info customer-type text-center"
               style={{
-                color: customerTypeColors[customer.customerType],
+                color: getColorByTypeName(customer.customerType.name),
               }}
             >
-              {customer.customerType}
+              {customer.customerType.name}
             </p>
             <p className="customer-info customer-type text-center">
               {" "}
