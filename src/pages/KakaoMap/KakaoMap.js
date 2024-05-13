@@ -6,6 +6,7 @@ import axios from "axios";
 import { PropagateLoader } from "react-spinners";
 import "../KakaoMap/KakaoMap.css";
 import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
+import { useMediaQuery } from "react-responsive";
 
 const KakaoMap = () => {
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -20,6 +21,7 @@ const KakaoMap = () => {
   const selectedMarkerRef = useRef(null); // 선택된 마커를 저장할 ref
   const [currentOpenOverlay, setCurrentOpenOverlay] = useState(null); //현 지도 검색 시 커스텀 오버레이 상태관리
   const { data: customerTypes } = useCustomerTypes();
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
 
   const marker_blue = process.env.PUBLIC_URL + "/marker_blue.png";
   const marker_red = process.env.PUBLIC_URL + "/marker_red.png";
@@ -873,132 +875,164 @@ const KakaoMap = () => {
   };
   //////////  검색 모드 \\ 현 위치 검색 랜더링 로직 끝  //////////
   return (
-    <div>
-      <Navbar />
-      <div class="flex flex-row">
-        {/* Main Content Container */}
-        {isLoading && (
-          <div className="map_spinner">
-            <PropagateLoader color="#84CAFF" size={20} speedMultiplier={0.8} />
-          </div>
-        )}
-
+    <>
+      {isMobile ? (
         <div
-          className="Map_customerList_container"
           style={{
-            borderRight: isLoading ? "none" : "1px solid var(--gray-150)",
-            width: "300px",
-            height: "95vh",
-            // minWidth: "300px",
-            // overflowY: isSearchMode
-            //   ? "auto"
-            //   : hasVisibleCustomers
-            //     ? "auto"
-            //     : "hidden",
-            position: "relative",
+            position: "absolute",
+            zIndex: 4,
+            width: "100%",
+            height: "100%",
           }}
         >
-          {!isLoading && viewState === "list" ? (
-            <>
-              <div class=" z- z-30 mx-5 my-2 flex h-8  w-[89%] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
-                <img class="mr-5 h-6 w-6" src={search}></img>
-                <input
-                  type="name"
-                  placeholder="검색하기"
-                  value={inputName}
-                  onChange={(e) => setInputName(e.target.value)}
-                  // onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
-                  class="flex items-center text-LightMode-Text outline-none"
-                ></input>
-              </div>
-              <div class="my-2 mb-6 flex w-full justify-between px-6 text-[10px] font-normal text-LightMode-Text">
-                <div class="cursor-default">현 위치 : {currentAddress}</div>
-              </div>
-            </>
-          ) : (
-            <MapCustomerDetail
-              customerPk={selectedCustomerPk}
-              onClose={Map_customer_DetailClose}
-            />
-          )}
-          {isSearchMode ? (
-            visibleCustomers.map(renderCustomerItem)
-          ) : hasVisibleCustomers ? (
-            visibleCustomers.map(renderCustomerItem)
-          ) : (
-            <div class="mt-[320px] flex h-full justify-center overflow-hidden text-sm">
-              {" "}
-              현 위치에 해당하는 고객정보가 없습니다.
+          {" "}
+          {isLoading && (
+            <div className="map_spinner">
+              <PropagateLoader
+                color="#84CAFF"
+                size={20}
+                speedMultiplier={0.8}
+              />
             </div>
           )}
-          {selectedCustomerPk && (
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                zIndex: 0, // Overlay behind the selected item
-              }}
-            ></div>
-          )}
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "91vh",
-          }}
-        >
-          {/* Refresh Button */}
-          {!isLoading && (
-            <button
-              className="Map_Search_Btn"
-              style={{
-                position: "absolute",
-                bottom: "20px",
-                paddingLeft: "50px",
-                height: "33px",
-                left: "50%", // Center horizontally
-                transform: "translateX(-50%)", // Adjust for the button's width to center
-                zIndex: 3, // Ensure it's above the map
-              }}
-              onClick={refreshCustomerList}
-            >
-              <img
-                src={refresh}
-                style={{
-                  marginLeft: "-16px",
-                  position: "absolute",
-                }}
-              />
-              현 지도에서 검색
-            </button>
-          )}
-
+          <Navbar />
           <div
             id="map"
             style={{
-              width: "100%", // Use full width of the container
-              height: "100%", // Use full height of the container
+              width: "100%",
+              height: "100%",
               position: "relative",
               zIndex: 0,
             }}
-          ></div>
-          {isDetailVisible && viewState === "list" ? (
-            <MapCustomerDetail
-              customerPk={selectedCustomerPk}
-              onClose={Map_customer_DetailClose}
-            />
-          ) : (
-            ""
-          )}
+          >
+            {" "}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div>
+          <Navbar />
+          <div class="flex flex-row">
+            {isLoading && (
+              <div className="map_spinner">
+                <PropagateLoader
+                  color="#84CAFF"
+                  size={20}
+                  speedMultiplier={0.8}
+                />
+              </div>
+            )}
+
+            <div
+              className="Map_customerList_container"
+              style={{
+                borderRight: isLoading ? "none" : "1px solid var(--gray-150)",
+                width: "300px",
+                height: "95vh",
+                position: "relative",
+              }}
+            >
+              {!isLoading && viewState === "list" ? (
+                <>
+                  <div class=" z- z-30 mx-5 my-2 flex h-8  w-[89%] items-center  rounded  border border-Gray-scale-200 bg-white px-4 text-[10px] text-sm  font-light font-normal text-LightMode-Background">
+                    <img class="mr-5 h-6 w-6" src={search}></img>
+                    <input
+                      type="name"
+                      placeholder="검색하기"
+                      value={inputName}
+                      onChange={(e) => setInputName(e.target.value)}
+                      // onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                      onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
+                      class="flex items-center text-LightMode-Text outline-none"
+                    ></input>
+                  </div>
+                  <div class="my-2 mb-6 flex w-full justify-between px-6 text-[10px] font-normal text-LightMode-Text">
+                    <div class="cursor-default">현 위치 : {currentAddress}</div>
+                  </div>
+                </>
+              ) : (
+                <MapCustomerDetail
+                  customerPk={selectedCustomerPk}
+                  onClose={Map_customer_DetailClose}
+                />
+              )}
+              {isSearchMode ? (
+                visibleCustomers.map(renderCustomerItem)
+              ) : hasVisibleCustomers ? (
+                visibleCustomers.map(renderCustomerItem)
+              ) : (
+                <div class="mt-[320px] flex h-full justify-center overflow-hidden text-sm">
+                  {" "}
+                  현 위치에 해당하는 고객정보가 없습니다.
+                </div>
+              )}
+              {selectedCustomerPk && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    zIndex: 0, // Overlay behind the selected item
+                  }}
+                ></div>
+              )}
+            </div>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "91vh",
+              }}
+            >
+              {/* Refresh Button */}
+              {!isLoading && (
+                <button
+                  className="Map_Search_Btn"
+                  style={{
+                    position: "absolute",
+                    bottom: "20px",
+                    paddingLeft: "50px",
+                    height: "33px",
+                    left: "50%", // Center horizontally
+                    transform: "translateX(-50%)", // Adjust for the button's width to center
+                    zIndex: 3, // Ensure it's above the map
+                  }}
+                  onClick={refreshCustomerList}
+                >
+                  <img
+                    src={refresh}
+                    style={{
+                      marginLeft: "-16px",
+                      position: "absolute",
+                    }}
+                  />
+                  현 지도에서 검색
+                </button>
+              )}
+              <div
+                id="map"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "relative",
+                  zIndex: 0,
+                }}
+              ></div>
+              {isDetailVisible && viewState === "list" ? (
+                <MapCustomerDetail
+                  customerPk={selectedCustomerPk}
+                  onClose={Map_customer_DetailClose}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

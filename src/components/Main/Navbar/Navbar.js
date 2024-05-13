@@ -94,6 +94,7 @@ const Navbar = ({
 
   // 현재 경로가 /main인지 체크
   const isMainRoute = location.pathname === "/main";
+  const isMapRoute = location.pathname === "/kakaomap";
 
   // Retrieve the login status from Redux
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -465,7 +466,11 @@ const Navbar = ({
           ></div>
         </header>
       ) : (
-        <div class="mx-auto flex w-full justify-center">
+        <div
+          class={` mx-auto flex w-full justify-center ${
+            isMapRoute ? "fixed z-10  bg-white/70" : ""
+          }`}
+        >
           <div class="flex h-[64px] max-w-[960px] justify-center ">
             <div class="flex h-full items-center  justify-between xsm:w-[330px] sm:w-[500px] md:w-[682px]">
               <div className="hamburger">
@@ -483,12 +488,14 @@ const Navbar = ({
                   />
                 )}
                 <div
-                  class={`absolute left-0 top-0  pt-[76px] ${
+                  class={`${
+                    isMapRoute ? "fixed" : "absolute"
+                  } left-0 top-0  pt-[76px] ${
                     isMenuOpen ? "left-0 z-[20]" : "left-[-300px] z-[1]"
                   } flex h-full w-1/3 max-w-[200px] flex-col bg-Primary-300 text-white duration-100 ease-in-out `}
                 >
                   <div
-                    class="relative mt-10 flex h-[60px] items-center justify-center"
+                    class="relative mt-10 flex h-[60px] items-center justify-center "
                     onClick={() => {
                       dispatch(setCurrentTab("전체"));
                       navigate("/main", { state: { selectedTab: "전체" } });
@@ -543,7 +550,7 @@ const Navbar = ({
                   >
                     성과분석
                   </div>
-                  <div class="mt-[434px] text-sm text-white">
+                  <div class="mt-[334px] text-sm text-white">
                     <div
                       onClick={() => {
                         handleModalOpen();
