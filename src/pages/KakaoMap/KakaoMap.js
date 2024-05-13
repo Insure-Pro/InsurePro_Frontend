@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../../components/Main/Navbar/Navbar";
 import MapCustomerDetail from "../../components/Map/MapCustomerDetail";
+import MobileMapCustomerDetail from "../../components/Map/MobileMapCustomerDetail";
 import axios from "axios";
 import { PropagateLoader } from "react-spinners";
 import "../KakaoMap/KakaoMap.css";
@@ -119,23 +120,26 @@ const KakaoMap = () => {
       ],
     });
 
-    // Create a map type control
-    const mapTypeControl = new window.kakao.maps.MapTypeControl();
+    //모바일에서는 컨트롤러 보이지않도록 설정
+    if (isMobile === !true) {
+      // Create a map type control
+      const mapTypeControl = new window.kakao.maps.MapTypeControl();
 
-    // Add the map type control to the map
-    mapRef.current.addControl(
-      mapTypeControl,
-      window.kakao.maps.ControlPosition.RIGHT,
-    );
+      // Add the map type control to the map
+      mapRef.current.addControl(
+        mapTypeControl,
+        window.kakao.maps.ControlPosition.RIGHT,
+      );
 
-    // Create a zoom control
-    const zoomControl = new window.kakao.maps.ZoomControl();
+      // Create a zoom control
+      const zoomControl = new window.kakao.maps.ZoomControl();
 
-    // Add the zoom control to the map
-    mapRef.current.addControl(
-      zoomControl,
-      window.kakao.maps.ControlPosition.RIGHT,
-    );
+      // Add the zoom control to the map
+      mapRef.current.addControl(
+        zoomControl,
+        window.kakao.maps.ControlPosition.RIGHT,
+      );
+    }
 
     const groupCustomersByLocation = (customers) => {
       const grouped = {};
@@ -905,7 +909,27 @@ const KakaoMap = () => {
               zIndex: 0,
             }}
           >
-            {" "}
+            {isDetailVisible ? (
+              <MobileMapCustomerDetail
+                customerPk={selectedCustomerPk}
+                onClose={Map_customer_DetailClose}
+              />
+            ) : (
+              <div class="relative z-10 mt-[80px] h-10 w-full ">
+                <div class=" z-30 mx-5 my-2 flex h-8 w-[89%]  items-center rounded  border  bg-white px-4  text-sm font-normal text-LightMode-Background">
+                  <img class="mr-5 h-6 w-6" src={search}></img>
+                  <input
+                    type="name"
+                    placeholder="검색하기"
+                    value={inputName}
+                    onChange={(e) => setInputName(e.target.value)}
+                    // onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                    onKeyDown={handleOnKeyDown} // Enter 입력 이벤트 함수
+                    class="flex items-center  text-LightMode-Text outline-none"
+                  ></input>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ) : (
