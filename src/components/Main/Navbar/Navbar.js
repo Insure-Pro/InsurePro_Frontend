@@ -474,7 +474,7 @@ const Navbar = ({
           <div class="flex h-[64px] max-w-[960px] justify-center ">
             <div class="flex h-full items-center  justify-between xsm:w-[330px] sm:w-[500px] md:w-[682px]">
               <div className="hamburger">
-                {isMenuOpen ? (
+                {isMenuOpen && isLoggedIn ? (
                   <img
                     class="relative z-[21] h-5 w-5"
                     src={white_hamburger}
@@ -491,7 +491,9 @@ const Navbar = ({
                   class={`${
                     isMapRoute ? "fixed" : "absolute"
                   } left-0 top-0  pt-[76px] ${
-                    isMenuOpen ? "left-0 z-[20]" : "left-[-300px] z-[1]"
+                    isMenuOpen && isLoggedIn
+                      ? "left-0 z-[20]"
+                      : "left-[-300px] z-[1]"
                   } flex h-full w-1/3 max-w-[200px] flex-col bg-Primary-300 text-white duration-100 ease-in-out `}
                 >
                   <div
@@ -565,7 +567,11 @@ const Navbar = ({
                 </div>
               </div>
               <div
-                className="ml-[90px] mr-[55px] text-[20px] font-semibold text-Primary-400"
+                className={` ${
+                  showLogoutButton
+                    ? "ml-[80px] mr-[30px]"
+                    : "ml-[90px] mr-[60px]"
+                }  text-[20px] font-semibold text-Primary-400`}
                 onClick={() => {
                   dispatch(setCurrentTab("로고")); // '로고' 클릭 시 현재 탭을 '로고'로 설정
                   navigate("/main", { state: { selectedTab: "로고" } }); // 선택된 탭으로 상태 전달
@@ -575,14 +581,30 @@ const Navbar = ({
                 INSUREPRO
               </div>
               <div className="icon-wrapper">
-                <div class="flex">
+                <div class={`flex ${showLogoutButton ? "ml-[20px] mt-6" : ""}`}>
                   <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
                     <img src={searchMobile} class="mr-6" />
                   </div>
-                  <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
-                    <img src={mypageMobile} />
+                  <div class="flex h-5 w-5 cursor-pointer  items-center justify-center">
+                    <img
+                      src={mypageMobile}
+                      onClick={handleMypageClick}
+                      class="absolute"
+                    />
                   </div>
                 </div>
+                {showLogoutButton && (
+                  <>
+                    <div
+                      className={` ${
+                        isMainRoute ? "left-4" : " "
+                      } relative  top-2 z-10 flex h-[24px] w-[60px] items-center justify-center rounded border bg-white text-center text-xs font-normal text-LightMode-Text hover:bg-LightMode-Hover`}
+                      onClick={handleLogout}
+                    >
+                      로그아웃
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -592,7 +614,9 @@ const Navbar = ({
               close={handleModalClose}
             />
           )}
-          {isMenuOpen && <div className="mobile-navbar-black-blur"></div>}
+          {isMenuOpen && isLoggedIn && (
+            <div className="mobile-navbar-black-blur"></div>
+          )}
         </div>
       )}
     </>
