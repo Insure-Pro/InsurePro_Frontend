@@ -113,7 +113,7 @@ const Main = () => {
     let url;
     const customerTypePk = activeType.pk; // Assuming activeType is now an object
     if (formattedDate) {
-      url = `${MAIN_URL}/customers/latest/${formattedDate}-01`;
+      url = `${MAIN_URL}/customers/latest/${formattedDate}-01?customerTypePk=${customerTypePk}`;
     } else if (selectedContractYn != null) {
       url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest?customerTypePk=${customerTypePk}`;
     } else if (selectedAge) {

@@ -425,7 +425,7 @@ const Navbar = ({
                 <div class="flex  h-10  items-center justify-center  text-[17px] font-bold  text-LightMode-Text">
                   <div
                     onClick={handleFormattedDateClick}
-                    class="w-[96px] cursor-pointer text-left"
+                    class="ml-2 w-[106px] cursor-pointer text-left"
                   >
                     {formattedDateTitle}
                   </div>
