@@ -9,7 +9,10 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response && error.response.status === 401) {
+    if (
+      error.response &&
+      (error.response.status === 404 || error.response.status === 500)
+    ) {
       // console.log("Attempting token refresh", error.response);
       const refreshToken = localStorage.getItem("refreshToken");
       const originalRequest = error.config;
@@ -20,7 +23,7 @@ axiosInstance.interceptors.response.use(
         const response = await axiosInstance.patch(
           `${MAIN_URL}/employee/authorization`,
           null,
-          { headers: { Refresh: refreshToken } }
+          { headers: { Refresh: refreshToken } },
         );
 
         if (response.status === 204) {
@@ -30,7 +33,7 @@ axiosInstance.interceptors.response.use(
             loginSuccess({
               accessToken: newAccessToken,
               refreshToken,
-            })
+            }),
           );
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
@@ -42,7 +45,7 @@ axiosInstance.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;
