@@ -9,41 +9,48 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const originalRequest = error.config;
+    const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
     if (
       error.response &&
-      (error.response.status === 404 || error.response.status === 500)
+      error.response.status === 401 &&
+      !originalRequest._retry
     ) {
-      // console.log("Attempting token refresh", error.response);
-      const refreshToken = localStorage.getItem("refreshToken");
-      const originalRequest = error.config;
-      const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+      originalRequest._retry = true;
 
       try {
-        // const refreshToken = store.getState().auth.refreshToken;
-        const response = await axiosInstance.patch(
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        if (!refreshToken) {
+          store.dispatch(logoutSuccess());
+          return Promise.reject(error);
+        }
+
+        const response = await axios.post(
           `${MAIN_URL}/employee/authorization`,
           null,
-          { headers: { Refresh: refreshToken } },
+          {
+            headers: { Refresh: refreshToken },
+          },
         );
 
         if (response.status === 204) {
           const newAccessToken =
             response.headers["authorization"].split(" ")[1];
           store.dispatch(
-            loginSuccess({
-              accessToken: newAccessToken,
-              refreshToken,
-            }),
+            loginSuccess({ accessToken: newAccessToken, refreshToken }),
           );
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         }
       } catch (refreshError) {
-        console.log("Token refresh failed", refreshError);
         store.dispatch(logoutSuccess());
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   },
 );

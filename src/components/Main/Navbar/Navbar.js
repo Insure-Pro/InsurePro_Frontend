@@ -52,6 +52,7 @@ const Navbar = ({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   const navigate = useNavigate();
   const menus = [
     {
@@ -118,22 +119,18 @@ const Navbar = ({
             "<div style='text-align: left; font-size:16px;'>" +
             "로그아웃 되었습니다..<br><br>" +
             "</div>",
-          // width: "700px",
           timer: 1500,
           showConfirmButton: false,
           timerProgressBar: true,
-          position: "top", // Position the alert near the top of the screen
+          position: "top",
         });
-        localStorage.removeItem("accessToken"); // Remove access token
-        localStorage.removeItem("refreshToken"); // Remove refresh token
-        dispatch(logoutSuccess()); // Dispatch logoutSuccess action
-        navigate("/login"); // Redirect to login page
       }
     } catch (error) {
       console.error("Logout failed", error);
-      if (error.response && error.response.data) {
-        console.error("Error message:", error.response.data.message);
-      }
+    } finally {
+      localStorage.clear();
+      dispatch(logoutSuccess());
+      navigate("/login");
     }
   };
 
