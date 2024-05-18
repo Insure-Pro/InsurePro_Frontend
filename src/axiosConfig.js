@@ -27,6 +27,8 @@ axiosInstance.interceptors.response.use(
           return Promise.reject(error);
         }
 
+        console.log("Attempting to refresh access token");
+
         const response = await axios.post(
           `${MAIN_URL}/employee/authorization`,
           null,
@@ -43,8 +45,13 @@ axiosInstance.interceptors.response.use(
           );
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
+        } else {
+          store.dispatch(logoutSuccess());
+          window.location.href = "/login";
+          return Promise.reject(error);
         }
       } catch (refreshError) {
+        console.log("Token refresh failed", refreshError);
         store.dispatch(logoutSuccess());
         window.location.href = "/login";
         return Promise.reject(refreshError);

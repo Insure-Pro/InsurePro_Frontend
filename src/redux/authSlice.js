@@ -30,6 +30,7 @@ export const refreshToken = createAsyncThunk(
         throw new Error("Failed to refresh token");
       }
     } catch (error) {
+      console.log("Refreshing token failed");
       dispatch(logoutSuccess());
       localStorage.clear();
       window.location.href = "/login";
@@ -47,6 +48,7 @@ const authSlice = createSlice({
   },
   reducers: {
     loginSuccess: (state, action) => {
+      console.log("Login successful");
       state.isLoggedIn = true;
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
@@ -55,6 +57,7 @@ const authSlice = createSlice({
       localStorage.setItem("refreshToken", action.payload.refreshToken);
     },
     logoutSuccess: (state) => {
+      console.log("Logout successful");
       state.isLoggedIn = false;
       state.accessToken = null;
       state.refreshToken = null;
@@ -63,8 +66,16 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(refreshToken.fulfilled, (state, action) => {
+      console.log("Token refreshed successfully");
       state.accessToken = action.payload;
       localStorage.setItem("accessToken", action.payload);
+    });
+    builder.addCase(refreshToken.rejected, (state) => {
+      console.log("Token refresh failed");
+      state.isLoggedIn = false;
+      state.accessToken = null;
+      state.refreshToken = null;
+      localStorage.clear();
     });
   },
 });
