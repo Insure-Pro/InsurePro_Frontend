@@ -13,28 +13,10 @@ function Modal1({ show, onModalClose }) {
   const handleClose = (event) => {
     // Check if the click is outside the modal content
     if (modalRef.current && !modalRef.current.contains(event.target)) {
-      resetStates(); // 상태 초기화 함수
       onModalClose();
     }
   };
 
-  const resetStates = () => {
-    // 모달을 닫을 때 입력 필드의 state 초기화
-    setNameInput("");
-    setAgeInput("");
-    setAddressInput("");
-    setBirthInput("");
-    setRegisterDateInput("");
-    setPhoneInput("");
-    setStateInput("");
-    setMemoInput("");
-    setSelectedCustomerType("");
-    setSelectedSido("");
-    setSelectedSigugun("");
-    setSelectedDong("");
-  };
-
-  //모달창 외부 클릭 시 닫힘
   useEffect(() => {
     // Add event listener to document
     document.addEventListener("mousedown", handleClose);
@@ -44,7 +26,6 @@ function Modal1({ show, onModalClose }) {
     };
   }, []);
 
-  // const customerType = useRef("");s
   const name = useRef("");
   const age = useRef("");
   const birth = useRef("");
@@ -60,8 +41,6 @@ function Modal1({ show, onModalClose }) {
     pk: null,
   });
   const [contractYn, setContractYn] = useState(false);
-
-  const [errorMessage, setErrorMessage] = useState("");
   const [modalHeight, setModalHeight] = useState("600px");
 
   const [selectedSido, setSelectedSido] = useState("");
@@ -70,52 +49,19 @@ function Modal1({ show, onModalClose }) {
 
   const { sido, sigugun, dong } = hangjungdong;
 
-  // State를 추가하여 입력 필드의 값을 추적합니다.
-  const [nameInput, setNameInput] = useState("");
-  const [ageInput, setAgeInput] = useState("");
-  const [addressInput, setAddressInput] = useState("");
-  const [birthInput, setBirthInput] = useState("");
-  const [registerDateInput, setRegisterDateInput] = useState("");
-  const [phoneInput, setPhoneInput] = useState("");
-  const [stateInput, setStateInput] = useState("");
-  const [memoInput, setMemoInput] = useState("");
+  const errorMessageRef = useRef(null);
 
-  // 입력 필드에 대한 이벤트 핸들러를 구현합니다.
-
-  const handleNameInputChange = (e) => {
-    setNameInput(e.target.value);
-  };
-  const handleAgeInputChange = (e) => {
-    setAgeInput(e.target.value);
-  };
-  const handleAddressInputChange = (e) => {
-    setAddressInput(e.target.value);
-  };
-  const handleBirthInputChange = (e) => {
-    setBirthInput(e.target.value);
-  };
-  const handleRegisterDateInputChange = (e) => {
-    setRegisterDateInput(e.target.value);
-  };
-  const handleMemoInputChange = (e) => {
-    setMemoInput(e.target.value);
-  };
-  const handleStateInputChange = (e) => {
-    setStateInput(e.target.value);
-  };
-
-  // console.log(fullAddress);
+  // 체크박스 상태를 토글
   const handleContractYnChange = () => {
-    // 체크박스 상태를 토글
     setContractYn(!contractYn);
   };
 
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (typeObj) => {
     if (selectedCustomerType.pk === typeObj.pk) {
-      setSelectedCustomerType({ name: "", pk: null }); // Reset to initial state
+      setSelectedCustomerType({ name: "", pk: null });
     } else {
-      setSelectedCustomerType(typeObj); // Update with the new type object
+      setSelectedCustomerType(typeObj);
     }
   };
 
@@ -149,63 +95,43 @@ function Modal1({ show, onModalClose }) {
 
   // 사용자 입력을 처리하는 함수
   const handlePhoneInputChange = (event) => {
-    let inputValue = event.target.value;
-
-    // 숫자만 입력되도록, 하이픈을 제외한 나머지 문자 제거
-    let numbers = inputValue.replace(/[^\d]/g, "");
-
-    // 하이픈 추가 로직
-    if (numbers.length > 3 && numbers.length <= 7) {
-      numbers = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
-    } else if (numbers.length > 7) {
-      numbers = `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(
-        7,
-        11,
-      )}`;
-    }
-
-    // input value를 업데이트 (React state를 사용하는 경우)
-    setPhoneInput(numbers); // state를 사용하여 입력값 관리하는 경우
-    setPhoneNumber(numbers);
+    const formattedNumber = formatPhoneNumber(event.target.value);
+    setPhoneNumber(formattedNumber);
   };
 
-  const close_icon = process.env.PUBLIC_URL + "/Close.png";
-  const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
   // 전화번호 형식을 검증하는 함수
   const isValidPhoneNumber = (phoneNumber) => {
-    // 전화번호 형식: '010-xxxx-xxxx', '010xxxxxxx', '010.xxx.xxxx.xxxx' 등을 허용
     const regex =
       /^01[0-9]-?([0-9]{4})-?([0-9]{4})$|^01[0-9]\.?([0-9]{4})\.?([0-9]{4})$/;
     return regex.test(phoneNumber);
   };
+
   const handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
     }
+
     // 에러 메시지 및 모달 높이 초기화
-    setErrorMessage("");
+    errorMessageRef.current.textContent = "";
     setModalHeight("600px");
+
     // 필수 입력 사항 검사
-    if (!selectedCustomerType) {
-      setErrorMessage("고객유형이 선택되지 않았습니다.");
+    if (!selectedCustomerType.pk) {
+      errorMessageRef.current.textContent = "고객유형이 선택되지 않았습니다.";
       setModalHeight("630px");
       return;
-    } else if (!nameInput) {
-      setErrorMessage("고객이름이 입력되지 않았습니다.");
+    } else if (!name.current.value) {
+      errorMessageRef.current.textContent = "고객이름이 입력되지 않았습니다.";
       setModalHeight("630px");
       return;
-    } else if (!phoneInput) {
-      setErrorMessage("전화번호가 입력되지 않았습니다.");
+    } else if (!phone.current.value) {
+      errorMessageRef.current.textContent = "전화번호가 입력되지 않았습니다.";
       setModalHeight("630px");
       return;
-    } else if (!selectedCustomerType && !nameInput && !phoneInput) {
-      setErrorMessage("필수입력사항을 입력해주세요.");
+    } else if (!isValidPhoneNumber(phone.current.value)) {
+      errorMessageRef.current.textContent = "올바른 전화번호 형식이 아닙니다.";
       setModalHeight("630px");
-    } else if (!isValidPhoneNumber(phoneInput)) {
-      setErrorMessage("올바른 전화번호 형식이 아닙니다.");
-      setModalHeight("630px");
-    } else {
-      setErrorMessage(""); // 에러 메시지 초기화
+      return;
     }
 
     const MAIN_URL = process.env.REACT_APP_MAIN_URL;
@@ -216,7 +142,6 @@ function Modal1({ show, onModalClose }) {
       hangjungdong.sigugun.find(
         (el) => el.sido === selectedSido && el.sigugun === selectedSigugun,
       )?.codeNm || "";
-
     const dongName =
       hangjungdong.dong.find(
         (el) =>
@@ -231,14 +156,11 @@ function Modal1({ show, onModalClose }) {
       dongName: dongName,
     };
 
-    const customerTypes = {
-      pk: selectedCustomerType.pk,
-      // name: selectedCustomerType.name,
-    };
     const birthValue = birth.current.value.replace(/[./]/g, "-");
     const registerDateValue = registerDate.current.value.replace(/[./]/g, "-");
     const ageValue = calculateKoreanAge(birthValue);
-    phone.current = phone.current; // phone Ref를 업데이트하지 않음
+    const phoneSend = phoneNumber || phone.current.value;
+
     const data = {
       customerTypePk: selectedCustomerType.pk,
       name: name.current.value,
@@ -246,7 +168,7 @@ function Modal1({ show, onModalClose }) {
       registerDate: registerDateValue,
       age: age.current.value,
       address: address.current.value,
-      phone: phoneNumber,
+      phone: phoneSend,
       contractYn: contractYn,
       memo: memo.current.value,
       state: state.current.value,
@@ -270,16 +192,13 @@ function Modal1({ show, onModalClose }) {
             timer: 3500,
             showConfirmButton: false,
             timerProgressBar: true,
-            position: "top", // Position the alert near the top of the screen
+            position: "top",
           });
-          resetStates(); // 입력 상태 초기화
           onModalClose();
         }
       })
-
       .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          // accessToken 만료된 경우
+        if (error.response && error.response.status === 500) {
           axios
             .post(
               /* refreshToken을 사용하여 새 accessToken 요청 URL */ {
@@ -287,18 +206,16 @@ function Modal1({ show, onModalClose }) {
               },
             )
             .then((tokenResponse) => {
-              // 새로 받은 accessToken을 저장하고 원래의 요청을 다시 시도
               localStorage.setItem(
                 "accessToken",
                 tokenResponse.data.accessToken,
               );
-              handleSubmit(); // 원래의 요청을 다시 시도
+              handleSubmit();
             })
             .catch((tokenError) => {
               console.error("토큰 갱신 실패:", tokenError.message);
             });
         } else {
-          // console.log(data);
           console.error("API 요청 에러:", error.message);
         }
       });
@@ -306,38 +223,29 @@ function Modal1({ show, onModalClose }) {
 
   return (
     <>
-      <div
-        className="modal-style "
-        show={show}
-        style={{ height: modalHeight }} // 모달 높이 동적 조절
-      >
+      <div className="modal-style " show={show} style={{ height: modalHeight }}>
         <div className="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex cursor-default justify-between font-normal text-LightMode-Text">
             <div>신규고객 추가 </div>
             <img
               class="cursor-pointer"
               onClick={handleClose}
-              src={close_icon}
+              src={process.env.PUBLIC_URL + "/Close.png"}
             />
           </div>
         </div>
         <div class="mb-[15px]  mr-[18px] mt-2 flex justify-end pb-2">
           <img
-            src={circle_icon_middle}
+            src={process.env.PUBLIC_URL + "/circle-14-4.png"}
             style={{ width: "12px", height: "12px", marginTop: "2px" }}
           />
           <span class="cursor-default text-[12px]">필수입력사항</span>
         </div>
-        <div
-          ref={modalRef}
-          class="my-[-15px]"
-          // style={{ margin: "-15px 0px" }}
-        >
+        <div ref={modalRef} class="my-[-15px]">
           <form onSubmit={handleSubmit} className=" h-full w-full  pl-6">
             <div className="mb-1  h-12 w-[352px] ">
               <div class=" flex items-center">
                 <div className="w-[84px] cursor-default pb-4">
-                  {" "}
                   <span className="Highlighting">*</span>고객유형
                 </div>
                 <div className="mb-4">
@@ -353,23 +261,15 @@ function Modal1({ show, onModalClose }) {
                 <span className="Highlighting">*</span>
                 이름
               </div>
-              <input
-                class={`modal_item_input  ${
-                  nameInput ? "border-primary-100" : "border-gray-300"
-                } pl-16`}
-                type="text"
-                ref={name}
-                value={nameInput}
-                onChange={handleNameInputChange}
-              />
+              <input class={`modal_item_input pl-16`} type="text" ref={name} />
             </div>
             <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
               <input
                 type="checkbox"
                 id="customCheckbox"
                 className="hidden-checkbox"
-                checked={contractYn} // 체크박스 상태를 반영
-                onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+                checked={contractYn}
+                onChange={handleContractYnChange}
               />
               <label
                 htmlFor="customCheckbox"
@@ -388,13 +288,9 @@ function Modal1({ show, onModalClose }) {
             <div class=" modal_item_container">
               <div class="w-[84px] cursor-default pl-1">나이 (만)</div>
               <input
-                class={` modal_item_input ${
-                  ageInput ? "border-primary-100" : "border-gray-300"
-                } pl-[82px]`}
+                class={` modal_item_input pl-[82px]`}
                 type="number"
                 ref={age}
-                value={ageInput}
-                onChange={handleAgeInputChange}
               />
             </div>
             <div className="flex items-center  ">
@@ -483,13 +379,9 @@ function Modal1({ show, onModalClose }) {
             </div>
             <div class="mb-2 flex items-center">
               <input
-                className={` modal_item_input  ${
-                  addressInput ? "border-primary-100" : "border-gray-300"
-                } ml-[84px] px-3 `}
+                className={` modal_item_input ml-[84px] px-3 `}
                 type="text"
                 ref={address}
-                value={addressInput}
-                onChange={handleAddressInputChange}
                 placeholder="상세 주소 입력"
               />
             </div>
@@ -499,30 +391,18 @@ function Modal1({ show, onModalClose }) {
                 DB 분배일
               </div>
               <input
-                class={` modal_item_input  ${
-                  registerDateInput
-                    ? "border-primary-100"
-                    : "border-gray-300 text-gray-300"
-                } pl-[52px]`}
                 type="date"
                 ref={registerDate}
-                // value={registerDateInput}
-                onChange={handleRegisterDateInputChange}
+                class={` modal_item_input pl-[52px]`}
                 placeholder=" 2023.00.00"
               />
             </div>
             <div class="modal_item_container mb-1">
               <div class="w-[84px] cursor-default pl-2">생년월일</div>
               <input
-                class={`modal_item_input  ${
-                  birthInput
-                    ? "border-primary-100"
-                    : "border-gray-300 text-gray-300"
-                } pl-[52px] `}
+                class={`modal_item_input pl-[52px] `}
                 type="date"
                 ref={birth}
-                // value={birthInput}
-                onChange={handleBirthInputChange}
                 placeholder=" 1900.00.00"
               />
             </div>
@@ -531,12 +411,9 @@ function Modal1({ show, onModalClose }) {
                 <span className="Highlighting">*</span>전화번호
               </div>
               <input
-                class={` modal_item_input ${
-                  phoneInput ? "border-primary-100 " : "border-gray-300 "
-                } px-3 text-center`}
+                class={` modal_item_input px-3 text-center`}
                 type="text"
                 ref={phone}
-                // value={phoneInput}
                 onChange={handlePhoneInputChange}
                 placeholder="01012345678"
               />
@@ -544,13 +421,10 @@ function Modal1({ show, onModalClose }) {
             <div class="modal_item_container mb-2">
               <div class="w-[84px] cursor-default pl-2">인수상태</div>
               <input
-                class={`modal_item_input ${
-                  stateInput ? "border-primary-100" : "border-gray-300"
-                } px-3`}
                 type="state"
+                class={`modal_item_input
+                px-3`}
                 ref={state}
-                // value={stateInput}
-                onChange={handleStateInputChange}
                 placeholder=" 상담중, 전산완료, 가입불가 "
                 as="textarea"
                 rows={1}
@@ -559,23 +433,18 @@ function Modal1({ show, onModalClose }) {
             <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] cursor-default pl-2 pt-1.5">특이사항</div>
               <textarea
-                class={`modal_item_input_memo  ${
-                  memoInput ? "border-primary-100" : "border-gray-300"
-                } px-3 pt-2`}
+                class={`modal_item_input_memo  
+                px-3 pt-2`}
                 ref={memo}
-                // value={memoInput}
-                onChange={handleMemoInputChange}
                 placeholder=" 월 보험료 00만원/본인점검"
                 rows={3}
               />
             </div>
-
             <div>
-              {errorMessage && (
-                <div className="mb-[14px] text-center text-xs font-bold text-Danger-600">
-                  {errorMessage}
-                </div>
-              )}
+              <div
+                ref={errorMessageRef}
+                className="mb-[14px] text-center text-xs font-bold text-Danger-600"
+              ></div>
               <button
                 class="flex h-[40px] w-[280px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
                 type="submit"
