@@ -114,7 +114,7 @@ const CustomerDetail = ({
                   </div>
                   <button class="ml-2 h-6 w-[64p] rounded bg-Primary-50 px-[10px] ">
                     <span class="text-xs font-normal text-Primary-500">
-                      상담현황
+                      상담 전
                     </span>
                   </button>
                 </div>

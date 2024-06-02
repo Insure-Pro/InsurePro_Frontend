@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 
-export const refreshToken = createAsyncThunk(
-  "auth/refreshToken",
+export const refreshAccessToken = createAsyncThunk(
+  "auth/refreshAccessToken",
   async (_, { getState, dispatch }) => {
     const state = getState();
     const refreshToken = state.auth.refreshToken;
@@ -11,11 +10,11 @@ export const refreshToken = createAsyncThunk(
 
     if (!refreshToken) {
       dispatch(logoutSuccess());
-      return;
+      throw new Error("No refresh token available");
     }
 
     try {
-      const response = await axios.post(
+      const response = await axios.patch(
         `${MAIN_URL}/employee/authorization`,
         null,
         {
@@ -25,6 +24,7 @@ export const refreshToken = createAsyncThunk(
 
       if (response.status === 204) {
         const newAccessToken = response.headers["authorization"].split(" ")[1];
+        dispatch(loginSuccess({ accessToken: newAccessToken, refreshToken }));
         return newAccessToken;
       } else {
         throw new Error("Failed to refresh token");
@@ -65,12 +65,12 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(refreshToken.fulfilled, (state, action) => {
+    builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
       console.log("Token refreshed successfully");
       state.accessToken = action.payload;
       localStorage.setItem("accessToken", action.payload);
     });
-    builder.addCase(refreshToken.rejected, (state) => {
+    builder.addCase(refreshAccessToken.rejected, (state) => {
       console.log("Token refresh failed");
       state.isLoggedIn = false;
       state.accessToken = null;

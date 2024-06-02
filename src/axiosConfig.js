@@ -1,6 +1,10 @@
 import axios from "axios";
 import { store } from "./redux/store";
-import { loginSuccess, logoutSuccess } from "./redux/authSlice";
+import {
+  loginSuccess,
+  logoutSuccess,
+  refreshAccessToken,
+} from "./redux/authSlice";
 
 // Create an Axios instance
 const axiosInstance = axios.create();
@@ -14,41 +18,21 @@ axiosInstance.interceptors.response.use(
 
     if (
       error.response &&
-      error.response.status === 401 &&
+      error.response.status === 404 &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem("refreshToken");
-
-        if (!refreshToken) {
-          store.dispatch(logoutSuccess());
-          return Promise.reject(error);
-        }
-
-        console.log("Attempting to refresh access token");
-
-        const response = await axios.post(
-          `${MAIN_URL}/employee/authorization`,
-          null,
-          {
-            headers: { Refresh: refreshToken },
-          },
-        );
-
-        if (response.status === 204) {
-          const newAccessToken =
-            response.headers["authorization"].split(" ")[1];
-          store.dispatch(
-            loginSuccess({ accessToken: newAccessToken, refreshToken }),
-          );
+        const newAccessToken = await store
+          .dispatch(refreshAccessToken())
+          .unwrap();
+        if (newAccessToken) {
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         } else {
           store.dispatch(logoutSuccess());
           window.location.href = "/login";
-          return Promise.reject(error);
         }
       } catch (refreshError) {
         console.log("Token refresh failed", refreshError);
