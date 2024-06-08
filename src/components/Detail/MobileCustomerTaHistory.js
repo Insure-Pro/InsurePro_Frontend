@@ -101,7 +101,7 @@ const MobileCustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
 
   return (
     // <div className="flex h-4/6 w-1/2 justify-center border border-Danger-300  bg-LightMode-SectionBackground pt-6">
-    <div className="flex h-4/6 w-full justify-center  bg-white pt-6">
+    <div className="mt-6 flex h-4/6 w-full  justify-center bg-white">
       {/* <div className="flex w-1/3 pl-6  text-sm">
         <div class="mr-10 flex w-[100px] cursor-default flex-row pl-4">
           전화상담{" "}
@@ -111,7 +111,7 @@ const MobileCustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
           />
         </div>
       </div> */}
-      <div class="w-[360px] ">
+      <div class="w-[320px] ">
         {isLoading ? (
           <div class="flex flex-col">
             <SkeletonHistory />
@@ -135,7 +135,7 @@ const MobileCustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
                     handleContextMenu(e, history);
                   }
                 }}
-                className="history-container w-[360px]"
+                className="history-container w-[320px]"
               >
                 <div class="flex h-5 w-[70px]  ">
                   <div
@@ -172,7 +172,7 @@ const MobileCustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
               </div>
             ))}
             <button
-              class="mb-[54px] flex h-[40px] w-full items-center justify-between px-[96px] font-normal text-Primary-400"
+              class="mb-[54px] flex h-[40px] w-full items-center justify-between  px-[90px] text-xs font-normal text-Primary-400"
               //   onClick={() => setIsAddingType(true)}
             >
               <TaHistoryModal

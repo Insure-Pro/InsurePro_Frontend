@@ -93,25 +93,29 @@ const Detail = ({}) => {
             )}
 
             {/* <div class="flex h-full w-full justify-center bg-LightMode-SectionBackground "> */}
-            <div class="mt-2 flex  w-full justify-center bg-white ">
+            <div
+              class={`flex w-full  justify-center ${
+                isMobile ? "  bg-LightMode-SectionBackground" : "bg-white"
+              } pt-2 `}
+            >
               {isMobile ? (
                 <div>
-                  <div class="mt-[16px] flex h-9 w-[360px] items-center justify-center rounded border bg-white text-LightMode-Subtext">
+                  <div class="mt-[16px] flex h-9 w-[320px] items-center justify-center rounded border bg-[#F4F4F5]">
                     <button
-                      class={`h-8 w-[170px] rounded-xl border ${
+                      class={`h-8 w-[160px] rounded-md ${
                         activeTab === "전화상담"
-                          ? " bg-Secondary-50/60 font-semibold"
-                          : " font-normal"
+                          ? " bg-white text-xs font-semibold  text-black"
+                          : " text-[10px]  font-normal text-LightMode-Subtext"
                       }`}
                       onClick={() => setActiveTab("전화상담")}
                     >
                       전화상담
                     </button>
                     <button
-                      class={`h-8 w-[170px] rounded-xl border ${
+                      class={`h-8 w-[160px] rounded-md ${
                         activeTab === "진척도"
-                          ? " bg-Secondary-50/60 font-semibold"
-                          : " font-normal"
+                          ? " bg-white text-xs  font-semibold text-black"
+                          : " text-[10px]  font-normal text-LightMode-Subtext"
                       }`}
                       onClick={() => setActiveTab("진척도")}
                     >

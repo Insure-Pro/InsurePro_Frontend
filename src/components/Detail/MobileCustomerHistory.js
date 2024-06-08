@@ -108,7 +108,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
 
   return (
     // <div className="flex h-4/6 w-full justify-center  bg-LightMode-SectionBackground pt-6">
-    <div className="flex h-4/6 w-full justify-center  bg-white pt-6">
+    <div className="mt-6 flex h-4/6 w-full  justify-center bg-white">
       {/* <div className="flex h-10 w-[150px] pl-5 text-sm">
         <div class="flex w-full cursor-default  flex-row ">
           진척도{" "}
@@ -118,7 +118,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
           />
         </div>
       </div> */}
-      <div class="w-[360px] ">
+      <div class="w-[320px] ">
         {isLoading ? (
           <div class="flex flex-col">
             <SkeletonHistory />
@@ -142,7 +142,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                     handleContextMenu(e, history);
                   }
                 }}
-                className="history-container w-[360px]"
+                className="history-container w-[320px]"
               >
                 <div class="">
                   <div
@@ -157,7 +157,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                     {progressTypeDisplay[history.progress]}
                   </div>
                 </div>
-                <div class="w-[360px] ">
+                <div class="w-[320px] ">
                   <div className="historyItemStyle2 w-full ">
                     <div class="w-[86px] ">{history.date} </div>
                     <div class="ml-3"> {history.address}</div>
@@ -167,7 +167,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
               </div>
             ))}
             <button
-              class="mb-[54px] flex h-[40px] w-full items-center justify-between px-[96px] font-normal text-Primary-400"
+              class="mb-[54px] flex h-[40px] w-full items-center justify-between px-[90px] text-xs font-normal text-Primary-400"
               //   onClick={() => setIsAddingType(true)}
             >
               <HistoryModal

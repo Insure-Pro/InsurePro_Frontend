@@ -55,8 +55,8 @@ const CustomerDetail = ({
         </span>
         <div class="h-full w-[862px]"></div>
       </div>
-      <div class="flex h-[174px] w-full  flex-row justify-center bg-LightMode-SectionBackground ">
-        <div class="h-full w-full  shadow-[0_1px_4px_0_rgba(0,0,0,0.05)]">
+      <div class="flex h-[174px] w-full flex-row justify-center bg-LightMode-SectionBackground ">
+        <div class="h-full w-full shadow-[0_1px_4px_0_rgba(0,0,0,0.05)]">
           {/* <div class="h-full w-full "> */}
           <div class="mx-auto flex w-[1024px]">
             <div className="detailTitle flex items-center font-bold">
