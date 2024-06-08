@@ -28,11 +28,11 @@ export const addCustomerType = async ({ name, dataType }) => {
   );
   return response.data;
 };
-
+// /v1/hide?customerTypePk={customerType-pk}
 // 고객유형 정보 수정(숨기기 요청)
 export const updateCustomerType = async ({ pk, delYn }) => {
-  const response = await axios.patch(
-    `${API_URL}/${pk}`,
+  const response = await axios.post(
+    `${process.env.REACT_APP_MAIN_URL}/hide?customerTypePk=${pk}`,
     { delYn },
     {
       headers: {
