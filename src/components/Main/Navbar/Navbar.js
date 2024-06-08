@@ -357,9 +357,9 @@ const Navbar = ({
                     </div>
                   </div>
                   <div
-                    class={`right-2 h-[38px] w-[120px] ${
-                      isMainRoute ? "" : "hidden"
-                    }`}
+                    class={`right-2 h-[38px] w-[120px] 
+                    `}
+                    // ${isMainRoute ? "" : "hidden"}
                   >
                     {showLogoutButton && (
                       <>
@@ -541,14 +541,14 @@ const Navbar = ({
                   >
                     인근고객
                   </div>
-                  <div
+                  {/* <div
                     class=" flex h-[60px] items-center  justify-center "
                     onClick={() => {
                       navigate("/analysis");
                     }}
                   >
                     성과분석
-                  </div>
+                  </div> */}
                   <div class="mt-[334px] text-sm text-white">
                     <div
                       onClick={() => {

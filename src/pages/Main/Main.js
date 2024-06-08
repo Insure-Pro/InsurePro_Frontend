@@ -117,7 +117,7 @@ const Main = () => {
     } else if (selectedContractYn != null) {
       url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest/customerTypePk=${customerTypePk}`;
     } else if (selectedAge) {
-      url = `${MAIN_URL}/customers/age/${selectedAge}`;
+      url = `${MAIN_URL}/customers/age/${selectedAge}?customerTypePk=${customerTypePk}`;
     } else {
       // Adjust the URL based on the selected customer type
       url =

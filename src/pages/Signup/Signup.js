@@ -14,6 +14,7 @@ const Signup = () => {
   const authNumConfirm = useRef("");
   const password = useRef("");
   const passwordConfirm = useRef("");
+  const companyName = useRef("");
   const navigate = useNavigate();
 
   const [verificationMessage, setVerificationMessage] = useState(null);
@@ -138,8 +139,9 @@ const Signup = () => {
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
           authNum: parseInt(authNumConfirm.current.value),
-          companyPk: companyPk,
-          teamPk: teamPk, // 서버로 전송할 요청 본문에 teamPk 추가
+          companyName: companyName.current.value,
+          // companyPk: companyPk,
+          // teamPk: teamPk, // 서버로 전송할 요청 본문에 teamPk 추가
         })
         .then((response) => {
           // console.log(response);
@@ -350,7 +352,7 @@ const Signup = () => {
               />
             </div>
             <div class="mb-3 flex">
-              <span className="signin_span">
+              <span className="font-medium; mr-8 flex h-[42px] w-[96px] cursor-default  items-center text-sm">
                 <span className="Highlighting">*</span>
                 비밀번호 확인
               </span>
@@ -397,7 +399,13 @@ const Signup = () => {
             }}
           >
             <span className="signin_span pl-[10px]">회사 선택</span>
-            <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
+            <input
+              type="name"
+              ref={companyName}
+              placeholder="회사명 입력"
+              className="signin_input_box"
+            />
+            {/* <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
               <Label>{currentCompanyValue}</Label>
               <SelectOptions
                 value={selectedCompany}
@@ -421,9 +429,9 @@ const Signup = () => {
                   응애
                 </Option>
               </SelectOptions>
-            </SelectBox>
+            </SelectBox> */}
           </div>
-          <div
+          {/* <div
             class="flex items-center "
             style={{
               width: "780px",
@@ -451,7 +459,7 @@ const Signup = () => {
                 </Option>
               </SelectOptions>
             </SelectBox>
-          </div>
+          </div> */}
           <hr className="signin_hr3" />
           <div class="flex flex-col items-center justify-center">
             <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>

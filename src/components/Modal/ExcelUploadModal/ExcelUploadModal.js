@@ -72,7 +72,7 @@ const ExcelUploadModal = ({ show, onHide }) => {
       registerDate: rowData[0] ? formatDate(rowData[0].toString().trim()) : "",
       name:
         rowData[1] && typeof rowData[1] === "string" ? rowData[1].trim() : "",
-      customerType:
+      customerTypeName:
         rowData[2] && typeof rowData[2] === "string" ? rowData[2].trim() : "",
       birth: rowData[3] ? formatDate(rowData[3].toString().trim()) : "",
       age: rowData[4] ? rowData[4].toString().trim() : "", // 나이는 숫자일 수 있음, 문자열로 변환 후 처리

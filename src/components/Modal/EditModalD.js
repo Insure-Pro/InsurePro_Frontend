@@ -178,7 +178,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         name: nameRef.current.value,
         birth: birthRef.current.value,
         phone: phoneSend,
-        age: ageValue,
+        age: ageValue || ageRef.current.value,
         address: addressRef.current.value,
         state: stateRef.current.value,
         memo: memoRef.current.value,
@@ -437,7 +437,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 placeholder="01012345678"
               />
             </div>
-            <div class="modal_item_container mb-2">
+            {/* <div class="modal_item_container mb-2">
               <div class="w-[84px] pl-2">인수상태</div>
               <input
                 class={`modal_item_input px-3`}
@@ -449,7 +449,7 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 as="textarea"
                 rows={1}
               />
-            </div>
+            </div> */}
             <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
               <textarea

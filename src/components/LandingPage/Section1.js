@@ -68,7 +68,7 @@ const Section1 = () => {
       >
         <div class=" h-[143px] text-[20px] font-extrabold">#1.</div>
         <div>
-          <div class="mb-3 h-[45px] w-[456px] text-[30px] font-black">
+          <div class="mb-3 h-[45px] w-[470px] text-[30px] font-black">
             고객관리, 고객창출.
           </div>
           <div className="section1-subtitle">

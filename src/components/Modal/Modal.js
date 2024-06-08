@@ -171,7 +171,7 @@ function Modal1({ show, onModalClose }) {
       phone: phoneSend,
       contractYn: contractYn,
       memo: memo.current.value,
-      state: state.current.value,
+      // state: state.current.value,
       metroGuDong: metroGuDong,
     };
 
@@ -418,7 +418,7 @@ function Modal1({ show, onModalClose }) {
                 placeholder="01012345678"
               />
             </div>
-            <div class="modal_item_container mb-2">
+            {/* <div class="modal_item_container mb-2">
               <div class="w-[84px] cursor-default pl-2">인수상태</div>
               <input
                 type="state"
@@ -429,7 +429,7 @@ function Modal1({ show, onModalClose }) {
                 as="textarea"
                 rows={1}
               />
-            </div>
+            </div> */}
             <div class=" flex h-[68px] w-[352px] ">
               <div class="w-[84px] cursor-default pl-2 pt-1.5">특이사항</div>
               <textarea

@@ -255,6 +255,11 @@ body {
   --Success-700: #25773b;
   --Success-800: #1d5c2e;
   --Success-900: #164723;
+  --Purple-50: #f2e9f6;
+  --Purple-300: #a669bf;
+  --Purple-500: #7a1fa0;
+  --Orange-50: #fff4e6;
+  --Orange-300: #feb455;
 }
 
 @media (prefers-reduced-motion: no-preference) {

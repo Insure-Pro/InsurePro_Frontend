@@ -7,14 +7,14 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
 
   const columns = [
     { header: "DB분배일", key: "registerDate", width: "270px" },
-    { header: "고객유형", key: "customerType", width: "90px" },
     { header: "이름", key: "name", width: "90px" },
+    { header: "고객유형", key: "customerType.name", width: "90px" },
     { header: "생년월일", key: "birth", width: "200px" },
     { header: "나이", key: "age", width: "100px" },
     { header: "연락처", key: "phone", width: "150px" },
     { header: "거주지", key: "address", width: "250px" },
     { header: "특이사항", key: "memo", width: "500px" },
-    { header: "계약체결여부", key: "contractYn", width: "80px" },
+    { header: "인수상태", key: "state", width: "80px" },
   ];
 
   const generateExcelFile = () => {
@@ -31,7 +31,7 @@ const ExcelDownloadButton = ({ customers, activeType }) => {
           value = value[key];
         });
         return value;
-      })
+      }),
     );
 
     const ws = XLSX.utils.aoa_to_sheet([wsHeaders, ...wsData]);

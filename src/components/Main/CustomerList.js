@@ -28,8 +28,9 @@ function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
           <div className="listItemTitleStyle listItem3">이름</div>
           <div className="listItemTitleStyle listItem4">나이</div>
           <div className="listItemTitleStyle listItem5">연락처</div>
-          <div className="listItemTitleStyle listItem6">거주지</div>
-          <div className="listItemTitleStyle listItem7">인수상태</div>
+          <div className="listItemTitleStyle listItem6">지역</div>
+          <div className="listItemTitleStyle listItem7">평균소득</div>
+          <div className="listItemTitleStyle listItem8">관심사항</div>
         </div>
       </div>
       {customers
@@ -101,8 +102,10 @@ function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
                     : "listItemStyle-noContract"
                 }`}
               >
-                {customer.dongString}
-                {customer.address}
+                {customer.metroGuDong.metroName}
+                {""}
+                <span class="ml-1">{customer.metroGuDong.guName}</span>
+                {/* {customer.address} */}
               </ListGroup.Item>
               <ListGroup.Item
                 className={`listItemStyle listItem7 ${
@@ -111,7 +114,16 @@ function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
                     : "listItemStyle-noContract"
                 }`}
               >
-                {customer.state}
+                {customer.salary}만
+              </ListGroup.Item>
+              <ListGroup.Item
+                className={`listItemStyle listItem8 ${
+                  customer.contractYn
+                    ? "listItemStyle-contract"
+                    : "listItemStyle-noContract"
+                }`}
+              >
+                {customer.worry}
               </ListGroup.Item>
             </ListGroup>
           </div>

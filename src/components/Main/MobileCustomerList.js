@@ -85,7 +85,7 @@ function MobileCustomerList({
                     >
                       <div class="">
                         <div
-                          className={`customerCardWrapper h-[122px] w-[162px] rounded border ${
+                          className={`customerCardWrapper h-[126px] w-[162px] rounded border ${
                             customer.contractYn
                               ? " border-Primary-400"
                               : " border-black/50"
@@ -135,7 +135,7 @@ function MobileCustomerList({
                             {customer.phone}
                           </div>
                           <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
-                            분배일 : {customer.registerDate}{" "}
+                            관심사 : {customer.worry}{" "}
                           </div>
                           <div class="flex text-[10px] font-normal text-Secondary-300">
                             <p class="truncate">

@@ -34,16 +34,23 @@
 .listItem5 {
   width: 162px;
 }
-
 .listItem6 {
-  width: 190px;
+  width: 130px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.listItem7 {
+  width: 92px;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.listItem7 {
-  width: 148px;
+.listItem8 {
+  width: 128px;
   border-radius: 4px;
   border-bottom-left-radius: 0px !important;
   border-top-left-radius: 0px !important;

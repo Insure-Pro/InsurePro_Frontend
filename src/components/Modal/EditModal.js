@@ -453,7 +453,7 @@ const EditModal = ({
                     />
                   </div>
 
-                  <div class=" flex h-6 w-[352px] items-center">
+                  {/* <div class=" flex h-6 w-[352px] items-center">
                     <div class="w-[84px] pl-2">인수상태</div>
                   </div>
                   <input
@@ -465,7 +465,7 @@ const EditModal = ({
                     placeholder=" 상담중, 전산완료, 가입불가 "
                     as="textarea"
                     rows={1}
-                  />
+                  /> */}
                   <div class=" flex h-6 w-[352px] items-center">
                     <div class="w-[84px] pl-2">특이사항</div>
                   </div>

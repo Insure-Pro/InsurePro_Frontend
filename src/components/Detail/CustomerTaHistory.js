@@ -102,8 +102,8 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
   return (
     // <div className="flex h-4/6 w-1/2 justify-center border border-Danger-300  bg-LightMode-SectionBackground pt-6">
     <div className="flex h-4/6 w-1/2 justify-center  bg-white pt-6">
-      <div className="flex w-1/3 pl-6  text-sm">
-        <div class="mr-10 flex w-[100px] cursor-default flex-row pl-4">
+      <div className="flex w-1/3 pl-[44px]  text-sm">
+        <div class="mr-10 flex w-[100px] cursor-default flex-row">
           전화상담{" "}
           <TaHistoryModal
             customerPk={customerPk}

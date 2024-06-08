@@ -133,7 +133,7 @@ const LandingPage = () => {
           </section>
         ))}
       </div>
-      <Section9 />
+      {/* <Section9 /> */}
     </div>
   );
 };

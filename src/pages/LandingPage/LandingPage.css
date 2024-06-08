@@ -253,10 +253,10 @@
 }
 
 .section1-subtitle {
-  @apply h-[43px] w-[456px] text-[30px] font-extrabold;
+  @apply h-[43px] w-[470px] text-[30px] font-extrabold;
 }
 .section2-subtitle {
-  @apply mb-12 flex h-[88px] w-[433px] items-center rounded px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground;
+  @apply mb-12 flex h-[88px] w-[440px] items-center rounded px-2 py-4 text-[20px] font-bold text-LightMode-SectionBackground;
 }
 .section3-subtitle {
   @apply h-[43px] w-[622px] text-[30px] font-extrabold;

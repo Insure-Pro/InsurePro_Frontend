@@ -6,7 +6,7 @@
   @apply ml-12 h-9 w-full min-w-[1024px] bg-white py-[9px]   text-sm font-normal;
 }
 .detailTitle {
-  @apply mr-5  flex w-60 pl-12 text-sm;
+  @apply mr-5  flex w-[164px] pl-12 text-sm;
 }
 .infoItem {
   @apply mb-3 flex cursor-default flex-row text-sm font-semibold;

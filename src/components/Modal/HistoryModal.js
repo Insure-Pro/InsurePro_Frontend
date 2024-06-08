@@ -154,7 +154,7 @@ function HistoryModal({ customerPk, setIsHistoryModalOpen }) {
               </div>
             </div>
             <div class="mb-1 flex h-10 items-center">
-              <div class=" mr-[38px] w-[50px]">일정시간</div>
+              <div class=" mr-[30px] w-[58px]">일정시간</div>
               <input
                 type="date"
                 placeholder="YYYY-MM-DD"
