@@ -138,8 +138,10 @@ function MobileCustomerList({
                             분배일 : {customer.registerDate}{" "}
                           </div>
                           <div class="flex text-[10px] font-normal text-Secondary-300">
-                            주소 : {customer.dongString}
-                            {customer.address}{" "}
+                            <p class="truncate">
+                              주소 : {customer.dongString}
+                              {customer.address}{" "}
+                            </p>
                           </div>
                         </div>
                       </div>
