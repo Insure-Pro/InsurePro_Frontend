@@ -115,7 +115,7 @@ const Main = () => {
     if (formattedDate) {
       url = `${MAIN_URL}/customers/latest/${formattedDate}-01?customerTypePk=${customerTypePk}`;
     } else if (selectedContractYn != null) {
-      url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest/customerTypePk=${customerTypePk}`;
+      url = `${MAIN_URL}/customers/contractYn/${selectedContractYn}/latest?customerTypePk=${customerTypePk}`;
     } else if (selectedAge) {
       url = `${MAIN_URL}/customers/age/${selectedAge}?customerTypePk=${customerTypePk}`;
     } else {

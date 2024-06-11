@@ -50,12 +50,15 @@
   @apply ml-1 flex h-7 w-[122px] items-center justify-center border border-Gray-scale-50;
 }
 .td-residence {
-  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
+  @apply ml-1 flex h-7 w-[102px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
-.td-special-note {
-  @apply ml-1 flex h-7 w-[142px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
+.td-work {
+  @apply ml-1 flex h-7 w-[80px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
 }
-.td-state {
+.td-salary {
+  @apply ml-1 flex h-7 w-[102px] items-center justify-center overflow-hidden overflow-ellipsis whitespace-nowrap  border border-Gray-scale-50 px-[10px];
+}
+.td-worry {
   @apply ml-1 flex h-7 w-[110px] items-center justify-center overflow-hidden overflow-ellipsis  whitespace-nowrap border border-Gray-scale-50 px-[10px];
 }
 
