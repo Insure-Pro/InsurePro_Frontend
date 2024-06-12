@@ -347,7 +347,7 @@ const DropdownButtonWrapper = styled.div`
 const DropdownButton = styled.button`
   display: flex;
   align-items: center;
-  width: 60px;
+  width: 64px;
   justify-content: space-between;
   padding: 3px 8px;
   border: 1px solid red;
