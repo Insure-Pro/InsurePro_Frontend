@@ -377,7 +377,7 @@ const Main = () => {
           <div
             class={`  flex h-[52px]  items-center text-center ${
               isMobile
-                ? "float-left w-full xsm:ml-[-50px] xsm:w-[360px] sm:ml-[-90px] sm:w-[500px] md:ml-[-8px] md:w-[768px]"
+                ? "float-left w-full xsm:ml-[-50px] xsm:w-[360px] sm:ml-[-30px] sm:w-[500px] md:ml-[20px] md:w-[768px]"
                 : ""
             }`}
           >

@@ -469,7 +469,7 @@ const Navbar = ({
           }`}
         >
           <div class="flex h-[64px] max-w-[960px] justify-center ">
-            <div class="flex h-full items-center  justify-between xsm:w-[330px] sm:w-[500px] md:w-[682px]">
+            <div class="flex h-full items-center  justify-between xsm:w-[330px] sm:w-[650px] md:w-[682px]">
               <div className="hamburger">
                 {isMenuOpen && isLoggedIn ? (
                   <img

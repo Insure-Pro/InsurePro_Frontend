@@ -41,7 +41,7 @@ const Dbbar = ({
 
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  const isMobile = useMediaQuery({ query: "(max-width:768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
   const isTablet = useMediaQuery({ query: "(max-width:960px)" });
 
   const { data: customerTypes, isLoading } = useCustomerTypes();
@@ -79,8 +79,10 @@ const Dbbar = ({
           <div>
             <div
               class={`  ${showDateBar ? "mt-9" : "mt-0"} flex ${
-                isTablet ? "ml-[-80px] justify-center" : "ml-6"
-              }  h-[36px] w-[1024px]  bg-white`}
+                isTablet
+                  ? "ml-[-80px] w-[750px]  justify-center"
+                  : "ml-6  w-[1024px]"
+              }  h-[36px]  bg-white`}
             >
               <Nav>
                 {customerTypes?.map((type) => (
