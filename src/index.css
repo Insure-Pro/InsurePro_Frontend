@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
 @font-face {
   font-family: "Inter";
   src:
@@ -81,53 +84,13 @@
 
 /* --------------------------------------------------------------------------- */
 
-/* @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoL.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-} */
-
-/* @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoR.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-} */
-/* @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoM.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-} */
-/* 
-@font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoSB.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-} */
-
-/* @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoB.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-} */
-/* @font-face {
-  font-family: "AppleSDGothicNeo";
-  src: url("./fonts/AppleSDGothicNeoEB.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-} */
-
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", "Noto Sans KR", sans-serif;
 }
 
 * {
-  font-family: "Inter";
+  font-family: "Inter", "Noto Sans KR", sans-serif;
 }
 
 /* code {
