@@ -49,6 +49,7 @@ const KakaoMap = () => {
       strokeOpacity: 0.8,
       fillColor: "#FF0000",
       fillOpacity: 0.9,
+      strokeLinejoin: "round",
     });
   };
   let clusterer; // Declare clusterer globally
@@ -731,7 +732,7 @@ const KakaoMap = () => {
       if (isDongSearch) {
         // 동 이름으로 검색하는 경우
         response = await axios.get(
-          `${MAIN_URL}/customers/dongName/${inputName}`,
+          `${MAIN_URL}/customers/dongName/${inputName}?customerTypePk=0`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
