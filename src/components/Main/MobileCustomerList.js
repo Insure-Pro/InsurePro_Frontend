@@ -194,6 +194,7 @@ function MobileCustomerList({
                               ? " border-Primary-400"
                               : " border-Accent-Separator"
                           } bg-white p-4`}
+                          onClick={() => handleCustomerClick(customer)}
                         >
                           <div class="mb-2 flex justify-between">
                             <div class="flex">
@@ -306,7 +307,10 @@ function MobileCustomerList({
                           {expandedCustomer === customer.pk && (
                             <div
                               className="flex h-[125px] w-[296px] flex-col justify-center bg-[#F6F7F8] px-3 py-2 text-[10px] font-normal text-Secondary-300"
-                              onClick={() => handleToggleDetails(customer.pk)}
+                              onClick={(e) => {
+                                e.stopPropagation(); // Stop event propagation to prevent parent click
+                                handleToggleDetails(customer.pk);
+                              }}
                             >
                               <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
                                 DB 분배일 : {customer.registerDate}
@@ -334,7 +338,10 @@ function MobileCustomerList({
                           {expandedCustomer !== customer.pk && (
                             <div
                               className="flex h-8 w-[296px] items-center justify-center bg-[#F6F7F8] text-[10px] font-normal text-Secondary-300"
-                              onClick={() => handleToggleDetails(customer.pk)}
+                              onClick={(e) => {
+                                e.stopPropagation(); // Stop event propagation to prevent parent click
+                                handleToggleDetails(customer.pk);
+                              }}
                             >
                               <button>정보 자세히 보기</button>
                               <img
