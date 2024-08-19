@@ -126,7 +126,7 @@ const Signup = () => {
         companyPk = 3;
         break;
       default:
-        console.error("회사를 선택해주세요.");
+        // console.error("회사를 선택해주세요.");
         return; // 팀이 선택되지 않았다면 함수 실행을 중단
     }
 
