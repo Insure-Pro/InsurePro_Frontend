@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useCustomerTypes } from "../../../hooks/CustomerTypes/useCustomerTypes";
 import { useMediaQuery } from "react-responsive";
 import MobileDbbar from "./MobileDbbar";
+import ManageCustomerTypesModal from "../../Modal/ManageCustomerTypesModal";
 
 const ItemType = "NAV_ITEM";
 
@@ -39,6 +40,8 @@ const Dbbar = ({
 }) => {
   const showDateBar = useSelector((state) => state.navbar.showDateBar);
 
+  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
+
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const isMobile = useMediaQuery({ query: "(max-width:700px)" });
@@ -55,7 +58,15 @@ const Dbbar = ({
   //---------------------------------------------------
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
+  const handleModalOpen = () => {
+    setShowModal(true);
+    // setShowLogoutButton(false);
+  };
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -75,46 +86,62 @@ const Dbbar = ({
       {isMobile ? (
         <MobileDbbar activeType={activeType} onTypeChange={handleTypeClick} />
       ) : (
-        <div class="relative z-[2] ml-7 mt-2 flex justify-center">
-          <div>
-            <div
-              class={`  ${showDateBar ? "mt-9" : "mt-0"} flex ${
-                isTablet
-                  ? "ml-[-80px] w-[750px]  justify-center"
-                  : "ml-6  w-[1024px]"
-              }  h-[36px]  bg-white`}
-            >
-              <Nav>
-                {customerTypes?.map((type) => (
-                  <div
-                    key={type.pk}
-                    className="ml-6 inline-block h-[36px] w-[42px] cursor-pointer py-2 text-center text-sm text-black"
-                    onClick={() => handleTypeClick(type)}
-                    onMouseEnter={() => setHoveredItem(type.name)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    // 유형별로 hover click시에만 해당 색으로 변경
-                    style={{
-                      fontWeight:
-                        activeType === type.name || hoveredItem === type.name
-                          ? "bold"
-                          : "normal",
-                      color:
-                        activeType === type.name || hoveredItem === type.name
-                          ? type.color
-                          : "black",
-                      borderBottom:
-                        activeType === type.name || hoveredItem === type.name
-                          ? `2px solid ${type.color}`
-                          : "none",
-                    }}
-                  >
-                    {type.name}
-                  </div>
-                ))}
-              </Nav>
+        <>
+          <div class="relative z-[2] ml-7 mt-2 flex items-center justify-center">
+            <div>
+              <div
+                class={`  ${showDateBar ? "mt-9" : "mt-0"} flex ${
+                  isTablet
+                    ? "ml-[-80px] w-[750px]  justify-center"
+                    : "ml-6  w-[1024px]"
+                }  h-[36px]  bg-white`}
+              >
+                <Nav>
+                  {customerTypes?.map((type) => (
+                    <div
+                      key={type.pk}
+                      className="ml-6 inline-block h-[36px] w-[42px] cursor-pointer py-2 text-center text-sm text-black"
+                      onClick={() => handleTypeClick(type)}
+                      onMouseEnter={() => setHoveredItem(type.name)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                      // 유형별로 hover click시에만 해당 색으로 변경
+                      style={{
+                        fontWeight:
+                          activeType === type.name || hoveredItem === type.name
+                            ? "bold"
+                            : "normal",
+                        color:
+                          activeType === type.name || hoveredItem === type.name
+                            ? type.color
+                            : "black",
+                        borderBottom:
+                          activeType === type.name || hoveredItem === type.name
+                            ? `2px solid ${type.color}`
+                            : "none",
+                      }}
+                    >
+                      {type.name}
+                    </div>
+                  ))}
+                </Nav>
+                <div
+                  class="ml-2 flex h-auto w-auto items-center justify-center text-[10px]"
+                  onClick={() => handleModalOpen()}
+                >
+                  고객유형+
+                  {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
+                </div>
+              </div>
             </div>
+            {showModal ? <div className="blur-navbar-datechange"></div> : ""}
+            {showModal && (
+              <ManageCustomerTypesModal
+                show={handleModalOpen}
+                close={handleModalClose}
+              />
+            )}
           </div>
-        </div>
+        </>
       )}
     </DndProvider>
   );

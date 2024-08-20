@@ -366,7 +366,7 @@ const Navbar = ({
                           } relative bottom-2  z-[11] flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
                           onClick={() => handleModalOpen()}
                         >
-                          고객설정
+                          유형설정
                         </div>
                         <div
                           className={` ${
@@ -556,7 +556,7 @@ const Navbar = ({
                       }}
                       class="mb-5"
                     >
-                      유형변경
+                      유형설정
                     </div>
                     <div onClick={() => navigate("/inquiry")}>문의하기</div>
                   </div>
