@@ -125,7 +125,7 @@ const Dbbar = ({
                   ))}
                 </Nav>
                 <div
-                  class="ml-2 flex h-auto w-auto items-center justify-center text-[10px]"
+                  class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px]"
                   onClick={() => handleModalOpen()}
                 >
                   고객유형+
