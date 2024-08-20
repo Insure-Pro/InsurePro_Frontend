@@ -65,12 +65,12 @@ const Navbar = ({
       ],
     },
     {
-      name: "고객관리",
-      path: "/", // 이 항목에 대한 기본 경로
+      name: "주변고객",
+      path: "/kakaomap", // 이 항목에 대한 기본 경로
       subMenus: [
-        { name: "인근고객", path: "/kakaomap" },
-        { name: "카톡발송", path: "/" },
-        { name: "모바일 명함", path: "/" },
+        // { name: "인근고객", path: "/kakaomap" },
+        // { name: "카톡발송", path: "/" },
+        // { name: "모바일 명함", path: "/" },
       ],
     },
     {
@@ -257,7 +257,7 @@ const Navbar = ({
         <header
           id="header"
           className={` ${
-            isLandingPage ? "landing-page-navbar fixed " : "relative"
+            isLandingPage ? "landing-page-navbar fixed" : "relative"
           }`}
         >
           <div className="container">
@@ -297,9 +297,7 @@ const Navbar = ({
                         </a>
                         <ul
                           className={`submenu ${
-                            isLoggedIn && showSubMenus && !isLandingPage
-                              ? "show"
-                              : "hide"
+                            showSubMenus ? "show" : "hide"
                           }`}
                         >
                           {menu.subMenus.map((subMenu, subIndex) => (
@@ -357,8 +355,7 @@ const Navbar = ({
                     </div>
                   </div>
                   <div
-                    class={`right-2 h-[38px] w-[120px] 
-                    `}
+                    class={`right-2 h-[38px] w-[120px] `}
                     // ${isMainRoute ? "" : "hidden"}
                   >
                     {showLogoutButton && (
@@ -366,7 +363,7 @@ const Navbar = ({
                         <div
                           className={` ${
                             isMainRoute ? "left-20" : "left-16"
-                          } relative bottom-2  z-10 flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
+                          } relative bottom-2  z-[11] flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
                           onClick={() => handleModalOpen()}
                         >
                           고객설정
@@ -399,9 +396,11 @@ const Navbar = ({
           </div>
           <div
             id="gnbBg"
-            className={
-              isLoggedIn && showSubMenus && !isLandingPage ? "show" : "hide"
-            }
+            className={`${showSubMenus ? "show" : "hide"} ${
+              isLandingPage
+                ? "bg-black bg-opacity-20 backdrop-blur-xl"
+                : "bg-white"
+            }`}
           ></div>
           {/* 조건부로 /main 경로에서만 Search컴포넌트 랜더링 되도록*/}
           {isMainRoute && showSearch && (

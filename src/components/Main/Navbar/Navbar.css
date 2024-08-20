@@ -177,12 +177,10 @@ a {
   #gnbBg {
     width: 100%;
     height: 152px;
-    background-color: white;
     position: absolute;
     left: 0;
     top: 76px;
     z-index: 13;
-
     /* display: none; */
   }
 }
