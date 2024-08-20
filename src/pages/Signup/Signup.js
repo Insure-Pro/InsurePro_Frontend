@@ -176,33 +176,38 @@ const Signup = () => {
     }
   };
 
-  const validEmail = new RegExp(
-    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$",
-  );
-  const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
+  // const validEmail = new RegExp(
+  //   "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$",
+  // );
+  // const validPassword = new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$");
   const [myEmail, setMyEmail] = useState("");
   const [myAuthNum, setMyAuthNum] = useState("");
   const [myPassword, setMyPassword] = useState("");
 
   const validate = () => {
+    const validEmail = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/;
+    const validPassword = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,}$/;
+
     if (!validEmail.test(myEmail)) {
       email.current.focus();
       document.querySelector(".error_message").innerHTML =
         "이메일 형식이 올바르지 않습니다.";
-    } else if (myPassword && !validPassword.test(myPassword)) {
+      return false;
+    } else if (!validPassword.test(myPassword)) {
       password.current.focus();
       document.querySelector(".error_message").innerHTML =
-        "비밀번호는 영소문자 숫자 특수문자 혼합 8자 이상 입력해주세요.";
+        "비밀번호는 최소 8자 이상이어야 하며, 영문, 숫자 및 특수문자를 포함해야 합니다.";
+      return false;
     } else if (password.current.value !== passwordConfirm.current.value) {
       passwordConfirm.current.focus();
       document.querySelector(".error_message").innerHTML =
         "비밀번호가 일치하지 않습니다.";
+      return false;
     } else {
       document.querySelector(".error_message").innerHTML = "";
       return true;
     }
   };
-
   const handleChange = (event) => {
     setSelectedTeam(event.target.value);
     setSelectedCompany(event.target.value);
@@ -465,7 +470,9 @@ const Signup = () => {
             <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
             <button
               onClick={(event) => {
-                handleSubmit(event);
+                if (validate()) {
+                  handleSubmit(event);
+                }
                 if (email.current.value === "") {
                   email.current.focus();
                   document.querySelector(".error_message").innerHTML =
