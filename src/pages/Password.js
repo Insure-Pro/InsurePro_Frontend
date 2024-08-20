@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/Main/Navbar/Navbar";
+import "./Signup/Signup.css";
 
 const Password = () => {
   const email = useRef("");
@@ -269,7 +270,7 @@ const Password = () => {
               />
             </div>
             <div class="mb-9 flex">
-              <span className="signin_span">
+              <span class="mr-8 flex h-[42px] w-[96px] cursor-default items-center  text-sm font-medium">
                 <span className="Highlighting">*</span>
                 비밀번호 확인
               </span>

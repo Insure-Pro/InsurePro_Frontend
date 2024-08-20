@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Main/Navbar/Navbar";
+import "./Signup/Signup.css";
 
 const Email = () => {
   const [usernum, setUsernum] = useState("");
