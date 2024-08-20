@@ -99,36 +99,36 @@ const Signup = () => {
     }
 
     // selectedTeam 값에 따라 teamPk 값을 설정
-    let teamPk;
-    switch (currentValue) {
-      case "위너 이글":
-        teamPk = 1;
-        break;
-      case "드림 이글":
-        teamPk = 2;
-        break;
-      case "레드 이글":
-        teamPk = 3;
-        break;
-      default:
-        // console.error("팀을 선택해주세요.");
-        return; // 팀이 선택되지 않았다면 함수 실행을 중단
-    }
-    let companyPk;
-    switch (currentCompanyValue) {
-      case "영진에셋 하랑사업단":
-        companyPk = 1;
-        break;
-      case "AFG 센텀점":
-        companyPk = 2;
-        break;
-      case "응애":
-        companyPk = 3;
-        break;
-      default:
-        // console.error("회사를 선택해주세요.");
-        return; // 팀이 선택되지 않았다면 함수 실행을 중단
-    }
+    // let teamPk;
+    // switch (currentValue) {
+    //   case "위너 이글":
+    //     teamPk = 1;
+    //     break;
+    //   case "드림 이글":
+    //     teamPk = 2;
+    //     break;
+    //   case "레드 이글":
+    //     teamPk = 3;
+    //     break;
+    //   default:
+    //     // console.error("팀을 선택해주세요.");
+    //     return; // 팀이 선택되지 않았다면 함수 실행을 중단
+    // }
+    // let companyPk;
+    // switch (currentCompanyValue) {
+    //   case "영진에셋 하랑사업단":
+    //     companyPk = 1;
+    //     break;
+    //   case "AFG 센텀점":
+    //     companyPk = 2;
+    //     break;
+    //   case "응애":
+    //     companyPk = 3;
+    //     break;
+    //   default:
+    //     // console.error("회사를 선택해주세요.");
+    //     return; // 팀이 선택되지 않았다면 함수 실행을 중단
+    // }
 
     if (validate()) {
       axios
@@ -464,7 +464,8 @@ const Signup = () => {
           <div class="flex flex-col items-center justify-center">
             <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
             <button
-              onClick={() => {
+              onClick={(event) => {
+                handleSubmit(event);
                 if (email.current.value === "") {
                   email.current.focus();
                   document.querySelector(".error_message").innerHTML =
