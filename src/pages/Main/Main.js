@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "../../axiosConfig";
 import React, { useState, useEffect } from "react";
 import "../../App.css";
