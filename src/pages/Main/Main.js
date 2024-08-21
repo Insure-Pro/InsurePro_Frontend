@@ -47,7 +47,6 @@ const Main = () => {
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
   const dropup = process.env.PUBLIC_URL + "/dropup.png";
-
   // Retrieve the login status from Redux
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
@@ -316,6 +315,12 @@ const Main = () => {
   const handleAddCustomer = () => {
     setShowOptions(false);
     setShowModal(true);
+    gtag("event", "open_add_customer_modal", {
+      event_category: "Add Customer Modal",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const handleAddCustomerWithExcel = () => {
@@ -341,7 +346,6 @@ const Main = () => {
         customers={customers}
         activeType={activeType} // activeType을 props로 전달합니다.
       />
-      {showModal && <Modal show={showModal} onModalClose={handleModalClose} />}
       {/* {showModal && (
         <CustomerModal show={showModal} onModalClose={handleModalClose} />
       )} */}
@@ -358,6 +362,7 @@ const Main = () => {
           <button onClick={handleAddCustomerWithExcel}>엑셀파일로 추가</button>
         </div>
       )}
+      {showModal && <Modal show={showModal} onModalClose={handleModalClose} />}
       <div
         className={`${
           showModal || showOptions || showExcelUploadModal || isModalOpen
@@ -447,6 +452,7 @@ const Main = () => {
             showMenu={contextMenu.visible}
           />
         )}
+
         {selectedCustomer && (
           <EditModal
             // className={setShowEditModal ? "blur-background no-interaction" : ""}

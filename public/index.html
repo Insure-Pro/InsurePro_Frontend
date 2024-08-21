@@ -1,9 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
@@ -24,16 +27,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5f312e942c7a1fa1133c655d80e8230e&libraries=services,clusterer&autoload=true"></script>
-  </head>
-    
-    <script
-      type="text/javascript"
-      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=%REACT_APP_MAP_ID%"
-    ></script>
-
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js" integrity="sha384-l+xbElFSnPZ2rOaPrU//2FF5B4LB8FiX5q4fXYTlfcG4PGpMkE1vcL7kNXI6Cci0" crossorigin="anonymous"></script>
-    
+    <!-- Google Analytics Code -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-Q6GC7MDN34"
@@ -47,6 +41,35 @@
 
       gtag("config", "G-Q6GC7MDN34");
     </script>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5f312e942c7a1fa1133c655d80e8230e&libraries=services,clusterer&autoload=true"
+    ></script>
+    <!-- </head> -->
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=%REACT_APP_MAP_ID%"
+    ></script>
+
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
+      integrity="sha384-l+xbElFSnPZ2rOaPrU//2FF5B4LB8FiX5q4fXYTlfcG4PGpMkE1vcL7kNXI6Cci0"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Q6GC7MDN34"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-Q6GC7MDN34");
+    </script> -->
     <title>Insure Pro</title>
   </head>
   <body>
