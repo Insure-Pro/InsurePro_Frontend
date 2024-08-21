@@ -40,7 +40,7 @@ const Dbbar = ({
 }) => {
   const showDateBar = useSelector((state) => state.navbar.showDateBar);
 
-  const add_icon = process.env.PUBLIC_URL + "/add_button.png";
+  const add_circle = process.env.PUBLIC_URL + "/add_circle_20.png";
 
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -129,7 +129,8 @@ const Dbbar = ({
                     class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px]"
                     onClick={() => handleModalOpen()}
                   >
-                    고객유형+
+                    고객유형
+                    <img src={add_circle} class="ml-0.5 h-3 w-3 " />
                     {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
                   </div>
                 ) : (
