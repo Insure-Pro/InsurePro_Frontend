@@ -578,9 +578,13 @@ const Navbar = ({
               </div>
               <div className="icon-wrapper">
                 <div class={`flex ${showLogoutButton ? "ml-[20px] mt-6" : ""}`}>
-                  <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
-                    <img src={searchMobile} class="mr-6" />
-                  </div>
+                  {isMainRoute ? (
+                    <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
+                      <img src={searchMobile} class="mr-6" />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div class="flex h-5 w-5 cursor-pointer  items-center justify-center">
                     <img
                       src={mypageMobile}
