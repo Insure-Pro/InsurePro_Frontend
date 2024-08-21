@@ -124,13 +124,17 @@ const Dbbar = ({
                     </div>
                   ))}
                 </Nav>
-                <div
-                  class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px]"
-                  onClick={() => handleModalOpen()}
-                >
-                  고객유형+
-                  {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
-                </div>
+                {!isMobile ? (
+                  <div
+                    class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px]"
+                    onClick={() => handleModalOpen()}
+                  >
+                    고객유형+
+                    {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             {showModal ? <div className="blur-navbar-datechange"></div> : ""}
