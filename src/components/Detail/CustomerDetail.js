@@ -282,7 +282,7 @@ const CustomerDetail = ({
                   )}
                 </div>
               </div>
-              <div class="flex h-[212px] w-[543px] rounded-[10px] bg-white px-[18px] py-[32px] text-sm font-normal text-LightMode-Subtext shadow-[0_4px_8px_0_rgba(0,0,0,0.05)]">
+              <div class="flex h-[212px] w-[543px] rounded-[10px] bg-white px-[18px] py-[32px] text-sm font-normal text-LightMode-Subtext shadow-inner">
                 <div class="w-[260px] ">
                   <div class="flex">
                     <div class="mb-2 h-[30px] w-[70px]">생년월일 </div>
