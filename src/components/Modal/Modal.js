@@ -41,8 +41,8 @@ function Modal1({ show, onModalClose }) {
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCustomerType, setSelectedCustomerType] = useState({
-    name: "",
-    pk: null,
+    name: "All",
+    pk: 0,
   });
   const [contractYn, setContractYn] = useState(false);
   const [modalHeight, setModalHeight] = useState("600px");
@@ -63,7 +63,7 @@ function Modal1({ show, onModalClose }) {
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (typeObj) => {
     if (selectedCustomerType.pk === typeObj.pk) {
-      setSelectedCustomerType({ name: "", pk: null });
+      setSelectedCustomerType({ name: "All", pk: 0 });
     } else {
       setSelectedCustomerType(typeObj);
     }
@@ -120,13 +120,14 @@ function Modal1({ show, onModalClose }) {
     setModalHeight("600px");
 
     // 필수 입력 사항 검사
-    if (!selectedCustomerType.pk) {
-      if (errorMessageRef.current) {
-        errorMessageRef.current.textContent = "고객유형이 선택되지 않았습니다.";
-      }
-      setModalHeight("630px");
-      return;
-    } else if (!name.current || !name.current.value) {
+    // if (!selectedCustomerType.pk) {
+    //   if (errorMessageRef.current) {
+    //     errorMessageRef.current.textContent = "고객유형이 선택되지 않았습니다.";
+    //   }
+    //   setModalHeight("630px");
+    //   return;
+    // }
+    if (!name.current || !name.current.value) {
       if (errorMessageRef.current) {
         errorMessageRef.current.textContent = "고객이름이 입력되지 않았습니다.";
       }
