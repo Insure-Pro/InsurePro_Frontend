@@ -41,8 +41,8 @@ function Modal1({ show, onModalClose }) {
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCustomerType, setSelectedCustomerType] = useState({
-    name: "All",
-    pk: 0,
+    name: "",
+    pk: null,
   });
   const [contractYn, setContractYn] = useState(false);
   const [modalHeight, setModalHeight] = useState("600px");
@@ -63,7 +63,7 @@ function Modal1({ show, onModalClose }) {
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (typeObj) => {
     if (selectedCustomerType.pk === typeObj.pk) {
-      setSelectedCustomerType({ name: "All", pk: 0 });
+      setSelectedCustomerType({ name: "", pk: null });
     } else {
       setSelectedCustomerType(typeObj);
     }
