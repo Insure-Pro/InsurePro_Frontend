@@ -235,6 +235,13 @@ const Navbar = ({
       event.stopPropagation();
     }
     if (name === "월별고객") {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const formattedDate = `${currentYear}-${currentMonth}`;
+
+      // Call the function passed from Main.js to update the state and fetch data
+      onMonthCustomersClick(formattedDate);
       dispatch(setShowDateBar());
     } else {
       dispatch(setCloseDateBar());
