@@ -1,11 +1,16 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import EditModalD from "../Modal/EditModalD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
 import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 import CustomerModal from "../Modal/CustomerModal";
+import {
+  useCustomer,
+  useUpdateConsultationStatus,
+} from "../../hooks/CustomerInfo/useConsultationStatus";
 
 const MobileCustomerDetail = ({
   onUpdateSuccess,
@@ -20,10 +25,13 @@ const MobileCustomerDetail = ({
   const checkbox = process.env.PUBLIC_URL + "/checkbox-12.png";
 
   const [selectedCustomer, setSelectedCustomer] = useState(customer); // initialCustomerData는 초기 고객 데이터입니다.
-
+  const updateConsultationStatus = useUpdateConsultationStatus();
   const { data: customerTypes, isLoading } = useCustomerTypes();
   const [customerTypeColor, setCustomerTypeColor] =
     useState("var(--Success-500)");
+
+  const [consultationStatus, setConsultationStatus] = useState("상담 전");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && customerTypes) {
@@ -35,6 +43,107 @@ const MobileCustomerDetail = ({
       }
     }
   }, [customerTypes, isLoading, customer.customerType.name]);
+
+  const mapStatusToKorean = (status) => {
+    switch (status) {
+      case "PRODUCT_PROPOSAL":
+        return "상품제안";
+      case "MEDICAL_HISTORY_WAITING":
+        return "병력대기";
+      case "SUBSCRIPTION_REJECTION":
+        return "청약거절";
+      case "CONSULTATION_REJECTION":
+        return "상담거절";
+      case "AS_TARGET":
+        return "AS대상";
+      case "PENDING_CONSULTATION":
+        return "상담보류";
+      default:
+        return "상담 전";
+    }
+  };
+
+  const mapStatusToEnglish = (status) => {
+    switch (status) {
+      case "상품제안":
+        return "PRODUCT_PROPOSAL";
+      case "병력대기":
+        return "MEDICAL_HISTORY_WAITING";
+      case "청약거절":
+        return "SUBSCRIPTION_REJECTION";
+      case "상담거절":
+        return "CONSULTATION_REJECTION";
+      case "상담보류":
+        return "PENDING_CONSULTATION";
+      case "AS대상":
+        return "AS_TARGET";
+      default:
+        return "CONSULTATION_BEFORE";
+    }
+  };
+  const handleStatusChange = (status) => {
+    const englishStatus = mapStatusToEnglish(status);
+    setConsultationStatus(status);
+    updateConsultationStatus.mutate({ customerPk, status: englishStatus });
+    setIsDropdownOpen(false);
+  };
+
+  const getStatusTextColor = (status) => {
+    switch (status) {
+      case "상품제안":
+        return "var(--Primary-500)";
+      case "병력대기":
+        return "var(--Purple-500)";
+      case "청약거절":
+        return "var(--Danger-500)";
+      case "상담거절":
+        return "var(--Danger-300)";
+      case "AS대상":
+        return "var(--Gray-scale-500)";
+      case "상담보류":
+        return "var(--Success-500)";
+      default:
+        return "var(--Secondary-200)";
+    }
+  };
+
+  const getStatusBorderColor = (status) => {
+    switch (status) {
+      case "상품제안":
+        return "var(--Primary-300)";
+      case "병력대기":
+        return "var(--Purple-300)";
+      case "청약거절":
+        return "var(--Danger-500)";
+      case "상담거절":
+        return "var(--Danger-300)";
+      case "AS대상":
+        return "var(--Gray-scale-300)";
+      case "상담보류":
+        return "var(--Success-300)";
+      default:
+        return "var(--Primary-50)";
+    }
+  };
+
+  const getStatusBgColor = (status) => {
+    switch (status) {
+      case "상품제안":
+        return "var(--Primary-50)";
+      case "병력대기":
+        return "var(--Purple-50)";
+      case "청약거절":
+        return "var(--Danger-50)";
+      case "상담거절":
+        return "var(--Danger-50)";
+      case "AS대상":
+        return "var(--Secondary-50)";
+      case "상담보류":
+        return "var(--Success-50)";
+      default:
+        return "#fff";
+    }
+  };
 
   // In CustomerDetail or similar component
   if (!customer) {
@@ -68,12 +177,62 @@ const MobileCustomerDetail = ({
                 {customer.customerType.name}
               </div>
               <div class="mt-1 flex h-4 w-[44px] justify-center rounded border bg-Primary-50  ">
-                <button
-                  class="flex items-center justify-center py-1 text-[10px] font-normal text-Primary-500
-                "
-                >
-                  상담현황
-                </button>
+                <DropdownButtonWrapper>
+                  <DropdownButton
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    style={{
+                      borderColor: getStatusBorderColor(consultationStatus),
+                      color: getStatusTextColor(consultationStatus),
+                      backgroundColor: getStatusBgColor(consultationStatus),
+                    }}
+                  >
+                    {consultationStatus}
+                    {/* <img
+                        src={isDropdownOpen ? upIcon : downIcon}
+                        alt="icon"
+                      /> */}
+                  </DropdownButton>
+                  {isDropdownOpen && (
+                    <DropdownMenu>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("상담보류")}
+                      >
+                        상담보류
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("상담거절")}
+                      >
+                        상담거절
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("상품제안")}
+                      >
+                        상품제안
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("병력대기")}
+                      >
+                        병력대기
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("청약거절")}
+                      >
+                        청약거절
+                      </DropdownItem>
+
+                      <DropdownItem
+                        onClick={() => handleStatusChange("AS대상")}
+                      >
+                        AS 대상
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => handleStatusChange("상담 전")}
+                      >
+                        상담 전
+                      </DropdownItem>
+                    </DropdownMenu>
+                  )}
+                </DropdownButtonWrapper>
               </div>
             </div>
             <div>
@@ -166,4 +325,56 @@ const MobileCustomerDetail = ({
     </div>
   );
 };
+
+const DropdownButtonWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const DropdownButton = styled.button`
+  display: flex;
+  align-items: center;
+  width: 64px;
+  justify-content: space-between;
+  padding: 3px 8px;
+  border: 1px solid red;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 12px;
+  justify-content: center;
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  margin-bottom:2px;
+  width: 100%
+  padding: 2px 8px;
+  font-size: 12px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+
+`;
+
+const DropdownItem = styled.div`
+  display: block;
+  width: 100%;
+  height:100%;
+  padding: 4px 8px;
+  font-weight: 400;
+  border: 0;
+  border-radius:4px
+  cursor: pointer;
+  &:hover {
+    background-color: var(--LightMode-SectionBackground);
+  }
+`;
+
 export default MobileCustomerDetail;
