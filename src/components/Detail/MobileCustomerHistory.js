@@ -108,7 +108,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
 
   return (
     // <div className="flex h-4/6 w-full justify-center  bg-LightMode-SectionBackground pt-6">
-    <div className="mt-6 flex h-4/6 w-full  justify-center bg-white">
+    <div className="mt-6 flex h-full w-full  justify-center bg-white">
       {/* <div className="flex h-10 w-[150px] pl-5 text-sm">
         <div class="flex w-full cursor-default  flex-row ">
           진척도{" "}
@@ -166,16 +166,16 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                 </div>
               </div>
             ))}
-            <button
+            {/* <button
               class="mb-[54px] flex h-[40px] w-full items-center justify-between px-[90px] text-xs font-normal text-Primary-400"
               //   onClick={() => setIsAddingType(true)}
-            >
-              <HistoryModal
-                customerPk={customerPk}
-                setIsHistoryModalOpen={setIsHistoryModalOpen} // HistoryModal에 함수 전달
-              />
-              새로운 일정 추가하기{" "}
-            </button>
+            > */}
+            <HistoryModal
+              customerPk={customerPk}
+              setIsHistoryModalOpen={setIsHistoryModalOpen} // HistoryModal에 함수 전달
+            />
+            {/* 새로운 일정 추가하기{" "} */}
+            {/* </button> */}
           </>
         )}
         {contextMenu.visible && (

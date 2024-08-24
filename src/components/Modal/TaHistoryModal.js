@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useAddCustomerTa } from "../../hooks/CustomerTa/useAddCustomerTa";
+import { useMediaQuery } from "react-responsive";
 
 function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
   const [show, setShow] = useState(false);
@@ -13,6 +14,8 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
+
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
 
   const handleClose = () => {
     setShow(false);
@@ -83,20 +86,27 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
 
   return (
     <>
-      <button
-        className="Add_Btn2"
-        onClick={handleShow}
-        style={{
-          display: "flex",
-          width: "16px",
-          height: "16px",
-          paddingTop: "2.5px",
-          marginLeft: "4px",
-          outline: "none",
-        }}
-      >
-        <img src={add_icon} class="ml-1 mt-[-1.5px]" />
-      </button>
+      {isMobile ? (
+        <div
+          onClick={handleShow}
+          class="flex h-[44px] w-full items-center justify-center"
+        >
+          <button className="Add_Btn2 ml-1 flex h-4 w-4 pt-[2.5px] outline-0">
+            <img src={add_icon} class="ml-1 mt-[-1.5px]" />
+          </button>{" "}
+          <button class="px-[20px] text-xs font-normal text-Primary-400">
+            {" "}
+            새로운 일정 추가하기{" "}
+          </button>
+        </div>
+      ) : (
+        <button
+          className="Add_Btn2 ml-1 flex h-4 w-4 pt-[2.5px] outline-0"
+          onClick={handleShow}
+        >
+          <img src={add_icon} class="ml-1 mt-[-1.5px]" />
+        </button>
+      )}
 
       <Modal
         className="history-modal-style"
