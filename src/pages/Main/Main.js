@@ -17,7 +17,7 @@ import Pagination from "../../components/Main/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-import ListGroup from "react-bootstrap/ListGroup";
+import ManageCustomerTypesModal from "../../components/Modal/ManageCustomerTypesModal";
 
 const Main = () => {
   const [customers, setCustomers] = useState([]); // 상태를 추가하여 고객 데이터를 저장합니다.
@@ -30,7 +30,7 @@ const Main = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
-
+  const [showCustomerTypeModal, setShowCustomerTypeModal] = useState(false);
   // State to keep track of the current selection
   const [currentSelection, setCurrentSelection] = useState("정렬기준");
   const [dropdownview, setDropdownview] = useState(false);
@@ -48,7 +48,8 @@ const Main = () => {
   const add_icon = process.env.PUBLIC_URL + "/add_button.png";
   const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
   const dropup = process.env.PUBLIC_URL + "/dropup.png";
-  // Retrieve the login status from Redux
+  const add_circle = process.env.PUBLIC_URL + "/add_circle_20.png";
+
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   //-----------------------------------------------------------------------
@@ -204,8 +205,12 @@ const Main = () => {
     setCurrentSelection("정렬기준");
   };
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
+  const handleCustomerTypeModalOpen = () => {
+    setShowCustomerTypeModal(true);
+    // setShowLogoutButton(false);
+  };
+  const handleCustomerTypeModalClose = () => {
+    setShowCustomerTypeModal(false);
   };
 
   const handleModalClose = () => {
@@ -383,7 +388,7 @@ const Main = () => {
           <div
             class={`  flex h-[52px]  items-center text-center ${
               isMobile
-                ? "float-left w-full xsm:ml-[-50px] xsm:w-[360px] sm:ml-[-30px] sm:w-[500px] md:ml-[20px] md:w-[768px]"
+                ? " w-full xsm:ml-[-50px] xsm:w-[300px] sm:ml-[-30px] sm:w-[500px] md:w-[628px]"
                 : ""
             }`}
           >
@@ -395,6 +400,18 @@ const Main = () => {
               activeType={activeType}
             />
           </div>
+          {isMobile ? (
+            <div
+              class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px] md:mr-[30px]"
+              onClick={() => handleCustomerTypeModalOpen()}
+            >
+              고객유형
+              <img src={add_circle} class="ml-0.5 h-3 w-3 " />
+              {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
+            </div>
+          ) : (
+            ""
+          )}
           <ul
             className={`dropdown-container ${
               isMobile ? "hidden" : " ml-[764px] flex"
@@ -461,6 +478,17 @@ const Main = () => {
             onHide={handleEditModalClose}
             selectedCustomer={selectedCustomer}
             onClose={handleModalClose}
+          />
+        )}
+        {showCustomerTypeModal && isMobile ? (
+          <div className="blur-navbar-datechange"></div>
+        ) : (
+          ""
+        )}
+        {showCustomerTypeModal && isMobile && (
+          <ManageCustomerTypesModal
+            show={handleCustomerTypeModalOpen}
+            close={handleCustomerTypeModalClose}
           />
         )}
       </div>
