@@ -36,6 +36,10 @@ function Modal1({ show, onModalClose }) {
   const registerDate = useRef("");
   const address = useRef("");
   const phone = useRef("");
+  const work = useRef("");
+  const worry = useRef("");
+  const workTime = useRef("");
+  const salary = useRef("");
   const memo = useRef("");
   const state = useRef("");
 
@@ -45,7 +49,8 @@ function Modal1({ show, onModalClose }) {
     pk: null,
   });
   const [contractYn, setContractYn] = useState(false);
-  const [modalHeight, setModalHeight] = useState("600px");
+  const [gender, setGender] = useState("OTHER");
+  const [modalHeight, setModalHeight] = useState("744px");
 
   const [selectedSido, setSelectedSido] = useState("");
   const [selectedSigugun, setSelectedSigugun] = useState("");
@@ -58,6 +63,11 @@ function Modal1({ show, onModalClose }) {
   // 체크박스 상태를 토글
   const handleContractYnChange = () => {
     setContractYn(!contractYn);
+  };
+
+  // Gender 버튼 클릭 핸들러
+  const handleGenderClick = (selectedGender) => {
+    setGender(selectedGender);
   };
 
   // 고객 유형 버튼 클릭 핸들러
@@ -117,7 +127,7 @@ function Modal1({ show, onModalClose }) {
 
     // 에러 메시지 및 모달 높이 초기화
     errorMessageRef.current.textContent = "";
-    setModalHeight("600px");
+    setModalHeight("744px");
 
     // 필수 입력 사항 검사
     // if (!selectedCustomerType.pk) {
@@ -131,20 +141,20 @@ function Modal1({ show, onModalClose }) {
       if (errorMessageRef.current) {
         errorMessageRef.current.textContent = "고객이름이 입력되지 않았습니다.";
       }
-      setModalHeight("630px");
+      setModalHeight("774px");
       return;
     } else if (!phone.current || !phone.current.value) {
       if (errorMessageRef.current) {
         errorMessageRef.current.textContent = "전화번호가 입력되지 않았습니다.";
       }
-      setModalHeight("630px");
+      setModalHeight("774px");
       return;
     } else if (!isValidPhoneNumber(phone.current.value)) {
       if (errorMessageRef.current) {
         errorMessageRef.current.textContent =
           "올바른 전화번호 형식이 아닙니다.";
       }
-      setModalHeight("630px");
+      setModalHeight("774px");
       return;
     }
 
@@ -185,8 +195,13 @@ function Modal1({ show, onModalClose }) {
       phone: phoneSend,
       contractYn: contractYn,
       memo: memo.current.value,
+      work: work.current.value,
+      worry: worry.current.value,
+      workTime: workTime.current.value,
+      salary: salary.current.value,
       // state: state.current.value,
       metroGuDong: metroGuDong,
+      gender: gender,
     };
 
     axios
@@ -306,6 +321,46 @@ function Modal1({ show, onModalClose }) {
                       ref={name}
                     />
                   </div>
+                  <div class="modal_item_container">
+                    <div class="w-[84px] cursor-default pl-1 ">나이 (만)</div>
+                    <div className="flex">
+                      <input
+                        class={` mr-1.5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                        type="number"
+                        ref={age}
+                      />
+                      <button
+                        type="button"
+                        className={`mr-2 rounded border px-4 py-2 ${
+                          gender === "MALE"
+                            ? "border-Primary-400 text-Primary-400 "
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("MALE")}
+                      >
+                        남자
+                      </button>
+                      <button
+                        type="button"
+                        className={`rounded border px-4 py-2 ${
+                          gender === "FEMALE"
+                            ? "border-Danger-400 text-Danger-400"
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("FEMALE")}
+                      >
+                        여자
+                      </button>
+                    </div>
+                  </div>
+                  {/* <div class=" modal_item_container">
+                    <div class="w-[84px] cursor-default pl-1">나이 (만)</div>
+                    <input
+                      class={` modal_item_input pl-[82px]`}
+                      type="number"
+                      ref={age}
+                    />
+                  </div> */}
                   <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
                     <input
                       type="checkbox"
@@ -327,14 +382,6 @@ function Modal1({ show, onModalClose }) {
                     >
                       {contractYn ? "계약완료 고객" : "계약 미완료"}
                     </span>
-                  </div>
-                  <div class=" modal_item_container">
-                    <div class="w-[84px] cursor-default pl-1">나이 (만)</div>
-                    <input
-                      class={` modal_item_input pl-[82px]`}
-                      type="number"
-                      ref={age}
-                    />
                   </div>
                   <div className="flex items-center  ">
                     <div class=" flex h-[40px] w-[76px] cursor-default items-center pl-5 ">
@@ -430,7 +477,7 @@ function Modal1({ show, onModalClose }) {
                   </div>
                   <div class="modal_item_container mb-1">
                     <div class="w-[84px] cursor-default">
-                      <span className="Highlighting">*</span>
+                      {/* <span className="Highlighting">*</span> */}
                       DB 분배일
                     </div>
                     <input
@@ -459,6 +506,42 @@ function Modal1({ show, onModalClose }) {
                       ref={phone}
                       onChange={handlePhoneInputChange}
                       placeholder="01012345678"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-1">
+                    <div class="w-[84px] cursor-default pl-2">직업</div>
+                    <input
+                      class={`modal_item_input pl-[52px] `}
+                      type="text"
+                      ref={work}
+                      placeholder="직업/직종 입력"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-1">
+                    <div class="w-[84px] cursor-default pl-2">평균소득</div>
+                    <input
+                      class={`modal_item_input pl-[52px] `}
+                      type="text"
+                      ref={salary}
+                      placeholder="월 000만원"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-1">
+                    <div class="w-[84px] cursor-default pl-2">관심사항</div>
+                    <input
+                      class={`modal_item_input pl-[32px] `}
+                      type="text"
+                      ref={worry}
+                      placeholder="보장점검/연금/노후 등"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-1">
+                    <div class="w-[84px] cursor-default pl-2">통화가능</div>
+                    <input
+                      class={`modal_item_input pl-[52px] `}
+                      type="text"
+                      ref={workTime}
+                      placeholder=" 17:00~19:00"
                     />
                   </div>
                   {/* <div class="modal_item_container mb-2">
@@ -530,7 +613,8 @@ function Modal1({ show, onModalClose }) {
               <div className="mb-1  h-12 w-[352px] ">
                 <div class=" flex items-center">
                   <div className="w-[84px] cursor-default pb-4">
-                    <span className="Highlighting">*</span>고객유형
+                    {/* <span className="Highlighting">*</span> */}
+                    고객유형
                   </div>
                   <div className="mb-4">
                     <CustomerTypeButtons
@@ -550,6 +634,38 @@ function Modal1({ show, onModalClose }) {
                   type="text"
                   ref={name}
                 />
+              </div>
+              <div class="modal_item_container">
+                <div class="w-[84px] cursor-default pl-1 ">나이 (만)</div>
+                <div className="flex">
+                  <input
+                    class={` mr-1.5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                    type="number"
+                    ref={age}
+                  />
+                  <button
+                    type="button"
+                    className={`mr-2 rounded border px-4 py-2 ${
+                      gender === "MALE"
+                        ? "border-Primary-400 text-Primary-400 "
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("MALE")}
+                  >
+                    남자
+                  </button>
+                  <button
+                    type="button"
+                    className={`rounded border px-4 py-2 ${
+                      gender === "FEMALE"
+                        ? "border-Danger-400 text-Danger-400"
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("FEMALE")}
+                  >
+                    여자
+                  </button>
+                </div>
               </div>
               <div class="mb-0.5 flex items-center text-xs text-Secondary-100">
                 <input
@@ -572,14 +688,6 @@ function Modal1({ show, onModalClose }) {
                 >
                   {contractYn ? "계약완료 고객" : "계약 미완료"}
                 </span>
-              </div>
-              <div class=" modal_item_container">
-                <div class="w-[84px] cursor-default pl-1">나이 (만)</div>
-                <input
-                  class={` modal_item_input pl-[82px]`}
-                  type="number"
-                  ref={age}
-                />
               </div>
               <div className="flex items-center  ">
                 <div class=" flex h-[40px] w-[76px] cursor-default items-center pl-5 ">
@@ -675,7 +783,7 @@ function Modal1({ show, onModalClose }) {
               </div>
               <div class="modal_item_container mb-1">
                 <div class="w-[84px] cursor-default">
-                  <span className="Highlighting">*</span>
+                  {/* <span className="Highlighting">*</span> */}
                   DB 분배일
                 </div>
                 <input
@@ -706,6 +814,43 @@ function Modal1({ show, onModalClose }) {
                   placeholder="01012345678"
                 />
               </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] cursor-default pl-2">직업</div>
+                <input
+                  class={`modal_item_input pl-[52px] `}
+                  type="text"
+                  ref={work}
+                  placeholder="직업/업종 입력"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] cursor-default pl-2">평균소득</div>
+                <input
+                  class={`modal_item_input pl-[52px] `}
+                  type="text"
+                  ref={salary}
+                  placeholder="월 000만원"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] cursor-default pl-2">관심사항</div>
+                <input
+                  class={`modal_item_input pl-[32px] `}
+                  type="text"
+                  ref={worry}
+                  placeholder="보장점검/연금/노후 등"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] cursor-default pl-2">통화가능</div>
+                <input
+                  class={`modal_item_input pl-[52px] `}
+                  type="text"
+                  ref={workTime}
+                  placeholder="17:00~19:00"
+                />
+              </div>
+
               {/* <div class="modal_item_container mb-2">
               <div class="w-[84px] cursor-default pl-2">인수상태</div>
               <input
