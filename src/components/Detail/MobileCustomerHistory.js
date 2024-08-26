@@ -23,6 +23,7 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const mobileMenuIcon = process.env.PUBLIC_URL + "/mobileMenuIcon.png";
   //모바일 웹에서는 마우스 우클릭이 안 됨 -> 모바일웹에서는 클릭으로 바꿔사용하기 위함
   useEffect(() => {
     // 창 크기가 변경될 때마다 windowWidth 상태를 업데이트
@@ -51,16 +52,16 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
     history: null,
   });
 
-  const handleContextMenu = (event, history) => {
-    event.preventDefault();
+  const handleMobileContextMenu = (e, history) => {
+    e.preventDefault();
+    e.stopPropagation();
     setContextMenu({
       visible: true,
-      xPos: event.pageX,
-      yPos: event.pageY,
+      xPos: e.currentTarget.offsetLeft,
+      yPos: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
       history: history,
     });
   };
-
   const handleEdit = (history) => {
     setSelectedHistory(history);
     setShowEditModalH(true); // EditModalH를 여는 부분
@@ -132,16 +133,16 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
             {customerProgress.map((history) => (
               <div
                 key={history.pk}
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  handleContextMenu(e, history);
-                }}
-                onClick={(e) => {
-                  if (windowWidth <= 700) {
-                    e.preventDefault();
-                    handleContextMenu(e, history);
-                  }
-                }}
+                // onContextMenu={(e) => {
+                //   e.preventDefault();
+                //   handleContextMenu(e, history);
+                // }}
+                // onClick={(e) => {
+                //   if (windowWidth <= 700) {
+                //     e.preventDefault();
+                //     handleContextMenu(e, history);
+                //   }
+                // }}
                 className="history-container w-[320px]"
               >
                 <div class="">
@@ -158,9 +159,15 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
                   </div>
                 </div>
                 <div class="w-[320px] ">
-                  <div className="historyItemStyle2 w-full ">
-                    <div class="w-[86px] ">{history.date} </div>
-                    <div class="ml-3"> {history.address}</div>
+                  <div className="historyItemStyle2 w-full  ">
+                    <div class=" w-[86px] ">{history.date} </div>
+                    <div class="ml-3 flex w-[110px]"> {history.address}</div>
+                    <div
+                      className="  h-5 w-5 cursor-pointer"
+                      onClick={(e) => handleMobileContextMenu(e, history)}
+                    >
+                      <img src={mobileMenuIcon} />
+                    </div>
                   </div>
                   <div className="historyItemStyle3">{history.memo}</div>
                 </div>
