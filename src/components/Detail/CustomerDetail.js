@@ -297,7 +297,7 @@ const CustomerDetail = ({
                   <div class="flex">
                     <div class="mb-2 h-[30px] w-[70px]">평균소득 </div>
                     <span> : </span>
-                    <span class="w-[175px]">{customer.salary} 만원</span>
+                    <span class="w-[175px]">{customer.salary}</span>
                   </div>
                   <div class="flex">
                     <div class="h-[30px] w-[70px] ">상세주소 </div>

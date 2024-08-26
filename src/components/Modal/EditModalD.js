@@ -7,6 +7,7 @@ import { Row, Col } from "react-bootstrap";
 import hangjungdong from "./hangjungdong";
 import Swal from "sweetalert2";
 import CustomerTypeButtons from "../Button/CustomerTypeButtons";
+import { useMediaQuery } from "react-responsive";
 
 const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const nameRef = useRef("");
@@ -17,16 +18,23 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   const addressRef = useRef("");
   const stateRef = useRef("");
   const memoRef = useRef("");
+  const workRef = useRef("");
+  const salaryRef = useRef("");
+  const worryRef = useRef("");
+  const workTimeRef = useRef("");
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCustomerType, setSelectedCustomerType] = useState("");
   const [contractYn, setContractYn] = useState(false);
+  const [gender, setGender] = useState(selectedCustomer?.gender || "OTHER");
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
-
+  const mobile_modal_top = process.env.PUBLIC_URL + "/Mobile_modal_top.png";
   const checkedIcon = process.env.PUBLIC_URL + "/activate-check14.png";
   const uncheckedIcon = process.env.PUBLIC_URL + "/deactivate-check14.png";
+
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
 
   const modalRef = useRef(); // Reference to the modal
   // const handleClose = () => {
@@ -96,6 +104,9 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
     setRenderKey((prevKey) => prevKey + 1); // Increment the render key to force re-render
   };
 
+  const handleGenderClick = (selectedGender) => {
+    setGender(selectedGender);
+  };
   // 고객 유형 버튼 클릭 핸들러
   const handleCustomerTypeClick = (type) => {
     // 이미 선택된 유형을 다시 클릭하면 선택 해제
@@ -144,8 +155,8 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
       event.preventDefault();
     }
 
-    const birthValue = birthRef.current.value.replace(/[./]/g, "-");
-    const registerDateValue = registerDateRef.current.value.replace(
+    const birthValue = (birthRef.current.value || "").replace(/[./]/g, "-");
+    const registerDateValue = (registerDateRef.current.value || "").replace(
       /[./]/g,
       "-",
     );
@@ -182,7 +193,12 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
         address: addressRef.current.value,
         state: stateRef.current.value,
         memo: memoRef.current.value,
+        work: workRef.current.value,
+        salary: salaryRef.current.value,
+        worry: worryRef.current.value,
+        workTime: workTimeRef.current.value,
         contractYn: contractYn,
+        gender: gender,
         customerTypePk: selectedCustomerType.pk,
         registerDate: registerDateValue,
         metroGuDong: metroGuDong,
@@ -238,68 +254,456 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
   //   };
   // }, []);
 
+  let vh = 0;
+
+  useEffect(() => {
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
+  const setVh = () => {
+    document.documentElement.style.setProperty(
+      "--vh",
+      `${window.innerHeight}px`,
+    );
+  };
+  window.addEventListener("resize", setVh);
+
+  setVh();
+
   return (
     <>
-      <Modal show={show} onHide={onHide} className="modal-style-detail">
-        <div
-          className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
-          // style={{ margin: "0px" }}
-        >
-          <div class="mb-10 flex justify-between font-normal text-LightMode-Text">
-            <div>고객정보 수정</div>
-            <img class="cursor-pointer" onClick={onHide} src={close_icon} />
-          </div>
-        </div>
-        <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
-          <img
-            src={circle_icon_middle}
-            style={{ width: "12px", height: "12px", marginTop: "2px" }}
-          />
-          <span class="text-[12px]">필수입력사항</span>
-        </div>
-        <Modal.Body className="Modal_container" style={{ margin: "-15px 0px" }}>
-          <form onSubmit={handleSubmit} class="pl-8">
-            <div className="mb-1 h-12 w-[352px] select-none ">
-              <div className=" flex items-center">
-                <div className="w-[84px] pb-4 ">
-                  {" "}
-                  <span className="Highlighting">*</span>고객유형
+      {isMobile ? (
+        // <div class="fixed z-30 m-auto h-scree w-full bg-Success-500">
+        <>
+          <Modal
+            className="modal-style-mobile flex w-screen items-center justify-center rounded-t-2xl"
+            show={show}
+            onHide={onHide}
+            style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+          >
+            <div class="  bottom-0 flex h-[850px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
+              <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
+                <div class="mb-5 flex items-center justify-center">
+                  <img src={mobile_modal_top} />
                 </div>
-                <CustomerTypeButtons
-                  selectedCustomerType={selectedCustomerType}
-                  handleCustomerTypeClick={handleCustomerTypeClick}
+                <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
+                  <div
+                    class="cursor-pointer text-sm font-normal"
+                    onClick={onHide}
+                  >
+                    취소
+                  </div>
+                  <div class="text-base font-bold">고객정보 수정</div>
+                  <div class="cursor-pointer text-sm font-normal">완료</div>
+                </div>
+              </div>
+              <div class="my-[-15px]" ref={modalRef}>
+                <form onSubmit={handleSubmit} class="pl-9">
+                  <div className="mb-1  h-12 w-[352px] ">
+                    <div className=" flex items-center">
+                      <CustomerTypeButtons
+                        selectedCustomerType={selectedCustomerType}
+                        handleCustomerTypeClick={handleCustomerTypeClick}
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-0.5 flex  text-xs text-Secondary-100">
+                    <input
+                      type="checkbox"
+                      id="customCheckbox"
+                      className="hidden-checkbox"
+                      checked={contractYn} // 체크박스 상태를 반영
+                      onChange={handleContractYnChange} // 체크박스 상태 변경 핸들러
+                    />
+                    <label
+                      htmlFor="customCheckbox"
+                      class={`checkbox-label_14 mr-1 ${
+                        contractYn ? "text-Primary-400" : "text-Secondary-100"
+                      }`}
+                    ></label>
+                    <span
+                      class={`${
+                        contractYn ? "text-Primary-400" : "text-Secondary-100"
+                      }`}
+                    >
+                      {contractYn ? "계약완료 고객" : "계약 미완료"}
+                    </span>
+                  </div>
+                  <div className=" modal_item_container mb-2">
+                    <div class="w-[108px] text-sm font-normal">
+                      <span className="Highlighting">*</span>
+                      이름
+                    </div>
+                    <input
+                      class={`modal_item_input_mobile   pl-[70px]`}
+                      type="text"
+                      defaultValue={selectedCustomer?.name}
+                      ref={nameRef}
+                      // value={nameInput}
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] cursor-default pl-2 ">나이 (만)</div>
+                    <div className="flex">
+                      <input
+                        class={` mr-5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                        type="number"
+                        defaultValue={selectedCustomer?.age}
+                        ref={ageRef}
+                      />
+                      <button
+                        type="button"
+                        className={`mr-2 rounded border px-4 py-2 ${
+                          gender === "MALE"
+                            ? "border-Primary-400 text-Primary-400 "
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("MALE")}
+                      >
+                        남자
+                      </button>
+                      <button
+                        type="button"
+                        className={`rounded border px-4 py-2 ${
+                          gender === "FEMALE"
+                            ? "border-Danger-400 text-Danger-400"
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("FEMALE")}
+                      >
+                        여자
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] ">
+                      <span className="Highlighting">*</span>연락처
+                    </div>
+                    <input
+                      class={` modal_item_input_mobile pl-[52px]`}
+                      type="text"
+                      ref={phoneRef}
+                      defaultValue={selectedCustomer?.phone}
+                      onChange={handlePhoneInputChange}
+                      placeholder="01012345678"
+                    />
+                  </div>
+
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px]">
+                      <span className="Highlighting">*</span>
+                      DB 분배일
+                    </div>
+                    <input
+                      class={` modal_item_input_mobile  pl-[52px]`}
+                      type="date"
+                      ref={registerDateRef}
+                      // value={registerDateInput}
+                      defaultValue={selectedCustomer?.registerDate}
+                      placeholder=" 2023.00.00"
+                    />
+                  </div>
+
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">직업</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.work}
+                      ref={workRef}
+                      placeholder="직업/업종 입력"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">평균소득</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.salary}
+                      ref={salaryRef}
+                      placeholder="월 000만원"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">관심사항</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[42px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.worry}
+                      ref={worryRef}
+                      placeholder="보장점검/연금/노후 등"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">통화가능</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.workTime}
+                      ref={workTimeRef}
+                      placeholder=" 17:00~19:00"
+                    />
+                  </div>
+                  {/* <div class="modal_item_container mb-2">
+                <div class="w-[108px] pl-2">생년월일</div>
+                <input
+                  class={`modal_item_input_mobile  pl-[52px] `}
+                  type="date"
+                  defaultValue={selectedCustomer?.birth}
+                  ref={birthRef}
+                  placeholder=" 1900.00.00"
+                />
+              </div> */}
+                  {/* <div class=" modal_item_container mb-2 ">
+                    <div class="w-[108px] pl-2">나이 (만)</div>
+                    <input
+                      class={` modal_item_input_mobile  pl-[82px]`}
+                      type="number"
+                      defaultValue={selectedCustomer?.age}
+                      ref={ageRef}
+                      // value={ageInput}
+                    />
+                  </div> */}
+                  <div className=" mb-1">
+                    <div class="flex h-[40px] w-[75px] items-center ">
+                      <span>
+                        <span className="Highlighting">*</span>
+                      </span>
+                      주소
+                    </div>
+                    <div class="flex">
+                      <Col>
+                        <div class="flex" controlId="sidoSelect">
+                          <Form.Select
+                            className={`modal_address_item_mobile ${
+                              selectedSido
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            } `}
+                            value={selectedSido}
+                            onChange={(e) => setSelectedSido(e.target.value)}
+                          >
+                            <option className="form-group required" value="">
+                              시/도
+                            </option>
+
+                            {sido.map((el) => (
+                              <option key={el.sido} value={el.sido}>
+                                {el.codeNm}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </div>
+                      </Col>
+                      <div>
+                        <div class="flex" controlId="sigugunSelect">
+                          <span> </span>
+                          <Form.Select
+                            className={`modal_address_item_mobile ml-1.5 ${
+                              selectedSigugun
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            }  `}
+                            value={selectedSigugun}
+                            onChange={(e) => setSelectedSigugun(e.target.value)}
+                            disabled={!selectedSido}
+                          >
+                            <option value="">구/군</option>
+                            {sigugun
+                              .filter((el) => el.sido === selectedSido)
+                              .map((el) => (
+                                <option key={el.sigugun} value={el.sigugun}>
+                                  {el.codeNm}
+                                </option>
+                              ))}
+                          </Form.Select>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex" controlId="dongSelect">
+                          <span></span>
+                          <Form.Select
+                            className={`modal_address_item_mobile ml-1.5 ${
+                              selectedDong
+                                ? "border-primary-100 text-black"
+                                : "border-gray-300 text-gray-300"
+                            } `}
+                            value={selectedDong}
+                            onChange={(e) => setSelectedDong(e.target.value)}
+                            disabled={!selectedSigugun}
+                          >
+                            <option value="">동</option>
+                            {dong
+                              .filter(
+                                (el) =>
+                                  el.sido === selectedSido &&
+                                  el.sigugun === selectedSigugun,
+                              )
+                              .map((el) => (
+                                <option key={el.dong} value={el.dong}>
+                                  {el.codeNm}
+                                </option>
+                              ))}
+                          </Form.Select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class=" mb-3 flex items-center">
+                    <input
+                      className={` modal_item_input_memo_mobile h-9 px-3 `}
+                      type="text"
+                      ref={addressRef}
+                      defaultValue={selectedCustomer?.address}
+                      placeholder="상세 주소 입력"
+                    />
+                  </div>
+
+                  {/* <div class=" flex h-6 w-[352px] items-center">
+                    <div class="w-[84px] pl-2">인수상태</div>
+                  </div>
+                  <input
+                    class={`modal_item_input_memo_mobile mb-3 h-9 px-3`}
+                    type="state"
+                    // value={stateInput}
+                    ref={stateRef}
+                    defaultValue={selectedCustomer?.state}
+                    placeholder=" 상담중, 전산완료, 가입불가 "
+                    as="textarea"
+                    rows={1}
+                  /> */}
+                  <div class=" flex h-6 w-[352px] items-center">
+                    <div class="w-[84px] pl-2">특이사항</div>
+                  </div>
+                  <textarea
+                    class={`modal_item_input_memo_mobile  mb-3 h-[72px] px-3 pt-2`}
+                    ref={memoRef}
+                    defaultValue={selectedCustomer?.memo}
+                    placeholder=" 월 보험료 00만원/본인점검"
+                    rows={3}
+                  />
+
+                  <div>
+                    {/* <Button variant="secondary" onClick={handleClose}>
+                   취소
+                 </Button> */}
+                    <button
+                      class="flex h-[33px] w-[312px] items-center justify-center rounded border border-primary-100 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                      type="submit"
+                      // style={{
+                      //   backgroundColor: "var(--Success-500)",
+                      //   paddingBottom: "env(safe-area-inset-bottom, 160px)",
+                      // paddingBottom:
+                      //   "constant(safe-area-inset-bottom, 160px)",
+                      // }}
+                    >
+                      등록
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Modal>
+          <div class=" fixed bottom-60 z-20 h-full w-full "></div>
+        </>
+      ) : (
+        <Modal show={show} onHide={onHide} className="modal-style-detail">
+          <div
+            className="h-8 rounded-t-md bg-LightMode-SectionBackground  px-7 py-[7px] text-sm font-normal"
+            // style={{ margin: "0px" }}
+          >
+            <div class="mb-10 flex justify-between font-normal text-LightMode-Text">
+              <div>고객정보 수정</div>
+              <img class="cursor-pointer" onClick={onHide} src={close_icon} />
+            </div>
+          </div>
+          <div class="mb-[15px] ml-0 mr-[18px] mt-2 flex justify-end pb-2">
+            <img
+              src={circle_icon_middle}
+              style={{ width: "12px", height: "12px", marginTop: "2px" }}
+            />
+            <span class="text-[12px]">필수입력사항</span>
+          </div>
+          <Modal.Body
+            className="Modal_container"
+            style={{ margin: "-15px 0px" }}
+          >
+            <form onSubmit={handleSubmit} class="pl-8">
+              <div className="mb-1 h-12 w-[352px] select-none ">
+                <div className=" flex items-center">
+                  <div className="w-[84px] pb-4 ">
+                    {" "}
+                    <span className="Highlighting">*</span>고객유형
+                  </div>
+                  <CustomerTypeButtons
+                    selectedCustomerType={selectedCustomerType}
+                    handleCustomerTypeClick={handleCustomerTypeClick}
+                  />
+                </div>
+              </div>
+              <div className=" modal_item_container">
+                <div class="w-[84px]">
+                  <span className="Highlighting">*</span>
+                  이름
+                </div>
+                <input
+                  class={`modal_item_input   pl-[70px]`}
+                  type="text"
+                  defaultValue={selectedCustomer?.name}
+                  ref={nameRef}
+                  // value={nameInput}
                 />
               </div>
-            </div>
-            <div className=" modal_item_container">
-              <div class="w-[84px]">
-                <span className="Highlighting">*</span>
-                이름
+              <div class="modal_item_container">
+                <div class="w-[84px] cursor-default pl-2 ">나이 (만)</div>
+                <div className="flex">
+                  <input
+                    class={` mr-1.5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                    type="number"
+                    defaultValue={selectedCustomer?.age}
+                    ref={ageRef}
+                  />
+                  <button
+                    type="button"
+                    className={`mr-2 rounded border px-4 py-2 ${
+                      gender === "MALE"
+                        ? "border-Primary-400 text-Primary-400 "
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("MALE")}
+                  >
+                    남자
+                  </button>
+                  <button
+                    type="button"
+                    className={`rounded border px-4 py-2 ${
+                      gender === "FEMALE"
+                        ? "border-Danger-400 text-Danger-400"
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("FEMALE")}
+                  >
+                    여자
+                  </button>
+                </div>
               </div>
-              <input
-                class={`modal_item_input   pl-[70px]`}
-                type="text"
-                defaultValue={selectedCustomer?.name}
-                ref={nameRef}
-                // value={nameInput}
-              />
-            </div>
-            <div class="my-1 ml-[86px] flex items-center">
-              <img
-                src={contractYn ? checkedIcon : uncheckedIcon} // 체크 상태에 따라 이미지 변경
-                onClick={handleContractYnChange} // 이미지 클릭시 체크박스 상태 변경
-                alt="Checkbox"
-                class="mr-1 h-[14px] w-[14px] cursor-pointer "
-              />
-              <span
-                class={`text-xs ${
-                  contractYn ? "text-Primary-400" : "text-Secondary-100"
-                }  `}
-              >
-                {contractYn ? "계약완료 고객" : "계약 미완료"}
-              </span>{" "}
-            </div>
-            <div class=" modal_item_container">
+              <div class="my-1 ml-[86px] flex items-center">
+                <img
+                  src={contractYn ? checkedIcon : uncheckedIcon} // 체크 상태에 따라 이미지 변경
+                  onClick={handleContractYnChange} // 이미지 클릭시 체크박스 상태 변경
+                  alt="Checkbox"
+                  class="mr-1 h-[14px] w-[14px] cursor-pointer "
+                />
+                <span
+                  class={`text-xs ${
+                    contractYn ? "text-Primary-400" : "text-Secondary-100"
+                  }  `}
+                >
+                  {contractYn ? "계약완료 고객" : "계약 미완료"}
+                </span>{" "}
+              </div>
+              {/* <div class=" modal_item_container">
               <div class="w-[84px] pl-2">나이 (만)</div>
               <input
                 class={` modal_item_input  pl-[82px]`}
@@ -308,136 +712,176 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 ref={ageRef}
                 // value={ageInput}
               />
-            </div>
-            <div className=" flex h-[40px] items-center">
-              <div class="w-[75px] pl-2">주소</div>
-              <Col>
-                <div class="flex" controlId="sidoSelect">
-                  <span>
-                    {" "}
-                    <span className="Highlighting">*</span>
-                  </span>
-                  <Form.Select
-                    className={`modal_address_item ${
-                      selectedSido
-                        ? "border-primary-100 text-black"
-                        : "border-gray-300 text-gray-300"
-                    } `}
-                    value={selectedSido}
-                    onChange={(e) => setSelectedSido(e.target.value)}
-                  >
-                    <option className="form-group required" value="">
-                      시/도
-                    </option>
-
-                    {sido.map((el) => (
-                      <option key={el.sido} value={el.sido}>
-                        {el.codeNm}
+            </div> */}
+              <div className=" flex h-[40px] items-center">
+                <div class="w-[75px] pl-2">주소</div>
+                <Col>
+                  <div class="flex" controlId="sidoSelect">
+                    <span>
+                      {" "}
+                      <span className="Highlighting">*</span>
+                    </span>
+                    <Form.Select
+                      className={`modal_address_item ${
+                        selectedSido
+                          ? "border-primary-100 text-black"
+                          : "border-gray-300 text-gray-300"
+                      } `}
+                      value={selectedSido}
+                      onChange={(e) => setSelectedSido(e.target.value)}
+                    >
+                      <option className="form-group required" value="">
+                        시/도
                       </option>
-                    ))}
-                  </Form.Select>
-                </div>
-              </Col>
-              <Col>
-                <div class="flex" controlId="sigugunSelect">
-                  <span> </span>
-                  <Form.Select
-                    className={`modal_address_item ml-1.5 ${
-                      selectedSigugun
-                        ? "border-primary-100 text-black"
-                        : "border-gray-300 text-gray-300"
-                    }  `}
-                    value={selectedSigugun}
-                    onChange={(e) => setSelectedSigugun(e.target.value)}
-                    disabled={!selectedSido}
-                  >
-                    <option value="">구/군</option>
-                    {sigugun
-                      .filter((el) => el.sido === selectedSido)
-                      .map((el) => (
-                        <option key={el.sigugun} value={el.sigugun}>
+
+                      {sido.map((el) => (
+                        <option key={el.sido} value={el.sido}>
                           {el.codeNm}
                         </option>
                       ))}
-                  </Form.Select>
-                </div>
-              </Col>
-              <Col>
-                <div class="flex" controlId="dongSelect">
-                  <span></span>
-                  <Form.Select
-                    className={`modal_address_item ml-1.5 ${
-                      selectedDong
-                        ? "border-primary-100 text-black"
-                        : "border-gray-300 text-gray-300"
-                    } `}
-                    value={selectedDong}
-                    onChange={(e) => setSelectedDong(e.target.value)}
-                    disabled={!selectedSigugun}
-                  >
-                    <option value="">동</option>
-                    {dong
-                      .filter(
-                        (el) =>
-                          el.sido === selectedSido &&
-                          el.sigugun === selectedSigugun,
-                      )
-                      .map((el) => (
-                        <option key={el.dong} value={el.dong}>
-                          {el.codeNm}
-                        </option>
-                      ))}
-                  </Form.Select>
-                </div>
-              </Col>
-            </div>
-            <div class="mb-2 flex items-center">
-              <input
-                className={` modal_item_input  ml-[84px] px-3 `}
-                type="text"
-                ref={addressRef}
-                defaultValue={selectedCustomer?.address}
-                placeholder="상세 주소 입력"
-              />
-            </div>
-            <div class="modal_item_container mb-1">
-              <div class="w-[84px]">
-                <span className="Highlighting">*</span>
-                DB 분배일
+                    </Form.Select>
+                  </div>
+                </Col>
+                <Col>
+                  <div class="flex" controlId="sigugunSelect">
+                    <span> </span>
+                    <Form.Select
+                      className={`modal_address_item ml-1.5 ${
+                        selectedSigugun
+                          ? "border-primary-100 text-black"
+                          : "border-gray-300 text-gray-300"
+                      }  `}
+                      value={selectedSigugun}
+                      onChange={(e) => setSelectedSigugun(e.target.value)}
+                      disabled={!selectedSido}
+                    >
+                      <option value="">구/군</option>
+                      {sigugun
+                        .filter((el) => el.sido === selectedSido)
+                        .map((el) => (
+                          <option key={el.sigugun} value={el.sigugun}>
+                            {el.codeNm}
+                          </option>
+                        ))}
+                    </Form.Select>
+                  </div>
+                </Col>
+                <Col>
+                  <div class="flex" controlId="dongSelect">
+                    <span></span>
+                    <Form.Select
+                      className={`modal_address_item ml-1.5 ${
+                        selectedDong
+                          ? "border-primary-100 text-black"
+                          : "border-gray-300 text-gray-300"
+                      } `}
+                      value={selectedDong}
+                      onChange={(e) => setSelectedDong(e.target.value)}
+                      disabled={!selectedSigugun}
+                    >
+                      <option value="">동</option>
+                      {dong
+                        .filter(
+                          (el) =>
+                            el.sido === selectedSido &&
+                            el.sigugun === selectedSigugun,
+                        )
+                        .map((el) => (
+                          <option key={el.dong} value={el.dong}>
+                            {el.codeNm}
+                          </option>
+                        ))}
+                    </Form.Select>
+                  </div>
+                </Col>
               </div>
-              <input
-                class={` modal_item_input  pl-[52px]`}
-                type="date"
-                ref={registerDateRef}
-                // value={registerDateInput}
-                defaultValue={selectedCustomer?.registerDate}
-                placeholder=" 2023.00.00"
-              />
-            </div>
-            <div class="modal_item_container mb-1">
-              <div class="w-[84px] pl-2">생년월일</div>
-              <input
-                class={`modal_item_input  pl-[52px] `}
-                type="date"
-                defaultValue={selectedCustomer?.birth}
-                ref={birthRef}
-                placeholder=" 1900.00.00"
-              />
-            </div>
-            <div class="modal_item_container mb-1">
-              <div class="w-[84px] ">
-                <span className="Highlighting">*</span>전화번호
+              <div class="mb-2 flex items-center">
+                <input
+                  className={` modal_item_input  ml-[84px] px-3 `}
+                  type="text"
+                  ref={addressRef}
+                  defaultValue={selectedCustomer?.address}
+                  placeholder="상세 주소 입력"
+                />
               </div>
-              <input
-                class={` modal_item_input px-3 text-center`}
-                type="text"
-                ref={phoneRef}
-                defaultValue={selectedCustomer?.phone}
-                onChange={handlePhoneInputChange}
-                placeholder="01012345678"
-              />
-            </div>
-            {/* <div class="modal_item_container mb-2">
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px]">
+                  <span className="Highlighting">*</span>
+                  DB 분배일
+                </div>
+                <input
+                  class={` modal_item_input  pl-[52px]`}
+                  type="date"
+                  ref={registerDateRef}
+                  // value={registerDateInput}
+                  defaultValue={selectedCustomer?.registerDate}
+                  placeholder=" 2023.00.00"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">생년월일</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="date"
+                  defaultValue={selectedCustomer?.birth}
+                  ref={birthRef}
+                  placeholder=" 1900.00.00"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] ">
+                  <span className="Highlighting">*</span>전화번호
+                </div>
+                <input
+                  class={` modal_item_input px-3 text-center`}
+                  type="text"
+                  ref={phoneRef}
+                  defaultValue={selectedCustomer?.phone}
+                  onChange={handlePhoneInputChange}
+                  placeholder="01012345678"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">직업</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.work}
+                  ref={workRef}
+                  placeholder="직업/업종 입력"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">평균소득</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.salary}
+                  ref={salaryRef}
+                  placeholder="월 000만원"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">관심사항</div>
+                <input
+                  class={`modal_item_input  pl-[32px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.worry}
+                  ref={worryRef}
+                  placeholder="보장점검/연금/노후 등"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">통화가능</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.workTime}
+                  ref={workTimeRef}
+                  placeholder=" 17:00~19:00"
+                />
+              </div>
+              {/* <div class="modal_item_container mb-2">
               <div class="w-[84px] pl-2">인수상태</div>
               <input
                 class={`modal_item_input px-3`}
@@ -450,26 +894,27 @@ const EditModalD = ({ show, onHide, selectedCustomer, onUpdateSuccess }) => {
                 rows={1}
               />
             </div> */}
-            <div class=" flex h-[68px] w-[352px] ">
-              <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
-              <textarea
-                class={`modal_item_input_memo  px-3 pt-2`}
-                ref={memoRef}
-                defaultValue={selectedCustomer?.memo}
-                placeholder=" 월 보험료 00만원/본인점검"
-                rows={3}
-              />
-            </div>
+              <div class=" flex h-[68px] w-[352px] ">
+                <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
+                <textarea
+                  class={`modal_item_input_memo  px-3 pt-2`}
+                  ref={memoRef}
+                  defaultValue={selectedCustomer?.memo}
+                  placeholder=" 월 보험료 00만원/본인점검"
+                  rows={3}
+                />
+              </div>
 
-            <button
-              class="flex h-[40px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
-              type="submit"
-            >
-              등록
-            </button>
-          </form>
-        </Modal.Body>
-      </Modal>
+              <button
+                class="flex h-[40px] w-[278px] items-center justify-center rounded border border-primary-100 py-2 text-[17px] font-semibold text-primary-100 hover:bg-primary-100 hover:text-white"
+                type="submit"
+              >
+                등록
+              </button>
+            </form>
+          </Modal.Body>
+        </Modal>
+      )}
     </>
   );
 };

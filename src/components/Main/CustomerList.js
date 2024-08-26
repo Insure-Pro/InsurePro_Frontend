@@ -114,7 +114,7 @@ function CustomerList({ customers, handleCustomerClick, handleContextMenu }) {
                     : "listItemStyle-noContract"
                 }`}
               >
-                {customer.salary}만
+                {customer.salary}
               </ListGroup.Item>
               <ListGroup.Item
                 className={`listItemStyle listItem8 ${

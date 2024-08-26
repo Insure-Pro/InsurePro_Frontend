@@ -24,6 +24,10 @@ const EditModal = ({
   const addressRef = useRef("");
   const stateRef = useRef("");
   const memoRef = useRef("");
+  const workRef = useRef("");
+  const salaryRef = useRef("");
+  const worryRef = useRef("");
+  const workTimeRef = useRef("");
 
   const [phoneNumber, setPhoneNumber] = useState("");
   // 선택된 고객 유형을 나타내는 state
@@ -34,6 +38,7 @@ const EditModal = ({
   const [contractYn, setContractYn] = useState(
     selectedCustomer?.contractYn || false,
   );
+  const [gender, setGender] = useState(selectedCustomer?.gender || "OTHER");
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const circle_icon_middle = process.env.PUBLIC_URL + "/circle-14-4.png";
@@ -53,6 +58,10 @@ const EditModal = ({
   const handleContractYnChange = () => {
     // 체크박스 상태를 토글
     setContractYn(!contractYn);
+  };
+
+  const handleGenderClick = (selectedGender) => {
+    setGender(selectedGender);
   };
   // const [show, setShow] = useState(false);
   const modalRef = useRef(); // Reference to the modal
@@ -174,7 +183,12 @@ const EditModal = ({
         address: addressRef.current.value,
         state: stateRef.current.value,
         memo: memoRef.current.value,
+        work: workRef.current.value,
+        salary: salaryRef.current.value,
+        worry: worryRef.current.value,
+        workTime: workTimeRef.current.value,
         contractYn: contractYn,
+        gender: gender,
         customerTypePk: selectedCustomerType.pk,
         registerDate: registerDateValue,
         metroGuDong: metroGuDong,
@@ -249,7 +263,7 @@ const EditModal = ({
             onExited={onModalClose}
             style={{ height: "calc(var(--vh, 1vh) * 100)" }}
           >
-            <div class="  bottom-0 flex h-[740px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
+            <div class="  bottom-0 flex h-[850px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
               <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
                 <div class="mb-5 flex items-center justify-center">
                   <img src={mobile_modal_top} />
@@ -311,6 +325,39 @@ const EditModal = ({
                     />
                   </div>
                   <div class="modal_item_container mb-2">
+                    <div class="w-[108px] cursor-default pl-2 ">나이 (만)</div>
+                    <div className="flex">
+                      <input
+                        class={` mr-5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                        type="number"
+                        defaultValue={selectedCustomer?.age}
+                        ref={ageRef}
+                      />
+                      <button
+                        type="button"
+                        className={`mr-2 rounded border px-4 py-2 ${
+                          gender === "MALE"
+                            ? "border-Primary-400 text-Primary-400 "
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("MALE")}
+                      >
+                        남자
+                      </button>
+                      <button
+                        type="button"
+                        className={`rounded border px-4 py-2 ${
+                          gender === "FEMALE"
+                            ? "border-Danger-400 text-Danger-400"
+                            : "text-Secondary-200"
+                        }`}
+                        onClick={() => handleGenderClick("FEMALE")}
+                      >
+                        여자
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal_item_container mb-2">
                     <div class="w-[108px] ">
                       <span className="Highlighting">*</span>연락처
                     </div>
@@ -338,6 +385,46 @@ const EditModal = ({
                       placeholder=" 2023.00.00"
                     />
                   </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">직업</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.work}
+                      ref={workRef}
+                      placeholder="직업/업종 입력"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">평균소득</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.salary}
+                      ref={salaryRef}
+                      placeholder="월 000만원"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">관심사항</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[42px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.worry}
+                      ref={worryRef}
+                      placeholder="보장점검/연금/노후 등"
+                    />
+                  </div>
+                  <div class="modal_item_container mb-2">
+                    <div class="w-[108px] pl-2">통화가능</div>
+                    <input
+                      class={`modal_item_input_mobile pl-[52px] `}
+                      type="text"
+                      defaultValue={selectedCustomer?.workTime}
+                      ref={workTimeRef}
+                      placeholder=" 17:00~19:00"
+                    />
+                  </div>
                   {/* <div class="modal_item_container mb-2">
                 <div class="w-[108px] pl-2">생년월일</div>
                 <input
@@ -348,7 +435,7 @@ const EditModal = ({
                   placeholder=" 1900.00.00"
                 />
               </div> */}
-                  <div class=" modal_item_container mb-2 ">
+                  {/* <div class=" modal_item_container mb-2 ">
                     <div class="w-[108px] pl-2">나이 (만)</div>
                     <input
                       class={` modal_item_input_mobile  pl-[82px]`}
@@ -357,7 +444,7 @@ const EditModal = ({
                       ref={ageRef}
                       // value={ageInput}
                     />
-                  </div>
+                  </div> */}
                   <div className=" mb-1">
                     <div class="flex h-[40px] w-[75px] items-center ">
                       <span>
@@ -573,7 +660,7 @@ const EditModal = ({
                   {contractYn ? "계약완료 고객" : "계약 미완료"}
                 </span>
               </div>
-              <div class=" modal_item_container">
+              {/* <div class=" modal_item_container">
                 <div class="w-[84px] pl-2">나이 (만)</div>
                 <input
                   class={` modal_item_input  pl-[82px]`}
@@ -582,6 +669,39 @@ const EditModal = ({
                   ref={ageRef}
                   // value={ageInput}
                 />
+              </div> */}
+              <div class="modal_item_container">
+                <div class="w-[84px] cursor-default pl-2 ">나이 (만)</div>
+                <div className="flex">
+                  <input
+                    class={` mr-1.5 h-8 w-[60px] rounded border py-2 pl-[20px]  placeholder-gray-300 focus:border-primary-100 focus:outline-none`}
+                    type="number"
+                    defaultValue={selectedCustomer?.age}
+                    ref={ageRef}
+                  />
+                  <button
+                    type="button"
+                    className={`mr-2 rounded border px-4 py-2 ${
+                      gender === "MALE"
+                        ? "border-Primary-400 text-Primary-400 "
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("MALE")}
+                  >
+                    남자
+                  </button>
+                  <button
+                    type="button"
+                    className={`rounded border px-4 py-2 ${
+                      gender === "FEMALE"
+                        ? "border-Danger-400 text-Danger-400"
+                        : "text-Secondary-200"
+                    }`}
+                    onClick={() => handleGenderClick("FEMALE")}
+                  >
+                    여자
+                  </button>
+                </div>
               </div>
               <div className=" flex  items-center">
                 <div class="flex h-[40px] w-[75px] items-center pl-2">주소</div>
@@ -680,7 +800,7 @@ const EditModal = ({
                   DB 분배일
                 </div>
                 <input
-                  class={` modal_item_input  pl-[52px]`}
+                  class={` modal_item_input  pl-[42px]`}
                   type="date"
                   ref={registerDateRef}
                   // value={registerDateInput}
@@ -691,7 +811,7 @@ const EditModal = ({
               <div class="modal_item_container mb-1">
                 <div class="w-[84px] pl-2">생년월일</div>
                 <input
-                  class={`modal_item_input  pl-[52px] `}
+                  class={`modal_item_input  pl-[42px] `}
                   type="date"
                   defaultValue={selectedCustomer?.birth}
                   ref={birthRef}
@@ -703,7 +823,7 @@ const EditModal = ({
                   <span className="Highlighting">*</span>전화번호
                 </div>
                 <input
-                  class={` modal_item_input pl-[52px]`}
+                  class={` modal_item_input pl-[42px]`}
                   type="text"
                   ref={phoneRef}
                   defaultValue={selectedCustomer?.phone}
@@ -711,7 +831,47 @@ const EditModal = ({
                   placeholder="01012345678"
                 />
               </div>
-              <div class="modal_item_container mb-2">
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">직업</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.work}
+                  ref={workRef}
+                  placeholder="직업/업종 입력"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">평균소득</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.salary}
+                  ref={salaryRef}
+                  placeholder="월 000만원"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">관심사항</div>
+                <input
+                  class={`modal_item_input  pl-[32px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.worry}
+                  ref={worryRef}
+                  placeholder="보장점검/연금/노후 등"
+                />
+              </div>
+              <div class="modal_item_container mb-1">
+                <div class="w-[84px] pl-2">통화가능</div>
+                <input
+                  class={`modal_item_input  pl-[52px] `}
+                  type="text"
+                  defaultValue={selectedCustomer?.workTime}
+                  ref={workTimeRef}
+                  placeholder=" 17:00~19:00"
+                />
+              </div>
+              {/* <div class="modal_item_container mb-2">
                 <div class="w-[84px] pl-2">인수상태</div>
                 <input
                   class={`modal_item_input px-3`}
@@ -723,7 +883,7 @@ const EditModal = ({
                   as="textarea"
                   rows={1}
                 />
-              </div>
+              </div> */}
               <div class=" flex h-[68px] w-[352px] ">
                 <div class="w-[84px] pl-2 pt-1.5">특이사항</div>
                 <textarea

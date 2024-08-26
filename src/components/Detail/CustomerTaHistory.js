@@ -165,7 +165,8 @@ const CustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
                 <div class="flex w-[220px] flex-col justify-center ">
                   <div className="historyItemStyle2 ">
                     <div class="mr-2 h-5 w-10 text-sm">{history.count}차 </div>
-                    {history.date} <div class="ml-2 "> {history.time}</div>
+                    {history.date}{" "}
+                    <div class="ml-2 "> {history.time.slice(0, 5)}</div>
                   </div>
                   <div className="historyItemStyle3 ">{history.memo}</div>
                 </div>

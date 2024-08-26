@@ -284,7 +284,7 @@ function MobileCustomerList({
                               </div>
                               <div class="flex text-[10px] font-normal text-Secondary-300">
                                 <p class="truncate">
-                                  상세주소 :{customer.address}{" "}
+                                  상세주소 : {customer.address}{" "}
                                 </p>
                               </div>
                             </div>
@@ -293,9 +293,7 @@ function MobileCustomerList({
                                 직업 : {customer.work}{" "}
                               </div>
                               <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
-                                <p class="truncate">
-                                  소득 : {customer.salary} 만원
-                                </p>
+                                <p class="truncate">소득 : {customer.salary}</p>
                               </div>
                               <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
                                 <p class="truncate">
@@ -312,16 +310,16 @@ function MobileCustomerList({
                                 handleToggleDetails(customer.pk);
                               }}
                             >
-                              <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
+                              <div class="mb-3 flex text-[10px] font-normal text-Secondary-300">
                                 DB 분배일 : {customer.registerDate}
                               </div>
-                              <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
-                                고민 : {customer.worry}
+                              <div class="mb-3 flex text-[10px] font-normal text-Secondary-300">
+                                관심사항 : {customer.worry}
                               </div>
-                              <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
+                              {/* <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
                                 인수상태 : {customer.state}
-                              </div>
-                              <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
+                              </div> */}
+                              <div class="mb-3 flex text-[10px] font-normal text-Secondary-300">
                                 특이사항 : {customer.memo}
                               </div>
                               <hr class="py-2" />
