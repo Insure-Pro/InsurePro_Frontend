@@ -73,7 +73,7 @@ function HistoryModalH({ show, onHide, onSave, selectedHistory }) {
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
-            <div>히스토리 추가</div>
+            <div>진척도 수정</div>
             <img class="cursor-pointer" onClick={onHide} src={close_icon} />
           </div>
         </div>
@@ -122,7 +122,7 @@ function HistoryModalH({ show, onHide, onSave, selectedHistory }) {
                         return (
                           <button
                             key={idx}
-                            className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                            className="flex h-7 w-16 items-center justify-center border border-gray-300 px-[14px] py-[5px] outline-none"
                             type="button"
                             style={buttonStyle}
                             value={selectedProgressType}
@@ -138,7 +138,7 @@ function HistoryModalH({ show, onHide, onSave, selectedHistory }) {
               </div>
             </div>
             <div class="mb-1 flex h-10 items-center">
-              <div class=" mr-[38px] w-[50px]">일정시간</div>
+              <div class=" mr-[30px] w-[58px]">일정시간</div>
               <input
                 type="date"
                 placeholder="YYYY-MM-DD"

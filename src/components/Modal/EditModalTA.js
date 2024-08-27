@@ -74,7 +74,7 @@ function EditModalTA({ show, onHide, onSave, selectedTA }) {
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
-            <div>히스토리 변경</div>
+            <div>TA일정 변경</div>
             <img class="cursor-pointer" onClick={onHide} src={close_icon} />
           </div>
         </div>
@@ -121,7 +121,7 @@ function EditModalTA({ show, onHide, onSave, selectedTA }) {
                       return (
                         <button
                           key={idx}
-                          className="flex h-7 w-12 items-center border border-gray-300 px-[14px] py-[5px] outline-none"
+                          className="flex h-7 w-12 items-center justify-center border border-gray-300 px-[14px] py-[5px] outline-none"
                           type="button"
                           style={buttonStyle}
                           value={selectedTaType}
@@ -136,7 +136,7 @@ function EditModalTA({ show, onHide, onSave, selectedTA }) {
               </div>
             </div>
             <div class="mb-1 flex h-10 items-center">
-              <div class=" mr-[38px] w-[50px]">일정시간</div>
+              <div class=" mr-[30px] w-[58px]">일정시간</div>
               <input
                 type="date"
                 placeholder="YYYY-MM-DD"

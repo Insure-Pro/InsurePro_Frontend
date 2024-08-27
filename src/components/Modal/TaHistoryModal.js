@@ -116,7 +116,7 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
-            <div>히스토리 추가</div>
+            <div>TA일정 추가</div>
             <img
               class="cursor-pointer"
               onClick={handleClose}
@@ -182,7 +182,7 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
               </div>
             </div>
             <div class="mb-1 flex h-10 items-center">
-              <div class=" mr-[38px] w-[50px]">일정시간</div>
+              <div class=" mr-[30px] w-[58px]">일정시간</div>
               <input
                 type="date"
                 placeholder="YYYY-MM-DD"

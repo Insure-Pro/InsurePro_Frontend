@@ -103,7 +103,7 @@ function HistoryModal({ customerPk, setIsHistoryModalOpen }) {
       >
         <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
           <div class="flex justify-between">
-            <div>히스토리 추가</div>
+            <div>진척도 추가</div>
             <img
               class="cursor-pointer"
               onClick={handleClose}
