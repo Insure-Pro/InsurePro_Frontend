@@ -32,6 +32,7 @@ const MobileDbbar = ({ activeType, items, onTypeChange }) => {
 
   return (
     <div class=" h-full w-full ">
+      <div className="banner_mobile_img  h-[128px] w-full"></div>
       <div className="Dbbar-dropdown" ref={dropdownRef}>
         <button
           className={`Dbbar-dropdown-toggle ${

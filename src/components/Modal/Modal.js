@@ -276,12 +276,12 @@ function Modal1({ show, onModalClose }) {
       {isMobile ? (
         <>
           <div
-            className="modal-style-mobile flex w-screen items-center justify-center rounded-t-2xl"
+            className="modal-style-mobile flex h-full w-screen  justify-center rounded-t-2xl"
             show={show}
             // style={{ height: modalHeight }}
             style={{ height: "calc(var(--vh, 1vh) * 100)" }}
           >
-            <div class="  bottom-0 flex h-[850px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl border bg-white">
+            <div class="  bottom-0 flex h-[820px] w-screen flex-col items-center overflow-y-scroll  rounded-t-2xl border bg-white">
               <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
                 <div class="mb-5 flex items-center justify-center">
                   <img src={mobile_modal_top} />

@@ -87,7 +87,12 @@ const Dbbar = ({
         <MobileDbbar activeType={activeType} onTypeChange={handleTypeClick} />
       ) : (
         <>
-          <div class="relative z-[2] ml-7 mt-2 flex items-center justify-center">
+          <div class="relative z-[2] ml-7 mt-2 flex flex-col items-center justify-center">
+            {isTablet ? (
+              <div className="banner_tablet_img ml-[-28px] h-[160px] w-full"></div>
+            ) : (
+              <div className="banner_img ml-[-28px] h-[160px] w-full"></div>
+            )}
             <div>
               <div
                 class={`  ${showDateBar ? "mt-9" : "mt-0"} flex ${

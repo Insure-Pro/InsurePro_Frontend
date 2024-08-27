@@ -316,6 +316,36 @@ body {
 /* - - - - -[로그인 끝]- - - - - */
 
 /* - - - - -[메인화면 시작]- - - - - */
+.banner_img {
+  background-image: url("/public/banner.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  /* width: 1280px; */
+  /* height: 100%; */
+  /* background-color: rgba(0, 0, 0, 0.4); 검은색 배경 투명도 0.4 */
+}
+.banner_mobile_img {
+  background-image: url("/public/banner_mobile.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+  background-blend-mode: multiply;
+  /* width: 1280px; */
+  /* height: 100%; */
+  /* background-color: rgba(0, 0, 0, 0.4); 검은색 배경 투명도 0.4 */
+}
+.banner_tablet_img {
+  background-image: url("/public/banner_tablet.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+  background-blend-mode: multiply;
+  /* width: 1280px; */
+  /* height: 100%; */
+  /* background-color: rgba(0, 0, 0, 0.4); 검은색 배경 투명도 0.4 */
+}
 
 .dropdown-container {
   @apply relative z-0 mr-10  h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center rounded  bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
@@ -422,7 +452,7 @@ body {
   z-index: 7;
   overflow-y: auto; /* 세로 스크롤 활성화 */
   touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
-  max-height: 80vh; /* 최대 높이 설정 */
+  max-height: 94vh; /* 최대 높이 설정 */
 
   margin-bottom: env(safe-area-inset-bottom); /* iOS 안전 영역 패딩 추가 */
 }
@@ -459,14 +489,14 @@ body {
 }
 
 .options-modal-style > button {
-  @apply mb-5 h-10 w-[216px] rounded border border-Primary-300 bg-white font-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-white;
+  @apply mb-5 h-10 w-[216px] rounded border border-Primary-300 bg-white text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-white;
 }
 .add_Btn {
   @apply ml-12 mr-4 h-5 w-5;
 }
 .blur-background {
   position: fixed; /* 전체 화면에 적용 */
-  top: 112px;
+  top: 280px;
   left: 0%;
   width: 100%;
   height: 100%;
