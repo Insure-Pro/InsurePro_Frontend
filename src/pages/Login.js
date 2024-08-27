@@ -124,7 +124,7 @@ const Login = () => {
           <NewLogin onStart={() => setShowMobileLogin(true)} />
         )
       ) : (
-        <div className="flex h-[100vh] w-full justify-center">
+        <div className="flex h-[84vh] w-full justify-center">
           <div className="login_img flex h-full w-[720px] justify-center">
             <div class="flex flex-col">
               <div class="mt-[64px] h-[64px] w-[290px]  text-[24px] font-semibold leading-8 text-white">
@@ -137,7 +137,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="h-full w-[500px] border-t bg-white px-[140px] pt-[190px]">
+          <div className=" w-[500px] border-t bg-white px-[140px] pt-[190px]">
             <span className="mb-1 flex cursor-default  text-[24px] font-semibold">
               로그인
             </span>
