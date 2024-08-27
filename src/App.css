@@ -304,8 +304,8 @@ body {
   height: 100%;
   display: flex;
   /* align-items: center; */
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-  touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
+  /* overflow-y: auto; 세로 스크롤 활성화 */
+  /* touch-action: pan-y; 세로 방향으로 터치 조작을 허용 */
   /* justify-content: center; */
   /* position: relative; */
   /* background-color: rgba(0, 0, 0, 0.4); 검은색 배경 투명도 0.4 */

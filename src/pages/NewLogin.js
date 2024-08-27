@@ -15,7 +15,7 @@ const NewLogin = ({ onStart }) => {
             </div>
           </div>
           <div
-            class="relative top-[610px] flex h-[42px] w-[330px] cursor-pointer items-center justify-center rounded bg-white text-base font-semibold text-Primary-300 shadow-[0_0_16px_0_rgba(0,0,0,0.25)] hover:bg-Primary-300 hover:text-white"
+            class="relative top-[400px] flex h-[42px] w-[330px] cursor-pointer items-center justify-center rounded bg-white text-base font-semibold text-Primary-300 shadow-[0_0_16px_0_rgba(0,0,0,0.25)] hover:bg-Primary-300 hover:text-white"
             onClick={onStart}
           >
             INSUREPRO 이용하기
