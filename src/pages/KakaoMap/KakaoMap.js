@@ -1,4 +1,5 @@
 /* global kakao */
+/* global gtag */
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../../components/Main/Navbar/Navbar";
 import MapCustomerDetail from "../../components/Map/MapCustomerDetail";
@@ -258,7 +259,16 @@ const KakaoMap = () => {
                           ),
                         );
                       }
-
+                      gtag(
+                        "event",
+                        "WM_insurepro_mvp_v1_kakaomap_click_marker",
+                        {
+                          event_category: "KakaoMap Click Marker",
+                          event_label: `설계사 PK: test`,
+                          // event_label: `Customer PK: ${customerPk}`,
+                          value: 1,
+                        },
+                      );
                       // Determine the number of customers associated with the clicked marker
                       const numberOfCustomers = marker.customersGroup.length;
                       const clickedMarkerImage =
@@ -505,6 +515,12 @@ const KakaoMap = () => {
         setSelectedCustomerPk(customer.pk); // Select new
         selectedMarkerRef.current = marker; // 마커 선택
         setIsDetailVisible(true); // Optionally open detail view
+        gtag("event", "WM_insurepro_mvp_v1_kakaomap_click_customerList", {
+          event_category: "KakaoMap CLick customerList",
+          event_label: `설계사 PK: test`,
+          // event_label: `Customer PK: ${customerPk}`,
+          value: 1,
+        });
       }
     }
   };
@@ -753,6 +769,12 @@ const KakaoMap = () => {
         setIsSearchMode(true); // 검색 모드 활성화
         setSearchTerm(inputName); // 검색어 상태 업데이트
         setInputName("");
+        gtag("event", "WM_insurepro_mvp_v1_kakaomap_search_customer", {
+          event_category: "KakaoMap Search Customer",
+          event_label: `설계사 PK: test`,
+          // event_label: `Customer PK: ${customerPk}`,
+          value: 1,
+        });
       }
     } catch (error) {
       console.error("Error fetching customers:", error);

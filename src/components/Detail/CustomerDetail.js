@@ -1,3 +1,4 @@
+/* global gtag */
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -97,6 +98,12 @@ const CustomerDetail = ({
     setConsultationStatus(status);
     updateConsultationStatus.mutate({ customerPk, status: englishStatus });
     setIsDropdownOpen(false);
+    gtag("event", "W_insurepro_mvp_v1_detail_change_consulationStatus", {
+      event_category: "Detail Change Consulation Status",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const getStatusTextColor = (status) => {

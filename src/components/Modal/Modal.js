@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import "../../App.css";
@@ -224,6 +225,12 @@ function Modal1({ show, onModalClose }) {
             position: "top",
           });
           onModalClose();
+          gtag("event", "WM_insurepro_mvp_v1_main_add_customer", {
+            event_category: "Main Add Customer",
+            event_label: `설계사 PK: test`,
+            // event_label: `Customer PK: ${customerPk}`,
+            value: 1,
+          });
         }
       })
       .catch((error) => {

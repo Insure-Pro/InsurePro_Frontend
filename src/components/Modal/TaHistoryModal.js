@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
@@ -51,6 +52,12 @@ function TaHistoryModal({ customerPk, setIsTaHistoryModalOpen }) {
     });
 
     handleClose();
+    gtag("event", "WM_insurepro_mvp_v1_detail_add_taHistory", {
+      event_category: "Detail Add TaHistory",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const taTypeDisplay = {

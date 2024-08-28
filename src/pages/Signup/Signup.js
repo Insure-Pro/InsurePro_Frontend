@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -152,6 +153,12 @@ const Signup = () => {
           } else if (response.status === 201) {
             alert("회원가입이 완료되었습니다.");
             navigate("/login");
+            gtag("event", "WM_insurepro_mvp_v1_signup", {
+              event_category: "Employee Signup",
+              event_label: `설계사 PK: test`,
+              // event_label: `Customer PK: ${customerPk}`,
+              value: 1,
+            });
           }
         })
         .catch((error) => {

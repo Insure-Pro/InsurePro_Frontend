@@ -1,3 +1,4 @@
+/* global gtag */
 import HistoryModal from "../Modal/HistoryModal";
 import React from "react";
 import axios from "axios";
@@ -76,10 +77,22 @@ const MobileCustomerHistory = ({ customerPk, setIsHistoryModalOpen }) => {
       progress: history.progress,
     });
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "M_insurepro_mvp_v1_detail_edit_history", {
+      event_category: "Detail Edit History",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
   const handleDelete = (history) => {
     deleteMutation.mutate(history.pk);
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "M_insurepro_mvp_v1_detail_delete_history", {
+      event_category: "Detail Delete History",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
   // Close context menu when clicking elsewhere
   useEffect(() => {

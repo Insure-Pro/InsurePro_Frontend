@@ -81,6 +81,12 @@ const Main = () => {
 
   const handleCustomerClick = (customer) => {
     navigate("/detail", { state: { customerPk: customer.pk } });
+    gtag("event", "WM_insurepro_mvp_v1_main_click_customer_detail", {
+      event_category: "Click Customer Detail",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const handleSortChange = (sortType) => {
@@ -103,6 +109,12 @@ const Main = () => {
     };
     setCurrentSelection(ageDisplayMap[age]);
     setRefresh((prevRefresh) => !prevRefresh); // 새로고침 상태 변경
+    gtag("event", "WM_insurepro_mvp_v1_main_age_sorting", {
+      event_category: "Click Age Sort",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const handleTypeChange = (typeObj) => {
@@ -180,12 +192,24 @@ const Main = () => {
     // setSelectedSort("All");
     setSelectedContractYn(null);
     setFormattedDate(null);
+    gtag("event", "WM_insurepro_mvp_v1_main_All_sorting", {
+      event_category: "Click All Sort",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const handleContractCompleteClick = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
     setFormattedDate(null);
     setSelectedSort("");
+    gtag("event", "WM_insurepro_mvp_v1_main_contract_sorting", {
+      event_category: "Click Contract Sort",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   // Dbbar에서 onMonthCustomersClick 함수 전달
@@ -193,6 +217,12 @@ const Main = () => {
     setSelectedContractYn(null);
     setFormattedDate(date);
     setSelectedSort("");
+    gtag("event", "WM_insurepro_mvp_v1_main_month_sorting", {
+      event_category: "Click Month Sort",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   //로고 클릭시 모든 정렬기준 초기화 함수
@@ -208,6 +238,12 @@ const Main = () => {
   const handleCustomerTypeModalOpen = () => {
     setShowCustomerTypeModal(true);
     // setShowLogoutButton(false);
+    gtag("event", "WM_insurepro_mvp_v1_main_open_customertype_Modal", {
+      event_category: "Open CustomerType Modal",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
   const handleCustomerTypeModalClose = () => {
     setShowCustomerTypeModal(false);
@@ -252,11 +288,23 @@ const Main = () => {
     setIsModalOpen(true);
     // Edit logic
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "WM_insurepro_mvp_v1_main_edit_customer", {
+      event_category: "Delete Customer",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const handleDelete = async (customer) => {
     await handleDeleteClick(customer);
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "WM_insurepro_mvp_v1_main_delete_customer", {
+      event_category: "Delete Customer",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   // Close context menu when clicking elsewhere
@@ -321,7 +369,7 @@ const Main = () => {
   const handleAddCustomer = () => {
     setShowOptions(false);
     setShowModal(true);
-    gtag("event", "open_add_customer_modal", {
+    gtag("event", "WM_insurepro_mvp_v1_main_open_add_customer_modal", {
       event_category: "Add Customer Modal",
       event_label: `설계사 PK: test`,
       // event_label: `Customer PK: ${customerPk}`,
@@ -332,6 +380,12 @@ const Main = () => {
   const handleAddCustomerWithExcel = () => {
     setShowOptions(false);
     setShowExcelUploadModal(true);
+    gtag("event", "WM_insurepro_mvp_v1_main_open_add_customer_excel_modal", {
+      event_category: "Add Customer Excel Modal",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   // 검색 결과를 초기화하는 함수

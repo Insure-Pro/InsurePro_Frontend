@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "../../App.css";
@@ -41,6 +42,12 @@ const Detail = ({}) => {
       if (response.data) {
         setSelectedCustomer(response.data);
       }
+      gtag("event", "WM_insurepro_mvp_v1_detail_edit_customer", {
+        event_category: "Detail Edit Customer",
+        event_label: `설계사 PK: test`,
+        // event_label: `Customer PK: ${customerPk}`,
+        value: 1,
+      });
     } catch (error) {
       console.error("Error fetching customer:", error);
     }

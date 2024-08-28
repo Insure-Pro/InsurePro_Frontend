@@ -1,3 +1,4 @@
+/* global gtag */
 import TaHistoryModal from "../Modal/TaHistoryModal";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -70,10 +71,22 @@ const MobileCustomerTaHistory = ({ customerPk, setIsTaHistoryModalOpen }) => {
       status: history.status,
     });
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "M_insurepro_mvp_v1_detail_edit_taHistory", {
+      event_category: "Detail Edit TaHistory",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
   const handleDelete = (history) => {
     deleteMutation.mutate(history.pk);
     setContextMenu({ ...contextMenu, visible: false });
+    gtag("event", "M_insurepro_mvp_v1_detail_delete_taHistory", {
+      event_category: "Detail Delete TaHistory",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
   // Close context menu when clicking elsewhere
   useEffect(() => {

@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import React, { useState, useRef } from "react";
 import "../../App.css";
@@ -35,6 +36,12 @@ const Search = ({ setCustomers, onClose }) => {
         }
       }
       setInputName("");
+      gtag("event", "WM_insurepro_mvp_v1_main_search_customer", {
+        event_category: "Search Customer",
+        event_label: `설계사 PK: test`,
+        // event_label: `Customer PK: ${customerPk}`,
+        value: 1,
+      });
     } catch (error) {
       console.error("Error fetching customers by name:", error);
     }

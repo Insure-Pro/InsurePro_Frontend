@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useRef, useState } from "react";
@@ -38,6 +39,12 @@ const Login = () => {
 
         dispatch(loginSuccess({ accessToken, refreshToken }));
         navigate("/main");
+        gtag("event", "WM_insurepro_mvp_v1_login", {
+          event_category: "Employee Login",
+          event_label: `설계사 PK: test`,
+          // event_label: `Customer PK: ${customerPk}`,
+          value: 1,
+        });
       }
     } catch (error) {
       console.error("Login error:", error);

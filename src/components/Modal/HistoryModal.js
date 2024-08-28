@@ -1,3 +1,4 @@
+/* global gtag */
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
@@ -48,6 +49,12 @@ function HistoryModal({ customerPk, setIsHistoryModalOpen }) {
       customerPk,
     });
     handleClose();
+    gtag("event", "WM_insurepro_mvp_v1_detail_add_History", {
+      event_category: "Detail Add History",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   const progressTypeDisplay = {
