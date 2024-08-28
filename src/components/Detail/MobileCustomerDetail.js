@@ -23,8 +23,11 @@ const MobileCustomerDetail = ({
   const navigate = useNavigate();
   const imageUrl = process.env.PUBLIC_URL + "/edit1.png";
   const checkbox = process.env.PUBLIC_URL + "/checkbox-12.png";
+  const dropdown = process.env.PUBLIC_URL + "/dropdown.png";
+  const dropup = process.env.PUBLIC_URL + "/dropup.png";
 
   const [selectedCustomer, setSelectedCustomer] = useState(customer); // initialCustomerData는 초기 고객 데이터입니다.
+  const [expandedCustomer, setExpandedCustomer] = useState(customerPk); // 상세 정보 토글 상태를 추적하는 상태 변수 추가
   const updateConsultationStatus = useUpdateConsultationStatus();
   const { data: customerTypes, isLoading } = useCustomerTypes();
   const [customerTypeColor, setCustomerTypeColor] =
@@ -142,6 +145,15 @@ const MobileCustomerDetail = ({
         return "var(--Success-50)";
       default:
         return "#fff";
+    }
+  };
+
+  // 상세 정보 토글 핸들러 함수
+  const handleToggleDetails = (customerPk) => {
+    if (expandedCustomer === customerPk) {
+      setExpandedCustomer(null); // 토글 닫기
+    } else {
+      setExpandedCustomer(customerPk); // 토글 열기
     }
   };
 
@@ -285,40 +297,95 @@ const MobileCustomerDetail = ({
               </div>
             </div>
           </div>
-          <div class="h-7/8 mb-[-84px] flex w-full flex-col bg-LightMode-SectionBackground px-4 text-xs ">
+          <div class="mb-[-84px] flex h-full w-full  flex-col bg-LightMode-SectionBackground px-4  text-sm text-[#687082] ">
             <div class="mx-auto mb-2 mt-3 flex h-6 w-[320px] text-sm font-semibold">
               기본정보
             </div>
-            <div class="mx-auto h-[58px] w-[320px] rounded-t-md bg-white py-2.5 pl-6">
-              <div class="mb-2 flex font-semibold">생년월일 </div>
-              <span class=" flex">{customer.birth}</span>
+            <div class="mx-auto flex h-auto w-[320px] flex-col items-center justify-center rounded-[16px] bg-white py-3">
+              <div class="mx-auto flex h-[30px]  w-[320px]  bg-white py-2.5 pl-6">
+                <div class="mb-2 flex w-[96px] font-semibold">생년월일 </div>
+                <span class=" flex font-normal">{customer.birth}</span>
+              </div>
+              {/* <hr class="mx-auto w-[320px]" /> */}
+              {/* <hr class="mx-auto w-[320px]" /> */}
+              <div class="mx-auto flex h-[30px] w-[320px] bg-white py-2.5 pl-6">
+                <div class="mb-2 flex w-[96px] font-semibold">전화번호 </div>
+                <span class="flex">{customer.phone}</span>
+              </div>
+              {/* <hr class="mx-auto w-[320px]" /> */}
+              <div class="mx-auto flex h-[30px] w-[320px]  bg-white py-2.5 pl-6">
+                <div class="mb-2  flex w-[96px]  font-semibold">DB분배일 </div>
+                <div class="text-left">{customer.registerDate}</div>
+              </div>
+              {/* <hr class="mx-auto w-[320px]" /> */}
+              <div class="mx-auto flex h-[30px] w-[320px] rounded-b-md bg-white py-2.5 pl-6 text-left">
+                <div class="h-[30px]  w-[96px] font-semibold">특이사항 </div>
+                <div class="h-7 ">{customer.memo}</div>
+              </div>
+              <div class="mx-auto flex h-[30px] w-[320px] bg-white py-2.5 pl-6">
+                <div class="mb-2 flex w-[96px] font-semibold">주소 </div>
+                <span class="flex">{customer.dongString}</span>
+              </div>
+              <div class="mx-auto mb-4 flex h-[30px] w-[320px] bg-white py-2.5 pl-6">
+                <div class="mb-2 flex w-[96px] font-semibold">통화시간 </div>
+                <span class="flex">{customer.workTime}</span>
+              </div>
+              <div class="">
+                {expandedCustomer === customer.pk && (
+                  <div
+                    className="flex h-[170px] w-[304px] flex-col justify-center rounded-[12px] bg-[#F6F7F8] px-4 py-2 text-[10px] font-normal text-Secondary-300"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Stop event propagation to prevent parent click
+                      handleToggleDetails(customer.pk);
+                    }}
+                  >
+                    <div class="flex">
+                      <div class="mb-3 flex w-[96px] text-sm font-semibold text-Secondary-300">
+                        DB 분배일
+                      </div>
+                      <span class="flex text-sm">{customer.registerDate}</span>
+                    </div>
+                    <div class="flex">
+                      <div class="mb-3 flex w-[96px] text-sm font-semibold text-Secondary-300">
+                        관심사항
+                      </div>
+                      <span class="flex text-sm"> {customer.worry}</span>
+                    </div>
+                    {/* <div class="mb-2 flex text-[10px] font-normal text-Secondary-300">
+                                인수상태 : {customer.state}
+                              </div> */}
+                    <div class="flex">
+                      <div class="mb-3 flex w-[96px] text-sm font-semibold text-Secondary-300">
+                        특이사항
+                      </div>
+                      <span class="flex text-sm"> {customer.memo}</span>
+                    </div>
+                    <hr class="py-2" />
+                    <div class="flex items-center justify-center">
+                      <button>정보 간단하게 보기</button>
+                      <img className="ml-2 h-2 w-4" src={dropup} alt="Dropup" />
+                    </div>
+                  </div>
+                )}
+                {expandedCustomer !== customer.pk && (
+                  <div
+                    className="flex h-[44px]  w-[304px] items-center  justify-center rounded-[8px] bg-[#F6F7F8] text-[10px] font-normal text-Secondary-300"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Stop event propagation to prevent parent click
+                      handleToggleDetails(customer.pk);
+                    }}
+                  >
+                    <button>정보 자세히 보기</button>
+                    <img
+                      className="ml-2 h-2 w-4"
+                      src={dropdown}
+                      alt="Dropdown"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-            <hr class="mx-auto w-[320px]" />
-            <div class="mx-auto h-[58px] w-[320px] bg-white py-2.5 pl-6">
-              <div class="mb-2 flex font-semibold">주소 </div>
-              <span class="flex">{customer.dongString}</span>
-            </div>
-            <hr class="mx-auto w-[320px]" />
-            <div class="mx-auto h-[58px] w-[320px] bg-white py-2.5 pl-6">
-              <div class="mb-2 flex font-semibold">전화번호 </div>
-              <span class="flex">{customer.phone}</span>
-            </div>
-            <hr class="mx-auto w-[320px]" />
-            <div class="mx-auto flex w-[320px]  flex-col bg-white py-2.5 pl-6">
-              <div class="mb-2  text-left  font-semibold">DB분배일 </div>
-              <div class="text-left">{customer.registerDate}</div>
-            </div>
-            <hr class="mx-auto w-[320px]" />
-            <div class="mx-auto flex h-[58px] w-[320px] flex-col bg-white py-2.5 pl-6 text-left">
-              <div class="h-[30px] font-semibold">인수상태</div>
-              <div class="h-7">{customer.state}</div>
-            </div>
-            <hr class="mx-auto w-[320px]" />
-            <div class="mx-auto flex h-[72px] w-[320px] flex-col rounded-b-md bg-white py-2.5 pl-6 text-left">
-              <div class="h-[30px] font-semibold">특이사항 </div>
-              <div class="h-7 ">{customer.memo}</div>
-            </div>
-            <hr class="mx-auto w-[320px]" />
+            {/* <hr class="mx-auto w-[320px]" /> */}
           </div>
         </div>
       </div>
