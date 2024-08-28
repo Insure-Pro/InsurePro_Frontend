@@ -10,7 +10,7 @@ const NewLogin = ({ onStart }) => {
             고객 관리는 우리가 해줄게요. 영업에만 집중하세요.
           </div>
           <div class="flex justify-center">
-            <div class="relative top-[50px] mt-3 h-[44px] w-[180px]  text-[14px] font-medium leading-8 text-[#EBF1FF]">
+            <div class="relative top-[50px] mt-2 h-[44px] w-[180px]  text-[14px] font-medium leading-5 text-[#EBF1FF]">
               INSUREPRO는 보험 설계사의 고객 관리를 서포팅해줍니다.
             </div>
           </div>
