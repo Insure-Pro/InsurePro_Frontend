@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import "../Analysis/Analysis.css";
 import Navbar from "../../components/Main/Navbar/Navbar";
@@ -9,6 +9,7 @@ import TaGraph from "../../components/Graph/TaGraph";
 import PcGraph from "../../components/Graph/PcGraph";
 import ContractGraph from "../../components/Graph/ContractGraph";
 import { PropagateLoader } from "react-spinners";
+import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
 
 const Analysis = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -24,9 +25,6 @@ const Analysis = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const customerTypes = ["OD", "AD", "CD", "CP", "JD"];
-
   const formattedDate = () =>
     `${year}년 ${month.toString().padStart(2, "0")}월`;
 
@@ -43,39 +41,64 @@ const Analysis = () => {
 
   const right_icon = process.env.PUBLIC_URL + "/arrow-right.png";
 
+  const { data: customerTypes, isLoading } = useCustomerTypes();
+
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
-  // Function to handle date changes from the modal
+
   const handleDateChange = (newYear, newMonth) => {
     setYear(newYear);
     setMonth(newMonth);
     const formattedDate2 = `${newYear}-${String(newMonth).padStart(2, "0")}-01`;
     setDate(formattedDate2);
-    setShowModal(false); // Close modal after date change
+    setShowModal(false);
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!customerTypes || isLoading) return;
+
       setLoading(true);
       setError(null);
+
       try {
         const responses = await Promise.all(
           customerTypes.map((customerType) =>
-            fetch(
-              `${MAIN_URL}/analysis?date=${date}&customerType=${customerType}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem(
-                    "accessToken",
-                  )}`,
+            axios
+              .get(
+                `${MAIN_URL}/analysis?date=${date}&customerTypePk=${customerType.pk}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "accessToken",
+                    )}`,
+                  },
                 },
-              },
-            ).then((response) => response.json()),
+              )
+              .then((response) => ({
+                type: customerType.name,
+                data: response.data,
+                color: customerType.color,
+              }))
+              .catch((err) => ({
+                type: customerType.name,
+                data: null,
+                color: customerType.color,
+                error: err,
+              })),
           ),
         );
 
+        // Filter out the responses that have data (valid API responses)
+        const validResponses = responses.filter(
+          (response) => response.data !== null,
+        );
+
         // Map responses to an object with customerType keys
-        const newData = responses.reduce((acc, response, index) => {
-          acc[customerTypes[index]] = response;
+        const newData = validResponses.reduce((acc, response) => {
+          acc[response.type] = {
+            ...response.data,
+            color: response.color, // Include the color in the data
+          };
           return acc;
         }, {});
 
@@ -83,11 +106,12 @@ const Analysis = () => {
       } catch (error) {
         setError(error);
       }
+
       setLoading(false);
     };
 
     fetchData();
-  }, [date]);
+  }, [date, customerTypes, isLoading]);
 
   if (loading)
     return (
@@ -104,41 +128,40 @@ const Analysis = () => {
     );
   if (error) return <div>Error: {error.message}</div>;
 
-  const allTaCount =
-    data["OD"]?.ta +
-    data["AD"]?.ta +
-    data["CD"]?.ta +
-    data["CP"]?.ta +
-    data["JD"]?.ta;
-  const allApCount =
-    data["OD"]?.ap +
-    data["AD"]?.ap +
-    data["CD"]?.ap +
-    data["CP"]?.ap +
-    data["JD"]?.ap;
-  const allPcCount =
-    data["OD"]?.pc +
-    data["AD"]?.pc +
-    data["CD"]?.pc +
-    data["CP"]?.pc +
-    data["JD"]?.pc;
-  const allContractCount =
-    data["OD"]?.subscriptionCount +
-    data["AD"]?.subscriptionCount +
-    data["CD"]?.subscriptionCount +
-    data["CP"]?.subscriptionCount +
-    data["JD"]?.subscriptionCount;
+  if (!customerTypes || customerTypes.length === 0) {
+    return <div>No customer types available.</div>;
+  }
+
+  const allTaCount = customerTypes.reduce(
+    (total, type) =>
+      total + (data[type.name]?.taCustomerCount?.promiseCount || 0),
+    0,
+  );
+  const allApCount = customerTypes.reduce(
+    (total, type) =>
+      total + (data[type.name]?.scheduleCustomerCount?.apCount || 0),
+    0,
+  );
+  const allPcCount = customerTypes.reduce(
+    (total, type) =>
+      total + (data[type.name]?.scheduleCustomerCount?.pcCount || 0),
+    0,
+  );
+  const allContractCount = customerTypes.reduce(
+    (total, type) => total + (data[type.name]?.contractCount || 0),
+    0,
+  );
 
   return (
     <div className="w-screen">
       <Navbar />
       <div
-        className={`select-none   justify-center ${
+        className={`select-none justify-center ${
           showModal ? "blur-background no-interaction" : ""
-        } `}
+        }`}
         style={{ marginTop: showModal ? "-36px" : "" }}
       >
-        <div class="flex h-10 items-center justify-center px-12">
+        <div className="flex h-10 items-center justify-center px-12">
           {showModal && (
             <DateChangeAModal
               initialYear={year}
@@ -153,7 +176,7 @@ const Analysis = () => {
             onClick={() => setShowModal(true)}
           >
             <div>{formattedDate()}</div>
-            <img class="pl-1" src={right_icon}></img>
+            <img className="pl-1" src={right_icon}></img>
           </div>
           <div className="analysis_subtitle">
             <span>총 TA 개수 : {allTaCount}</span>
@@ -162,8 +185,8 @@ const Analysis = () => {
             <span> 청약 건수: {allContractCount}</span>
           </div>
         </div>
-        <div class="flex h-screen w-full justify-center bg-LightMode-SectionBackground">
-          <div className="analysis_container mx-12  pt-6">
+        <div className="flex h-screen w-full justify-center bg-LightMode-SectionBackground">
+          <div className="analysis_container mx-12 pt-6">
             <div className="analysis_explain">
               <div>안내</div>
               <div className="analysis_explain_item">
@@ -197,14 +220,13 @@ const Analysis = () => {
                   paddingLeft: "18px",
                   paddingTop: "16px",
                   marginBottom: "-8px",
-                  fontSize: "16px",
                   fontWeight: "600",
                   color: "var(--LightMode-Subtext)",
                 }}
               >
-                Ta 확률
+                월 Ta 개수
               </span>
-              <div
+              {/* <div
                 className="Ta_ratio_item"
                 style={{
                   display: "flex",
@@ -213,26 +235,28 @@ const Analysis = () => {
                   fontSize: "14px",
                   marginRight: "22px",
                 }}
-              >
-                <span>{Math.round(data["OD"]?.taratio * 100)}%</span>
-                <span>{Math.round(data["AD"]?.taratio * 100)}%</span>
-                <span>{Math.round(data["CD"]?.taratio * 100)}%</span>
-                <span>{Math.round(data["CP"]?.taratio * 100)}%</span>
-                <span>{Math.round(data["JD"]?.taratio * 100)}%</span>
-              </div>
+              > */}
+              {/* {customerTypes.map((type) => (
+                  <span key={type.pk}>
+                    {Math.round(
+                      data[type.name]?.customerConsultationRatio
+                        ?.beforeConsultationRatio * 100,
+                    )}
+                    %
+                  </span>
+                ))} */}
+              {/* </div> */}
               <TaGraph
-                data={{
-                  OD: data["OD"]?.taratio,
-                  ODcount: data["OD"]?.ta,
-                  AD: data["AD"]?.taratio,
-                  ADcount: data["AD"]?.ta,
-                  CD: data["CD"]?.taratio,
-                  CDcount: data["CD"]?.ta,
-                  CP: data["CP"]?.taratio,
-                  CPcount: data["CP"]?.ta,
-                  JD: data["JD"]?.taratio,
-                  JDcount: data["JD"]?.ta,
-                }}
+                data={customerTypes.reduce((acc, type) => {
+                  acc[type.name] = {
+                    ratio:
+                      data[type.name]?.customerConsultationRatio
+                        ?.beforeConsultationRatio || 0,
+                    count: data[type.name]?.taCustomerCount?.promiseCount || 0,
+                    color: data[type.name]?.color, // Passing color dynamically
+                  };
+                  return acc;
+                }, {})}
               />
             </div>
             <div className="analysis_graph2  bg-white">
@@ -248,9 +272,9 @@ const Analysis = () => {
                   color: "var(--LightMode-Subtext)",
                 }}
               >
-                AP 확률
+                월 AP 개수
               </span>
-              <div
+              {/* <div
                 className="Ta_ratio_item"
                 style={{
                   display: "flex",
@@ -265,20 +289,18 @@ const Analysis = () => {
                 <span>{Math.round(data["CD"]?.apratio * 100)}%</span>
                 <span>{Math.round(data["CP"]?.apratio * 100)}%</span>
                 <span>{Math.round(data["JD"]?.apratio * 100)}%</span>
-              </div>
+              </div> */}
               <ApGraph
-                data={{
-                  OD: data["OD"]?.apratio,
-                  ODcount: data["OD"]?.ap,
-                  AD: data["AD"]?.apratio,
-                  ADcount: data["AD"]?.ap,
-                  CD: data["CD"]?.apratio,
-                  CDcount: data["CD"]?.ap,
-                  CP: data["CP"]?.apratio,
-                  CPcount: data["CP"]?.ap,
-                  JD: data["JD"]?.apratio,
-                  JDcount: data["JD"]?.ap,
-                }}
+                data={customerTypes.reduce((acc, type) => {
+                  acc[type.name] = {
+                    // ratio:
+                    //   data[type.name]?.customerConsultationRatio
+                    //     ?.beforeConsultationRatio || 0,
+                    count: data[type.name]?.scheduleCustomerCount?.apCount || 0,
+                    color: data[type.name]?.color, // Passing color dynamically
+                  };
+                  return acc;
+                }, {})}
               />
             </div>
             <div className="analysis_graph3  bg-white">
@@ -294,9 +316,9 @@ const Analysis = () => {
                   color: "var(--LightMode-Subtext)",
                 }}
               >
-                PC 확률
+                월 PC 개수
               </span>
-              <div
+              {/* <div
                 className="Ta_ratio_item"
                 style={{
                   display: "flex",
@@ -311,20 +333,18 @@ const Analysis = () => {
                 <span>{Math.round(data["CD"]?.pcratio * 100)}%</span>
                 <span>{Math.round(data["CP"]?.pcratio * 100)}%</span>
                 <span>{Math.round(data["JD"]?.pcratio * 100)}%</span>
-              </div>
+              </div> */}
               <PcGraph
-                data={{
-                  OD: data["OD"]?.pcratio,
-                  ODcount: data["OD"]?.pc,
-                  AD: data["AD"]?.pcratio,
-                  ADcount: data["AD"]?.pc,
-                  CD: data["CD"]?.pcratio,
-                  CDcount: data["CD"]?.pc,
-                  CP: data["CP"]?.pcratio,
-                  CPcount: data["CP"]?.pc,
-                  JD: data["JD"]?.pcratio,
-                  JDcount: data["JD"]?.pc,
-                }}
+                data={customerTypes.reduce((acc, type) => {
+                  acc[type.name] = {
+                    // ratio:
+                    //   data[type.name]?.customerConsultationRatio
+                    //     ?.beforeConsultationRatio || 0,
+                    count: data[type.name]?.scheduleCustomerCount?.pcCount || 0,
+                    color: data[type.name]?.color, // Passing color dynamically
+                  };
+                  return acc;
+                }, {})}
               />
             </div>
             <div className="analysis_graph4  bg-white">
@@ -342,18 +362,17 @@ const Analysis = () => {
                 청약 건수
               </span>
               <ContractGraph
-                data={{
-                  OD: data["OD"]?.subscriptionCount,
-                  AD: data["AD"]?.subscriptionCount,
-                  CD: data["CD"]?.subscriptionCount,
-                  CP: data["CP"]?.subscriptionCount,
-                  JD: data["JD"]?.subscriptionCount,
-                }}
+                data={customerTypes.reduce((acc, type) => {
+                  acc[type.name] = data[type.name]?.contractCount || 0;
+                  return acc;
+                }, {})}
               />
             </div>
             <div className="updateMessage">
               {updateDate()}에 마지막으로 업데이트 되었습니다.{" "}
             </div>
+            {/* </div> */}
+            {/* Rest of your component */}
           </div>
         </div>
       </div>

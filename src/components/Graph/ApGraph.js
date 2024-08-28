@@ -12,46 +12,18 @@ import {
 } from "recharts";
 
 const data5 = (data) => {
-  return [
-    {
-      name: "OD",
-      ap확률: data.OD ?? 0,
-      ap개수: data.ODcount ?? 0,
-      fill: "var(--color-1)",
-    },
-    {
-      name: "AD",
-      ap확률: data.AD ?? 0,
-      ap개수: data.ADcount ?? 0,
-      fill: "var(--color-2)",
-    },
-    {
-      name: "CD",
-      ap확률: data.CD ?? 0,
-      ap개수: data.CDcount ?? 0,
-      fill: "var(--color-3)",
-    },
-    {
-      name: "CP",
-      ap확률: data.CP ?? 0,
-      ap개수: data.CPcount ?? 0,
-      fill: "var(--color-4)",
-    },
-    {
-      name: "JD",
-      ap확률: data.JD ?? 0,
-      ap개수: data.JDcount ?? 0,
-      fill: "var(--color-5)",
-    },
-  ];
+  const formattedData = Object.keys(data)
+    .filter((key) => key !== "All") // 'All' 타입 제거
+    .map((key) => ({
+      name: key,
+      // ap확률: data[key].ratio ?? 0,
+      ap개수: data[key].count ?? 0,
+      fill: data[key].color || "#cccccc", // 색상 동적 적용
+    }));
+
+  console.log("Formatted Data for ApGraph:", formattedData);
+  return formattedData;
 };
-const colors = [
-  "var(--color-1)",
-  "var(--color-2)",
-  "var(--color-3)",
-  "var(--color-4)",
-  "var(--color-5)",
-];
 
 const CustomTooltip = ({ active, payload, label, chartData }) => {
   if (active) {
@@ -116,65 +88,77 @@ const CustomLegend = (props) => {
 const ApGraph = ({ data }) => {
   const chartData = data5(data);
   return (
-    <ResponsiveContainer width="90%" height="100%">
+    <ResponsiveContainer width="100%" height="100%">
       <BarChart
-        width={300}
-        height={300}
+        width={100}
+        height={100}
         data={chartData}
-        layout="vertical"
-        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-        padding={{ bottom: "20px" }}
+        layout="horizontal"
+        // label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+        // padding={{ bottom: "20px" }}
         margin={{
           top: 30,
           right: 30,
           left: -12,
           bottom: 25,
         }}
-        barSize={10}
+        barSize={20}
       >
         <CartesianGrid display="none" />
         <XAxis
-          type="number"
-          fontSize={"12px"}
-          tickLine={false}
-          domain={[0, 1]}
-          display={"none"}
-        />
-        <YAxis
           dataKey="name"
           type="category"
-          scale="point"
           fontSize={"12px"}
-          // padding={{ top: 10, bottom: 10 }}
-          padding={{ bottom: -12, top: 5 }}
-          // marginTop={"115px"}
+          // tickLine={false}
+          tick={{ fontSize: 12 }}
+          // display={"none"}
+        />
+        <YAxis
+          // dataKey="number"
+          type="number"
+          // scale="point"
+          fontSize={"12px"}
+          domain={[0, "auto"]}
+          // domain={[0, totalTaCount]}
+          // domain={[0, 10]}
+          // tick={{ fontSize: 12 }}
+          // padding={{ bottom: -12, top: 5 }}
           tickLine={false}
-          display={"none"}
+          allowDecimals={false} // Y축이 정수만 표시되도록 수정
+          // display={"none"}
         />
         <Tooltip content={<CustomTooltip chartData={chartData} />} />
-        <Legend
-          align="left"
-          verticalAlign="top"
+        {/* <Legend
+          align="center"
+          verticalAlign="bottom"
           content={CustomLegend}
           wrapperStyle={{
-            left: 30,
-            top: 28,
+            // left: 30,
+            // top: 28,
+            display: "flex",
+            width: "100%",
+            paddingTop: "10px",
             fontSize: "12px",
             color: "var(--LightMode-Subtext)",
           }}
-          layout="vertical"
+          layout="horizontal"
           payload={chartData.map((entry) => ({
-            color: entry.fill, // 이 부분은 해당 데이터셋의 색상에 맞게 조정해야 합니다.
-            value: entry.name, // 'OD', 'AD', 'CD', 'CP', 'JD' 등의 라벨로 매핑해야 합니다.
-            type: entry.circle, // 범례 아이콘 형태를 정사각형으로 설정합니다.
+            color: entry.fill,
+            value: entry.name,
+            type: "square",
           }))}
-        />
+        /> */}
 
-        <CartesianGrid strokeDasharray="3 3" />
-        <Bar dataKey="ap확률" background={{ fill: "#eee" }}>
-          {chartData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} /> // 각 막대의 색상 지정
-          ))}
+        {/* <CartesianGrid strokeDasharray="3 3" /> */}
+        <Bar dataKey="ap개수" background={{ fill: "#eee" }}>
+          {chartData.map((entry, index) => {
+            console.log(
+              `Cell Fill Value for ${entry.name}:AP Count: ${entry.ap개수}, ${entry.fill}`,
+            ); // Debugging line
+            return (
+              <Cell key={`cell-${index}`} fill={entry.fill || "#cccccc"} />
+            ); // Fallback color added
+          })}
         </Bar>
       </BarChart>
     </ResponsiveContainer>
