@@ -191,11 +191,11 @@ const Inquiry = ({}) => {
                 <div class=" w-[450px]"></div>
               </div>
               <div class="flex">
-                <div class="flex w-[500px]">
+                <div class=" flex w-[560px]">
                   보다 나은 서비스를 제공하기 위해 여러분들의 불편사항 및 문의
                   사항을 접수 받고 있습니다.
                 </div>
-                <div class="w-[420px]"></div>
+                <div class="w-[360px]"></div>
               </div>
             </div>
           </div>
