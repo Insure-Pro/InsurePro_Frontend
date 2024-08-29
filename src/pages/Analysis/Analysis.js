@@ -363,7 +363,10 @@ const Analysis = () => {
               </span>
               <ContractGraph
                 data={customerTypes.reduce((acc, type) => {
-                  acc[type.name] = data[type.name]?.contractCount || 0;
+                  acc[type.name] = {
+                    count: data[type.name]?.scheduleCount?.pcCount || 0,
+                    color: data[type.name]?.color, // Passing color dynamically
+                  };
                   return acc;
                 }, {})}
               />

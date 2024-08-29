@@ -111,11 +111,13 @@ export default class ContractGraph extends PureComponent {
   createChartData = () => {
     const { data } = this.props;
 
-    return Object.keys(data).map((key) => ({
-      name: key,
-      청약건수: data[key].count, // Use dynamic count value
-      fill: data[key].color, // Use dynamic color from data
-    }));
+    return Object.keys(data)
+      .filter((key) => key !== "All") // 'All' 타입 제거
+      .map((key) => ({
+        name: key,
+        청약건수: data[key].count, // Use dynamic count value
+        fill: data[key].color, // Use dynamic color from data
+      }));
   };
 
   render() {
@@ -123,7 +125,7 @@ export default class ContractGraph extends PureComponent {
 
     return (
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart margin={{ top: 80 }}>
+        <PieChart margin={{ top: 130 }}>
           <Pie
             activeIndex={this.state.activeIndex}
             activeShape={renderActiveShape}
@@ -150,7 +152,7 @@ export default class ContractGraph extends PureComponent {
           <Legend
             content={CustomLegend}
             wrapperStyle={{
-              top: 180,
+              top: 110,
               left: 50,
               position: "absolute",
               width: "80px",
