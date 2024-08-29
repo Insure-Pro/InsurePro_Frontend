@@ -106,7 +106,7 @@ const MobileMapCustomerDetail = ({ customerPk, onClose }) => {
               상담보류
             </button>
           </div>
-          <div class="flex flex-col ">
+          <div class="flex w-[130px] flex-col ">
             {/* 체크박스 추가 */}
             <div class="mb-1 ml-1 flex items-center">
               <input
@@ -128,17 +128,17 @@ const MobileMapCustomerDetail = ({ customerPk, onClose }) => {
               </div>
             </div>
             <div class="flex">
-              <div class=" w-[44px] text-base font-normal">
+              <div class=" w-[50px] text-sm font-normal">
                 {customerData.name}
               </div>
-              <div class=" w-[70px] pl-1 text-base font-normal">
+              <div class=" w-[70px] text-sm font-normal">
                 (만 {customerData.age}세)
               </div>
             </div>
           </div>
           <div
             onClick={() => handleCustomerClick(customerData)}
-            class="ml-[54px] flex w-[130px] items-center text-[10px] text-gray-150"
+            class="ml-[24px] flex w-[140px] items-center text-[10px] text-gray-150"
           >
             상세정보 바로가기 <img src={right} class="h-4 w-4" />
           </div>
@@ -182,6 +182,12 @@ const MobileMapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.dongString}</div>
           </div>
+          <div class="flex items-center border-b border-Secondary-50 pl-10 ">
+            <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
+              직업
+            </div>
+            <div>{customerData.work}</div>
+          </div>
           <div class=" mb-1 flex items-center border-b border-Secondary-50 pl-10 ">
             <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
               전화번호
@@ -200,12 +206,25 @@ const MobileMapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.registerDate}</div>
           </div>
-          <div class="flex items-center border-b border-Secondary-50 pl-10 ">
+          <div class="mb-1 flex items-center border-b border-Secondary-50 pl-10 ">
             <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
-              인수상태
+              평균소득
             </div>
-            <div>{customerData.state}</div>
+            <div>{customerData.salary}</div>
           </div>
+          <div class="mb-1 flex items-center border-b border-Secondary-50 pl-10 ">
+            <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
+              관심사항
+            </div>
+            <div>{customerData.worry}</div>
+          </div>
+          <div class="mb-1 flex items-center border-b border-Secondary-50 pl-10 ">
+            <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
+              통화가능
+            </div>
+            <div>{customerData.workTime}</div>
+          </div>
+
           <div class="mb-1 flex items-center  border-b border-Secondary-50 pl-10 ">
             <div class="flex h-[33px] w-[90px] items-center text-left font-normal">
               특이사항

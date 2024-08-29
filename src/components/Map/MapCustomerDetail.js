@@ -77,9 +77,9 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         borderLeft: "2px solid #dde1e6",
       }}
     >
-      <div class="flex h-[80px] items-center bg-LightMode-SectionBackground py-7 pl-6 pr-4">
+      <div class="flex h-[80px] items-center bg-LightMode-SectionBackground py-7 pl-6 pr-2">
         <div
-          class="pr-2 text-[15px] font-bold text-secondary-100"
+          class="w-[40px] pr-2 text-[15px] font-bold text-secondary-100"
           style={{
             color: customerData.customerType
               ? getColorByTypeName(customerData.customerType.name)
@@ -90,7 +90,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             ? customerData.customerType.name
             : "Loading..."}
         </div>
-        <div class="flex flex-col ">
+        <div class="flex w-[120px] flex-col ">
           {/* 체크박스 추가 */}
           <div class="ml-1 flex">
             <input
@@ -122,7 +122,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
         </div>
         <div
           onClick={() => handleCustomerClick(customerData)}
-          class="flex w-[130px] items-center pl-[24px] text-[10px] text-gray-150"
+          class="ml-4 flex w-[120px] items-center text-[10px] text-gray-150"
         >
           상세정보 바로가기 <img src={right} class="h-4 w-4" />
         </div>
@@ -136,7 +136,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
       </div>
       <div class="flex h-10 text-xs font-medium  text-gray-50">
         <div
-          className={`px-[51px] py-3 ${
+          className={`flex w-1/2 items-center justify-center py-3 ${
             activeTab === "고객 정보"
               ? "border-b-2 border-b-primary-100 font-semibold text-primary-100"
               : ""
@@ -146,7 +146,7 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
           고객 정보
         </div>
         <div
-          className={`px-[54px] py-3 ${
+          className={`flex w-1/2 items-center justify-center py-3 ${
             activeTab === "히스토리"
               ? "border-b-2 border-b-primary-100 font-semibold text-primary-100"
               : ""
@@ -165,31 +165,50 @@ const MapCustomerDetail = ({ customerPk, onClose }) => {
             </div>
             <div>{customerData.dongString}</div>
           </div>
-          <div class="flex items-center  bg-LightMode-SectionBackground ">
+          <div class="flex items-center bg-LightMode-SectionBackground ">
+            <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
+              직업
+            </div>
+            <div>{customerData.work}</div>
+          </div>
+          <div class="flex items-center  ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               전화번호
             </div>
             <div>{customerData.phone}</div>
           </div>
-          <div class="flex items-center ">
+          <div class="flex items-center  bg-LightMode-SectionBackground ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               생년월일
             </div>
             <div>{customerData.birth}</div>
           </div>
-          <div class="flex items-center  bg-LightMode-SectionBackground ">
+          <div class="flex items-center  ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               DB 분배일
             </div>
             <div>{customerData.registerDate}</div>
           </div>
+
+          <div class="flex items-center   bg-LightMode-SectionBackground ">
+            <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
+              평균소득
+            </div>
+            <div>{customerData.salary}</div>
+          </div>
           <div class="flex items-center ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
-              인수상태
+              관심사항
             </div>
-            <div>{customerData.state}</div>
+            <div>{customerData.worry}</div>
           </div>
           <div class="flex items-center  bg-LightMode-SectionBackground  ">
+            <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
+              통화가능
+            </div>
+            <div>{customerData.workTime}</div>
+          </div>
+          <div class="flex items-center   ">
             <div class="flex h-[33px] w-[104px] items-center pl-6 text-left font-semibold">
               특이사항
             </div>
