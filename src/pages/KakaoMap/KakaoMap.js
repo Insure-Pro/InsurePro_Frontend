@@ -71,7 +71,7 @@ const KakaoMap = () => {
       map: mapRef.current, // 마커들을 클러스터로 관리하고 표시할 지도 객체
       averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
       minLevel: 5, // 클러스터 할 최소 지도 레벨
-      disableClickZoom: true,
+      disableClickZoom: false,
       calculator: [10, 30, 50, 100], // 클러스터의 크기 구분 값, 각 사이값마다 설정된 text나 style이 적용된다
       styles: [
         {
