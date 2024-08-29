@@ -374,14 +374,14 @@ const Navbar = ({
                   >
                     {showLogoutButton && (
                       <>
-                        <div
+                        {/* <div
                           className={` ${
                             isMainRoute ? "left-20" : "left-16"
                           } relative bottom-2  z-[11] flex h-[38px] w-[90px] items-center justify-center rounded border bg-white text-center text-sm font-semibold text-LightMode-Text hover:bg-LightMode-Hover`}
                           onClick={() => handleModalOpen()}
                         >
                           유형설정
-                        </div>
+                        </div> */}
                         <div
                           className={` ${
                             isMainRoute ? "left-20" : "left-16 "
