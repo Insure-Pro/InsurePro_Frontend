@@ -296,7 +296,7 @@ const Analysis = () => {
                     // ratio:
                     //   data[type.name]?.customerConsultationRatio
                     //     ?.beforeConsultationRatio || 0,
-                    count: data[type.name]?.scheduleCustomerCount?.apCount || 0,
+                    count: data[type.name]?.scheduleCount?.apCount || 0,
                     color: data[type.name]?.color, // Passing color dynamically
                   };
                   return acc;
@@ -340,7 +340,7 @@ const Analysis = () => {
                     // ratio:
                     //   data[type.name]?.customerConsultationRatio
                     //     ?.beforeConsultationRatio || 0,
-                    count: data[type.name]?.scheduleCustomerCount?.pcCount || 0,
+                    count: data[type.name]?.scheduleCount?.pcCount || 0,
                     color: data[type.name]?.color, // Passing color dynamically
                   };
                   return acc;
