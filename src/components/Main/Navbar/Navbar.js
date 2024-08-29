@@ -1,3 +1,4 @@
+/* global gtag */
 import React, { useState, useEffect, useRef } from "react";
 import ".././Navbar/Navbar.css";
 import axios from "axios";
@@ -208,6 +209,12 @@ const Navbar = ({
     } else {
       setShowLogoutButton(!showLogoutButton); // 로그아웃 버튼 토글
     }
+    gtag("event", "WM_insurepro_mvp_v1_navbar_click_mypage_icon", {
+      event_category: "Click Mypage Icon",
+      event_label: `설계사 PK: test`,
+      // event_label: `Customer PK: ${customerPk}`,
+      value: 1,
+    });
   };
 
   // 외부 클릭 감지를 위한 이벤트 핸들러
