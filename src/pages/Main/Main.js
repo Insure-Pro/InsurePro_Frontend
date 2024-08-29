@@ -362,6 +362,30 @@ const Main = () => {
   const [showModal, setShowModal] = useState(false);
   const [showExcelUploadModal, setShowExcelUploadModal] = useState(false);
 
+  // 버튼 외부 클릭 시 showOptions 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const optionsModal = document.querySelector(".options-modal-style");
+      const addButton = document.querySelector(".add_Btn");
+
+      if (
+        optionsModal &&
+        !optionsModal.contains(event.target) &&
+        !addButton.contains(event.target)
+      ) {
+        setShowOptions(false);
+      }
+    };
+
+    if (showOptions) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showOptions]);
+
   const handleShowOptions = () => {
     setShowOptions(true);
   };
