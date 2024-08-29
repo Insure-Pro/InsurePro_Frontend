@@ -283,10 +283,12 @@ function Modal1({ show, onModalClose }) {
       {isMobile ? (
         <>
           <div
-            className="modal-style-mobile flex h-full w-screen  justify-center rounded-t-2xl"
+            className="modal-style-mobile flex w-screen  justify-center rounded-t-2xl"
             show={show}
             // style={{ height: modalHeight }}
-            style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+            style={{
+              height: "calc(var(--vh, 1vh) * 100)",
+            }}
           >
             <div class="  bottom-0 flex h-[820px] w-screen flex-col items-center overflow-y-scroll  rounded-t-2xl border bg-white">
               <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
@@ -301,7 +303,10 @@ function Modal1({ show, onModalClose }) {
                     취소
                   </div>
                   <div class="text-base font-bold">신규 고객 추가</div>
-                  <div class="cursor-pointer text-sm font-normal text-Primary-300">
+                  <div
+                    class="cursor-pointer text-sm font-normal text-Primary-300"
+                    // onClick={handleSubmit}
+                  >
                     완료
                   </div>
                 </div>
