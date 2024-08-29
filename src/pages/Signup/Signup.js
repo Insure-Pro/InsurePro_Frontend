@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Main/Navbar/Navbar";
 import "../Signup/Signup.css";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 const Signup = () => {
   const fileRef = useRef("");
@@ -27,6 +28,9 @@ const Signup = () => {
 
   const initial_icon = process.env.PUBLIC_URL + "/initial_icon.png";
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
+
+  const isMobile = useMediaQuery({ query: "(max-width:960px)" });
+
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleVerifyClick = () => {
@@ -75,6 +79,19 @@ const Signup = () => {
     backgroundColor: "#fff",
     fontSize: "14px",
   };
+  const mobileBaseButtonStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "90px",
+    height: "42px",
+    padding: "12px 0px",
+    borderRadius: "4px",
+    border: "1px solid var(--Primary-300)",
+    color: `var(--Primary-300)`,
+    backgroundColor: "#fff",
+    fontSize: "12px",
+  };
 
   // isCodeSent가 true일 때의 배경색 스타일
   const activeButtonStyle = isCodeSent
@@ -91,6 +108,10 @@ const Signup = () => {
 
   // 두 스타일 객체를 합칩니다.
   const confirmButtonStyle = { ...baseButtonStyle, ...activeButtonStyle };
+  const mobileConfirmButtonStyle = {
+    ...mobileBaseButtonStyle,
+    ...activeButtonStyle,
+  };
 
   const sendCodeButtonText = isCodeSent ? "재전송" : "인증번호 받기";
 
@@ -244,96 +265,100 @@ const Signup = () => {
         onSubmit={handleSubmit}
         class="flex h-screen justify-center bg-LightMode-SectionBackground"
       >
-        <div style={{ width: "780px" }}>
-          <div
-            class="cursor-default font-semibold"
-            style={{ marginTop: "57px", marginBottom: "30px" }}
-          >
-            {" "}
-            회원가입
-          </div>
-          <div class="mb-6 cursor-default  text-right text-xs font-light text-LightMode-Text">
-            <span className="Highlighting">*</span>
-            필수입력사항
-          </div>
-          <div class="flex w-full items-center justify-center">
-            <hr className="signin_hr1 " />
-          </div>
-          <div
-            style={{
-              width: "780px",
-              height: "344px",
-              marginLeft: "78px",
-            }}
-          >
-            <div>
-              <div class="mb-3 flex">
-                <span className="signin_span">
-                  <span className="Highlighting">*</span>
-                  이메일
-                </span>
-                <input
-                  type="email"
-                  ref={email}
-                  value={myEmail}
-                  onChange={(e) => {
-                    setMyEmail(e.target.value);
-                  }}
-                  placeholder="이메일을 입력해주세요"
-                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
-                  className="signin_input_box mr-4"
-                />
-                <button
-                  className="signin_code_button"
-                  class="font-light"
-                  type="button"
-                  onClick={handleSendCodeClick}
-                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
-                  style={
-                    isVerified
-                      ? { ...baseButtonStyle, ...disabledButtonStyle }
-                      : baseButtonStyle
-                  }
-                >
-                  {sendCodeButtonText}
-                </button>
-              </div>
+        {isMobile ? (
+          <div class="w-[380px]">
+            <div
+              class="cursor-default font-semibold"
+              style={{ marginTop: "37px", marginBottom: "20px" }}
+            >
+              {" "}
+              회원가입
             </div>
-
-            <div>
-              <div
-                class="mb-3 flex"
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <input
-                  type="authNum"
-                  ref={authNumConfirm}
-                  placeholder="본인 인증 코드를 입력해주세요"
-                  className="signin_input_box mr-4"
-                  style={{
-                    marginLeft: "127px",
-                  }}
-                  disabled={isVerified} // 본인 인증이 완료되면 비활성화
-                />
-                <button
-                  className="signin_code_button"
-                  class="font-light"
-                  // style={confirmButtonStyle}
-                  // disabled={!isCodeSent}
-                  disabled={isVerified && !isCodeSent} // 본인 인증이 완료되면 비활성화
-                  style={
-                    isVerified
-                      ? { ...confirmButtonStyle, ...disabledButtonStyle }
-                      : confirmButtonStyle
-                  }
-                  onClick={handleVerifyClick}
-                >
-                  확인
-                </button>
+            <div class=" cursor-default  text-right text-xs font-light text-LightMode-Text">
+              <span className="Highlighting">*</span>
+              필수입력사항
+            </div>
+            <div class="flex w-full items-center justify-center">
+              <hr className="signin_hr1_mobile " />
+            </div>
+            <div
+              style={{
+                width: "460px",
+                height: "366px",
+                // marginLeft: "78px",
+              }}
+            >
+              <div>
+                <div class="mb-3 flex">
+                  <span className="signin_span_mobile">
+                    <span className="Highlighting">*</span>
+                    이메일
+                  </span>
+                  <input
+                    type="email"
+                    ref={email}
+                    value={myEmail}
+                    onChange={(e) => {
+                      setMyEmail(e.target.value);
+                    }}
+                    placeholder="이메일을 입력"
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                    className=" mr-4 h-[42px] w-[174px] rounded border border-Gray-scale-50 py-2 pl-4 text-sm font-light"
+                  />
+                  <button
+                    className="signin_code_button"
+                    class="font-light"
+                    type="button"
+                    onClick={handleSendCodeClick}
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                    style={
+                      isVerified
+                        ? { ...mobileBaseButtonStyle, ...disabledButtonStyle }
+                        : mobileBaseButtonStyle
+                    }
+                  >
+                    {sendCodeButtonText}
+                  </button>
+                </div>
               </div>
-              {/* {verificationMessage && (
+
+              <div>
+                <div
+                  class="mb-3 flex"
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <input
+                    type="authNum"
+                    ref={authNumConfirm}
+                    placeholder="본인 인증 코드 입력"
+                    className="signin_input_box_mobile mr-4"
+                    style={{
+                      marginLeft: "107px",
+                    }}
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                  />
+                  <button
+                    className="signin_code_button"
+                    class="font-light"
+                    // style={confirmButtonStyle}
+                    // disabled={!isCodeSent}
+                    disabled={isVerified && !isCodeSent} // 본인 인증이 완료되면 비활성화
+                    style={
+                      isVerified
+                        ? {
+                            ...mobileConfirmButtonStyle,
+                            ...disabledButtonStyle,
+                          }
+                        : mobileConfirmButtonStyle
+                    }
+                    onClick={handleVerifyClick}
+                  >
+                    확인
+                  </button>
+                </div>
+                {/* {verificationMessage && (
                 <div
                   style={{
                     color: isVerified ? "blue" : "red",
@@ -345,79 +370,85 @@ const Signup = () => {
                   {verificationMessage}
                 </div>
               )} */}
+              </div>
+              <div class="mb-0.5 flex">
+                <span className="signin_span_mobile">
+                  <span className="Highlighting">*</span>
+                  비밀번호
+                </span>
+                <input
+                  type="password"
+                  ref={password}
+                  placeholder="비밀번호를 입력"
+                  value={myPassword}
+                  autocomplete="new-password"
+                  onChange={(e) => {
+                    setMyPassword(e.target.value);
+                  }}
+                  className="signin_input_box_mobile"
+                />
+              </div>
+              <div class=" ml-[112px] flex w-full text-xs text-Warning-300">
+                비밀번호는 최소 8자 이상이어야 하며,
+              </div>
+              <div class="mb-2 ml-[112px] flex w-full text-xs text-Warning-300">
+                영문, 숫자 및 특수문자를 포함해야 합니다.
+              </div>
+              <div class="mb-3 flex">
+                <span className="font-medium; mr-3 flex h-[42px] w-[96px] cursor-default  items-center text-sm">
+                  <span className="Highlighting">*</span>
+                  비밀번호 확인
+                </span>
+                <input
+                  type="password"
+                  ref={passwordConfirm}
+                  placeholder="비밀번호 재입력"
+                  className="signin_input_box_mobile"
+                />
+              </div>
+              <div class="mb-3 flex ">
+                <span className="signin_span_mobile">
+                  <span className="Highlighting">*</span>
+                  이름
+                </span>
+                <input
+                  type="name"
+                  ref={userName}
+                  placeholder="사원이름 입력하기"
+                  className="signin_input_box_mobile"
+                />
+              </div>
+              <div class="mb-3 flex">
+                <span className="signin_span_mobile">
+                  <span className="Highlighting">*</span>
+                  사원번호
+                </span>
+                <input
+                  type="text"
+                  ref={usernum}
+                  placeholder="사원번호 입력하기"
+                  className="signin_input_box_mobile"
+                />
+              </div>
             </div>
-            <div class="mb-3 flex">
-              <span className="signin_span">
-                <span className="Highlighting">*</span>
-                비밀번호
-              </span>
-              <input
-                type="password"
-                ref={password}
-                placeholder="비밀번호를 입력해주세요"
-                value={myPassword}
-                autocomplete="new-password"
-                onChange={(e) => {
-                  setMyPassword(e.target.value);
-                }}
-                className="signin_input_box"
-              />
-            </div>
-            <div class="mb-3 flex">
-              <span className="font-medium; mr-8 flex h-[42px] w-[96px] cursor-default  items-center text-sm">
-                <span className="Highlighting">*</span>
-                비밀번호 확인
-              </span>
-              <input
-                type="password"
-                ref={passwordConfirm}
-                placeholder="비밀번호 재입력"
-                className="signin_input_box"
-              />
-            </div>
-            <div class="mb-3 flex ">
-              <span className="signin_span">
-                <span className="Highlighting">*</span>
-                이름
-              </span>
+            <hr className="signin_hr2_mobile" />
+            <div
+              class="flex items-center "
+              style={{
+                width: "380px",
+                height: "42px",
+                alignItems: "center",
+                margin: " 24px 0px 24px 0px",
+              }}
+            >
+              <span className="signin_span_mobile pl-[10px]">회사 선택</span>
               <input
                 type="name"
-                ref={userName}
-                placeholder="사원이름 입력하기"
-                className="signin_input_box"
+                ref={companyName}
+                placeholder="회사명 입력"
+                className="signin_input_box_mobile"
               />
-            </div>
-            <div class="flex">
-              <span className="signin_span">
-                <span className="Highlighting">*</span>
-                사원번호
-              </span>
-              <input
-                type="text"
-                ref={usernum}
-                placeholder="사원번호 입력하기"
-                className="signin_input_box"
-              />
-            </div>
-          </div>
-          <hr className="signin_hr2" />
-          <div
-            class="flex items-center "
-            style={{
-              width: "780px",
-              height: "42px",
-              alignItems: "center",
-              margin: " 24px 0px 24px 78px",
-            }}
-          >
-            <span className="signin_span pl-[10px]">회사 선택</span>
-            <input
-              type="name"
-              ref={companyName}
-              placeholder="회사명 입력"
-              className="signin_input_box"
-            />
-            {/* <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
+              {/* <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
               <Label>{currentCompanyValue}</Label>
               <SelectOptions
                 value={selectedCompany}
@@ -442,8 +473,8 @@ const Signup = () => {
                 </Option>
               </SelectOptions>
             </SelectBox> */}
-          </div>
-          {/* <div
+            </div>
+            {/* <div
             class="flex items-center "
             style={{
               width: "780px",
@@ -472,50 +503,328 @@ const Signup = () => {
               </SelectOptions>
             </SelectBox>
           </div> */}
-          <hr className="signin_hr3" />
-          <div class="flex flex-col items-center justify-center">
-            <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
-            <button
-              onClick={(event) => {
-                if (validate()) {
-                  handleSubmit(event);
-                }
-                if (email.current.value === "") {
-                  email.current.focus();
-                  document.querySelector(".error_message").innerHTML =
-                    "이메일을 입력해주세요.";
-                  return;
-                } else if (usernum.current.value === "") {
-                  usernum.current.focus();
-                  document.querySelector(".error_message").innerHTML =
-                    "사번을 입력해주세요.";
-                  return;
-                } else if (authNumConfirm.current.value === "") {
-                  authNum.current.focus();
-                  document.querySelector(".error_message").innerHTML =
-                    "인증 코드를 입력해주세요.";
-                  return;
-                } else if (password.current.value === "") {
-                  password.current.focus();
-                  document.querySelector(".error_message").innerHTML =
-                    "비밀번호를 입력해주세요.";
-                  return;
-                } else if (passwordConfirm.current.value === "") {
-                  password.current.focus();
-                  document.querySelector(".error_message").innerHTML =
-                    "비밀번호 확인을 입력해주세요.";
-                  return;
-                } else {
-                  document.querySelector(".error_message").innerHTML = "";
-                }
-              }}
-              type="submit"
-              class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
-            >
-              가입하기
-            </button>
+            <hr className="signin_hr3_mobile" />
+            <div class="flex flex-col items-center justify-center">
+              <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
+              <button
+                onClick={(event) => {
+                  if (validate()) {
+                    handleSubmit(event);
+                  }
+                  if (email.current.value === "") {
+                    email.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "이메일을 입력해주세요.";
+                    return;
+                  } else if (usernum.current.value === "") {
+                    usernum.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "사번을 입력해주세요.";
+                    return;
+                  } else if (authNumConfirm.current.value === "") {
+                    authNum.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "인증 코드를 입력해주세요.";
+                    return;
+                  } else if (password.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호를 입력해주세요.";
+                    return;
+                  } else if (passwordConfirm.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호 확인을 입력해주세요.";
+                    return;
+                  } else {
+                    document.querySelector(".error_message").innerHTML = "";
+                  }
+                }}
+                type="submit"
+                class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
+              >
+                가입하기
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div class="w-[780px]">
+            <div
+              class="cursor-default font-semibold"
+              style={{ marginTop: "57px", marginBottom: "30px" }}
+            >
+              {" "}
+              회원가입
+            </div>
+            <div class="mb-6 cursor-default  text-right text-xs font-light text-LightMode-Text">
+              <span className="Highlighting">*</span>
+              필수입력사항
+            </div>
+            <div class="flex w-full items-center justify-center">
+              <hr className="signin_hr1 " />
+            </div>
+            <div
+              style={{
+                width: "780px",
+                height: "344px",
+                marginLeft: "78px",
+              }}
+            >
+              <div>
+                <div class="mb-3 flex">
+                  <span className="signin_span">
+                    <span className="Highlighting">*</span>
+                    이메일
+                  </span>
+                  <input
+                    type="email"
+                    ref={email}
+                    value={myEmail}
+                    onChange={(e) => {
+                      setMyEmail(e.target.value);
+                    }}
+                    placeholder="이메일을 입력해주세요"
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                    className="signin_input_box mr-4"
+                  />
+                  <button
+                    className="signin_code_button"
+                    class="font-light"
+                    type="button"
+                    onClick={handleSendCodeClick}
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                    style={
+                      isVerified
+                        ? { ...baseButtonStyle, ...disabledButtonStyle }
+                        : baseButtonStyle
+                    }
+                  >
+                    {sendCodeButtonText}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div
+                  class="mb-3 flex"
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <input
+                    type="authNum"
+                    ref={authNumConfirm}
+                    placeholder="본인 인증 코드를 입력해주세요"
+                    className="signin_input_box mr-4"
+                    style={{
+                      marginLeft: "127px",
+                    }}
+                    disabled={isVerified} // 본인 인증이 완료되면 비활성화
+                  />
+                  <button
+                    className="signin_code_button"
+                    class="font-light"
+                    // style={confirmButtonStyle}
+                    // disabled={!isCodeSent}
+                    disabled={isVerified && !isCodeSent} // 본인 인증이 완료되면 비활성화
+                    style={
+                      isVerified
+                        ? { ...confirmButtonStyle, ...disabledButtonStyle }
+                        : confirmButtonStyle
+                    }
+                    onClick={handleVerifyClick}
+                  >
+                    확인
+                  </button>
+                </div>
+                {/* {verificationMessage && (
+                <div
+                  style={{
+                    color: isVerified ? "blue" : "red",
+                    fontSize: "12px",
+                    marginTop: "-12px",
+                    textAlign: "center",
+                  }}
+                >
+                  {verificationMessage}
+                </div>
+              )} */}
+              </div>
+              <div class="mb-0.5 flex">
+                <span className="signin_span">
+                  <span className="Highlighting">*</span>
+                  비밀번호
+                </span>
+                <input
+                  type="password"
+                  ref={password}
+                  placeholder="비밀번호를 입력해주세요"
+                  value={myPassword}
+                  autocomplete="new-password"
+                  onChange={(e) => {
+                    setMyPassword(e.target.value);
+                  }}
+                  className="signin_input_box"
+                />
+              </div>
+              <div class="mb-2 ml-[132px] flex w-full text-xs text-Warning-300">
+                비밀번호는 최소 8자 이상이어야 하며, 영문, 숫자 및 특수문자를
+                포함해야 합니다.
+              </div>
+              <div class="mb-3 flex">
+                <span className="font-medium; mr-8 flex h-[42px] w-[96px] cursor-default  items-center text-sm">
+                  <span className="Highlighting">*</span>
+                  비밀번호 확인
+                </span>
+                <input
+                  type="password"
+                  ref={passwordConfirm}
+                  placeholder="비밀번호 재입력"
+                  className="signin_input_box"
+                />
+              </div>
+              <div class="mb-3 flex ">
+                <span className="signin_span">
+                  <span className="Highlighting">*</span>
+                  이름
+                </span>
+                <input
+                  type="name"
+                  ref={userName}
+                  placeholder="사원이름 입력하기"
+                  className="signin_input_box"
+                />
+              </div>
+              <div class="flex">
+                <span className="signin_span">
+                  <span className="Highlighting">*</span>
+                  사원번호
+                </span>
+                <input
+                  type="text"
+                  ref={usernum}
+                  placeholder="사원번호 입력하기"
+                  className="signin_input_box"
+                />
+              </div>
+            </div>
+            <hr className="signin_hr2" />
+            <div
+              class="flex items-center "
+              style={{
+                width: "780px",
+                height: "42px",
+                alignItems: "center",
+                margin: " 24px 0px 24px 78px",
+              }}
+            >
+              <span className="signin_span pl-[10px]">회사 선택</span>
+              <input
+                type="name"
+                ref={companyName}
+                placeholder="회사명 입력"
+                className="signin_input_box"
+              />
+              {/* <SelectBox onClick={() => setShowCompanyOptions((prev) => !prev)}>
+              <Label>{currentCompanyValue}</Label>
+              <SelectOptions
+                value={selectedCompany}
+                onChange={handleChange}
+                show={showCompanyOptions}
+                style={{ position: "absolute", zIndex: "1" }}
+              >
+                <Option
+                  onClick={handleOnChangeSelectCompanyValue}
+                  value="영진에셋 하랑사업단"
+                >
+                  영진에셋 하랑사업단
+                </Option>
+                <Option
+                  onClick={handleOnChangeSelectCompanyValue}
+                  value="AFG 센텀점"
+                >
+                  AFG 센텀점
+                </Option>
+                <Option onClick={handleOnChangeSelectCompanyValue} value="응애">
+                  응애
+                </Option>
+              </SelectOptions>
+            </SelectBox> */}
+            </div>
+            {/* <div
+            class="flex items-center "
+            style={{
+              width: "780px",
+              height: "42px",
+              alignItems: "center",
+              margin: " 24px 0px 24px 78px",
+            }}
+          >
+            <span className="signin_span pl-[10px]">팀 선택</span>
+            <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
+              <Label>{currentValue}</Label>
+              <SelectOptions
+                value={selectedTeam}
+                onChange={handleChange}
+                show={showOptions}
+              >
+                <Option onClick={handleOnChangeSelectValue} value="위너 이글">
+                  위너 이글
+                </Option>
+                <Option onClick={handleOnChangeSelectValue} value="드림 이글">
+                  드림 이글
+                </Option>
+                <Option onClick={handleOnChangeSelectValue} value="레드 이글">
+                  래드 이글
+                </Option>
+              </SelectOptions>
+            </SelectBox>
+          </div> */}
+            <hr className="signin_hr3" />
+            <div class="flex flex-col items-center justify-center">
+              <div className="error_message mb-[15px] text-xs font-bold text-Danger-600"></div>
+              <button
+                onClick={(event) => {
+                  if (validate()) {
+                    handleSubmit(event);
+                  }
+                  if (email.current.value === "") {
+                    email.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "이메일을 입력해주세요.";
+                    return;
+                  } else if (usernum.current.value === "") {
+                    usernum.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "사번을 입력해주세요.";
+                    return;
+                  } else if (authNumConfirm.current.value === "") {
+                    authNum.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "인증 코드를 입력해주세요.";
+                    return;
+                  } else if (password.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호를 입력해주세요.";
+                    return;
+                  } else if (passwordConfirm.current.value === "") {
+                    password.current.focus();
+                    document.querySelector(".error_message").innerHTML =
+                      "비밀번호 확인을 입력해주세요.";
+                    return;
+                  } else {
+                    document.querySelector(".error_message").innerHTML = "";
+                  }
+                }}
+                type="submit"
+                class="mb-3 flex h-[42px] w-[280px] items-center justify-center rounded bg-Primary-400 py-[10px] font-semibold text-white "
+              >
+                가입하기
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

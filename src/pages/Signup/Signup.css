@@ -5,10 +5,15 @@
 .signin_input_box {
   @apply h-[42px] w-[360px] rounded border border-Gray-scale-50 py-3 pl-5 text-sm font-light;
 }
+.signin_input_box_mobile {
+  @apply h-[42px] w-[174px] rounded border border-Gray-scale-50 py-2 pl-4 text-sm font-light;
+}
 .signin_span {
   @apply mr-10 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
 }
-
+.signin_span_mobile {
+  @apply mr-5 flex h-[42px] w-[88px] cursor-default items-center  text-sm font-medium;
+}
 /* .signin_hr0 {
   @apply w-[780px] border-[1px] border-white;
 } */
@@ -20,6 +25,15 @@
 }
 .signin_hr3 {
   @apply mb-24 mt-0 w-[780px] border-[1px] border-white;
+}
+.signin_hr1_mobile {
+  @apply mb-7 mt-4 w-[380px] border-[1px] border-white;
+}
+.signin_hr2_mobile {
+  @apply mb-7  w-[380px] border-[1px] border-white;
+}
+.signin_hr3_mobile {
+  @apply mb-10 mt-0 w-[380px] border-[1px] border-white;
 }
 
 /* - - - - -[회원가입 끝]- - - - - */
