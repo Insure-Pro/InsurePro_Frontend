@@ -364,7 +364,7 @@ const Analysis = () => {
               <ContractGraph
                 data={customerTypes.reduce((acc, type) => {
                   acc[type.name] = {
-                    count: data[type.name]?.scheduleCount?.pcCount || 0,
+                    count: data[type.name]?.contractYnCount || 0,
                     color: data[type.name]?.color, // Passing color dynamically
                   };
                   return acc;
