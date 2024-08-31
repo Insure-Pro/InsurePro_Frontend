@@ -151,6 +151,7 @@ html,
 body {
   height: 100vh;
   height: var(--vh);
+  /* min-height: -webkit-fill-available; */
 }
 /* ::-webkit-scrollbar {
   display: none;
@@ -461,8 +462,11 @@ body {
   z-index: 7;
   overflow-y: auto; /* Enable vertical scrolling */
   touch-action: pan-y; /* Allow vertical touch scrolling */
-  max-height: 100vh; /* Ensure the modal height does not exceed the viewport */
+  height: 100vh;
+  height: -webkit-fill-available;
+  height: fill-available;
   margin-bottom: env(safe-area-inset-bottom); /* iOS safe area padding */
+  margin-top: 160px;
 }
 
 .modal-style-detail {
