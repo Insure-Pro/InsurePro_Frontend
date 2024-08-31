@@ -234,22 +234,17 @@ const EditModal = ({
     };
   }, []);
 
-  let vh = 0;
-
   useEffect(() => {
-    vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    const setVh = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    return () => {
+      window.removeEventListener("resize", setVh);
+    };
   }, []);
-
-  const setVh = () => {
-    document.documentElement.style.setProperty(
-      "--vh",
-      `${window.innerHeight}px`,
-    );
-  };
-  window.addEventListener("resize", setVh);
-
-  setVh();
 
   return (
     <>
@@ -261,26 +256,34 @@ const EditModal = ({
             show={show}
             onHide={handleClose}
             onExited={onModalClose}
-            style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+            // style={{ height: "calc(var(--vh, 1vh) * 100)" }}
           >
-            <div class="  bottom-0 flex h-[850px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
-              <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
-                <div class="mb-5 flex items-center justify-center">
-                  <img src={mobile_modal_top} />
-                </div>
-                <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
-                  <div
-                    class="cursor-pointer text-sm font-normal"
-                    onClick={handleClose}
-                  >
-                    취소
-                  </div>
-                  <div class="text-base font-bold">고객정보 수정</div>
-                  <div class="cursor-pointer text-sm font-normal">완료</div>
-                </div>
-              </div>
-              <div class="my-[-15px]" ref={modalRef}>
+            <div class="  bottom-0 flex h-[820px] w-screen flex-col items-center overflow-y-auto rounded-t-2xl bg-white">
+              <div ref={modalRef}>
                 <form onSubmit={handleSubmit} class="pl-9">
+                  <div className="ml-[-18px] h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
+                    <div
+                      class="mb-5 flex items-center justify-center"
+                      onClick={onHide}
+                    >
+                      <img src={mobile_modal_top} />
+                    </div>
+                    <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
+                      <div
+                        class="cursor-pointer text-sm font-normal text-Danger-300"
+                        onClick={onHide}
+                      >
+                        취소
+                      </div>
+                      <div class="text-base font-bold">고객정보 수정</div>
+                      <div
+                        class="cursor-pointer text-sm font-normal text-Primary-300"
+                        onClick={handleSubmit}
+                      >
+                        완료
+                      </div>
+                    </div>
+                  </div>
                   <div className="mb-1  h-12 w-[352px] ">
                     <div className=" flex items-center">
                       <CustomerTypeButtons

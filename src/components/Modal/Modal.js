@@ -261,8 +261,6 @@ function Modal1({ show, onModalClose }) {
       });
   };
 
-  let vh = 0;
-
   useEffect(() => {
     const setVh = () => {
       let vh = window.innerHeight * 0.01;
@@ -303,7 +301,7 @@ function Modal1({ show, onModalClose }) {
                       <div class="text-base font-bold">신규 고객 추가</div>
                       <div
                         class="cursor-pointer text-sm font-normal text-Primary-300"
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                       >
                         완료
                       </div>
