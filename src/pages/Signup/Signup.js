@@ -29,7 +29,7 @@ const Signup = () => {
   const initial_icon = process.env.PUBLIC_URL + "/initial_icon.png";
   const imageUrl = process.env.PUBLIC_URL + "/loginImg.png";
 
-  const isMobile = useMediaQuery({ query: "(max-width:960px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
