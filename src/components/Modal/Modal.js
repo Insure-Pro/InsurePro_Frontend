@@ -264,19 +264,16 @@ function Modal1({ show, onModalClose }) {
   let vh = 0;
 
   useEffect(() => {
-    vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    const setVh = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    return () => {
+      window.removeEventListener("resize", setVh);
+    };
   }, []);
-
-  const setVh = () => {
-    document.documentElement.style.setProperty(
-      "--vh",
-      `${window.innerHeight}px`,
-    );
-  };
-  window.addEventListener("resize", setVh);
-
-  setVh();
 
   return (
     <>
@@ -285,12 +282,8 @@ function Modal1({ show, onModalClose }) {
           <div
             className="modal-style-mobile flex w-screen  justify-center rounded-t-2xl"
             show={show}
-            // style={{ height: modalHeight }}
-            style={{
-              height: "calc(var(--vh, 1vh) * 100)",
-            }}
           >
-            <div class="  bottom-0 flex h-[820px] w-screen flex-col items-center overflow-y-scroll  rounded-t-2xl border bg-white">
+            <div class="  bottom-0 flex h-[770px] w-screen flex-col items-center overflow-y-scroll  rounded-t-2xl border bg-white">
               <div ref={modalRef} class="">
                 <form onSubmit={handleSubmit} className="pl-9">
                   <div className="ml-[-18px] h-20 w-[352px] px-7 py-[7px] text-sm font-normal">

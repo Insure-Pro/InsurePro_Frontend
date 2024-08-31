@@ -444,21 +444,21 @@ body {
 }
 .modal-style-mobile {
   background-color: white;
-  margin-top: 115px;
   padding-left: 0px !important;
   position: fixed;
   font-size: 14px;
-  top: 50%;
+  bottom: 0; /* Always attach to the bottom of the screen */
   left: 50%;
   border: 1px solid var(--gray-100);
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   outline: none;
   z-index: 7;
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-  touch-action: pan-y; /* 세로 방향으로 터치 조작을 허용 */
-  max-height: 100vh; /* 최대 높이 설정 */
-  margin-bottom: env(safe-area-inset-bottom); /* iOS 안전 영역 패딩 추가 */
+  overflow-y: auto; /* Enable vertical scrolling */
+  touch-action: pan-y; /* Allow vertical touch scrolling */
+  max-height: 100vh; /* Ensure the modal height does not exceed the viewport */
+  margin-bottom: env(safe-area-inset-bottom); /* iOS safe area padding */
 }
+
 .modal-style-detail {
   background-color: white;
   width: 352px;
