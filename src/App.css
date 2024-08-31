@@ -357,15 +357,21 @@ body {
 .dropdown-container {
   @apply relative z-0 mr-10  h-[36px] w-[106px] cursor-pointer select-none flex-row items-center justify-center rounded  bg-LightMode-SectionBackground p-2 text-xs font-normal text-gray-400;
 }
+.dropdown-container_mobile {
+  @apply relative z-0  h-[20px] w-[84px] cursor-pointer select-none flex-row items-center justify-center rounded p-1 text-xs font-normal text-gray-400;
+}
 .dropdown-item {
   @apply absolute left-0 top-full  w-full rounded bg-white p-[10px];
 }
 
 .dropdown-item > li {
-  @apply h-7  text-xs font-semibold text-LightMode-Subtext hover:font-bold  hover:text-LightMode-Text;
+  @apply h-7  text-xs font-semibold text-gray-400 hover:font-bold  hover:text-LightMode-Text;
 }
 .dropdown-img {
   @apply ml-2 h-[8.75px] w-[20px];
+}
+.dropdown-img-mobile {
+  @apply ml-2  h-[8.75px] w-[16px];
 }
 /* - - - - -[메인화면 끝]- - - - - */
 

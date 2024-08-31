@@ -466,7 +466,7 @@ const Main = () => {
           <div
             class={`  flex h-[52px]  items-center text-center ${
               isMobile
-                ? " w-full xsm:ml-[-50px] xsm:w-[300px] sm:ml-[-30px] sm:w-[500px] md:w-[628px]"
+                ? " w-full xsm:ml-[-50px] xsm:w-[220px] sm:ml-[-30px] sm:w-[500px] md:w-[628px]"
                 : ""
             }`}
           >
@@ -479,20 +479,24 @@ const Main = () => {
             />
           </div>
           {isMobile ? (
-            <div
-              class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px] md:mr-[30px]"
-              onClick={() => handleCustomerTypeModalOpen()}
-            >
-              고객유형
-              <img src={add_circle} class="ml-0.5 h-3 w-3 " />
-              {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
-            </div>
+            <>
+              <div
+                class="ml-2 flex h-auto w-auto cursor-pointer items-center justify-center text-[10px] md:mr-[30px]"
+                onClick={() => handleCustomerTypeModalOpen()}
+              >
+                고객유형
+                <img src={add_circle} class="ml-0.5 h-3 w-3 " />
+                {/* <img src={add_icon} class="h-[20px] w-[20px]" /> */}
+              </div>
+            </>
           ) : (
             ""
           )}
           <ul
-            className={`dropdown-container ${
-              isMobile ? "hidden" : " ml-[764px] flex"
+            className={` ${
+              isMobile
+                ? "dropdown-container_mobile ml-[8px] mr-[-12px] flex"
+                : "dropdown-container ml-[764px] flex"
             }`}
             style={{ zIndex: "0" }}
             onClick={() => {
@@ -501,9 +505,21 @@ const Main = () => {
           >
             {currentSelection}{" "}
             {dropdownview ? (
-              <img className="dropdown-img" src={dropup} alt="Dropup" />
+              <img
+                className={`${
+                  isMobile ? "dropdown-img-mobile" : "dropdown-img"
+                }`}
+                src={dropup}
+                alt="Dropup"
+              />
             ) : (
-              <img className="dropdown-img" src={dropdown} alt="Dropdown" />
+              <img
+                className={`${
+                  isMobile ? "dropdown-img-mobile" : "dropdown-img"
+                }`}
+                src={dropdown}
+                alt="Dropdown"
+              />
             )}
             {dropdownview && (
               <div className="dropdown-item">
