@@ -291,29 +291,31 @@ function Modal1({ show, onModalClose }) {
             }}
           >
             <div class="  bottom-0 flex h-[820px] w-screen flex-col items-center overflow-y-scroll  rounded-t-2xl border bg-white">
-              <div className="h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
-                <div class="mb-5 flex items-center justify-center">
-                  <img src={mobile_modal_top} />
-                </div>
-                <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
-                  <div
-                    class="cursor-pointer text-sm font-normal text-Danger-300"
-                    onClick={handleClose}
-                  >
-                    취소
-                  </div>
-                  <div class="text-base font-bold">신규 고객 추가</div>
-                  <div
-                    class="cursor-pointer text-sm font-normal text-Primary-300"
-                    // onClick={handleSubmit}
-                  >
-                    완료
-                  </div>
-                </div>
-              </div>
-
-              <div ref={modalRef} class="my-[-15px]">
+              <div ref={modalRef} class="">
                 <form onSubmit={handleSubmit} className="pl-9">
+                  <div className="ml-[-18px] h-20 w-[352px] px-7 py-[7px] text-sm font-normal">
+                    <div
+                      class="mb-5 flex items-center justify-center"
+                      onClick={() => onModalClose()}
+                    >
+                      <img src={mobile_modal_top} />
+                    </div>
+                    <div class="mb-10 flex items-center justify-between font-normal text-LightMode-Text">
+                      <div
+                        class="cursor-pointer text-sm font-normal text-Danger-300"
+                        onClick={() => onModalClose()}
+                      >
+                        취소
+                      </div>
+                      <div class="text-base font-bold">신규 고객 추가</div>
+                      <div
+                        class="cursor-pointer text-sm font-normal text-Primary-300"
+                        // onClick={handleSubmit}
+                      >
+                        완료
+                      </div>
+                    </div>
+                  </div>
                   <div className="mb-1  h-12 w-[352px] ">
                     <div class=" flex items-center">
                       <CustomerTypeButtons

@@ -444,9 +444,6 @@ body {
 }
 .modal-style-mobile {
   background-color: white;
-  /* width: 360px; */
-  /* height: 635px; */
-  /* height: 100vh; */
   margin-top: 115px;
   padding-left: 0px !important;
   position: fixed;
