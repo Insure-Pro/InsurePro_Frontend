@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import "../../../App.css";
 import "../ExcelUploadModal/ExcelUploadModal.css";
 import * as XLSX from "xlsx";
+import { useMediaQuery } from "react-responsive";
 
 const ExcelUploadModal = ({ show, onHide }) => {
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +16,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
 
   const close_icon = process.env.PUBLIC_URL + "/Close.png";
   const add_icon = process.env.PUBLIC_URL + "/folder-add.png";
+
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -44,7 +47,8 @@ const ExcelUploadModal = ({ show, onHide }) => {
     reader.readAsBinaryString(file);
     // Update the displayed file name
     const fileName = file.name; // 파일 객체에서 직접 파일 이름을 가져옵니다.
-    document.querySelector(".upload-name").value = fileName; // 업로드된 파일 이름으로 업데이트
+    document.querySelector(".upload-name, .upload-name-mobile").value =
+      fileName; // 업로드된 파일 이름으로 업데이트
   };
 
   const handleNextClick = () => {
@@ -476,7 +480,14 @@ const ExcelUploadModal = ({ show, onHide }) => {
       <div>
         {!isNextClicked && (
           <>
-            <Modal className="excelupload-modal-style" show={show}>
+            <Modal
+              className={` ${
+                isMobile
+                  ? "excelupload-modal-style-mobile"
+                  : "excelupload-modal-style"
+              }`}
+              show={show}
+            >
               <div class="h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
                 <div class="flex justify-between ">
                   <div>엑셀파일로 고객 추가</div>
@@ -494,13 +505,17 @@ const ExcelUploadModal = ({ show, onHide }) => {
                     <div class="flex justify-end">
                       <button
                         onClick={handleDownloadTemplate}
-                        className="my-4 mr-2 h-10 w-[110px] rounded border border-Primary-200 text-Primary-300 hover:bg-Primary-300 hover:text-white"
+                        className="my-4 ml-2 h-10 w-[110px] rounded border border-Primary-200 text-Primary-300 hover:bg-Primary-300 hover:text-white"
                       >
                         양식 다운받기
                       </button>
                     </div>
                     <div class="flex">
-                      <div class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2">
+                      <div
+                        class={`h-10 ${
+                          isMobile ? "w-[300px]" : "w-[782px]"
+                        } rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2`}
+                      >
                         <label
                           htmlFor="file-upload"
                           style={{ float: "right", cursor: "pointer" }}
@@ -514,14 +529,22 @@ const ExcelUploadModal = ({ show, onHide }) => {
                           style={{ display: "none" }}
                         />
                         <input
-                          class="upload-name"
+                          className={` ${
+                            isMobile
+                              ? "upload-name-mobile absolute  "
+                              : "upload-name "
+                          }`}
                           value={fileName}
-                          style={{ backgroundColor: "white", width: "500px" }}
+                          // style={{ backgroundColor: "white", width: "500px" }}
                           // placeholder="파일첨부하기"
                           disabled
                         />
                       </div>
-                      <div class="filebox text-sm">
+                      <div
+                        class={`${
+                          isMobile ? "filebox-mobile" : "filebox"
+                        } text-sm`}
+                      >
                         <label for="excelFile">불러오기</label>
                         <input
                           type="file"

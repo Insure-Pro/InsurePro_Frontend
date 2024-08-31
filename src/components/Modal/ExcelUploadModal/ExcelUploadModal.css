@@ -13,6 +13,21 @@
   outline: none;
   z-index: 12;
 }
+.excelupload-modal-style-mobile {
+  background-color: white;
+  width: 386px;
+  height: 240px;
+  position: fixed;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 18px 28px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
+  z-index: 12;
+}
 .excelupload-modal-style2 {
   background-color: white;
   width: 986px;
@@ -80,7 +95,7 @@
 }
 
 /* input type=file 커스텀 */
-.filebox .upload-name {
+.upload-name .filebox {
   display: inline-block;
   width: 708px;
   height: 40px;
@@ -91,9 +106,21 @@
   background-color: #fff; /* Add background color for visibility */
 }
 
-.filebox label {
+.filebox-mobile .upload-name-mobile {
+  display: inline-block;
+  width: 90px;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid var(--Gray-scale-50);
+  color: var(--Gray-scale-400);
+  background-color: red; /* Add background color for visibility */
+}
+
+.filebox label,
+.filebox-mobile label {
   display: flex;
-  width: 110px;
+
   height: 40px;
   font-size: 14px;
   align-items: center;
@@ -106,8 +133,14 @@
   text-align: center;
   margin-left: 12px;
 }
-
-.filebox input[type="file"] {
+.filebox label {
+  width: 110px;
+}
+.filebox-mobile label {
+  width: 70px;
+}
+.filebox input[type="file"],
+.filebox-mobile input[type="file"] {
   position: absolute;
   width: 0;
   height: 0;
