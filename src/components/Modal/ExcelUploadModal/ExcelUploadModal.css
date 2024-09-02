@@ -30,7 +30,7 @@
 }
 .excelupload-modal-style2 {
   background-color: white;
-  width: 986px;
+
   position: fixed;
   padding-left: 0px !important;
   font-size: 14px;
@@ -43,6 +43,17 @@
   outline: none;
   z-index: 12;
 }
+.excelupload-mobile {
+  width: 100vw;
+  height: 100vh;
+  touch-action: pan-y; /* Allow vertical touch scrolling */
+  touch-action: pan-x;
+  overflow: scroll;
+  height: -webkit-fill-available;
+  height: fill-available;
+  /* overflow-y: scroll; */
+}
+
 .Excel-Item-Title > div {
   @apply ml-1 flex h-7 items-center justify-center bg-Secondary-300 text-center text-xs text-white;
 }

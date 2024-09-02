@@ -570,11 +570,11 @@ const ExcelUploadModal = ({ show, onHide }) => {
           </>
         )}
         {isNextClicked && (
-          <>
+          <div class="excelupload-mobile">
             <Modal
               className={`excelupload-modal-style2 ${
                 totalInvalidCounts > 0 ? "h-[630px]" : "h-[574px]"
-              }`}
+              } ${isMobile ? "  w-[386px]" : "w-[986px]"}`}
               show={show}
             >
               <div class="mb-6 h-8 rounded-t-md  bg-LightMode-SectionBackground px-7 py-[7px] text-sm font-normal">
@@ -587,245 +587,278 @@ const ExcelUploadModal = ({ show, onHide }) => {
                   />
                 </div>
               </div>
-              <div class="flex pl-10 pr-9">
-                <div class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2">
-                  <label
-                    htmlFor="file-upload"
-                    style={{ float: "right", cursor: "pointer" }}
+              {isMobile ? (
+                <div></div>
+              ) : (
+                <div class="flex pl-10 pr-9">
+                  <div class="h-10 w-[782px] rounded border border-Gray-scale-100 bg-LightMode-Background px-4 py-2">
+                    <label
+                      htmlFor="file-upload"
+                      style={{ float: "right", cursor: "pointer" }}
+                    >
+                      <img src={add_icon} />
+                    </label>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                    />
+                    <input
+                      class="upload-name"
+                      value={fileName}
+                      style={{ backgroundColor: "white", width: "500px" }}
+                      // placeholder="파일첨부하기"
+                      disabled
+                    />
+                  </div>
+                  <div class="filebox text-sm">
+                    <label for="excelFile">불러오기</label>
+                    <input
+                      type="file"
+                      id="excelFile"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                </div>
+              )}
+              <div class={`mx-9 mt-6  bg-Gray-scale-50/20`}>
+                <div
+                  class={`${
+                    isMobile ? "w-[320px] touch-pan-x overflow-x-scroll" : ""
+                  }`}
+                >
+                  <div>
+                    <div
+                      class={`Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ${
+                        isMobile ? "h-[40px] w-[920px] " : "overflow-x-hidden"
+                      } `}
+                    >
+                      <div class="w-[96px]">Db분배일</div>
+                      <div class="w-[70px]">이름</div>
+                      <div class="w-[70px]">고객유형</div>
+                      <div class="w-[70px]">생년월일</div>
+                      <div class="w-[50px]">나이</div>
+                      <div class="w-[122px]">연락처</div>
+                      <div class="w-[102px]">지역</div>
+                      <div class="w-[80px]">직업</div>
+                      <div class="w-[102px]">평균소득</div>
+                      <div class="w-[110px]">관심사항</div>
+                    </div>
+                  </div>
+                  <div
+                    class={` h-[220px] w-[920px] ${
+                      isMobile ? "" : "overflow-x-hidden"
+                    }  overflow-y-scroll`}
                   >
-                    <img src={add_icon} />
-                  </label>
-                  <input
-                    type="file"
-                    id="file-upload"
-                    onChange={handleFileChange}
-                    style={{ display: "none" }}
-                  />
-                  <input
-                    class="upload-name"
-                    value={fileName}
-                    style={{ backgroundColor: "white", width: "500px" }}
-                    // placeholder="파일첨부하기"
-                    disabled
-                  />
-                </div>
-                <div class="filebox text-sm">
-                  <label for="excelFile">불러오기</label>
-                  <input
-                    type="file"
-                    id="excelFile"
-                    onChange={handleFileChange}
-                  />
-                </div>
-              </div>
-              <div class="mx-9 mt-6 bg-Gray-scale-50/20">
-                <div class="Excel-Item-Title mb-1.5 flex h-8 items-center  text-sm font-light text-white ">
-                  <div class="w-[96px]">Db분배일</div>
-                  <div class="w-[70px]">이름</div>
-                  <div class="w-[70px]">고객유형</div>
-                  <div class="w-[70px]">생년월일</div>
-                  <div class="w-[50px]">나이</div>
-                  <div class="w-[122px]">연락처</div>
-                  <div class="w-[102px]">지역</div>
-                  <div class="w-[80px]">직업</div>
-                  <div class="w-[102px]">평균소득</div>
-                  <div class="w-[110px]">관심사항</div>
-                </div>
-                <div class=" h-[220px] overflow-x-hidden overflow-y-scroll">
-                  <table>
-                    <tbody class=" w-full  text-[11px]">
-                      {excelData
-                        .slice(1)
-                        .filter(isRowNotEmpty)
-                        .map((row, rowIndex) => {
-                          return (
-                            <tr
-                              className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
-                              key={rowIndex}
-                            >
-                              {Array.from({ length: 10 }).map(
-                                (_, cellIndex) => {
-                                  // Ensure 9 columns for each row
-                                  // Check if data exists for this column, else render empty
-                                  let cellData =
-                                    row[cellIndex] !== undefined
-                                      ? row[cellIndex].toString()
-                                      : "";
-                                  let baseClassName;
+                    <table>
+                      <tbody class=" text-[11px]">
+                        {excelData
+                          .slice(1)
+                          .filter(isRowNotEmpty)
+                          .map((row, rowIndex) => {
+                            return (
+                              <tr
+                                className="mb-1 flex items-center justify-center text-[10px] font-normal text-LightMode-Text"
+                                key={rowIndex}
+                              >
+                                {Array.from({ length: 10 }).map(
+                                  (_, cellIndex) => {
+                                    // Ensure 9 columns for each row
+                                    // Check if data exists for this column, else render empty
+                                    let cellData =
+                                      row[cellIndex] !== undefined
+                                        ? row[cellIndex].toString()
+                                        : "";
+                                    let baseClassName;
 
-                                  // Determine if the cell is empty, mandatory, and if it has been modified and is valid
-                                  let isEmpty =
-                                    cellData.toString().trim() === "";
-                                  let isMandatory = [1, 5].includes(cellIndex); // Assuming columns 1 (name) and 5 (contact) are mandatory
-                                  let modifiedCell = modifiedCells.find(
-                                    (modCell) =>
-                                      modCell.rowIndex === rowIndex &&
-                                      modCell.cellIndex === cellIndex,
-                                  );
-                                  // 실시간 유효성 검사를 반영하는 로직
-                                  let isValid2 = true; // 기본값 설정
-                                  if (modifiedCell) {
-                                    // 수정된 셀에 대한 로직
-                                    isValid2 = modifiedCell.isValid;
-                                    isEmpty = modifiedCell.isEmpty;
-                                  }
+                                    // Determine if the cell is empty, mandatory, and if it has been modified and is valid
+                                    let isEmpty =
+                                      cellData.toString().trim() === "";
+                                    let isMandatory = [1, 5].includes(
+                                      cellIndex,
+                                    ); // Assuming columns 1 (name) and 5 (contact) are mandatory
+                                    let modifiedCell = modifiedCells.find(
+                                      (modCell) =>
+                                        modCell.rowIndex === rowIndex &&
+                                        modCell.cellIndex === cellIndex,
+                                    );
+                                    // 실시간 유효성 검사를 반영하는 로직
+                                    let isValid2 = true; // 기본값 설정
+                                    if (modifiedCell) {
+                                      // 수정된 셀에 대한 로직
+                                      isValid2 = modifiedCell.isValid;
+                                      isEmpty = modifiedCell.isEmpty;
+                                    }
 
-                                  // Determine if the cell is being edited
-                                  const isEditing = isEditMode && modifiedCell;
+                                    // Determine if the cell is being edited
+                                    const isEditing =
+                                      isEditMode && modifiedCell;
 
-                                  // Determine the validation state for class application
-                                  let isValidState, isEmptyState;
-                                  if (isEditing) {
-                                    // Use the modified state for edited cells
-                                    isValidState = modifiedCell.isValid;
-                                    isEmptyState = modifiedCell.isEmpty;
-                                  } else {
-                                    // Use the initial validation state for unedited cells
-                                    isValidState = isValid2; // Assuming 'isValid' reflects the initial validation
-                                    isEmptyState = isEmpty; // Assuming 'isEmpty' reflects the initial empty check
-                                  }
-                                  // let displayData = cellData;
-                                  // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
-                                  switch (cellIndex) {
-                                    case 0:
-                                      // Transform and validate the date format directly
-                                      const transformedDate = formatDate(
-                                        cellData.toString(),
-                                      );
-                                      cellData = transformedDate; // Use the transformed date for display
-                                      isValid2 =
-                                        isEmpty ||
-                                        isValidDbDate(transformedDate); // Validate the transformed date
-                                      // if (!isValid) incrementInvalidCount(0);
-                                      baseClassName = "td-db-date";
-                                      break;
-                                    case 1:
-                                      isValid2 = !isEmpty
-                                        ? isValidName(cellData)
-                                        : true;
-                                      isMandatory = true; // 이름은 필수 항목
-                                      // if (!isValid) incrementInvalidCount(1);
-                                      baseClassName = "td-name";
-                                      break;
-                                    case 2:
-                                      isValid2 =
-                                        isEmpty ||
-                                        isValidCustomerType(cellData);
-                                      // if (!isValid) incrementInvalidCount(2);
-                                      baseClassName = "td-customer-type";
-                                      break;
-                                    case 3:
-                                      // 생년월일 데이터 변환
-                                      const formattedBirthDate = formatDate(
-                                        cellData.toString(),
-                                      );
-                                      cellData = formattedBirthDate; // 변환된 날짜를 사용
-                                      isValid2 =
-                                        isEmpty ||
-                                        isValidBirthDate(formattedBirthDate); // 변환된 날짜의 유효성 검사
+                                    // Determine the validation state for class application
+                                    let isValidState, isEmptyState;
+                                    if (isEditing) {
+                                      // Use the modified state for edited cells
+                                      isValidState = modifiedCell.isValid;
+                                      isEmptyState = modifiedCell.isEmpty;
+                                    } else {
+                                      // Use the initial validation state for unedited cells
+                                      isValidState = isValid2; // Assuming 'isValid' reflects the initial validation
+                                      isEmptyState = isEmpty; // Assuming 'isEmpty' reflects the initial empty check
+                                    }
+                                    // let displayData = cellData;
+                                    // 여기서는 className을 설정하는 로직을 필요에 따라 수정해야 할 수 있습니다.
+                                    switch (cellIndex) {
+                                      case 0:
+                                        // Transform and validate the date format directly
+                                        const transformedDate = formatDate(
+                                          cellData.toString(),
+                                        );
+                                        cellData = transformedDate; // Use the transformed date for display
+                                        isValid2 =
+                                          isEmpty ||
+                                          isValidDbDate(transformedDate); // Validate the transformed date
+                                        // if (!isValid) incrementInvalidCount(0);
+                                        baseClassName = "td-db-date";
+                                        break;
+                                      case 1:
+                                        isValid2 = !isEmpty
+                                          ? isValidName(cellData)
+                                          : true;
+                                        isMandatory = true; // 이름은 필수 항목
+                                        // if (!isValid) incrementInvalidCount(1);
+                                        baseClassName = "td-name";
+                                        break;
+                                      case 2:
+                                        isValid2 =
+                                          isEmpty ||
+                                          isValidCustomerType(cellData);
+                                        // if (!isValid) incrementInvalidCount(2);
+                                        baseClassName = "td-customer-type";
+                                        break;
+                                      case 3:
+                                        // 생년월일 데이터 변환
+                                        const formattedBirthDate = formatDate(
+                                          cellData.toString(),
+                                        );
+                                        cellData = formattedBirthDate; // 변환된 날짜를 사용
+                                        isValid2 =
+                                          isEmpty ||
+                                          isValidBirthDate(formattedBirthDate); // 변환된 날짜의 유효성 검사
 
-                                      // if (!isValid) incrementInvalidCount(3);
-                                      baseClassName = "td-birth";
-                                      break;
-                                    case 4:
-                                      isValid2 =
-                                        isEmpty || isValidAge(cellData);
-                                      baseClassName = "td-age";
-                                      break;
-                                    case 5:
-                                      const { formattedContact } =
-                                        formatAndValidateContact(cellData);
-                                      cellData = formattedContact; // Use the possibly formatted number
-                                      isValid2 = !isEmpty
-                                        ? formatAndValidateContact(cellData)
-                                            .isValid
-                                        : true;
-                                      isMandatory = true; // 연락처는 필수 항목
-                                      baseClassName = "td-contact";
-                                      break;
-                                    case 6:
-                                      isValid2 =
-                                        isEmpty || isValidResidence(cellData);
-                                      baseClassName = "td-residence";
-                                      break;
-                                    case 7:
-                                      baseClassName = "td-work";
-                                      break;
-                                    case 8:
-                                      baseClassName = "td-salary";
-                                      break;
-                                    case 9:
-                                      baseClassName = "td-worry";
-                                      break;
-                                    default:
-                                      baseClassName = "";
-                                  }
-                                  // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
-                                  if (isMandatory && isEmpty) {
-                                    isValid2 = false;
-                                  }
+                                        // if (!isValid) incrementInvalidCount(3);
+                                        baseClassName = "td-birth";
+                                        break;
+                                      case 4:
+                                        isValid2 =
+                                          isEmpty || isValidAge(cellData);
+                                        baseClassName = "td-age";
+                                        break;
+                                      case 5:
+                                        const { formattedContact } =
+                                          formatAndValidateContact(cellData);
+                                        cellData = formattedContact; // Use the possibly formatted number
+                                        isValid2 = !isEmpty
+                                          ? formatAndValidateContact(cellData)
+                                              .isValid
+                                          : true;
+                                        isMandatory = true; // 연락처는 필수 항목
+                                        baseClassName = "td-contact";
+                                        break;
+                                      case 6:
+                                        isValid2 =
+                                          isEmpty || isValidResidence(cellData);
+                                        baseClassName = "td-residence";
+                                        break;
+                                      case 7:
+                                        baseClassName = "td-work";
+                                        break;
+                                      case 8:
+                                        baseClassName = "td-salary";
+                                        break;
+                                      case 9:
+                                        baseClassName = "td-worry";
+                                        break;
+                                      default:
+                                        baseClassName = "";
+                                    }
+                                    // 필수 항목이면서 값이 비어 있을 경우, 유효하지 않음
+                                    if (isMandatory && isEmpty) {
+                                      isValid2 = false;
+                                    }
 
-                                  // Assuming isValid and isEmpty are determined correctly for each cell
-                                  let className = `${baseClassName} ${
-                                    !isValidState || (isMandatory && isEmpty)
-                                      ? "cell-invalid" // Apply for invalid or empty mandatory fields
-                                      : isEmptyState
-                                        ? "bg-Secondary-100/60" // Apply for non-mandatory empty fields
-                                        : "bg-Success-400" // Apply for valid fields
-                                  } ${!isValid2 ? "cell-invalid" : ""}`;
+                                    // Assuming isValid and isEmpty are determined correctly for each cell
+                                    let className = `${baseClassName} ${
+                                      !isValidState || (isMandatory && isEmpty)
+                                        ? "cell-invalid" // Apply for invalid or empty mandatory fields
+                                        : isEmptyState
+                                          ? "bg-Secondary-100/60" // Apply for non-mandatory empty fields
+                                          : "bg-Success-400" // Apply for valid fields
+                                    } ${!isValid2 ? "cell-invalid" : ""}`;
 
-                                  return (
-                                    <td
-                                      key={cellIndex}
-                                      className={`${className} ${
-                                        isEditMode ? "td-focused-within" : ""
-                                      }`}
-                                    >
-                                      {isEditMode ? (
-                                        <input
-                                          type="text"
-                                          defaultValue={cellData}
-                                          className="text-input-class"
-                                          onChange={(e) =>
-                                            handleCellChange(
-                                              e,
-                                              rowIndex,
-                                              cellIndex,
-                                            )
-                                          }
-                                        />
-                                      ) : (
-                                        cellData
-                                      )}
-                                    </td>
-                                  );
-                                },
-                              )}
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
+                                    return (
+                                      <td
+                                        key={cellIndex}
+                                        className={`${className} ${
+                                          isEditMode ? "td-focused-within" : ""
+                                        }`}
+                                      >
+                                        {isEditMode ? (
+                                          <input
+                                            type="text"
+                                            defaultValue={cellData}
+                                            className="text-input-class"
+                                            onChange={(e) =>
+                                              handleCellChange(
+                                                e,
+                                                rowIndex,
+                                                cellIndex,
+                                              )
+                                            }
+                                          />
+                                        ) : (
+                                          cellData
+                                        )}
+                                      </td>
+                                    );
+                                  },
+                                )}
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>{" "}
                 </div>
               </div>
 
               {/* 유효하지 않은 값이 존재하는 경우에만 표시 */}
               {totalInvalidCounts > 0 && (
-                <div class="mt-10 flex justify-center text-xs font-semibold text-LightMode-Text">
-                  {invalidCounts.map((count, index) => {
-                    if (index < columnNames.length) {
-                      // columnNames의 길이를 초과하지 않도록 체크
-                      return (
-                        <div class="mr-5 flex" key={index}>
-                          {`${columnNames[index]}`} :{" "}
-                          <p class="ml-1 text-xs font-extrabold text-Danger-600">{`${count
-                            .toString()
-                            .padStart(2, "0")}`}</p>
-                        </div>
-                      );
-                    }
-                    return null; // columnNames의 길이를 초과하는 경우 렌더링하지 않음
-                  })}
+                <div
+                  class={`${
+                    isMobile
+                      ? "mx-auto w-[320px] touch-pan-x overflow-x-scroll"
+                      : ""
+                  }`}
+                >
+                  <div class={`${isMobile ? "w-[600px]" : ""}`}>
+                    <div class="mt-10 flex h-10 justify-center text-xs font-semibold text-LightMode-Text">
+                      {invalidCounts.map((count, index) => {
+                        if (index < columnNames.length) {
+                          // columnNames의 길이를 초과하지 않도록 체크
+                          return (
+                            <div class="mr-5 flex" key={index}>
+                              {`${columnNames[index]}`} :{" "}
+                              <p class="ml-1 text-xs font-extrabold text-Danger-600">{`${count
+                                .toString()
+                                .padStart(2, "0")}`}</p>
+                            </div>
+                          );
+                        }
+                        return null; // columnNames의 길이를 초과하는 경우 렌더링하지 않음
+                      })}
+                    </div>
+                  </div>
                 </div>
               )}
               {/* 유효하지 않은 값이 없는 경우에만 표시 */}
@@ -853,20 +886,24 @@ const ExcelUploadModal = ({ show, onHide }) => {
               </div> */}
               <div class="mt-10 flex w-full justify-center">
                 <button
-                  class="text-Gray mr-3 h-10 w-[310px] border text-Gray-scale-50 hover:bg-Primary-400 hover:text-white"
+                  class={`text-Gray mr-3 h-10 border text-Gray-scale-50 hover:bg-Primary-400 hover:text-white ${
+                    isMobile ? "w-[140px]" : "w-[310px]"
+                  }`}
                   onClick={handleprevClick}
                 >
                   {isEditMode ? "취소" : "이전"}
                 </button>
                 <button
-                  class="h-10 w-[310px] border bg-Primary-400 text-white"
+                  class={`h-10  border bg-Primary-400 text-white ${
+                    isMobile ? "w-[140px]" : "w-[310px]"
+                  }`}
                   onClick={handleSubmit}
                 >
                   {isEditMode ? "변경사항 저장" : "저장"}
                 </button>
               </div>
             </Modal>
-          </>
+          </div>
         )}
       </div>
     </>
