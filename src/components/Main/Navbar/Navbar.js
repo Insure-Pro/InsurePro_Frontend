@@ -518,35 +518,35 @@ const Navbar = ({
                     >
                       고객목록
                     </div>
-                    {showSubMenus && (
-                      <div class=" text-xs">
-                        <div
-                          class="mr-3 h-[30px] font-normal focus:font-bold"
-                          onClick={() => {
-                            dispatch(setCurrentTab("계약완료"));
-                            navigate("/main", {
-                              state: { selectedTab: "계약완료" },
-                            });
-                            setIsMenuOpen(false);
-                          }}
-                        >
-                          계약완료
-                        </div>
-                        <div
-                          class="mr-3 h-[30px] "
-                          onClick={() => {
-                            dispatch(setCurrentTab("월별고객"));
-                            navigate("/main", {
-                              state: { selectedTab: "월별고객" },
-                            });
-                            setIsMenuOpen(false);
-                            dispatch(setShowDateBar());
-                          }}
-                        >
-                          월별고객
-                        </div>
+                    {/* {showSubMenus && ( */}
+                    <div class=" text-xs">
+                      <div
+                        class="mr-3 h-[30px] font-normal focus:font-bold"
+                        onClick={() => {
+                          dispatch(setCurrentTab("계약완료"));
+                          navigate("/main", {
+                            state: { selectedTab: "계약완료" },
+                          });
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        계약완료
                       </div>
-                    )}
+                      <div
+                        class="mr-3 h-[30px] "
+                        onClick={() => {
+                          dispatch(setCurrentTab("월별고객"));
+                          navigate("/main", {
+                            state: { selectedTab: "월별고객" },
+                          });
+                          setIsMenuOpen(false);
+                          dispatch(setShowDateBar());
+                        }}
+                      >
+                        월별고객
+                      </div>
+                    </div>
+                    {/* )} */}
 
                     <div
                       class="flex h-[60px] items-center  justify-center"
