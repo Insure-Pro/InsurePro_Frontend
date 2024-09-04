@@ -16,7 +16,7 @@ const Signup = () => {
   const authNumConfirm = useRef("");
   const password = useRef("");
   const passwordConfirm = useRef("");
-  const companyName = useRef("");
+  const companyName = useRef(null);
   const navigate = useNavigate();
 
   const [verificationMessage, setVerificationMessage] = useState(null);
