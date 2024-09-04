@@ -37,7 +37,7 @@ function ManageCustomerTypesModal({ show, close }) {
         return acc; // 갱신된 누적값 객체를 다음 반복이나 최종 결과로 사용하기 위해 반환
       }, {}); // 누적값의 시작은 빈 객체
       setVisibility(initialVisibility); // 객체를 사용하여 각 고객 유형 ID와 그 가시성 상태를 매핑하는 상태를 업데이트
-      console.log("여기서 업데이트 되나?", visibility);
+      // console.log("여기서 업데이트 되나?", visibility);
     }
   }, [customerTypes]); // 이 효과는 customerTypes에 의존하므로 customerTypes가 변경될 때마다 재실행
 
@@ -74,11 +74,11 @@ function ManageCustomerTypesModal({ show, close }) {
             <div class="h-[38px] border-b border-LightMode-Hover  px-7">
               <div class="flex justify-between ">
                 <input
-                  class="h-[36px] w-[76px] py-2"
+                  class="h-[36px] w-[190px] py-2"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="고객유형"
+                  placeholder=" ex) FD = Financial DB"
                 />
                 <div class="flex h-[36px] items-center justify-center">
                   <img
@@ -95,7 +95,7 @@ function ManageCustomerTypesModal({ show, close }) {
             </div>
           )}
           <div class="relative z-[1] h-[140px]  w-full overflow-y-auto">
-            {customerTypes?.map((type) => (
+            {customerTypes?.slice(1).map((type) => (
               <div class=" ">
                 <div class="flex h-[38px] w-full  items-center  pl-7">
                   <div class="mr-[200px] h-[18px] w-8 text-sm" key={type.id}>
