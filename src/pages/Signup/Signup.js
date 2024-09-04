@@ -16,7 +16,7 @@ const Signup = () => {
   const authNumConfirm = useRef("");
   const password = useRef("");
   const passwordConfirm = useRef("");
-  const companyName = useRef(null);
+  const companyName = useRef("");
   const navigate = useNavigate();
 
   const [verificationMessage, setVerificationMessage] = useState(null);
@@ -151,6 +151,9 @@ const Signup = () => {
     //     // console.error("회사를 선택해주세요.");
     //     return; // 팀이 선택되지 않았다면 함수 실행을 중단
     // }
+    // Set companyName to null if it's an empty string or not entered
+    const companyNameValue =
+      companyName.current.value === "" ? null : companyName.current.value;
 
     if (validate()) {
       axios
@@ -161,7 +164,7 @@ const Signup = () => {
           password: password.current.value,
           rePassword: passwordConfirm.current.value,
           authNum: parseInt(authNumConfirm.current.value),
-          companyName: companyName.current.value,
+          companyName: companyNameValue,
           // companyPk: companyPk,
           // teamPk: teamPk, // 서버로 전송할 요청 본문에 teamPk 추가
         })
