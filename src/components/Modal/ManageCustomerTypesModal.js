@@ -77,6 +77,7 @@ function ManageCustomerTypesModal({ show, close }) {
                   class="h-[36px] w-[190px] py-2"
                   type="text"
                   value={name}
+                  autoFocus
                   onChange={(e) => setName(e.target.value)}
                   placeholder=" ex) FD = Financial DB"
                 />
