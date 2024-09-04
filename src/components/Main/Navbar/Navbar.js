@@ -36,6 +36,8 @@ const Navbar = ({
   const searchWeb = process.env.PUBLIC_URL + "/search-Web-inactive.png";
   const searchWebActive = process.env.PUBLIC_URL + "/search-Web-active.png";
   const searchMobile = process.env.PUBLIC_URL + "/search-Mobile-inactive.png";
+  const searchMobileActive =
+    process.env.PUBLIC_URL + "/search-Mobile-active.png";
   const mypageWeb = process.env.PUBLIC_URL + "/mypage-Web-inactive.png";
   const mypageWebActive = process.env.PUBLIC_URL + "/mypage-Web-active.png";
   const mypageMobile = process.env.PUBLIC_URL + "/mypage-Mobile-inactive.png";
@@ -598,11 +600,19 @@ const Navbar = ({
                   >
                     {isMainRoute ? (
                       <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
-                        <img
-                          src={searchMobile}
-                          class="mr-6"
-                          onClick={handleSearchToggle}
-                        />
+                        {!showSearch ? (
+                          <img
+                            class="mr-6"
+                            src={searchMobile}
+                            onClick={handleSearchToggle}
+                          />
+                        ) : (
+                          <img
+                            class="mr-6"
+                            src={searchMobileActive}
+                            onClick={handleSearchToggle}
+                          />
+                        )}
                       </div>
                     ) : (
                       ""
