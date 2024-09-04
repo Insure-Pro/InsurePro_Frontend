@@ -8,7 +8,7 @@ import {
   Cell,
   Sector,
 } from "recharts";
-
+import { useMediaQuery } from "react-responsive";
 // This function renders the active shape of the pie chart
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -110,7 +110,6 @@ export default class ContractGraph extends PureComponent {
 
   createChartData = () => {
     const { data } = this.props;
-
     return Object.keys(data)
       .filter((key) => key !== "All") // 'All' 타입 제거
       .map((key) => ({
@@ -122,7 +121,7 @@ export default class ContractGraph extends PureComponent {
 
   render() {
     const chartData = this.createChartData();
-
+    const { isMobile } = this.props;
     return (
       <ResponsiveContainer width="100%" height="100%">
         <PieChart margin={{ top: 130 }}>
@@ -153,7 +152,7 @@ export default class ContractGraph extends PureComponent {
             content={CustomLegend}
             wrapperStyle={{
               top: 110,
-              left: 50,
+              left: isMobile ? 16 : 50,
               position: "absolute",
               width: "80px",
               color: "var(--LightMode-Subtext)",

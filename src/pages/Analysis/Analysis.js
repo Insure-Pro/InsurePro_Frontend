@@ -10,11 +10,14 @@ import PcGraph from "../../components/Graph/PcGraph";
 import ContractGraph from "../../components/Graph/ContractGraph";
 import { PropagateLoader } from "react-spinners";
 import { useCustomerTypes } from "../../hooks/CustomerTypes/useCustomerTypes";
+import { useMediaQuery } from "react-responsive";
 
 const Analysis = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [showModal, setShowModal] = useState(false);
+
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
 
   const [date, setDate] = useState(
     `${new Date().getFullYear()}-${(new Date().getMonth() + 1)
@@ -161,7 +164,11 @@ const Analysis = () => {
         }`}
         style={{ marginTop: showModal ? "-36px" : "" }}
       >
-        <div className="flex h-10 items-center justify-center px-12">
+        <div
+          className={`flex ${
+            isMobile ? "h-14 flex-col" : "h-10 items-center justify-center"
+          }    px-12`}
+        >
           {showModal && (
             <DateChangeAModal
               initialYear={year}
@@ -172,13 +179,21 @@ const Analysis = () => {
           )}
 
           <div
-            className="analysis_subtitle_left"
+            className={`${
+              isMobile
+                ? "analysis_subtitle_left_mobile"
+                : "analysis_subtitle_left"
+            }`}
             onClick={() => setShowModal(true)}
           >
             <div>{formattedDate()}</div>
             <img className="pl-1" src={right_icon}></img>
           </div>
-          <div className="analysis_subtitle">
+          <div
+            className={`${
+              isMobile ? "analysis_subtitle_mobile" : "analysis_subtitle"
+            }`}
+          >
             <span>총 TA 개수 : {allTaCount}</span>
             <span>AP 개수: {allApCount}</span>
             <span>PC 개수: {allPcCount}</span>
@@ -186,31 +201,40 @@ const Analysis = () => {
           </div>
         </div>
         <div className="flex h-screen w-full justify-center bg-LightMode-SectionBackground">
-          <div className="analysis_container mx-12 pt-6">
-            <div className="analysis_explain">
-              <div>안내</div>
-              <div className="analysis_explain_item">
-                <span className="explain_item_title">TA 확률 </span>
-                <span>:</span>
-                {"     "}
-                <span> TA 개수/ 이번달 분배받은 db고객 수 기준</span>
+          <div
+            className={`${
+              isMobile ? "analysis_container_mobile" : "analysis_container"
+            } mx-12 pt-6`}
+          >
+            {isMobile ? (
+              <div></div>
+            ) : (
+              <div className="analysis_explain">
+                <div>안내</div>
+                <div className="analysis_explain_item">
+                  <span className="explain_item_title">TA 확률 </span>
+                  <span>:</span>
+                  {"     "}
+                  <span> TA 개수/ 이번달 분배받은 db고객 수 기준</span>
+                </div>
+                <div className="analysis_explain_item">
+                  <span className="explain_item_title">AP 확률 </span>{" "}
+                  <span>:</span>
+                  <span> AP 개수/ 이번달 분배받은 db고객 수 기준</span>
+                </div>
+                <div className="analysis_explain_item">
+                  <span className="explain_item_title">PC 확률 </span>{" "}
+                  <span>:</span>
+                  <span> PC 개수/ 이번달 분배받은 db고객 수 기준</span>
+                </div>
+                <div className="analysis_explain_item">
+                  <span className="explain_item_title">청약 건수 </span>{" "}
+                  <span>:</span>
+                  <span> 청약 건수/ 이번달 분배받은 db고객 수 기준</span>
+                </div>
               </div>
-              <div className="analysis_explain_item">
-                <span className="explain_item_title">AP 확률 </span>{" "}
-                <span>:</span>
-                <span> AP 개수/ 이번달 분배받은 db고객 수 기준</span>
-              </div>
-              <div className="analysis_explain_item">
-                <span className="explain_item_title">PC 확률 </span>{" "}
-                <span>:</span>
-                <span> PC 개수/ 이번달 분배받은 db고객 수 기준</span>
-              </div>
-              <div className="analysis_explain_item">
-                <span className="explain_item_title">청약 건수 </span>{" "}
-                <span>:</span>
-                <span> 청약 건수/ 이번달 분배받은 db고객 수 기준</span>
-              </div>
-            </div>
+            )}
+
             <div className="analysis_graph1 bg-white">
               <span
                 style={{
@@ -369,6 +393,7 @@ const Analysis = () => {
                   };
                   return acc;
                 }, {})}
+                isMobile={isMobile}
               />
             </div>
             <div className="updateMessage">
