@@ -115,11 +115,12 @@ function ManageCustomerTypesModal({ show, close }) {
             ))}
           </div>
 
-          <div class="backdrop-blur-xs absolute top-[200px] z-[2] h-[76px] w-full px-8">
+          <div class="absolute top-[200px] z-[2] h-[76px] w-full px-8 backdrop-blur-xs">
             {!isAddingType ? (
               <button
                 class=" absolute z-[100] mt-2  flex h-10 w-[280px] items-center justify-center rounded border border-Primary-300 bg-white text-[17px] font-semibold text-Primary-300 hover:bg-Primary-400 hover:text-LightMode-Background"
                 type="submit"
+                onClick={close}
               >
                 확인
               </button>
