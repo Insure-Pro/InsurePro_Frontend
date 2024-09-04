@@ -2,13 +2,14 @@
 import axios from "axios";
 import React, { useState, useRef } from "react";
 import "../../App.css";
+import { useMediaQuery } from "react-responsive";
 
 const Search = ({ setCustomers, onClose }) => {
   const [inputName, setInputName] = useState("");
   const [isInputFocused, setInputFocused] = useState(false);
   const name = useRef("");
   const searchWeb = process.env.PUBLIC_URL + "/search-Web-inactive.png";
-
+  const isMobile = useMediaQuery({ query: "(max-width:500px)" });
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
 
   const handleSearch = async () => {
@@ -55,7 +56,9 @@ const Search = ({ setCustomers, onClose }) => {
   return (
     <div
       style={{ display: "flex" }}
-      class=" mb-10 mt-4 h-8 w-[536px] items-center rounded bg-LightMode-SectionBackground px-4 py-1"
+      class={`  mt-4 ${
+        isMobile ? "h-10 w-[360px]" : "mb-10 h-8 w-[536px]"
+      } items-center rounded bg-LightMode-SectionBackground px-4 py-1`}
     >
       <img class="mr-7 h-6 w-6" src={searchWeb} onClick={handleSearch}></img>
       <input

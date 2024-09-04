@@ -598,7 +598,11 @@ const Navbar = ({
                   >
                     {isMainRoute ? (
                       <div class=" flex h-5 w-5 cursor-pointer items-center justify-center">
-                        <img src={searchMobile} class="mr-6" />
+                        <img
+                          src={searchMobile}
+                          class="mr-6"
+                          onClick={handleSearchToggle}
+                        />
                       </div>
                     ) : (
                       ""
@@ -626,7 +630,18 @@ const Navbar = ({
                 </div>
               </div>
             </div>
-
+            {isMainRoute && showSearch && (
+              <>
+                {" "}
+                <div class=" absolute z-10 mt-[60px] flex h-[80px] w-full items-center justify-center bg-white pb-4">
+                  <Search
+                    setCustomers={setCustomers}
+                    onClose={handleCloseSearch}
+                  />
+                </div>
+                {/* <div className="navbar-search-black-blur"></div> */}
+              </>
+            )}
             {showModal && (
               <ManageCustomerTypesModal
                 show={handleModalOpen}
