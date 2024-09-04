@@ -558,15 +558,15 @@ const Navbar = ({
                     >
                       인근고객
                     </div>
-                    {/* <div
-                    class=" flex h-[60px] items-center  justify-center "
-                    onClick={() => {
-                      navigate("/analysis");
-                    }}
-                  >
-                    성과분석
-                  </div> */}
-                    <div class="mt-[334px] text-sm text-white">
+                    <div
+                      class=" flex h-[60px] items-center  justify-center "
+                      onClick={() => {
+                        navigate("/analysis");
+                      }}
+                    >
+                      성과분석
+                    </div>
+                    <div class="mt-[274px] text-sm text-white">
                       <div
                         onClick={() => {
                           handleModalOpen();
