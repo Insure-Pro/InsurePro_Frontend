@@ -15,7 +15,8 @@ import CustomerList from "../../components/Main/CustomerList";
 import MobileCustomerList from "../../components/Main/MobileCustomerList";
 import Pagination from "../../components/Main/Pagination";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchOff } from "../../redux/searchSlice";
 import { useMediaQuery } from "react-responsive";
 import ManageCustomerTypesModal from "../../components/Modal/ManageCustomerTypesModal";
 
@@ -39,6 +40,7 @@ const Main = () => {
 
   const isMobile = useMediaQuery({ query: "(max-width:960px)" });
 
+  const dispatch = useDispatch();
   const location = useLocation();
   const { selectedTab } = location.state || {};
 
@@ -190,6 +192,7 @@ const Main = () => {
     setSelectedSort("latest");
     setActiveType({ name: "All", pk: 0 });
     // setSelectedSort("All");
+    dispatch(setSearchOff());
     setSelectedContractYn(null);
     setFormattedDate(null);
     gtag("event", "WM_insurepro_mvp_v1_main_All_sorting", {
@@ -204,6 +207,7 @@ const Main = () => {
     setSelectedContractYn(true); // 계약 완료 여부를 true로 설정
     setFormattedDate(null);
     setSelectedSort("");
+    dispatch(setSearchOff());
     gtag("event", "WM_insurepro_mvp_v1_main_contract_sorting", {
       event_category: "Click Contract Sort",
       event_label: `설계사 PK: test`,
@@ -217,6 +221,7 @@ const Main = () => {
     setSelectedContractYn(null);
     setFormattedDate(date);
     setSelectedSort("");
+    dispatch(setSearchOff());
     gtag("event", "WM_insurepro_mvp_v1_main_month_sorting", {
       event_category: "Click Month Sort",
       event_label: `설계사 PK: test`,
@@ -233,6 +238,7 @@ const Main = () => {
     setSelectedContractYn(null);
     setFormattedDate(null);
     setCurrentSelection("정렬기준");
+    dispatch(setSearchOff());
   };
 
   const handleCustomerTypeModalOpen = () => {
