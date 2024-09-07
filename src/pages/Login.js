@@ -1,13 +1,14 @@
 /* global gtag */
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../redux/authSlice";
 import Navbar from "../components/Main/Navbar/Navbar";
 import { useMediaQuery } from "react-responsive";
 import NewLogin from "./NewLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const email = useRef("");
@@ -21,6 +22,15 @@ const Login = () => {
   const isMobile = useMediaQuery({ query: "(max-width:500px)" });
 
   const MAIN_URL = process.env.REACT_APP_MAIN_URL;
+
+  const kakao_signin_medium_wide =
+    process.env.PUBLIC_URL + "/kakao_login_medium_wide.png";
+  const kakao_login_medium_wide =
+    process.env.PUBLIC_URL + "/kakao_login_medium_wide2.png";
+  const kakao_signin_large_wide =
+    process.env.PUBLIC_URL + "/kakao_login_large_wide.png";
+  const kakao_login_large_wide =
+    process.env.PUBLIC_URL + "/kakao_login_large_wide2.png";
 
   const onLogin = async () => {
     try {
@@ -62,7 +72,110 @@ const Login = () => {
       }
     }
   };
+  const handleKakaoSignin = () => {
+    if (!window.Kakao) {
+      console.error("Kakao SDK is not initialized");
+      return;
+    }
 
+    window.Kakao.Auth.login({
+      success: async function (authObj) {
+        try {
+          // Fetch Kakao user info
+          const response = await window.Kakao.API.request({
+            url: "/v2/user/me",
+          });
+
+          const kakaoUserInfo = {
+            id: Number(response.id),
+            email: response.kakao_account.email,
+            name: response.properties.nickname,
+          };
+
+          // Send the Kakao user info to the server for signup
+          const serverResponse = await axios.post(
+            `${MAIN_URL}/employee/kakao-signin/`,
+            {
+              email: kakaoUserInfo.email,
+              kakaoId: kakaoUserInfo.id,
+              id: kakaoUserInfo.id,
+              name: kakaoUserInfo.name,
+            },
+          );
+
+          if (serverResponse.status === 201) {
+            // Show success message using Swal
+            Swal.fire({
+              html:
+                "<div style='text-align: left; font-size:16px;'>" +
+                "회원가입이 완료 되었습니다. 카카오 로그인으로 빠르게 시작해보세요!" +
+                "</div>",
+              timer: 3500,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              position: "top",
+            });
+          }
+        } catch (error) {
+          console.error("Error during Kakao signup:", error);
+        }
+      },
+      fail: function (err) {
+        console.error("Kakao signup failed:", err);
+      },
+    });
+  };
+
+  const handleKakaoLogin = () => {
+    if (!window.Kakao) {
+      console.error("Kakao SDK is not initialized");
+      return;
+    }
+
+    window.Kakao.Auth.login({
+      success: async function (authObj) {
+        try {
+          // Fetch Kakao user info
+          const response = await window.Kakao.API.request({
+            url: "/v2/user/me",
+          });
+
+          const kakaoUserInfo = {
+            // id: response.id,
+            // email: response.kakao_account.email,
+            // profile: response.kakao_account.profile.nickname,
+            id: Number(response.id),
+            email: response.kakao_account.email,
+          };
+
+          // Send the Kakao response to the server
+          const serverResponse = await axios.post(`${MAIN_URL}/kakao-login`, {
+            // token: authObj.access_token,
+            // user: kakaoUserInfo,
+            email: kakaoUserInfo.email,
+            kakaoId: kakaoUserInfo.id,
+          });
+
+          if (serverResponse.status === 200) {
+            const { authorization, refresh } = serverResponse.headers;
+            const accessToken = authorization.split(" ")[1];
+            const refreshToken = refresh;
+
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+
+            dispatch(loginSuccess({ accessToken, refreshToken }));
+            navigate("/main");
+          }
+        } catch (error) {
+          console.error("Error during Kakao login:", error);
+        }
+      },
+      fail: function (err) {
+        console.error("Kakao login failed:", err);
+      },
+    });
+  };
   return (
     <div>
       <Navbar />
@@ -75,7 +188,7 @@ const Login = () => {
             <div className="mb-10 text-[14px] font-normal text-[#7D8592]">
               원활한 고객관리를 경험해보세요
             </div>
-            <input
+            {/* <input
               type="email"
               ref={email}
               onChange={(e) => setMyEmail(e.target.value)}
@@ -101,8 +214,39 @@ const Login = () => {
               >
                 비밀번호 찾기
               </div>
+            </div> */}
+            <div
+              id="kakao-login-btn"
+              onClick={handleKakaoSignin}
+              class="mb-4"
+              // style={{
+              //   // width: "280px",
+              //   // height: "52px",
+              //   cursor: "pointer",
+              //   backgroundColor: "#FEE500",
+              //   padding: "10px",
+              //   borderRadius: "5px",
+              //   textAlign: "center",
+              // }}
+            >
+              <img src={kakao_signin_medium_wide} />
             </div>
             <div
+              id="kakao-login-btn"
+              onClick={handleKakaoLogin}
+              // style={{
+              //   // width: "280px",
+              //   height: "52px",
+              //   cursor: "pointer",
+              //   backgroundColor: "#FEE500",
+              //   padding: "10px",
+              //   borderRadius: "5px",
+              //   textAlign: "center",
+              // }}
+            >
+              <img src={kakao_login_medium_wide} />
+            </div>
+            {/* <div
               onClick={() => {
                 if (email.current.value === "") {
                   email.current.focus();
@@ -125,7 +269,7 @@ const Login = () => {
               className="flex h-[42px] w-80 items-center justify-center rounded border border-Primary-300 p-2 text-Primary-300 hover:border-Primary-500 hover:text-Primary-500"
             >
               회원가입
-            </button>
+            </button> */}
           </div>
         ) : (
           <NewLogin onStart={() => setShowMobileLogin(true)} />
@@ -151,7 +295,7 @@ const Login = () => {
             <span class="mb-6 flex text-[14px] font-normal text-[#7D8592]">
               원활한 고객관리를 경험해보세요
             </span>
-            <div>
+            {/* <div>
               <input
                 type="email"
                 ref={email}
@@ -181,8 +325,23 @@ const Login = () => {
               >
                 비밀번호 찾기
               </div>
+            </div> */}
+            <div
+              id="kakao-login-btn"
+              onClick={handleKakaoSignin}
+              class="mb-4"
+              // class="mb-4 flex h-[52px] w-[280px] cursor-pointer items-center justify-center rounded-[5px] bg-[#FEE500] p-[10px]"
+            >
+              <img src={kakao_signin_large_wide} />
             </div>
-            <div>
+            <div
+              id="kakao-login-btn"
+              onClick={handleKakaoLogin}
+              // class="flex h-[52px] w-[280px] cursor-pointer items-center justify-center rounded-[5px] bg-[#FEE500] p-[10px]"
+            >
+              <img src={kakao_login_large_wide} />
+            </div>
+            {/* <div>
               <div
                 onClick={() => {
                   if (email.current.value === "") {
@@ -207,7 +366,7 @@ const Login = () => {
               className="signup_button border-primary-100 text-primary-100"
             >
               회원가입
-            </div>
+            </div> */}
           </div>
         </div>
       )}
