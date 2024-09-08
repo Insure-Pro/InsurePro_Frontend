@@ -80,13 +80,14 @@ const Login = () => {
 
     window.Kakao.Auth.login({
       success: async function (authObj) {
+        let kakaoUserInfo; // Declare kakaoUserInfo outside the try block
         try {
           // Fetch Kakao user info
           const response = await window.Kakao.API.request({
             url: "/v2/user/me",
           });
 
-          const kakaoUserInfo = {
+          kakaoUserInfo = {
             id: Number(response.id),
             email: response.kakao_account.email,
             name: response.properties.nickname,
@@ -103,32 +104,54 @@ const Login = () => {
             },
           );
 
-          if (serverResponse.status === 201) {
-            handleKakaoLogin();
-            // Show success message using Swal
-            // Swal.fire({
-            //   html:
-            //     "<div style='text-align: left; font-size:16px;'>" +
-            //     "회원가입이 완료 되었습니다. 카카오 로그인으로 빠르게 시작해보세요!" +
-            //     "</div>",
-            //   timer: 3500,
-            //   showConfirmButton: false,
-            //   timerProgressBar: true,
-            //   position: "top",
-            // });
+          // If the response is 201 (Signup success) or 409 (Already registered), proceed with login
+          if (serverResponse.status === 201 || serverResponse.status === 409) {
+            // Now attempt to login with the Kakao credentials
+            const loginResponse = await axios.post(`${MAIN_URL}/kakao-login`, {
+              email: kakaoUserInfo.email,
+              kakaoId: kakaoUserInfo.id,
+            });
+
+            if (loginResponse.status === 200) {
+              const { authorization, refresh } = loginResponse.headers;
+              const accessToken = authorization.split(" ")[1];
+              const refreshToken = refresh;
+
+              localStorage.setItem("accessToken", accessToken);
+              localStorage.setItem("refreshToken", refreshToken);
+
+              dispatch(loginSuccess({ accessToken, refreshToken }));
+              navigate("/main");
+            }
           }
         } catch (error) {
           if (error.response && error.response.status === 409) {
-            // If 401 error occurs, handle it as login instead
+            // If 409 error occurs during signup, treat it as a login attempt
             console.warn("User already registered, attempting login...");
-            handleKakaoLogin(); // Call login function
+
+            const loginResponse = await axios.post(`${MAIN_URL}/kakao-login`, {
+              email: kakaoUserInfo.email,
+              kakaoId: kakaoUserInfo.id,
+            });
+
+            if (loginResponse.status === 200) {
+              const { authorization, refresh } = loginResponse.headers;
+              const accessToken = authorization.split(" ")[1];
+              const refreshToken = refresh;
+
+              localStorage.setItem("accessToken", accessToken);
+              localStorage.setItem("refreshToken", refreshToken);
+
+              dispatch(loginSuccess({ accessToken, refreshToken }));
+              navigate("/main");
+            }
           } else {
-            console.error("Error during Kakao signup:", error);
+            console.error("Error during Kakao signup or login:", error);
           }
         }
       },
       fail: function (err) {
-        console.error("Kakao signup failed:", err);
+        console.error("Kakao signup/login failed:", err);
       },
     });
   };
