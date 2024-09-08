@@ -104,20 +104,27 @@ const Login = () => {
           );
 
           if (serverResponse.status === 201) {
+            handleKakaoLogin();
             // Show success message using Swal
-            Swal.fire({
-              html:
-                "<div style='text-align: left; font-size:16px;'>" +
-                "회원가입이 완료 되었습니다. 카카오 로그인으로 빠르게 시작해보세요!" +
-                "</div>",
-              timer: 3500,
-              showConfirmButton: false,
-              timerProgressBar: true,
-              position: "top",
-            });
+            // Swal.fire({
+            //   html:
+            //     "<div style='text-align: left; font-size:16px;'>" +
+            //     "회원가입이 완료 되었습니다. 카카오 로그인으로 빠르게 시작해보세요!" +
+            //     "</div>",
+            //   timer: 3500,
+            //   showConfirmButton: false,
+            //   timerProgressBar: true,
+            //   position: "top",
+            // });
           }
         } catch (error) {
-          console.error("Error during Kakao signup:", error);
+          if (error.response && error.response.status === 409) {
+            // If 401 error occurs, handle it as login instead
+            console.warn("User already registered, attempting login...");
+            handleKakaoLogin(); // Call login function
+          } else {
+            console.error("Error during Kakao signup:", error);
+          }
         }
       },
       fail: function (err) {
@@ -231,7 +238,7 @@ const Login = () => {
             >
               <img src={kakao_signin_medium_wide} />
             </div>
-            <div
+            {/* <div
               id="kakao-login-btn"
               onClick={handleKakaoLogin}
               // style={{
@@ -245,7 +252,7 @@ const Login = () => {
               // }}
             >
               <img src={kakao_login_medium_wide} />
-            </div>
+            </div> */}
             {/* <div
               onClick={() => {
                 if (email.current.value === "") {
@@ -334,13 +341,13 @@ const Login = () => {
             >
               <img src={kakao_signin_large_wide} />
             </div>
-            <div
+            {/* <div
               id="kakao-login-btn"
               onClick={handleKakaoLogin}
               // class="flex h-[52px] w-[280px] cursor-pointer items-center justify-center rounded-[5px] bg-[#FEE500] p-[10px]"
             >
               <img src={kakao_login_large_wide} />
-            </div>
+            </div> */}
             {/* <div>
               <div
                 onClick={() => {
