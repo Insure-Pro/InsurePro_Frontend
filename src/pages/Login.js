@@ -106,6 +106,12 @@ const Login = () => {
 
           // If the response is 201 (Signup success) or 409 (Already registered), proceed with login
           if (serverResponse.status === 201 || serverResponse.status === 409) {
+            gtag("event", "WM_insurepro_mvp_v1_kakao_signin", {
+              event_category: "Employee Signin Kakao",
+              event_label: `설계사 PK: test`,
+              // event_label: `Customer PK: ${customerPk}`,
+              value: 1,
+            });
             // Now attempt to login with the Kakao credentials
             const loginResponse = await axios.post(`${MAIN_URL}/kakao-login`, {
               email: kakaoUserInfo.email,
@@ -126,6 +132,12 @@ const Login = () => {
           }
         } catch (error) {
           if (error.response && error.response.status === 409) {
+            gtag("event", "WM_insurepro_mvp_v1_already_kakao_signin", {
+              event_category: "Employee already Signin Kakao",
+              event_label: `설계사 PK: test`,
+              // event_label: `Customer PK: ${customerPk}`,
+              value: 1,
+            });
             // If 409 error occurs during signup, treat it as a login attempt
             console.warn("User already registered, attempting login...");
 
@@ -135,6 +147,12 @@ const Login = () => {
             });
 
             if (loginResponse.status === 200) {
+              gtag("event", "WM_insurepro_mvp_v1_kakao_login", {
+                event_category: "Employee Kakao Login",
+                event_label: `설계사 PK: test`,
+                // event_label: `Customer PK: ${customerPk}`,
+                value: 1,
+              });
               const { authorization, refresh } = loginResponse.headers;
               const accessToken = authorization.split(" ")[1];
               const refreshToken = refresh;
