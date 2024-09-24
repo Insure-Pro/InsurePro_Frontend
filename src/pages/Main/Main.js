@@ -424,21 +424,21 @@ const Main = () => {
   };
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = "https://dgb-chat.vercel.app/widget.js"; // Path to your widget.js file
+    script.src = "https://dgb-chat.vercel.app/widget.js"; // Your chatbot widget.js URL
     script.async = true;
 
-    // Append the script to the body
-    document.body.appendChild(script);
-
-    // Initialize the chatbot once the script is loaded
     script.onload = () => {
       if (typeof initializeChatbot === "function") {
         initializeChatbot({
-          elementId: "chatbot-container", // ID of the container where the chatbot will be rendered
-          botUrl: "https://dgb-chat.vercel.app/", // The URL where the chatbot app is hosted
+          elementId: "chatbot-container", // The ID where your chatbot will be rendered
+          botUrl: "https://dgb-chat.vercel.app/",
         });
+      } else {
+        console.error("initializeChatbot function not found.");
       }
     };
+
+    document.body.appendChild(script);
 
     return () => {
       document.body.removeChild(script);
