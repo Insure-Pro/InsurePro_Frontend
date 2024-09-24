@@ -422,8 +422,51 @@ const Main = () => {
   const resetSearch = () => {
     fetchData(); // 전체 고객 목록을 다시 불러옴
   };
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://dgb-chat.vercel.app/widget.js"; // Path to your widget.js file
+    script.async = true;
+
+    // Append the script to the body
+    document.body.appendChild(script);
+
+    // Initialize the chatbot once the script is loaded
+    script.onload = () => {
+      if (typeof initializeChatbot === "function") {
+        initializeChatbot({
+          elementId: "chatbot-container", // ID of the container where the chatbot will be rendered
+          botUrl: "https://dgb-chat.vercel.app/", // The URL where the chatbot app is hosted
+        });
+      }
+    };
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <div style={{ width: "100vw" }}>
+      {/* <iframe
+        src="https://dgb-chat.vercel.app/"
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          zIndex: "1000",
+          border: "none",
+        }}
+      ></iframe> */}
+      <div
+        id="chatbot-container"
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          zIndex: "1000",
+          border: "none",
+        }}
+      ></div>
       <Navbar
         onMonthCustomersClick={handleMonthCustomersClick}
         setCustomers={setCustomers}
